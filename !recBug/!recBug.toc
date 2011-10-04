@@ -1,0 +1,7 @@
+## Interface: 40200
+## Title: recBug
+## Notes: Error handling
+## Author: Recluse
+## Version: $Id$
+
+core.lua

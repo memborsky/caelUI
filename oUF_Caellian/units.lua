@@ -1,0 +1,3 @@
+﻿--[[    $Id$    ]]
+
+local _, oUF_Caellian = ...

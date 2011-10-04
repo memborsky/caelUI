@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="caelDataFeeds.lua"/>
+
+    <Script file="modules\clock.lua"/>
+    <Script file="modules\coords.lua"/>
+    <Script file="modules\dps.lua"/>
+    <Script file="modules\durability.lua"/>
+    <Script file="modules\experience.lua"/>
+    <Script file="modules\gold.lua"/>
+    <Script file="modules\lfg.lua"/>
+    <Script file="modules\mail.lua"/>
+    <Script file="modules\social.lua"/>
+    <Script file="modules\system.lua"/>
+    <!-- <Script file="modules\wintergrasp.lua"/> -->
+    <Script file="modules\tolbarad.lua"/>
+
+</Ui>

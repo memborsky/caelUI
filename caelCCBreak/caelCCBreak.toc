@@ -1,0 +1,10 @@
+## Interface: 40200
+## Author: Caellian
+## Title: |cffD7BEA5cael|rCCBreak
+## Notes: Alerts you when a crowd control is broken
+## RequiredDeps: caelLib
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Combat
+
+caelCCBreak.lua

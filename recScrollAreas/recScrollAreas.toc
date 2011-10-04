@@ -1,0 +1,11 @@
+## Interface: 40200
+## Title: recScrollAreas
+## Author: Recluse
+## X-Revision: $Id$
+## RequiredDependencies: caelLib, caelMedia
+
+core\init.lua
+core\utils.lua
+settings.lua
+
+core\core.lua

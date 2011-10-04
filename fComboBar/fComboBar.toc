@@ -1,0 +1,8 @@
+## Interface: 40200
+## Author: Foof
+## Version: 1.0
+## Title: fComboBar
+## Notes: Combo points replacement
+## RequiredDeps: caelMedia, caelPanels
+
+fComboBar.lua

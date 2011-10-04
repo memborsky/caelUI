@@ -1,0 +1,7 @@
+## Interface: 40200
+## Title: fAnnounce
+## Notes: Very low-weight spellannouncer.
+## Author: Foof
+## Version: 0.1
+
+fAnnounce.lua

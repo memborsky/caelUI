@@ -1,0 +1,10 @@
+## Interface: 40200
+## Author: Caellian
+## Title: |cffD7BEA5cael|rDataFeeds
+## Notes: Infos bar
+## RequiredDeps: caelLib, caelMedia, caelPanels
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Miscellaneous, Infos bar
+
+caelDataFeeds.xml

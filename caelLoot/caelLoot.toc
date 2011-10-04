@@ -1,0 +1,9 @@
+## Interface: 40200
+## Author: Caellian
+## Title: |cffD7BEA5cael|rLoot
+## Notes: Loot improvements
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Loot
+
+caelLoot.lua

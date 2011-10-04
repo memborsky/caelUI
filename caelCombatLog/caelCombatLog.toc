@@ -1,0 +1,11 @@
+## Interface: 40200
+## Author: Caellian
+## Title: |cffD7BEA5cael|rCombatLog
+## Notes: Combat Log actions in small frame
+## RequiredDeps: caelLib, caelMedia, caelPanels
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Combat
+
+frame.lua
+caelCombatLog.lua

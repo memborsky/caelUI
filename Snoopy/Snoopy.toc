@@ -1,0 +1,11 @@
+## Interface: 40200
+## Title: Snoopy
+## Notes: Easy inspecting
+## Author: TotalPackage
+## X-Category: Interface Enhancements
+## Version: 4.2.001
+
+## LoadManagers: AddonLoader
+## X-LoadOn-Always: delayed
+
+core.lua

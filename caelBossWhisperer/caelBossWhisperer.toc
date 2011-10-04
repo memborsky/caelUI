@@ -1,0 +1,10 @@
+## Interface: 40200
+## Author: Caellian, Rabbit
+## Title: |cffD7BEA5cael|rBossWhisperer
+## Notes: Sets you to DND when you fight a boss, and some other crap.
+## RequiredDeps: caelLib
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Chat/Communication
+
+caelBossWhisperer.lua

@@ -1,0 +1,8 @@
+## Interface: 40200
+## Author: Caellian, Tekkub Stoutwrithe
+## Title: |cffD7BEA5cael|rBuffet
+## Notes: Food/water macro generator
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+
+caelBuffet.lua

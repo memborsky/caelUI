@@ -1,0 +1,9 @@
+## Interface: 40200
+## Author: Caellian
+## Title: |cffD7BEA5cael|rInterrupt
+## Notes: Warns the people around you if you interrupt something
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Combat
+
+caelInterrupt.lua

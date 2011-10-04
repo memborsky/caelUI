@@ -1,0 +1,10 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="party.xml"/>
+
+    <Script file="config.lua"/>
+    <Script file="tags.lua"/>
+    <Script file="modules\smooth.lua"/>
+    <Script file="modules\debuffs.lua"/>
+    <Script file="modules\range.lua"/>
+    <Script file="main.lua"/>
+</Ui>

@@ -1,0 +1,11 @@
+## Interface: 40200
+## Author: Caellian
+## Title: |cffD7BEA5cael|rCooldowns
+## Notes: featureless version of OmniCC
+## RequiredDeps: caelLib, caelMedia
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Interface Enhancements
+
+cooldown.lua
+pulse.lua

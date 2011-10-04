@@ -1,0 +1,10 @@
+## Interface: 40200
+## Author: Caellian, Recluse
+## Title: |cffD7BEA5cael|rTimers
+## Notes: Custom timer bars
+## RequiredDeps: caelLib, caelMedia
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Timers
+
+caelTimers.xml

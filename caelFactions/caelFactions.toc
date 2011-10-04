@@ -1,0 +1,9 @@
+## Interface: 40200
+## Author: Caellian
+## Title: |cffD7BEA5cael|rFactions
+## Notes: Automatically track the last faction you gained reputation with
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: UI Tweaks
+
+caelFactions.lua

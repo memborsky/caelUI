@@ -1,0 +1,10 @@
+## Interface: 40200
+## Author: Caellian
+## Title: |cffD7BEA5cael|rLib
+## Notes: Various things to make my life easier
+## SavedVariables: caelDB
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Library
+
+caelLib.lua

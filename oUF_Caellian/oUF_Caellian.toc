@@ -1,0 +1,12 @@
+## Interface: 40200
+## Author: Caellian, Gotai, Recluse
+## Title: |cffD7BEA5oUF|r|cffAF5050_|r|cffFFFFFFCaellian|r
+## Notes: Caellian's oUF layout
+## X-Revision: $Id$
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: UnitFrame
+## X-oUF: oUF
+## RequiredDeps: caelLib, caelMedia, oUF
+## OptionalDeps: oUF_CombatFeedback, oUF_SpellRange, oUF_TotemBar, oUF_WeaponEnchant
+
+oUF_Caellian.xml
