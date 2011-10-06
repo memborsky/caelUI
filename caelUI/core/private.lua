@@ -77,3 +77,4 @@ function F.argcheck (value, num, ...)
     local name = string.match(debugstack(2, 2, 0), ": in function [`<](.-)['>]")
     F.error(("Bad argument #%d to '%s' (%s expected, got %s"):format(num, name, types, type(value)), 3)
 end
+

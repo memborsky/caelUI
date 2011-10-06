@@ -15,3 +15,4 @@ end
 function F.debug (...)
     print("Debug", string.format(...))
 end
+
