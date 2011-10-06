@@ -1,0 +1,13 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui">
+    <!-- Load function check for PTR. -->
+    <script file="ptr.lua" />
+
+    <!-- Loads our private functions used inside caelUI only. These are to _NOT_ be used by outside addons. -->
+    <script file="private.lua" />
+
+    <!-- Loads our public interface file. These can be used by outside addons. -->
+    <script file="public.lua" />
+
+    <!-- Loading our output functions. -->
+    <script file="output.lua" />
+</Ui>
