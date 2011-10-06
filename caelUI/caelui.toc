@@ -9,5 +9,4 @@
 ## X-Category: User Interface
 
 engine.lua
-core/initialize.lua
-
+core\initialize.xml

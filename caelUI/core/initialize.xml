@@ -1,4 +1,4 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui">
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
     <!-- Load function check for PTR. -->
     <script file="ptr.lua" />
 
@@ -14,4 +14,3 @@
     <!-- Load the database manager. -->
     <script file="database.lua" />
 </Ui>
-

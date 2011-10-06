@@ -9,10 +9,9 @@ function F.is_in (needle, haystack)
                 return true
             end
         end
-    elseif type(needle) == type(haystack) and type(needle) == "string" then
+    --elseif type(needle) == type(haystack) and type(needle) == "string" then
         -- ZZZ: Parse the string to see if needle is in haystack.
         --return true
-        nil
     end
 
     return false
@@ -77,4 +76,3 @@ function F.argcheck (value, num, ...)
     local name = string.match(debugstack(2, 2, 0), ": in function [`<](.-)['>]")
     F.error(("Bad argument #%d to '%s' (%s expected, got %s"):format(num, name, types, type(value)), 3)
 end
-

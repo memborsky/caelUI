@@ -39,4 +39,3 @@ function F.utf8sub (string, index, dots)
         end
     end
 end
-

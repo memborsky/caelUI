@@ -1,4 +1,4 @@
-local F, DB, M = unpack(select(2, ...))
+local F = select(1, unpack(select(2, ...)))
 
 --[[
 Check to see if the UI is loaded on the PTR server
@@ -14,4 +14,3 @@ function F.OnThePTR ()
         return false
     end
 end
-
