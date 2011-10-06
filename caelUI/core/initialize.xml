@@ -10,5 +10,8 @@
 
     <!-- Loading our output functions. -->
     <script file="output.lua" />
+
+    <!-- Load the database manager. -->
+    <script file="database.lua" />
 </Ui>
 
