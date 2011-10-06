@@ -36,6 +36,8 @@ local addons = {
     --]]
 
     ["base"] = {
+        ["caelUI"]              = true,
+
         ["!recBug"]             = true,
         ["BadBoy"]              = true,
         ["caelManager"]         = true,
