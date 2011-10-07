@@ -13,4 +13,7 @@
 
     <!-- Load the database manager. -->
     <script file="database.lua" />
+
+    <!-- Handles the pixel perfection for the UI to be perfectly spaced. -->
+    <script file="pixel_perfect.lua" />
 </Ui>

@@ -24,7 +24,11 @@ local scales = {
 function F.pixelScale(value)
     local UIScale
 
-    local scale = cael_user.scale
+    local scale = nil
+
+    if cael_user and cael_user.scale then
+        scale = cael_user.scale
+    end
 
     if not scale then
         UIScale = 1
