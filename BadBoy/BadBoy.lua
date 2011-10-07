@@ -3,129 +3,150 @@ Please let me fetch either player level from the given guid (will also help BadB
 or let me fetch if the player is in a guild or not from the given guid (spammers never guilded)
 or both!
 
-I can then, 1) Skip scanning all chat from non-guilded WoW players, 2) skip scanning all chat from
-players above level 10, this would near enough eliminate any chance of false positives.
+		I can then, 1) only scan chat from guilded WoW players, 2) only scan chat from
+		players below level 10 (55-60 for DKs), this would near enough eliminate any chance of false positives.
+
+		You haven't implemented anything to help filtering gold spam since ComplainChat(), that was years ago, please show us you care.
 ]]--
 
---DO NOT MODIFY DATABASE OR YOU MAY REPORT INNOCENT PEOPLE, HEURISTIC FUNCTION DEPENDS ON WORDS BEING ON CERTAIN LINES
 -- GLOBALS: print, SetCVar, GetTime, gsub, ipairs, UnitInParty, UnitInRaid, UnitIsInMyGuild, ComplainChat, CanComplainChat, BNGetNumFriends, BNGetNumFriendToons, BNGetFriendToonInfo, GetRealmName
 local myDebug = nil
 
---[[ Spam Recognition ]]--
-local triggers = {
-    --White
-    "recruit", --1
-    "dkp", --2
-    "looking", --3 --guild
-    "lf[gm]", --4
-	"|cff", --5
-	"raid", --6
-	"roleplay", --7
+--These entries remove -2 points
+local whiteList = {
+	"recruit",
+	"dkp",
+	"looking", --guild
+	"lf[gm]",
+	"|cff",
+	"raid",
+	"roleplay",
+}
 
-	--English - Common
-	"bonus", --8
-	"buy", --9
-	"cheap", --10
-	"code", --11
-	"coupon", --12
-	"customer", --13
-	"deliver", --14
-	"discount", --15
-	"express", --16
-	"gold", --17
-	"lowest", --18
-	"order", --19
-	"powerle?ve?l", --20
-	"price", --21
-	"promoti[on][gn]", --22
-	"reduced", --23
-	"rocket", --24
-	"sa[fl]e", --25
-	"server", --26
-	"service", --27
-	"stock", --28
-	"well?come", --29
+--These entries add +1 point
+local commonList = {
+	--English
+	"bonus",
+	"buy",
+	"cheap",
+	"code",
+	"coupon",
+	"customer",
+	"deliver",
+	"discount",
+	"express",
+	"gold",
+	"lowest",
+	"order",
+	"powerle?ve?l",
+	"price",
+	"promoti[on][gn]",
+	"reduced",
+	"rocket",
+	"sa[fl]e",
+	"server",
+	"service",
+	"stock",
+	"well?come",
 
-	--French - Common
-	"livraison", --delivery --30
+	--French
+	"livraison", --delivery
 
-	--German - Common
-	"billigster", --cheapest --31
-	"lieferung", --delivery --32
-	"preis", --price --33
-	"willkommen", --welcome --34
+	--German
+	"billigster", --cheapest
+	"lieferung", --delivery
+	"preis", --price
+	"willkommen", --welcome
 
-	--Spanish - Common
-	"barato", --cheap --35
-	"gratuito", --free --36
-	"r[\195\161a]+pido", --fast --37
-	"seguro", --safe/secure --38
-	"servicio", --service --39
+	--Spanish
+	"barato", --cheap
+	"gratuito", --free
+	"r[\195\161a]+pido", --fast
+	"seguro", --safe/secure
+	"servicio", --service
 
-	--Chinese - Common
-	"金币", --gold currency --40
-	"大家好", --hello everyone --41
+	--Chinese
+	"金币", --gold currency
+	"大家好", --hello everyone
 
-	--Heavy
-	"[\226\130\172%$\194\163]+%d+[%.%-]?%d*[fp][oe]r%d+%.?%d*[kg]", --42 --Add separate line if they start approx prices
-	"[\226\130\172%$\194\163]+%d+%.?%d*[/\\=]%d+%.?%d*[kg]", --43
-	"%d+%.?%d*eur?o?s?[fp][oe]r%d+%.?%d*[kg]", --44
-	"%d+%.?%d*[\226\130\172%$\194\163]+[/\\=%-]%d+%.?%d*[kg]", --45
-	"%d+%.?%d*[kg][/\\=][\226\130\172%$\194\163]+%d+", --46
-	"%d+%.?%d*[kg][/\\=]%d+%.?%d*[\226\130\172%$\194\163]+", --47
-	"%d+%.?%d*[kg][/\\=]%d+[%.,]?%d*eu", --48
-	"%d+%.?%d*eur?o?s?[/\\=]%d+%.?%d*[kg]", --49
-	"%d+%.?%d*usd[/\\=]%d+%.?%d*[kg]", --50
-	"%d+%.?%d*usd[fp][oe]r%d+%.?%d*[kg]", --51
+	--Russian
+	"золота", --gold
+	"доставка", --delivery
+	"оплаты", --payment
+	"продажа", --sale
+	"наличии", --stock/presence
+	"[%.,]ru", --really can't risk any more TLDs for 2 points (Heavy Strict) until Blizz implements my requests to reduce FPs, which will probably be never
+}
 
-	--Heavy Strict
-	"www[%.,{]", --52
-	"[%.,]c%-?[o0@]%-?m", --53
-	"[%.,]c{circle}m", --54
-	"[%.,]c{rt2}m", --55
-	"[%.,]cqm", --56
-	"[%.,]net", --57
+--These entries add +2 points
+local heavyList = {
+	"[\226\130\172%$\194\163]+%d+[%.%-]?%d*[fp][oe]r%d+%.?%d*[kg]", --Add separate line if they start approx prices
+	"[\226\130\172%$\194\163]+%d+%.?%d*[/\\=]%d+%.?%d*[kg]",
+	"%d+%.?%d*eur?o?s?[fp][oe]r%d+%.?%d*[kg]",
+	"%d+%.?%d*[\226\130\172%$\194\163]+[/\\=%-]%d+%.?%d*[kg]",
+	"%d+%.?%d*[kg][/\\=][\226\130\172%$\194\163]+%d+",
+	"%d+%.?%d*[kg][/\\=]%d+%.?%d*[\226\130\172%$\194\163]+",
+	"%d+%.?%d*[kg][/\\=]%d+[%.,]?%d*eu",
+	"%d+%.?%d*eur?o?s?[/\\=]%d+%.?%d*[kg]",
+	"%d+%.?%d*usd[/\\=]%d+%.?%d*[kg]",
+	"%d+%.?%d*usd[fp][oe]r%d+%.?%d*[kg]",
+}
 
-	--Icons
-	"{rt%d}", --58
-	"{star}", --59
-	"{circle}", --60
-	"{diamond}", --61
-	"{triangle}", --62
-	"{moon}", --63
-	"{square}", --64
-	"{cross}", --65
+--These entries add +2 points, but only 1 entry will count
+local heavyRestrictedList = {
+	"www[%.,{]",
+	"[%.,]c%-?[o0@]%-?m",
+	"[%.,]c{circle}m",
+	"[%.,]c{rt2}m",
+	"[%.,]cqm",
+	"[%.,]net",
+}
 
-	--Phishing - English
-	"account", --66
-	"blizz", --67
-	"claim", --68
-	"congratulations", --69
-	"free", --70
-	"gamemaster", --71
-	"gift", --72
-	"launch", --73
-	"log[io]n", --74
-	"luckyplayer", --75
-	"mount", --76
-	"pleasevisit", --77
-	"receive", --78
-	"service", --79
-	"surprise", --80
-	"suspe[cn][td]", --81 --suspect/suspend
-	"system", --82
-	"validate", --83
+--These entries add +1 point, but only 1 entry will count
+local restrictedIcons = {
+	"{rt%d}",
+	"{star}",
+	"{circle}",
+	"{diamond}",
+	"{triangle}",
+	"{moon}",
+	"{square}",
+	"{cross}",
+}
 
-    --hello![Game Master]GM: Your world of warcraft account has been temporarily suspended. go to  [http://www.*********.com/wow.html] for further informatio
+--These entries add +1 point to the phishing count
+local phishingList = {
+	--English
+	"account",
+	"blizz",
+	"claim",
+	"congratulations",
+	"free",
+	"gamemaster",
+	"gift",
+	"launch",
+	"log[io]n",
+	"luckyplayer",
+	"mount",
+	"pleasevisit",
+	"receive",
+	"service",
+	"surprise",
+	"suspe[cn][td]", --suspect/suspend
+	"system",
+	"validate",
 
-	--Phishing - German
-	"berechtigt", --entitled --84
-	"erhalten", --get/receive --85
-	"deaktiviert", --deactivated --86
-	"konto", --acount --87
-	"kostenlos", --free --88
-	"qualifiziert", --qualified --89
+	--German
+	"berechtigt", --entitled
+	"erhalten", --get/receive
+	"deaktiviert", --deactivated
+	"konto", --acount
+	"kostenlos", --free
+	"qualifiziert", --qualified
+}
 
+--Any entry here will instantly report/block
+local instantReportList = {
 	--Personal Whispers
 	"so?rr?y.*%d+[kg].*stock.*buy", --sry to bother, we have 60k g in stock today. do u wanna buy some?:)
 	"server.*purchase.*gold.*deliv", --sorry to bother,currently we have 29200g on this server, wondering if you might purchase some gold today? 15mins delivery:)
@@ -242,6 +263,10 @@ local triggers = {
 	"ollyvs%.ru.*i[сc]+q", --[ollyvs.ru] [От 37p до 27р за 1000г] [Webmоney,Kиви,Яндеkс,Visa,MC,На Моб счет и др.] BL200+ ICQ: 309765 Skурe: ollуvs или в личку
 	--Маунты Огненный ястреб и Феникс пепел Ал'ара поступили в продажу в магазине-- [eubattlenet.vipshop.ru]
 	"продажу.*eubattlenet%.vipshop%.ru", --Mount Fire Hawk and Phoenix Al'ara ashes are on sale at the store--[eubattlenet.vipshop.ru]
+	--Купи ЗОЛОТО на -=MMOMONEYru=- Быстро и надежно. В наличии. ТК за золото!
+	"золото.*mmomoney", --Buy Gold at -= MMOMONEYru =- quickly and reliably. In stock. TC for the gold!
+	--сайт [RPGBOX.RU]  ВЫГОДНО БЫСТРО БЕЗОПАСНО   - НИЗКИЕ ЦЕНЫ-  /ТК60=45К/Покупка/все в наличии выдача сразу  все виды оплаты + visa  asя 819-207 sкайп-RPGBOX.RU asя 819-207
+	"rpgbox.*цены.*наличии", --site [RPGBOX.RU] BENEFITS FAST SECURE - LOWEST PRICES-/ = TK60 45K/Purchase/all in stock delivery immediately all kinds of payments + visa icq 819-207 skype-RPGBOX.RU icq 819 - 207
 
 	--Chinese
 	--嗨 大家好  团购金币送代练 炼金龙 还有各职业账号 详情请咨询 谢谢$18=10k;$90=50k+1000G free;$180=100k+2000g+月卡，也可用G 换月卡
@@ -253,6 +278,7 @@ local triggers = {
 	"%d+=%d+k.*boe.*p[0o]we?rle?ve?ling.*虎", --17=10k 160=100K 359BOE疯狂甩卖 P0werleveling 1-85还有大小幽灵虎等你来拿PST
 	"%d+=%d+k.*r0cket.*p[0o]we?rle?ve?ling", --$50=30k $80=50K+X-53T0uring R0cket+1 M0nth G@me Time , 378B0Es For SaIe 疯狂甩卖 P0werleveling 1-85 only 7 days, Help Do Bloodbathed Frostbrood Vanquisher Achivement!代打ICC成就龙,华人优惠哦
 	"金.*%d+=%d+k.*boe.*虎", --暑假WOW大促销啦@，金币超低价 <200=100k+10kextra> , 国服/美服1-85效率代练5天完成，378BOE各种装备甩卖，各职业帐号，大小幽灵虎等稀有坐骑现货，金币换火箭，月卡牛
+	"only.*%d+k.*deliver.*售", --only 17d for 10k,160d for 100k,deliver in 5mins, pst for more info另出售装备，账号，坐骑，85代练，华人价格从优！！!
 
 	--Advanced URL's/Misc
 	"%d+eu.*deliver.*credible.*kcq[%.,]", --12.66EUR/10000G 10 minutes delivery.absolutely credible. K C Q .< 0 M
@@ -305,7 +331,7 @@ local triggers = {
 	--Free[Parrot Cage (Hyacinth Macaw)][Disgusting Oozeling][Masterwork Elementium Deathblade]on<buyboe dot com>. 
 	--VK[Vial of the Sands]kauf mehr als 50k bekommt 20%-30% extra gold on <buyboe dot de>.
 	--VK [Phiole der Sande][Theresas Leselampe][Maldos Shwertstock],25 Minuten Lieferung auf <buyboe(dot)de>
-	"%[.*%].*buyboe.*dot.*[cd][o0e]", --WTS [Theresa's Booklight] [Vial of the Sands] [Heaving Plates of Protection] 15mins delivery on<buyboe dot com>
+	"%[.*%].*buyboe.*dot.*[fcd][ro0e]", --WTS [Theresa's Booklight] [Vial of the Sands] [Heaving Plates of Protection] 15mins delivery on<buyboe dot com>
 	"code.*hatchling.*card.*%d%d+[kg]", --WTS Codes redeem:6PETS [Cenarion Hatchling],Lil Rag,KT,XT,Moonkin,Pandaren 5k each;Prepaid gametimecard 6K;Flying mount[Celestial Steed] 15K.PST
 	"%d+k.*card.*rocket.*deliver", --{rt6}{rt1} 19=10k,90=51K+gamecard+rocket? deliver10mins
 	"%d%d+[kg].*g4pgold@com.*discount", --Speedy!10=5000G,g4pgold@com,discount code:Manager
@@ -319,97 +345,63 @@ local triggers = {
 	"wts.*rocket.*gametime", --WTS{rt3}"[X-53 Touring Rocket]&[Winged Guardian]&Celestial Steed&xt,kt,mo nk,cen.rag.moonkin and game time"{rt3}pst for more info.
 	"$%d+=%d+k.*deliver.*item", --$20=10K, $100=57k,$200=115k with instant delivery,all lvl378 items,pst
 	"money.*gold.*gold2sell", --Ingame gold for real money! Real gold for Ingame gold! Ingame gold for a account key! If you're intrested, then check out: "gold2sell.org" now!
+	"kb8gold.*sale.*deliver", --KB8GOLD C0M 7.9€->10K Hot sales and Fast delivery 
+	"pet.*rag.*panda.*gametimecard", --Vends 6PETS [Bébé hippogriffe cénarien],Mini'Rag,XT,KT,Sélénien,Panda 12K each;payé d'avance gametimecard 15K;Bâtis volants[Gardien ailé],[Palefroi célest 
+	"wts.*deliver.*cheap.*price", --WTS [Reins of Poseidus],deliver fast,cheaper price ,pst,plz 
+	"%d+[/\\=]%d+.*gold4power", --?90=5oK Google:Gold4Power, Introducer ID:saray
+	"wts.*mount.*rocket.*gift", --WTS 2 seat flying mount the X-53 Touring rocket , you can also get a gift--one month game , PST 
 	"k{.*}4%.?{.*}g{.*}[o0]{.*}l{.*}d", --{star}.W{star}.W{star}W {square} k{triangle}.4{triangle}g{triangle}o{triangle}l{triangle}d {square} c{star}o{star}m -------{square}- c{star}o{star}d{star}e : CF \ CO \ CK
 }
+
 local fnd = string.find
 local IsSpam = function(msg)
-	local points, phishPoints, strict, iconBlock = 0, 0, nil, nil
-	for i=1, #triggers do --Scan database
-		if fnd(msg, triggers[i]) then --Found a match
-			if i>89 then --!!!CHANGE ME ACCORDING TO DATABASE ENTRIES!!!
-				points = points + 9 --Instant report
-			elseif i>65 and i<90 then
-				phishPoints = phishPoints + 1
-			elseif i>57 and i<66 and not iconBlock then
-				points = points + 1 --Only 1 trigger can get points in the icons section
-				iconBlock = true
-			elseif i>51 and i<58 and not strict then
-				points = points + 2 --Only 1 trigger can get points in the strict section
-				phishPoints = phishPoints + 1
-				strict = true
-			elseif i>41 and i<52 then
-				points = points + 2 --Heavy section gets 2 points
-			elseif i>7 and i<42 then
-				points = points + 1 --All else gets 1 point
-			elseif i<8 then
-				points = points - 2
-				phishPoints = phishPoints - 2 --Remove points for safe words
-			end
-			if myDebug then print(triggers[i], points, phishPoints) end
-			if points > 3 or phishPoints > 3 then
-				return true
-			end
+	for i=1, #instantReportList do
+		if fnd(msg, instantReportList[i]) then
+			if myDebug then print("Instant", instantReportList[i]) end
+			return true
 		end
 	end
-end
 
---[[ Calendar Scanning ]]--
---[[
-CURRENT ISSUE: remove/complain/reject functions seems to have a cooldown?
-do
-	local start = GetTime()
-	--Maybe you could make this $#!+ easier to do please Blizzard?
-	--Is...
-	--for i=1, CalendarGetNumPendingInvites() do local title, player, desc, month, day, event = CalendarEventInfoPendingInvite(i) end
-	--...too much to ask for?
-	BadBoyConfig.CALENDAR_ACTION_PENDING = function(self)
-		--Completely random chosen number to prevent lockup
-		count = count + 1
-		if count > 10 then
-			self:UnregisterEvent("CALENDAR_ACTION_PENDING")
-			--self.CALENDAR_ACTION_PENDING = nil
-			return
+	local points, phishPoints = 0, 0
+	for i=1, #whiteList do
+		if fnd(msg, whiteList[i]) then
+			points = points - 2
+			phishPoints = phishPoints - 2 --Remove points for safe words
 		end
-		local numInvites = CalendarGetNumPendingInvites()
-		if numInvites == 0 then print("0 events, returning") return end
-		local noUpdate
-		local countedInvites = 0
-		print("Lets begin")
-		for m=0, 99 do
-			for d=1, 31 do
-				local numEvents = CalendarGetNumDayEvents(m, d)
-				for i=1, numEvents do
-					noUpdate = true
-					if CalendarContextInviteIsPending(m, d, i) then
-						CalendarContextSelectEvent(m, d, i)
-						print("Found an invite:", m, d, i)
-						countedInvites = countedInvites + 1
-						--if CalendarContextEventCanComplain() then
-							print("we can complain:", m, d, i)
-							CalendarOpenEvent(m, d, i) --CalendarOpenEvent() also fires CALENDAR_ACTION_PENDING... /facepalm
-							local _, msg, player = CalendarGetEventInfo() --msg is sometimes nil even after OpenCalendar() has updated and fired the event FFS
-							if not msg then print("FAIL") return end --Usually becomes available after a few loops
-							print(msg, player)
-							--Msg is finally available, check all calendar events for spam and completely disable the functionality
-							if IsSpam(msg) then
-								--CalendarContextEventComplain(m, d, i)
-								CalendarContextInviteRemove(m, d, i)
-								OpenCalendar()
-								print("|cFF33FF99BadBoy|r: Reported player '", player, "' for spamming your calendar with gold spam advertisements.")
-							end
-						--end
-						--Don't loop further when we've checked all pending invites
-						if countedInvites == numInvites then print("returning due to max invites") return end
-					end
-				end
-			end
-		end
-		--We can't read calendar invites so force another update
-		if not noUpdate then print"update" OpenCalendar() end
 	end
-	BadBoyConfig:RegisterEvent("CALENDAR_ACTION_PENDING")
+	for i=1, #commonList do
+		if fnd(msg, commonList[i]) then
+			points = points + 1
+		end
+	end
+	for i=1, #heavyList do
+		if fnd(msg, heavyList[i]) then
+			points = points + 2 --Heavy section gets 2 points
+		end
+	end
+	for i=1, #heavyRestrictedList do
+		if fnd(msg, heavyRestrictedList[i]) then
+			points = points + 2
+			phishPoints = phishPoints + 1
+			break --Only 1 trigger can get points in the strict section
+		end
+	end
+	for i=1, #restrictedIcons do
+		if fnd(msg, restrictedIcons[i]) then
+			points = points + 1
+			break --Only 1 trigger can get points in the icons section
+		end
+	end
+	for i=1, #phishingList do
+		if fnd(msg, phishingList[i]) then
+			phishPoints = phishPoints + 1
+		end
+	end
+	if myDebug then print(triggers[i], points, phishPoints) end
+	if points > 3 or phishPoints > 3 then
+		return true
+	end
 end
-]]
 
 --[[ Chat Scanning ]]--
 local orig, prevReportTime, prevLineId, result, prevMsg, prevPlayer = COMPLAINT_ADDED, 0, 0, nil, nil, nil
