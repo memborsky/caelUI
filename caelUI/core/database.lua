@@ -10,7 +10,7 @@ function F.initialize_databases ()
     end
 end
 
-function F.new_database (name)
+function F.get_database (name)
     local self
     if not databases[name] then
         self = {}
@@ -26,4 +26,3 @@ function F.new_database (name)
 
     return {save = save}
 end
-
