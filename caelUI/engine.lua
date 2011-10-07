@@ -6,6 +6,8 @@ ns[2] = {} -- Modules
 -- Allow other addons to load the caelUI namespace.
 caelUI = ns
 
+local F = select(1, unpack(select(2, ...)))
+
 local eventFrame = CreateFrame("Frame")
 
 eventFrame:RegisterEvent("ADDON_LOADED")
@@ -21,4 +23,6 @@ eventFrame:SetScript("OnEvent", function(self, event)
 	if not cael_global then
 		cael_global = {}
 	end
+
+	F.initialize_database()
 end)
