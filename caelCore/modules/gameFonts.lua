@@ -77,7 +77,7 @@ gameFonts:SetScript("OnEvent", function(self, event, addon)
     -- Derived fonts
     SetFont(BossEmoteNormalHuge,                    fonts.BOLDITALIC,   25, "THICKOUTLINE")
     SetFont(CombatTextFont,                         fonts.NORMAL,       24)
-    SetFont(ErrorFont,                              fonts.ITALIC        14, nil, 58)
+    SetFont(ErrorFont,                              fonts.ITALIC,        14, nil, 58)
     SetFont(QuestFontNormalSmall,                   fonts.BOLD,         11, nil, nil, nil, nil, 0.54, 0.4, 0.1)
     SetFont(WorldMapTextFont,                       fonts.BOLDITALIC,   29, "THICKOUTLINE",  38, nil, nil, 0, 0, 0, 1, -1)
 
