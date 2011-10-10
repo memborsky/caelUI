@@ -226,7 +226,6 @@ local addons = {
         ["DBM-GUI"]             = true,
         --["DBM-WorldEvents"]     = true,
         ["DBM-Party-Cataclysm"] = true,
-        ["DPM-Core"]            = true,
 
         ["Snoopy"]              = false,
         ["oUF_Bell"]            = false,
