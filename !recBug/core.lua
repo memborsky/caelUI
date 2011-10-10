@@ -13,13 +13,11 @@ local function make_backdrop(frame)
     frame.bg = CreateFrame("Frame", nil, frame)
     frame.bg:SetPoint("TOPLEFT")
     frame.bg:SetPoint("BOTTOMRIGHT")
-    if caelUI then
-        frame.bg:SetBackdrop({
-            bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
-            edgeFile = [=[Interface\Addons\caelUI\media\borders\glowtex3]=], edgeSize = 2,
-            insets = {left = 3, right = 3, top = 3, bottom = 3}
-        })
-    end
+    frame.bg:SetBackdrop({
+        bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
+        edgeFile = [=[Interface\Addons\caelUI\media\borders\glowtex3]=], edgeSize = 2,
+        insets = {left = 3, right = 3, top = 3, bottom = 3}
+    })
     frame.bg:SetFrameStrata("BACKGROUND")
     frame.bg:SetBackdropColor(0, 0, 0, .5)
     frame.bg:SetBackdropBorderColor(0, 0, 0)
