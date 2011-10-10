@@ -2,7 +2,7 @@
 ## Author: Caellian
 ## Title: |cffD7BEA5cael|rPanels
 ## Notes: Create my panels
-## RequiredDeps: caelLib, caelMedia
+## RequiredDeps: caelUI
 ## X-Revision: $Id$
 ## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
 ## X-Category: UI

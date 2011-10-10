@@ -3,7 +3,7 @@
 ## Title: |cff777777al|rDamageMeter
 ## Version: 40000.1
 ## Notes: Damage meter
-## RequiredDeps: caelLib, caelMedia, caelPanels
+## RequiredDeps: caelUI, caelPanels
 
 embeds.xml
 alDamageMeter.lua

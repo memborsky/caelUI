@@ -3,7 +3,7 @@
 ## Title: |cffD7BEA5cael|rCore
 ## Notes: Various UI Settings
 ## SavedVariables: caelCoreDB
-## RequiredDeps: caelLib, caelPanels
+## RequiredDeps: caelLib, caelPanels, caelUI
 ## X-Revision: $Id$
 ## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
 ## X-Category: Interface Enhancements

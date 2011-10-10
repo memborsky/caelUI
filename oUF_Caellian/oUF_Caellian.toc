@@ -6,7 +6,7 @@
 ## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
 ## X-Category: UnitFrame
 ## X-oUF: oUF
-## RequiredDeps: caelLib, caelMedia, oUF
+## RequiredDeps: caelLib, caelUI, oUF
 ## OptionalDeps: oUF_CombatFeedback, oUF_SpellRange, oUF_TotemBar, oUF_WeaponEnchant
 
 oUF_Caellian.xml

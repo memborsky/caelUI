@@ -2,7 +2,7 @@
 ## Author: Caellian
 ## Title: |cffD7BEA5cael|rNameplates
 ## Notes: Custom minimalistic nameplates
-## RequiredDeps: caelLib, caelMedia
+## RequiredDeps: caelUI
 ## SavedVariables: caelNameplatesDB
 ## X-Revision: $Id$
 ## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773

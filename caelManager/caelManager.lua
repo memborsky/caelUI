@@ -36,6 +36,7 @@ local addons = {
     --]]
 
     ["base"] = {
+        -- This is for caelUI, the rewrite to version 1.0.
         ["caelUI"]              = true,
 
         ["!recBug"]             = true,
