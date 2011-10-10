@@ -4,7 +4,9 @@ local _, caelDataFeeds = ...
 
 local social = caelDataFeeds.createModule("Social")
 
-social.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", caelLib.scale(325), 0)
+local pixelScale = caelUI.pixelScale
+
+social.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixelScale(325), 0)
 
 social:RegisterEvent"CHAT_MSG_SYSTEM"
 social:RegisterEvent"FRIENDLIST_UPDATE"
@@ -45,7 +47,7 @@ social:SetScript("OnEnter", function(self)
     numFriends = GetNumFriends() 
     numBNFriends = BNGetNumFriends()
 
-    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, caelLib.scale(4))
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixelScale(4))
 
     if numOnlineGuildMembers > 0 then
 

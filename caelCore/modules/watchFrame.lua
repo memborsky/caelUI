@@ -4,23 +4,26 @@ local dummy = caelLib.dummy
 
 local nextline = 1
 
+local media = caelUI.get_database("media")
+local pixelScale = caelUI.pixelScale
+
 WatchFrame:ClearAllPoints()
-WatchFrame:SetHeight(caelLib.scale(600))
-WatchFrame:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", caelLib.scale(-15), caelLib.scale(-15))
+WatchFrame:SetHeight(pixelScale(600))
+WatchFrame:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", pixelScale(-15), pixelScale(-15))
 --WatchFrameCollapseExpandButton:Hide()
 
 WatchFrame.ClearAllPoints = dummy
 WatchFrame.SetPoint = dummy
 --WatchFrameCollapseExpandButton.Show = dummy
 
-WatchFrameTitle:SetFont(caelMedia.fonts.NORMAL, 11)
+WatchFrameTitle:SetFont(media.fonts.NORMAL, 11)
 
 hooksecurefunc("WatchFrame_Update", function()
     for i = nextline, 50 do
         line = _G["WatchFrameLine"..i]
         if line then
-            line.text:SetFont(caelMedia.fonts.NORMAL, 9)
-            line.dash:SetFont(caelMedia.fonts.NORMAL, 9)
+            line.text:SetFont(media.fonts.NORMAL, 9)
+            line.dash:SetFont(media.fonts.NORMAL, 9)
             line.text:SetSpacing(2)
         else
             nextline = i

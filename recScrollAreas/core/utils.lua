@@ -1,5 +1,7 @@
 --[[    $Id$    ]]
 
+local pixelScale = caelUI.pixelScale
+
 function recScrollAreas:CreateScrollArea(id, height, x_pos, y_pos, textalign, direction, font_face, font_size, font_flags, font_face_sticky, font_size_sticky, font_flags_sticky, animation_duration, animation_duration_sticky)
     recScrollAreas.scroll_area_frames[id] = CreateFrame("Frame", nil, UIParent)
     recScrollAreas.scroll_area_frames[id.."sticky"] = CreateFrame("Frame", nil, UIParent)
@@ -8,16 +10,16 @@ function recScrollAreas:CreateScrollArea(id, height, x_pos, y_pos, textalign, di
     -- recScrollAreas.scroll_area_frames[id]:SetBackdropColor(0, 0, 0, 1)
 
     -- Set frame width
-    recScrollAreas.scroll_area_frames[id]:SetWidth(caelLib.scale(1))
-    recScrollAreas.scroll_area_frames[id.."sticky"]:SetWidth(caelLib.scale(1))
+    recScrollAreas.scroll_area_frames[id]:SetWidth(pixelScale(1))
+    recScrollAreas.scroll_area_frames[id.."sticky"]:SetWidth(pixelScale(1))
 
     -- Set frame height
-    recScrollAreas.scroll_area_frames[id]:SetHeight(caelLib.scale(height))
-    recScrollAreas.scroll_area_frames[id.."sticky"]:SetHeight(caelLib.scale(height))
+    recScrollAreas.scroll_area_frames[id]:SetHeight(pixelScale(height))
+    recScrollAreas.scroll_area_frames[id.."sticky"]:SetHeight(pixelScale(height))
 
     -- Position frame
-    recScrollAreas.scroll_area_frames[id]:SetPoint("BOTTOM", UIParent, "BOTTOM", caelLib.scale(x_pos), caelLib.scale(y_pos))
-    recScrollAreas.scroll_area_frames[id.."sticky"]:SetPoint("BOTTOM", UIParent, "BOTTOM", caelLib.scale(x_pos), caelLib.scale(y_pos))
+    recScrollAreas.scroll_area_frames[id]:SetPoint("BOTTOM", UIParent, "BOTTOM", pixelScale(x_pos), pixelScale(y_pos))
+    recScrollAreas.scroll_area_frames[id.."sticky"]:SetPoint("BOTTOM", UIParent, "BOTTOM", pixelScale(x_pos), pixelScale(y_pos))
 
     -- Text alignment
     recScrollAreas.scroll_area_frames[id].textalign = textalign
@@ -44,8 +46,8 @@ function recScrollAreas:CreateScrollArea(id, height, x_pos, y_pos, textalign, di
     recScrollAreas.anim_strings[id.."sticky"] = {}
 
     -- Set movement speed
-    recScrollAreas.scroll_area_frames[id].movement_speed = (animation_duration or recScrollAreas.animation_duration) / caelLib.scale(height)
-    recScrollAreas.scroll_area_frames[id.."sticky"].movement_speed = (animation_duration_sticky or recScrollAreas.animation_duration_sticky) / caelLib.scale(height)
+    recScrollAreas.scroll_area_frames[id].movement_speed = (animation_duration or recScrollAreas.animation_duration) / pixelScale(height)
+    recScrollAreas.scroll_area_frames[id.."sticky"].movement_speed = (animation_duration_sticky or recScrollAreas.animation_duration_sticky) / pixelScale(height)
 
     -- Set animation duration
     recScrollAreas.scroll_area_frames[id].animation_duration = animation_duration or recScrollAreas.animation_duration

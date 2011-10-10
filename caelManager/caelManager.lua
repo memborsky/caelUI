@@ -53,7 +53,6 @@ local addons = {
         ["caelInterrupt"]       = true,
         ["caelDataFeeds"]       = true,
         ["caelLib"]             = true,
-        ["caelMedia"]           = true,
         ["caelPanels"]          = true,
         ["caelThreat"]          = true,
         ["caelTooltips"]        = true,

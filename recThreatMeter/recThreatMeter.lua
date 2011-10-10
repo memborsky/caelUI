@@ -14,7 +14,8 @@ local need_reset = true
 local in_raid, in_party, warning_played, i_am_tank, target_okay
 local top_threat, overtake_threat, my_threat = 0, -1, -1
 local HIDDEN, TANKING, BLANK = "* %s", ">>> %s <<<", " "
-local pixelScale    = caelLib.scale
+local pixelScale = caelUI.pixelScale
+local media = caelUI.get_database("media")
 --local 10   = 10 -- This is set in MakeDisplay() to its true number.
 
 local recycle_bin = {}
@@ -134,7 +135,7 @@ local function UpdateUnitThreat(unit_id)
                         if not(raid_threat[i].tanking) and warning_played then
 
                             -- If we were not tanking before, and we were warned, then play aggro sound.
-                            PlaySoundFile(caelMedia.files.soundAggro, "SFX")
+                            PlaySoundFile(media.files.soundAggro, "SFX")
                         end
 
                         -- Flag this unit as tanking, for special formatting on the bars.
@@ -183,7 +184,7 @@ local function UpdateDisplay()
     -- Whether to sound a warning for the user or not, and resets our warning played
     -- flag if the user slips back under 80% threat.
     if not(i_am_tank) and my_threat >= (top_threat * 0.8) and not(warning_played) then
-        PlaySoundFile(caelMedia.files.soundWarning, "SFX")
+        PlaySoundFile(media.files.soundWarning, "SFX")
         warning_played = true
     elseif my_threat < (top_threat * 0.8) then
         warning_played = false
@@ -282,7 +283,7 @@ local function MakeDisplay()
     f.texture:SetDrawLayer("BACKGROUND")
 
     f.titletext = f:CreateFontString(nil, "ARTWORK")
-    f.titletext:SetFont(caelMedia.fonts.NORMAL, 9)
+    f.titletext:SetFont(media.fonts.NORMAL, 9)
     f.titletext:SetText("Threat")
     f.titletext:SetPoint("TOP", f, "TOP", 0, 0)
 
@@ -296,15 +297,15 @@ local function MakeDisplay()
         f.bars[i]:SetMinMaxValues(0, 1)
         f.bars[i]:SetOrientation("HORIZONTAL")
         f.bars[i]:SetStatusBarColor(1, 1, 1, 0.8)
-        f.bars[i]:SetStatusBarTexture(caelMedia.files.statusBarC)
+        f.bars[i]:SetStatusBarTexture(media.files.statusBarC)
         f.bars[i]:SetPoint("TOPLEFT", i == 1 and f or f.bars[i-1], i == 1 and "TOPLEFT" or "BOTTOMLEFT", pixelScale(i == 1 and 2 or 0), pixelScale(i == 1 and -10 or -1))
         f.bars[i]:SetPoint("TOPRIGHT", i == 1 and f or f.bars[i-1], i == 1 and "TOPRIGHT" or "BOTTOMRIGHT", pixelScale(i == 1 and -2 or 0), pixelScale(i == 1 and -10 or -1))
         f.bars[i].lefttext = f.bars[i]:CreateFontString(nil, "ARTWORK")
-        f.bars[i].lefttext:SetFont(caelMedia.fonts.NORMAL, 9)
+        f.bars[i].lefttext:SetFont(media.fonts.NORMAL, 9)
         f.bars[i].lefttext:SetPoint("LEFT", f.bars[i], "LEFT", 0, pixelScale(2))
         f.bars[i].lefttext:Show()
         f.bars[i].righttext = f.bars[i]:CreateFontString(nil, "ARTWORK")
-        f.bars[i].righttext:SetFont(caelMedia.fonts.NORMAL, 9)
+        f.bars[i].righttext:SetFont(media.fonts.NORMAL, 9)
         f.bars[i].righttext:SetPoint("RIGHT", f.bars[i], "RIGHT", 0, pixelScale(2))
         SetBarValues(i)
     end

@@ -4,8 +4,9 @@ local _, caelLoot = ...
 
 caelLoot.eventFrame = CreateFrame("Frame", nil, UIParent)
 
-local pixelScale = caelLib.scale
+local pixelScale = caelUI.pixelScale
 local playerName = caelLib.playerName
+local media = caelUI.get_database("media")
 
 local curSlot
 local curLootSlots = {}
@@ -37,7 +38,7 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
         LootFrame:SetScale(0.85)
         LootFrame:SetSize(160, 180)
 
-        LootFrame:SetBackdrop(caelMedia.backdropTable)
+        LootFrame:SetBackdrop(media.backdropTable)
         LootFrame:SetBackdropColor(0, 0, 0, 0.33)
         LootFrame:SetBackdropBorderColor(0.1, 0.1, 0.1)
 
@@ -46,15 +47,15 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
 
         --[[
         local gradientTop = LootFrame:CreateTexture(nil, "BORDER")
-        gradientTop:SetTexture(caelMedia.files.bgFile)
+        gradientTop:SetTexture(media.files.bgFile)
         gradientTop:SetSize(width, height)
-        gradientTop:SetPoint("TOPLEFT", caelLib.scale(3), caelLib.scale(-3))
+        gradientTop:SetPoint("TOPLEFT", pixelScale(3), pixelScale(-3))
         gradientTop:SetGradientAlpha("VERTICAL", 0, 0, 0, 0, 0.84, 0.75, 0.65, 0.5)
 
         local gradientBottom = LootFrame:CreateTexture(nil, "BORDER")
-        gradientBottom:SetTexture(caelMedia.files.bgFile)
+        gradientBottom:SetTexture(media.files.bgFile)
         gradientBottom:SetSize(width, height)
-        gradientBottom:SetPoint("BOTTOMRIGHT", caelLib.scale(-3), caelLib.scale(3))
+        gradientBottom:SetPoint("BOTTOMRIGHT", pixelScale(-3), pixelScale(3))
         gradientBottom:SetGradientAlpha("VERTICAL", 0, 0, 0, 0.75, 0, 0, 0, 0)
         --]]
 
@@ -87,11 +88,11 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
                 lootButton:SetPoint("TOP", _G[format("LootButton%d", i-1)], "BOTTOM", 0, pixelScale(-10))
             end
 
-            lootButton:SetNormalTexture(caelMedia.files.buttonNormal)
+            lootButton:SetNormalTexture(media.files.buttonNormal)
             lootButton:GetNormalTexture():SetPoint("TOPLEFT", pixelScale(-5), pixelScale(5))
             lootButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", pixelScale(5), pixelScale(-5))
 
-            lootButton:SetHighlightTexture(caelMedia.files.buttonHighlight)
+            lootButton:SetHighlightTexture(media.files.buttonHighlight)
             lootButton:GetHighlightTexture():SetPoint("TOPLEFT", pixelScale(-5), pixelScale(5))
             lootButton:GetHighlightTexture():SetPoint("BOTTOMRIGHT", pixelScale(5), pixelScale(-5))
 

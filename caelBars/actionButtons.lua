@@ -2,12 +2,13 @@
 
 local _G = getfenv(0)
 
-local pixelScale = caelLib.scale
+local media = caelUI.get_database("media")
+local pixelScale = caelUI.pixelScale
 
 local hideHotkeys = true
 
 local backdrop = {
-    bgFile = caelMedia.files.buttonGloss,
+    bgFile = media.files.buttonGloss,
     insets = {top = pixelScale(-1), left = pixelScale(-1), bottom = pixelScale(-1), right = pixelScale(-1)},
 }
 
@@ -23,20 +24,20 @@ local function StyleButton(name, action)
     local cooldown  = _G[format("%sCooldown", name)]
     local texture = (isPet or isShapeshift) and _G[format("%sNormalTexture2", name)] or _G[format("%sNormalTexture", name)]
 
-    button:SetNormalTexture(caelMedia.files.buttonNormal)
-    button:SetPushedTexture(caelMedia.files.buttonPushed)
-    button:SetCheckedTexture(caelMedia.files.buttonChecked)
-    button:SetHighlightTexture(caelMedia.files.buttonHighlight)
+    button:SetNormalTexture(media.files.buttonNormal)
+    button:SetPushedTexture(media.files.buttonPushed)
+    button:SetCheckedTexture(media.files.buttonChecked)
+    button:SetHighlightTexture(media.files.buttonHighlight)
 
     border:SetPoint("TOPLEFT", button, pixelScale(-1), pixelScale(1))
     border:SetPoint("BOTTOMRIGHT", button, pixelScale(1), pixelScale(-1))
-    border:SetTexture(caelMedia.files.buttonNormal)
+    border:SetTexture(media.files.buttonNormal)
 
     icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     icon:SetPoint("TOPLEFT", button, pixelScale(4.5), pixelScale(-4.5))
     icon:SetPoint("BOTTOMRIGHT", button, pixelScale(-4.5), pixelScale(4.5))
 
-    flash:SetTexture(caelMedia.files.buttonFlash)
+    flash:SetTexture(media.files.buttonFlash)
 
     cooldown:SetAllPoints(icon)
 
@@ -47,7 +48,7 @@ local function StyleButton(name, action)
         button.backdrop = CreateFrame("Frame", nil, button)
         button.backdrop:SetPoint("TOPLEFT", pixelScale(-1), pixelScale(1))
         button.backdrop:SetPoint("BOTTOMRIGHT", pixelScale(1), pixelScale(-1))
-        button.backdrop:SetBackdrop(caelMedia.borderTable)
+        button.backdrop:SetBackdrop(media.borderTable)
         button.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
     end
 
@@ -66,12 +67,12 @@ local function StyleButton(name, action)
 
         if count then
             count:SetParent(button.gloss)
-            count:SetFont(caelMedia.fonts.NORMAL, 12, "OUTLINEMONOCHROME")
+            count:SetFont(media.fonts.NORMAL, 12, "OUTLINEMONOCHROME")
             count:SetPoint("BOTTOMRIGHT", pixelScale(3), pixelScale(-1))
         end
 
         if not hideHotkeys then
-            hotkey:SetFont(caelMedia.fonts.NORMAL, 12, "OUTLINEMONOCHROME")
+            hotkey:SetFont(media.fonts.NORMAL, 12, "OUTLINEMONOCHROME")
             hotkey:ClearAllPoints()
             hotkey:SetPoint("TOPRIGHT", pixelScale(3), pixelScale(1))
         else

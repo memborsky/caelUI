@@ -4,7 +4,9 @@ local _, caelDataFeeds = ...
 
 local coords = caelDataFeeds.createModule("Coords")
 
-coords.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", caelLib.scale(425), 0)
+local pixelScale = caelUI.pixelScale
+
+coords.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixelScale(425), 0)
 
 coords:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 
@@ -43,7 +45,7 @@ end)
 
 local zoneName, zoneColor, subzoneName
 coords:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, caelLib.scale(4))
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixelScale(4))
 
     zoneName = GetZoneText()
     subzoneName = GetSubZoneText()

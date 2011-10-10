@@ -2,7 +2,8 @@
 
 local _, caelBars = ...
 
-local pixelScale = caelLib.scale
+local pixelScale = caelUI.pixelScale
+
 local playerClass = caelLib.playerClass
 
 ---------------------------------------------
@@ -12,7 +13,7 @@ local playerClass = caelLib.playerClass
 caelBars.actionBar = {
     ["settings"] = {
         ["showGrid"] = true,
-        
+
         ["showPetGrid"] = false,
         ["mouseOverPetBar"] = true,
 

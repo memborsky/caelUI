@@ -14,8 +14,6 @@ local config = {
     noRaid          = false, -- true to disable raid frames
     noArena         = false, -- true to disable arena frames
 
-    font            = caelMedia.fonts.NORMAL,
-
     scale           = 1, -- scale of the unitframes (1 being 100%)
 
     manaThreshold   = 20, -- low mana threshold for all mana classes
@@ -37,7 +35,7 @@ local config = {
             partyY = -500, -- vertical offset for the party frames
 
             raidX = 1250, -- horizontal offset for the raid frames
-            raidY = -500, -- vertical offset for the raid frames            
+            raidY = -500, -- vertical offset for the raid frames
         },
 
         ["other"] = {

@@ -169,11 +169,11 @@ caelLib.scales = {
 }
 
 local ScaleFix
-
+--[[
 caelLib.scale = function(value)
     return ScaleFix * math.floor(value / ScaleFix + 0.5)
 end
-
+--]]
 EventFrame.ADDON_LOADED = function(self, event, addon)
     if addon ~= "caelLib" then
         return
@@ -183,7 +183,7 @@ EventFrame.ADDON_LOADED = function(self, event, addon)
         caelDB  = {}
     end
 
-    local UIScale = caelDB.scale or caelLib.scales[screenWidth] and caelLib.scales[screenWidth][screenHeight] or 1
+    local UIScale = caelDB.scale or scales[screenWidth] and scales[screenWidth][screenHeight] or 1
     ScaleFix = (768/tonumber(GetCVar("gxResolution"):match("%d+x(%d+)")))/UIScale
 
     self:UnregisterEvent(event)

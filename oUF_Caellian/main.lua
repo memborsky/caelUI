@@ -7,21 +7,23 @@ oUF_Caellian.main = CreateFrame("Frame", nil, UIParent)
 local main = oUF_Caellian.main
 local config = oUF_Caellian.config
 
-local mediaPath = [=[Interface\Addons\caelMedia\]=]
+-- Define variables from caelUI or the old system.
+local media = caelUI.get_database("media")
+local mediaPath = media.directory
+local pixelScale = caelUI.pixelScale
 
 local floor, format, insert, sort = math.floor, string.format, table.insert, table.sort
 
-local normtex = caelMedia.files.statusBarE
-local buttonTex = caelMedia.files.buttonNormal
-local raidIcons = caelMedia.files.raidIcons
+local normtex = media.files.statusBarE
+local buttonTex = media.files.buttonNormal
+local raidIcons = media.files.raidIcons
 local bubbleTex = mediaPath..[=[miscellaneous\bubbletex]=]
 local shaderTex = mediaPath..[=[miscellaneous\smallshadertex]=]
 local highlightTex = mediaPath..[=[miscellaneous\highlighttex]=]
 
-local font = config.font
-local fontn = caelMedia.fonts.CUSTOM_NUMBERFONT
+local font = media.fonts.NORMAL
+local fontn = media.fonts.CUSTOM_NUMBERFONT
 
-local pixelScale = caelLib.scale
 local playerClass = caelLib.playerClass
 local playerSpec = GetPrimaryTalentTree()
 
@@ -38,7 +40,8 @@ local execThreshold = {
 
 local healingSpecs = {
     ["PALADIN"] = 1,
-    ["PRIEST"]  = 3, -- We check priest against the opposite due to shadow being the only dps spec for priest.
+    -- We check priest against the opposite due to shadow being the only dps spec for priest.
+    ["PRIEST"]  = 3,
     ["SHAMAN"]  = 3,
     ["DRUID"]   = 3,
 }
@@ -526,14 +529,14 @@ local PostCreateAura = function(auras, button)
     button.backdrop = CreateFrame("Frame", nil, button)
     button.backdrop:SetPoint("TOPLEFT", pixelScale(-5), pixelScale(5))
     button.backdrop:SetPoint("BOTTOMRIGHT", pixelScale(5), pixelScale(-5))
-    button.backdrop:SetBackdrop(caelMedia.borderTable)
+    button.backdrop:SetBackdrop(media.borderTable)
     button.backdrop:SetBackdropBorderColor(0, 0, 0)
 
     button.gloss = CreateFrame("Frame", nil, button)
     button.gloss:SetPoint("TOPLEFT", pixelScale(-3), pixelScale(3))
     button.gloss:SetPoint("BOTTOMRIGHT", pixelScale(3), pixelScale(-3))
     button.gloss:SetBackdrop({
-        bgFile = caelMedia.files.buttonGloss,
+        bgFile = media.files.buttonGloss,
         insets = {top = pixelScale(-1), left = pixelScale(-1), bottom = pixelScale(-1), right = pixelScale(-1)},
     })
     button.gloss:SetBackdropColor(0.25, 0.25, 0.25, 0.5)
@@ -750,8 +753,8 @@ local SetStyle = function(self, unit)
         self.Nameplate:SetPoint("TOPLEFT", self, 0, pixelScale(-28))
         self.Nameplate:SetPoint("BOTTOMRIGHT", self)
         self.Nameplate:SetBackdrop {
-            bgFile = caelMedia.files.bgFile,
-            edgeFile = caelMedia.files.bgFile,
+            bgFile = media.files.bgFile,
+            edgeFile = media.files.bgFile,
             tile = false, tileSize = 0, edgeSize = pixelScale(1),
             insets = {left = 0, right = 0, top = 1, bottom = 0}
         }
@@ -1124,7 +1127,7 @@ local SetStyle = function(self, unit)
     self.cDebuff.border:SetPoint("TOPLEFT", pixelScale(-1.5), pixelScale(1.5))
     self.cDebuff.border:SetPoint("BOTTOMRIGHT", pixelScale(1.5), pixelScale(-1.5))
     self.cDebuff.border:SetBackdrop({
-        bgFile = caelMedia.files.buttonNormal,
+        bgFile = media.files.buttonNormal,
         insets = {top = pixelScale(-1), left = pixelScale(-1), bottom = pixelScale(-1), right = pixelScale(-1)},
     })
 
@@ -1132,7 +1135,7 @@ local SetStyle = function(self, unit)
     self.cDebuff.gloss:SetPoint("TOPLEFT", pixelScale(-1), pixelScale(1))
     self.cDebuff.gloss:SetPoint("BOTTOMRIGHT", pixelScale(1), pixelScale(-1))
     self.cDebuff.gloss:SetBackdrop({
-        bgFile = caelMedia.files.buttonGloss,
+        bgFile = media.files.buttonGloss,
         insets = {top = pixelScale(-1), left = pixelScale(-1), bottom = pixelScale(-1), right = pixelScale(-1)},
     })
 

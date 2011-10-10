@@ -1,10 +1,11 @@
 local addon, ns = ...
 
-ns[1] = {} -- Functions
-ns[2] = {} -- Modules
+ns[1] = {} -- (Public) Functions
+ns[2] = {} -- (Private) Functions
+ns[3] = {} -- Modules
 
--- Allow other addons to load the caelUI namespace.
-caelUI = ns
+-- We don't need to allow the addons to interface to anything that we don't push into the public range.
+caelUI = ns[1]
 
 local F = select(1, unpack(select(2, ...)))
 

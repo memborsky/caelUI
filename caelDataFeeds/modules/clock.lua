@@ -4,7 +4,9 @@ local _, caelDataFeeds = ...
 
 local clock = caelDataFeeds.createModule("Clock")
 
-clock.text:SetPoint("RIGHT", caelPanel_DataFeed, "RIGHT", caelLib.scale(-10), 0)
+local pixelScale = caelUI.pixelScale
+
+clock.text:SetPoint("RIGHT", caelPanel_DataFeed, "RIGHT", pixelScale(-10), 0)
 
 clock:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
 clock:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -40,7 +42,7 @@ clock:SetScript("OnMouseDown", function(_, button)
 end)
 
 clock:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, caelLib.scale(4))
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixelScale(4))
     GameTooltip:AddLine(date("%B, %A %d %Y"), 0.84, 0.75, 0.65)
     GameTooltip:Show()
 end)

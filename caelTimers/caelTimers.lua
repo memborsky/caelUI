@@ -6,7 +6,8 @@ caelTimers.eventFrame = CreateFrame("Frame", nil, UIParent)
 
 local floor, format, mod, pairs = math.floor, string.format, mod, pairs
 local UnitBuff, UnitDebuff = UnitBuff, UnitDebuff
-local pixelScale = caelLib.scale
+local pixelScale = caelUI.pixelScale
+local media = caelUI.get_database("media")
 
 --[[
 local aura_colors  = {
@@ -123,7 +124,7 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
     
     bars[newId].tx = bars[newId]:CreateTexture(nil, "ARTWORK")
     bars[newId].tx:SetAllPoints()
-    bars[newId].tx:SetTexture(caelMedia.files.statusBarC)
+    bars[newId].tx:SetTexture(media.files.statusBarC)
     -- Color bar with user values unless they enter nil values.  If so, then we color bar based on aura type
     if r and g and b then
         bars[newId].tx:SetVertexColor(r, g, b, 1)
@@ -136,8 +137,8 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
     bars[newId].soft_edge:SetPoint("TOPLEFT", pixelScale(-3.5), pixelScale(3.5))
     bars[newId].soft_edge:SetPoint("BOTTOMRIGHT", pixelScale(3.5), pixelScale(-3.5))
     bars[newId].soft_edge:SetBackdrop({
-        bgFile = caelMedia.files.bgFile,
-        edgeFile = caelMedia.files.edgeFile, edgeSize = pixelScale(3),
+        bgFile = media.files.bgFile,
+        edgeFile = media.files.edgeFile, edgeSize = pixelScale(3),
         insets = {left = pixelScale(3), right = pixelScale(3), top = pixelScale(3), bottom = pixelScale(3)}
     })
     bars[newId].soft_edge:SetFrameStrata("BACKGROUND")
@@ -147,7 +148,7 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
     bars[newId].bg = bars[newId]:CreateTexture(nil, "BORDER")
     bars[newId].bg:SetPoint("TOPLEFT")
     bars[newId].bg:SetPoint("BOTTOMRIGHT")
-    bars[newId].bg:SetTexture(caelMedia.files.statusBarC)
+    bars[newId].bg:SetTexture(media.files.statusBarC)
     bars[newId].bg:SetVertexColor(0.25, 0.25, 0.25, 1)
 
     bars[newId].icon = bars[newId]:CreateTexture(nil, "BORDER")
@@ -157,7 +158,7 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
     bars[newId].icon:SetTexture(nil)
     
     bars[newId].text = bars[newId]:CreateFontString(format("caelTimers_Bartext_%d", newId), "OVERLAY")
-    bars[newId].text:SetFont(caelMedia.fonts.NORMAL, 8)
+    bars[newId].text:SetFont(media.fonts.NORMAL, 8)
     bars[newId].text:SetPoint("CENTER", bars[newId], "CENTER", 0, pixelScale(1))
     
     if ( SPARK ) then

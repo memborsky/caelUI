@@ -6,8 +6,8 @@ local media = F.get_database("media")
 
 do
     local function customFont(font, altFont)
-        if caelMedia.customFonts and caelMedia.customFonts[font] then
-            return caelMedia.customFonts[font]
+        if media.customFonts and media.customFonts[font] then
+            return media.customFonts[font]
         end
 
         return altFont

@@ -6,7 +6,9 @@ local _, caelDataFeeds = ...
 
 local experience = caelDataFeeds.createModule("Experience")
 
-experience.text:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", caelLib.scale(5), caelLib.scale(5))
+local pixelScale = caelUI.pixelScale
+
+experience.text:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", pixelScale(5), pixelScale(5))
 experience:SetFrameLevel(Minimap:GetFrameLevel() + 2)
 experience:SetFrameStrata("MEDIUM")
 experience.text:SetParent(Minimap)
@@ -51,7 +53,7 @@ local OnEvent = function(retVal, self, event, ...)
         xpString = format("|cffD7BEA5xp|r "..(restedXp and "|cff5073a0%.1f%%|r " or "|cffffffff%.1f%%|r ").."|cffD7BEA5pet|r %.0f%%", ((xp/maxXp)*100), ((petXp/petMaxXp)*100))
     end
 
-    experience.text:SetFont(caelMedia.fonts.NORMAL, 10, "OUTLINE")
+    experience.text:SetFont(caelUI.get_database("media")["fonts"]["NORMAL"], 10, "OUTLINE")
     experience.text:SetText(xpString)
 
     if retVal then
@@ -62,7 +64,7 @@ end
 experience:SetScript("OnEvent", function(...) OnEvent(false, ...) end)
 
 experience:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, caelLib.scale(4))
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixelScale(4))
     local playerXp, petXp = OnEvent(true)
     GameTooltip:AddLine(playerXp)
     if petXp then

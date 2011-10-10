@@ -1,7 +1,8 @@
 --[[    $Id$    ]]
 
 local caelMinimap = CreateFrame("Frame", nil, Minimap)
-local pixelScale = caelLib.scale
+local pixelScale = caelUI.pixelScale
+local media = caelUI.get_database("media")
 
 for _, object in pairs({
     GameTimeFrame,
@@ -43,8 +44,8 @@ Minimap:SetScript("OnEvent", function(self, event, ...)
     self:SetPoint("CENTER")
     self:SetSize(caelPanel_Minimap:GetWidth() - pixelScale(5), caelPanel_Minimap:GetHeight() - pixelScale(5))
 
-    self:SetMaskTexture(caelMedia.files.bgFile)
-    --self:SetBlipTexture([=[Interface\Addons\caelMedia\miscellaneous\charmed.tga]=])
+    self:SetMaskTexture(media.files.bgFile)
+    --self:SetBlipTexture([=[Interface\Addons\media\miscellaneous\charmed.tga]=])
 
     MinimapCluster:EnableMouse(false)
 

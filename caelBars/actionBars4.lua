@@ -2,7 +2,7 @@
 
 local _, caelBars = ...
 
-local pixelScale = caelLib.scale
+local pixelScale = caelUI.pixelScale
 
 local bar4 = CreateFrame("Frame", "bar4", UIParent)
 

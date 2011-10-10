@@ -6,12 +6,13 @@ caelCooldowns.eventFrame = CreateFrame"Frame"
 
 local cdPulse = caelCooldowns.eventFrame
 
-local pixelScale = caelLib.scale
+local media = caelUI.get_database("media")
+local pixelScale = caelUI.pixelScale
 
 local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime, ignoredSpells
 local cooldowns, animating, watching = { }, { }, { }
 
-cdPulse:SetBackdrop(caelMedia.borderTable)
+cdPulse:SetBackdrop(media.borderTable)
 
 local texture = cdPulse:CreateTexture(nil, "ARTWORK")
 texture:SetPoint("TOPLEFT", cdPulse, pixelScale(6), pixelScale(-6))
@@ -21,14 +22,14 @@ texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 local border = cdPulse:CreateTexture(nil, "ARTWORK")
 border:SetPoint("TOPLEFT", cdPulse, pixelScale(-1), pixelScale(1))
 border:SetPoint("BOTTOMRIGHT", cdPulse, pixelScale(1), pixelScale(-1))
-border:SetTexture(caelMedia.files.buttonNormal)
+border:SetTexture(media.files.buttonNormal)
 
 local gloss = CreateFrame("Frame", nil, cdPulse)
 gloss:SetFrameLevel(gloss:GetFrameLevel() + 1)
 gloss:SetPoint("TOPLEFT", cdPulse, pixelScale(-2), pixelScale(2))
 gloss:SetPoint("BOTTOMRIGHT", cdPulse, pixelScale(2), pixelScale(-2))
 gloss:SetBackdrop({
-    bgFile = caelMedia.files.buttonGloss,
+    bgFile = media.files.buttonGloss,
     insets = {top = pixelScale(-1), left = pixelScale(-1), bottom = pixelScale(-1), right = pixelScale(-1)}
 })
 gloss:SetBackdropColor(0.5, 0.5, 0.5, 0.5)

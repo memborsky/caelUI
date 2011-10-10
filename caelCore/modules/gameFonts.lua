@@ -4,7 +4,7 @@ local _, caelCore = ...
 
 local gameFonts = caelCore.createModule("gameFonts")
 
-local fonts = caelMedia.fonts
+local fonts = caelUI.get_database("media")["fonts"]
 
 local SetFont = function(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
     obj:SetFont(font, size, style)
@@ -16,7 +16,7 @@ local SetFont = function(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
     if sox and soy then
         obj:SetShadowOffset(sox, soy)
     end
-    
+
     if r and g and b then
         obj:SetTextColor(r, g, b)
     elseif r then
@@ -75,11 +75,11 @@ gameFonts:SetScript("OnEvent", function(self, event, addon)
     SetFont(Tooltip_Small,                          fonts.BOLD,         10)
 
     -- Derived fonts
-    SetFont(BossEmoteNormalHuge,    fonts.BOLDITALIC,       25, "THICKOUTLINE")
-    SetFont(CombatTextFont,         fonts.NORMAL,           24)
-    SetFont(ErrorFont,              fonts.ITALIC,           14, nil, 58)
-    SetFont(QuestFontNormalSmall,   fonts.BOLD,             11, nil, nil, nil, nil, 0.54, 0.4, 0.1)
-    SetFont(WorldMapTextFont,       fonts.BOLDITALIC,       29, "THICKOUTLINE",  38, nil, nil, 0, 0, 0, 1, -1)
+    SetFont(BossEmoteNormalHuge,                    fonts.BOLDITALIC,   25, "THICKOUTLINE")
+    SetFont(CombatTextFont,                         fonts.NORMAL,       24)
+    SetFont(ErrorFont,                              fonts.ITALIC        14, nil, 58)
+    SetFont(QuestFontNormalSmall,                   fonts.BOLD,         11, nil, nil, nil, nil, 0.54, 0.4, 0.1)
+    SetFont(WorldMapTextFont,                       fonts.BOLDITALIC,   29, "THICKOUTLINE",  38, nil, nil, 0, 0, 0, 1, -1)
 
     for i = 1, NUM_CHAT_WINDOWS do
         local frame =_G[format("ChatFrame%s", i)]

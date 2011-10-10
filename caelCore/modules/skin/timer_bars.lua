@@ -5,9 +5,11 @@
 local addonName, caelCore = ...
 
 -- Local Variables
-local pixelScale = caelLib.scale
-local statusBarTexture = caelMedia.files.statusBarE
-local font = caelMedia.fonts.NORMAL
+local media = caelUI.get_database("media")
+local pixelScale = caelUI.pixelScale
+
+local statusBarTexture = media.files.statusBarE
+local font = media.fonts.NORMAL
 
 -- Redefined the MirrorTimerColors list
 MirrorTimerColors = {
@@ -61,7 +63,7 @@ local function SkinBar(bar)
         statusbar:SetAllPoints(bar)
     end
 
-    bar.backdrop:SetBackdrop(caelMedia.backdropTable)
+    bar.backdrop:SetBackdrop(media.backdropTable)
     bar.backdrop:SetBackdropBorderColor(0, 0, 0)
     bar.backdrop:SetBackdropColor(0, 0, 0, 0.4)
 

@@ -6,6 +6,8 @@ local _, caelCore = ...
 
 local dbm = caelCore.createModule("Deadly Boss Mods")
 
+local media = caelUI.get_database("media")
+
 local SkinBars = function(self)
     for bar in self:GetBarIterator() do
         if not bar.injected then
@@ -31,7 +33,7 @@ local SkinBars = function(self)
                 if not frame.styled then
                     frame:SetScale(1)
                     frame:SetHeight(15)
-                    frame.background = caelMedia.createBackdrop(frame)
+                    frame.background = media.createBackdrop(frame)
                     frame.styled = true
                 end
 
@@ -51,24 +53,24 @@ local SkinBars = function(self)
                     icon1.frame = CreateFrame("Frame", nil, tbar)
                     icon1.frame:SetFrameStrata("BACKGROUND")
                     icon1.frame:SetAllPoints(icon1)
-                    icon1.frame.background = caelMedia.createBackdrop(icon1.frame)
+                    icon1.frame.background = media.createBackdrop(icon1.frame)
                     icon1.styled = true
                 end
 
                 if not texture.styled then
-                    texture:SetTexture(caelMedia.files.statusBarC)
+                    texture:SetTexture(media.files.statusBarC)
                     texture.styled = true
                 end
 
                 if not name.styled then
-                    name:SetFont(caelMedia.fonts.NORMAL, 10)
+                    name:SetFont(media.fonts.NORMAL, 10)
                     name:SetShadowOffset(0, 0)
                     name.SetFont = function() end
                     name.styled = true
                 end
 
                 if not timer.styled then    
-                    timer:SetFont(caelMedia.fonts.CUSTOM_NUMBERFONT, 10)
+                    timer:SetFont(media.fonts.CUSTOM_NUMBERFONT, 10)
                     timer:SetShadowOffset(0, 0)
                     timer.SetFont = function() end
                     timer.styled = true
@@ -90,7 +92,7 @@ local SetupDBM = function()
     DBM_SavedOptions.SpecialWarningPoint = "CENTER"
     DBM_SavedOptions.SpecialWarningX = 0
     DBM_SavedOptions.SpecialWarningY = 200
-    DBM_SavedOptions.SpecialWarningFont = caelMedia.fonts.NORMAL
+    DBM_SavedOptions.SpecialWarningFont = media.fonts.NORMAL
     DBM_SavedOptions.SpecialWarningFontColor = {0.69, 0.31, 0.31}
     DBM_SavedOptions.SpecialWarningFontSize = 15
     DBM_SavedOptions.WarningIconLeft = false
@@ -116,7 +118,7 @@ local SetupDBM = function()
     DBT_SavedOptions["DBM"].BarYOffset = -5
     DBT_SavedOptions["DBM"].HugeBarXOffset = 0
     DBT_SavedOptions["DBM"].HugeBarYOffset = -5
-    DBT_SavedOptions["DBM"].Font = caelMedia.fonts.NORMAL
+    DBT_SavedOptions["DBM"].Font = media.fonts.NORMAL
     DBT_SavedOptions["DBM"].FontSize = 10
     DBT_SavedOptions["DBM"].Width = 170
     DBT_SavedOptions["DBM"].HugeWidth = 170
@@ -126,7 +128,7 @@ local SetupDBM = function()
     DBT_SavedOptions["DBM"].FillUpBars = true
     DBT_SavedOptions["DBM"].IconLeft = true
     DBT_SavedOptions["DBM"].ExpandUpwards = true
-    DBT_SavedOptions["DBM"].Texture = caelMedia.files.statusBarC
+    DBT_SavedOptions["DBM"].Texture = media.files.statusBarC
     DBT_SavedOptions["DBM"].IconRight = false
     DBT_SavedOptions["DBM"].HugeBarsEnabled = true
 end
@@ -138,7 +140,7 @@ DBM.InfoFrame:Hide()
 
 DBMInfoFrame:HookScript("OnShow", function(self)
     self:SetBackdrop(nil)
-    caelMedia.createBackdrop(self)
+    media.createBackdrop(self)
 end)
 
 DBM.RangeCheck:Show()
@@ -146,7 +148,7 @@ DBM.RangeCheck:Hide()
 
 DBMRangeCheck:HookScript("OnShow", function(self)
     self:SetBackdrop(nil)
-    caelMedia.createBackdrop(self)
+    media.createBackdrop(self)
 end)
 
 dbm:RegisterEvent("PLAYER_LOGIN")

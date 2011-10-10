@@ -10,18 +10,18 @@ if not IsAddOnLoaded("caelCore") then
     SetCVar("bloatthreat", 0) -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat table.
 end
 
-    -- Not sure (testing)
-    SetCVar("threatWarning", 3)
-    SetCVar("nameplateMotion", "0")
-    --InterfaceOptionsNamesPanelUnitNameplatesMotionDropDown:Kill()
+-- Not sure (testing)
+SetCVar("threatWarning", 3)
+SetCVar("nameplateMotion", "0")
+--InterfaceOptionsNamesPanelUnitNameplatesMotionDropDown:Kill()
 
-local barTexture = caelMedia.files.statusBarC
-local iconTexture = caelMedia.files.buttonNormal
-local raidIcons = caelMedia.files.raidIcons
+local media = caelUI.get_database("media")
+local barTexture = media.files.statusBarC
+local iconTexture = media.files.buttonNormal
+local raidIcons = media.files.raidIcons
 local overlayTexture = [=[Interface\Tooltips\Nameplate-Border]=]
-local font, fontSize, fontOutline = caelMedia.fonts.CAELNAMEPLATE_FONT, 9, 8
-local select = select
-local pixelScale = caelLib.scale
+local font, fontSize, fontOutline = media.fonts.CAELNAMEPLATE_FONT, 9, 8
+local pixelScale = caelUI.pixelScale
 
 local UpdateTime = function(self, curValue)
     local minValue, maxValue = self:GetMinMaxValues()
@@ -202,7 +202,7 @@ local CreatePlate = function(frame)
     healthBar.hpGlow:SetFrameLevel(healthBar:GetFrameLevel() -1 > 0 and healthBar:GetFrameLevel() -1 or 0)
     healthBar.hpGlow:SetPoint("TOPLEFT", healthBar, "TOPLEFT", pixelScale(-2), pixelScale(2))
     healthBar.hpGlow:SetPoint("BOTTOMRIGHT", healthBar, "BOTTOMRIGHT", pixelScale(2), pixelScale(-2))
-    healthBar.hpGlow:SetBackdrop(caelMedia.backdropTable)
+    healthBar.hpGlow:SetBackdrop(media.backdropTable)
     healthBar.hpGlow:SetBackdropColor(0, 0, 0, 0)
     healthBar.hpGlow:SetBackdropBorderColor(0, 0, 0)
 
@@ -233,7 +233,7 @@ local CreatePlate = function(frame)
     castBar.cbGlow:SetFrameLevel(castBar:GetFrameLevel() -1 > 0 and castBar:GetFrameLevel() -1 or 0)
     castBar.cbGlow:SetPoint("TOPLEFT", castBar, pixelScale(-2), pixelScale(2))
     castBar.cbGlow:SetPoint("BOTTOMRIGHT", castBar, pixelScale(2), pixelScale(-2))
-    castBar.cbGlow:SetBackdrop(caelMedia.backdropTable)
+    castBar.cbGlow:SetBackdrop(media.backdropTable)
     castBar.cbGlow:SetBackdropColor(0, 0, 0, 0)
     castBar.cbGlow:SetBackdropBorderColor(0, 0, 0)
 

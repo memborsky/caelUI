@@ -6,37 +6,37 @@ local pixelScale = F.pixelScale
 -- Get our media database if it exists or create a new one.
 local media = F.get_database("media")
 
-media.directory = [=[Interface\Addons\caelUI\media]=]
+media.directory = [=[Interface\Addons\caelUI\media\]=]
 
 media.files = {
     bgFile              = [=[Interface\ChatFrame\ChatFrameBackground]=],
-    edgeFile            = [=[Interface\Addons\media\borders\glowtex3]=],
-    raidIcons           = [=[Interface\Addons\media\miscellaneous\raidicons]=],
-    statusBarA          = [=[Interface\Addons\media\statusbars\normtexa]=],
-    statusBarB          = [=[Interface\Addons\media\statusbars\normtexb]=],
-    statusBarC          = [=[Interface\Addons\media\statusbars\normtexc]=],
-    statusBarD          = [=[Interface\Addons\media\statusbars\normtexd]=],
-    statusBarE          = [=[Interface\Addons\media\statusbars\normtexe]=],
+    edgeFile            = media.directory .. [=[borders\glowtex3]=],
+    raidIcons           = media.directory .. [=[miscellaneous\raidicons]=],
+    statusBarA          = media.directory .. [=[statusbars\normtexa]=],
+    statusBarB          = media.directory .. [=[statusbars\normtexb]=],
+    statusBarC          = media.directory .. [=[statusbars\normtexc]=],
+    statusBarD          = media.directory .. [=[statusbars\normtexd]=],
+    statusBarE          = media.directory .. [=[statusbars\normtexe]=],
 
-    buttonNormal        = [=[Interface\AddOns\media\buttons\buttonnormal]=],
-    buttonPushed        = [=[Interface\AddOns\media\buttons\buttonpushed]=],
-    buttonChecked       = [=[Interface\AddOns\media\buttons\buttonchecked]=],
-    buttonHighlight     = [=[Interface\AddOns\media\buttons\buttonhighlight]=],
-    buttonFlash         = [=[Interface\AddOns\media\buttons\buttonflash]=],
-    buttonBackdrop      = [=[Interface\AddOns\media\buttons\buttonbackdrop]=],
-    buttonGloss         = [=[Interface\AddOns\media\buttons\buttongloss]=],
+    buttonNormal        = media.directory .. [=[buttons\buttonnormal]=],
+    buttonPushed        = media.directory .. [=[buttons\buttonpushed]=],
+    buttonChecked       = media.directory .. [=[buttons\buttonchecked]=],
+    buttonHighlight     = media.directory .. [=[buttons\buttonhighlight]=],
+    buttonFlash         = media.directory .. [=[buttons\buttonflash]=],
+    buttonBackdrop      = media.directory .. [=[buttons\buttonbackdrop]=],
+    buttonGloss         = media.directory .. [=[buttons\buttongloss]=],
 
-    soundAlarm          = [=[Interface\Addons\media\sounds\alarm.mp3]=],
-    soundLeavingCombat  = [=[Interface\Addons\media\sounds\combat-.mp3]=],
-    soundEnteringCombat = [=[Interface\Addons\media\sounds\combat+.mp3]=],
-    soundCombo          = [=[Interface\Addons\media\sounds\combo.mp3]=],
-    soundComboMax       = [=[Interface\Addons\media\sounds\finish.mp3]=],
-    soundGodlike        = [=[Interface\Addons\media\sounds\godlike.mp3]=],
-    soundLnLProc        = [=[Interface\Addons\media\sounds\lnl.mp3]=],
-    soundskillUp        = [=[Interface\Addons\media\sounds\skill up.mp3]=],
-    soundWarning        = [=[Interface\Addons\media\sounds\warning.mp3]=],
-    soundAggro          = [=[Interface\Addons\media\sounds\aggro.mp3]=],
-    soundWhisper        = [=[Interface\Addons\media\sounds\whisper.mp3]=]
+    soundAlarm          = media.directory .. [=[sounds\alarm.mp3]=],
+    soundLeavingCombat  = media.directory .. [=[sounds\combat-.mp3]=],
+    soundEnteringCombat = media.directory .. [=[sounds\combat+.mp3]=],
+    soundCombo          = media.directory .. [=[sounds\combo.mp3]=],
+    soundComboMax       = media.directory .. [=[sounds\finish.mp3]=],
+    soundGodlike        = media.directory .. [=[sounds\godlike.mp3]=],
+    soundLnLProc        = media.directory .. [=[sounds\lnl.mp3]=],
+    soundskillUp        = media.directory .. [=[sounds\skill up.mp3]=],
+    soundWarning        = media.directory .. [=[sounds\warning.mp3]=],
+    soundAggro          = media.directory .. [=[sounds\aggro.mp3]=],
+    soundWhisper        = media.directory .. [=[sounds\whisper.mp3]=]
 }
 
 media.insetTable = {

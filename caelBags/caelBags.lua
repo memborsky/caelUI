@@ -7,6 +7,10 @@ _G["caelBags"] = caelBags
 -- Dummy func so we can trash some functions we can't avoid being called.
 local dummy = caelLib.dummy
 
+-- Used to for moving to the new caelUI system.
+local media = caelUI.get_database("media")
+local pixelScale = caelUI.pixelScale
+
 -- Constants
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS         -- Amount of bag slots.
 local NUM_BANKBAGSLOTS = NUM_BANKBAGSLOTS       -- Amount of bankbag slots.
@@ -24,14 +28,14 @@ updateContainerFrameAnchors = dummy
 -- Sizing
 local numBagColumns = 10
 local numBankColumns = 20
-local buttonSize = caelLib.scale(28)
-local buttonSpacing = caelLib.scale(-2)
+local buttonSize = pixelScale(28)
+local buttonSpacing = pixelScale(-2)
 
 -- Margins
-local bottomButtonMargin = caelLib.scale(30)
-local bottomMargin = caelLib.scale(5)
-local sideMargin   = caelLib.scale(5)
-local topMargin    = caelLib.scale(5)
+local bottomButtonMargin = pixelScale(30)
+local bottomMargin = pixelScale(5)
+local sideMargin   = pixelScale(5)
+local topMargin    = pixelScale(5)
 
 -- Methods we will use for the containers.
 local Container = CreateFrame("Button")
@@ -43,7 +47,7 @@ local ContainerMT = {__index = Container}
 function Container:UpdateSize()
     self:SetHeight((self.row + (self.col == 0 and 0 or 1)) * (buttonSize + buttonSpacing) + abs(buttonSpacing) +(self.hasButtons and bottomButtonMargin or bottomMargin) + topMargin)
     self:SetWidth(self.maxColumns * buttonSize + buttonSpacing * (self.maxColumns - 1) + (2 * sideMargin))
-    
+
     if not self:IsShown() then
         self:Show()
     end
@@ -72,13 +76,13 @@ end
 function Container:RemoveButton(remButton)
     local index = 1
     local button = self.buttons[index]
-    
+
     while button do
         if button == remButton then
             table.remove(self.buttons, index)
             break
         end
-        
+
         index = index + 1
         button = self.buttons[index]
     end
@@ -89,32 +93,32 @@ function Container:New(name, maxColumns)
 --  local c = CreateFrame("Button", nil, UIParent)
     local c = CreateFrame("Button", format("caelBags%s", name), UIParent)
     c:SetFrameStrata("HIGH")
-    c:SetBackdrop(caelMedia.backdropTable)
+    c:SetBackdrop(media.backdropTable)
     c:Hide()
-    
+
     c.col, c.row = 0, 0
     c.maxColumns = maxColumns
     c.buttons = {}
-    
+
     self.containers[name] = c
     setmetatable(c, ContainerMT)
-    
+
     return c
 end
 
 -- Reanchor all buttons and update the container size.
 function Container:Refresh()
     local numButtons = #self.buttons
-    
+
     if numButtons == 0 then
         return self:Close()
     end
-    
+
     self.col, self.row = 0, 0
     for index = 1, numButtons do
         self:AnchorButton(self.buttons[index])
     end
-    
+
     self:UpdateSize()
 end
 
@@ -126,7 +130,7 @@ end
 
 -- Create the frames for each type of container: bag, bank and ammo.
 local bags = Container:New("bag", numBagColumns)
-bags:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", caelLib.scale(-30), caelLib.scale(-168))
+bags:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", pixelScale(-30), pixelScale(-168))
 bags:SetBackdropColor(0, 0, 0, 0.7)
 bags:SetBackdropBorderColor(0, 0, 0)
 bags.preventCloseAll = true
@@ -149,13 +153,13 @@ local function GetContainerForBag(bagID)
     local type
 
     if bagID >= FIRST_BANKBAG or bagID == BANK then
-        type = "bank" 
+        type = "bank"
     elseif bagID >= BACKPACK then
         type = "bags"
     else
         error(format("Invalid bagID passed to GetContainer. Got %q", tostring(bagID)))
     end
-    
+
     return caelBags[type]
 end
 
@@ -172,35 +176,35 @@ local function ApplyButtonLayout(button)
     questTexture.Show = dummy
 
     -- Replace textures.
-    button:SetNormalTexture(caelMedia.files.buttonNormal)
-    button:SetPushedTexture(caelMedia.files.buttonPushed)
-    button:SetHighlightTexture(caelMedia.files.buttonHighlight)
-    
+    button:SetNormalTexture(media.files.buttonNormal)
+    button:SetPushedTexture(media.files.buttonPushed)
+    button:SetHighlightTexture(media.files.buttonHighlight)
+
     -- Set size.
     button:SetWidth(buttonSize)
     button:SetHeight(buttonSize)
-    
+
     -- Set frame strata.
     button:SetFrameStrata("HIGH")
-    
+
     -- Offset the icon image a little to remove 'round' edges
     iconTexture:SetTexCoord(.08, .92, .08, .92)
     -- Position icon using SetPoint relative to the button.
     iconTexture:ClearAllPoints()
-    iconTexture:SetPoint("TOPLEFT", button, caelLib.scale(4), caelLib.scale(-3))
-    iconTexture:SetPoint("BOTTOMRIGHT", button, caelLib.scale(-3), caelLib.scale(4))
-    
+    iconTexture:SetPoint("TOPLEFT", button, pixelScale(4), pixelScale(-3))
+    iconTexture:SetPoint("BOTTOMRIGHT", button, pixelScale(-3), pixelScale(4))
+
     -- Size and position the NormalTexture (the "bagFrame" around the button)
     normalTexture:SetHeight(buttonSize)
     normalTexture:SetWidth(buttonSize)
     normalTexture:ClearAllPoints()
     normalTexture:SetPoint("CENTER")
     normalTexture:SetVertexColor(0.25, 0.25, 0.25)
-    
+
     -- Move item count text into a readable position.
     itemCount:ClearAllPoints()
-    itemCount:SetPoint("BOTTOMRIGHT", button, caelLib.scale(-3), caelLib.scale(3))
-    itemCount:SetFont(caelMedia.fonts.CHAT_FONT, 10, "OUTLINE")
+    itemCount:SetPoint("BOTTOMRIGHT", button, pixelScale(-3), pixelScale(3))
+    itemCount:SetFont(media.fonts.CHAT_FONT, 10, "OUTLINE")
 end
 
 -- Override Blizzard's GenerateFrame function with our own.
@@ -210,7 +214,7 @@ function ContainerFrame_GenerateFrame(frame, size, id)
     local name = frame:GetName();
     frame:SetID(id);
     ContainerFrame1.bags[ContainerFrame1.bagsShown + 1] = name
-    
+
     local container = GetContainerForBag(id)
 
     -- Show active buttons and set their ID.
@@ -218,12 +222,12 @@ function ContainerFrame_GenerateFrame(frame, size, id)
         local itemButton = _G[("%sItem%d"):format(name, index)]
         itemButton:SetID(index)
         itemButton:Show()
-        
+
         container:AddButton(itemButton)
     end
-    
+
     container:UpdateSize()
-    
+
     -- Hide the unused buttons.
     for i = size + 1, MAX_CONTAINER_ITEMS, 1 do
         _G[name.."Item"..i]:Hide();
@@ -239,26 +243,26 @@ do
     local containerFrame = ContainerFrame1
     while containerFrame do
         local name = containerFrame:GetName()
-        
+
         if not containerFrame then
             return print(bagID)
         end
         containerFrame:EnableMouse(false)
-        
+
         -- Apply layout to the frame's item buttons.
         for buttonID = 1, MAX_CONTAINER_ITEMS do
             ApplyButtonLayout(_G[format("%sItem%d", name, buttonID)])
         end
-        
+
         -- Trash some textures.
         for i = 1, 7 do
             select(i, containerFrame:GetRegions()):SetAlpha(0)
         end
-        
+
         -- Trash some buttons.
         _G[format("%sCloseButton", name)]:Hide()
         _G[format("%sPortraitButton", name)]:EnableMouse(false)
-        
+
         i=i+1
         containerFrame = _G["ContainerFrame"..i]
     end
@@ -266,31 +270,31 @@ do
     -- Fix token frame glitch
     BackpackTokenFrame:Hide()
     BackpackTokenFrame.Show = dummy
-    
+
     -- Trash some BankFrame functionality.
     BankFrame:EnableMouse(false)
     BankCloseButton:Hide()
-    
+
     BankFramePurchaseInfo:Hide()
     BankFramePurchaseInfo.Show = dummy
-    
+
     BankFrameMoneyFrame:Hide()
     BankFrameMoneyFrame.Show = dummy
 
-    
-    for i = 1, 7 do 
+
+    for i = 1, 7 do
         _G[format("BankFrameBag%s", i)]:Hide()
     end
-    
+
     -- And finally trash some BankFrame textures. Rock on!
     for i = 1, 5 do
         select(i, BankFrame:GetRegions()):SetAlpha(0)
     end
-    
+
     -- Change the BankFrame ID so we can use our generic OnHide later on.
     BankFrame:SetID(BANK)
     BankFrame.size = NUM_BANKITEM_SLOTS
-    
+
     -- Apply the layout to the bank item buttons.
     for i = 1, NUM_BANKITEM_SLOTS do
         local button = _G["BankFrameItem"..i]
@@ -302,7 +306,7 @@ end
 -- Hook the open/close/toggle bag functions.
 local function ContainerFrameOnHide(self)
     local container = GetContainerForBag(self:GetID())
-    
+
     if container then
         local name = self:GetName()
         for index = 1, self.size do
@@ -327,7 +331,7 @@ BankFrame:HookScript("OnShow", function()
     for i = 1, NUM_BANKITEM_SLOTS do
         caelBags.bank:AddButton(_G["BankFrameItem"..i])
     end
-    
+
     local size, name, itemButton
 
     local minBagSlot = 6
@@ -390,9 +394,7 @@ end
 
 local openBags = function()
     for b = 0, 11 do
---      if not IsAmmoBag(b) then
-            OpenBag(b)
---      end
+        OpenBag(b)
     end
 end
 

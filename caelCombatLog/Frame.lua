@@ -4,7 +4,8 @@ local _, caelCombatLog = ...
 
 caelCombatLog.frame = CreateFrame("Frame", "caelCombatLogFrame", UIParent)
 
-local pixelScale = caelLib.scale
+local media = caelUI.get_database("media")
+local pixelScale = caelUI.pixelScale
 
 caelCombatLog.frame:ClearAllPoints()
 caelCombatLog.frame:SetWidth(caelPanel_CombatLog:GetWidth() - pixelScale(3))
@@ -79,7 +80,7 @@ caelCombatLog.frame.collumns = {}
 for i = 1, 3 do
     local smf = CreateFrame("ScrollingMessageFrame", nil, caelCombatLog.frame)
     smf:SetMaxLines(1000)
-    smf:SetFont(caelMedia.fonts.CHAT_FONT, 9)
+    smf:SetFont(media.fonts.CHAT_FONT, 9)
     smf:SetSpacing(2)
     smf:SetFading(true)
     smf:SetFadeDuration(5)

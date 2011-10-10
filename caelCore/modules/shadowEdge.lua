@@ -11,7 +11,8 @@ shadowedge:SetPoint("BOTTOMRIGHT")
 shadowedge:SetFrameLevel(0)
 shadowedge:SetFrameStrata("BACKGROUND")
 shadowedge.tex = shadowedge:CreateTexture()
-shadowedge.tex:SetTexture([=[Interface\Addons\caelMedia\Miscellaneous\largeshadertex1]=])
+shadowedge.tex:SetTexture([=[Interface\Addons\caelUI\media\Miscellaneous\largeshadertex1]=])
+
 shadowedge.tex:SetAllPoints()
 shadowedge.tex:SetVertexColor(0, 0, 0, 0.5)
 

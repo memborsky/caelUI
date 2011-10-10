@@ -2,11 +2,12 @@
 
 local _, caelDataFeeds = ...
 
-local playerName = caelLib.playerName
-
 local dps = caelDataFeeds.createModule("DPS")
 
-dps.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", caelLib.scale(125), 0)
+local playerName = caelLib.playerName
+local pixelScale = caelUI.pixelScale
+
+dps.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixelScale(125), 0)
 dps.text:SetText("|cffD7BEA5dps|r 0")
 
 dps:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -56,7 +57,7 @@ dps:SetScript("OnEvent", function(self, event, _, type, _, _, sourceName, _, _, 
 end)
 
 dps:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, caelLib.scale(4))
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixelScale(4))
 
     if dmgTotal then
         GameTooltip:AddDoubleLine("|cffD7BEA5Damage|r", dmgTotal)

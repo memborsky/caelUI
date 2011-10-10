@@ -4,6 +4,8 @@ local gsub, find, match, lower = string.gsub, string.find, string.match, string.
 
 --[[    Filter npc spam    ]]
 
+local media = caelUI.get_database("media")
+
 local npcChannels = {
     "CHAT_MSG_MONSTER_SAY",
     "CHAT_MSG_MONSTER_YELL",
@@ -115,7 +117,7 @@ RaidNotice_AddMessage = function(noticeFrame, textString, colorInfo, ...)
         else
             hooks.RaidNotice_AddMessage(noticeFrame, textString, colorInfo, ...)
         end
-        PlaySoundFile(caelMedia.files.soundAlarm)
+        PlaySoundFile(media.files.soundAlarm)
     end
 end
 

@@ -6,8 +6,10 @@ local _, caelCore = ...
 
 local gmframe = caelCore.createModule("GMFrame")
 
+local pixelScale = caelUI.pixelScale
+
 TicketStatusFrame:ClearAllPoints()
-TicketStatusFrame:SetPoint("TOP", UIParent, 0, caelLib.scale(-5))
+TicketStatusFrame:SetPoint("TOP", UIParent, 0, pixelScale(-5))
 
 gmframe:RegisterEvent("ADDON_LOADED")
 gmframe:SetScript("OnEvent", function(self, event, name)
@@ -17,10 +19,10 @@ gmframe:SetScript("OnEvent", function(self, event, name)
     GMChatFrame:SetScript("OnMouseWheel", ChatFrame1:GetScript("OnMouseWheel"))
     GMChatFrame:ClearAllPoints()
     GMChatFrame:SetHeight(ChatFrame1:GetHeight())
-    GMChatFrame:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, caelLib.scale(38))
-    GMChatFrame:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 0, caelLib.scale(38))
+    GMChatFrame:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, pixelScale(38))
+    GMChatFrame:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 0, pixelScale(38))
     GMChatFrameCloseButton:ClearAllPoints()
-    GMChatFrameCloseButton:SetPoint("TOPRIGHT", GMChatFrame, "TOPRIGHT", caelLib.scale(7), caelLib.scale(8))
+    GMChatFrameCloseButton:SetPoint("TOPRIGHT", GMChatFrame, "TOPRIGHT", pixelScale(7), pixelScale(8))
     GMChatFrameButtonFrame:Hide()
     --    Those buttons are childs of the frame above, there's no need to hide them anymore.
     --    GMChatFrameButtonFrameUpButton:Hide()

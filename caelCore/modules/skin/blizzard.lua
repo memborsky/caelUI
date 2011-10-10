@@ -6,6 +6,8 @@ local addonName, caelCore = ...
 
 local skin = caelCore.createModule("Skin")
 
+local pixelScale = caelUI.pixelScale
+
 local backdrop = {
     bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
     edgeFile = [=[Interface\ChatFrame\ChatFrameBackground]=], edgeSize = 1,
@@ -277,7 +279,7 @@ skin:SetScript("OnEvent", function(self, event, addon)
     -- Others
     _G["ReadyCheckListenerFrame"]:SetAlpha(0)
     _G["ReadyCheckFrame"]:HookScript("OnShow", function(self) if UnitIsUnit("player", self.initiator) then self:Hide() end end)
-    _G["PlayerPowerBarAlt"]:HookScript("OnShow", function(self) self:ClearAllPoints() self.ClearAllPoints = caelLib.dummy self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, caelLib.scale(25)) self.SetPoint = caelLib.dummy end)
+    _G["PlayerPowerBarAlt"]:HookScript("OnShow", function(self) self:ClearAllPoints() self.ClearAllPoints = caelLib.dummy self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixelScale(25)) self.SetPoint = caelLib.dummy end)
     SkinPanel(_G["StackSplitFrame"])
     SkinButton(_G["StackSplitOkayButton"])
     SkinButton(_G["StackSplitCancelButton"])

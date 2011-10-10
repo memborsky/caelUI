@@ -59,7 +59,7 @@ local timerCreate = function(self)
     else
         local text = self:CreateFontString(nil, "OVERLAY")
         text:SetPoint("CENTER", 0, 1)
-        text:SetFont(caelMedia.fonts.NORMAL, 12 * scale, "OUTLINE")
+        text:SetFont(caelUI.get_database("media")["fonts"]["NORMAL"], 12 * scale, "OUTLINE")
         text:SetTextColor(0.84, 0.75, 0.65)
 
         self.text = text

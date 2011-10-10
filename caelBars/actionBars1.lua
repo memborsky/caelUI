@@ -2,7 +2,8 @@
 
 local _, caelBars = ...
 
-local pixelScale = caelLib.scale
+local pixelScale = caelUI.pixelScale
+
 local playerClass = caelLib.playerClass
 
 local bar1 = CreateFrame("Frame", "bar1", caelPanel_ActionBar1, "SecureHandlerStateTemplate")

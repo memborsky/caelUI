@@ -8,12 +8,13 @@ local chatOnLeft = false
 caelPanels.eventFrame = CreateFrame("frame", nil, UIParent)
 
 local panels = {}
-local pixelScale = caelLib.scale
+local pixelScale = caelUI.pixelScale
+local media = caelUI.get_database("media")
 
 local defaultPanel = {
     ["EnableMouse"] = false,
     ["SetFrameStrata"] = "BACKGROUND",
-    ["SetBackdrop"] = caelMedia.backdropTable,
+    ["SetBackdrop"] = media.backdropTable,
     ["SetBackdropColor"] = {0, 0, 0, 0.7},
     ["SetBackdropBorderColor"] = {0, 0, 0, 1},
 }
@@ -74,20 +75,20 @@ function caelPanels.createPanel (name, size, point, override)
 end
 
 function caelPanels.gradientPanel (panel)
-    local width = caelLib.scale(panel:GetWidth() - 6)
-    local height = caelLib.scale(panel:GetHeight() / 5)
-    local bgTexture = caelMedia.files.bgFile
+    local width = pixelScale(panel:GetWidth() - 6)
+    local height = pixelScale(panel:GetHeight() / 5)
+    local bgTexture = media.files.bgFile
 
     local gradientTop = panel:CreateTexture(nil, "BORDER")
     gradientTop:SetTexture(bgTexture)
     gradientTop:SetSize(width, height)
-    gradientTop:SetPoint("TOPLEFT", caelLib.scale(3), caelLib.scale(-2))
+    gradientTop:SetPoint("TOPLEFT", pixelScale(3), pixelScale(-2))
     gradientTop:SetGradientAlpha("VERTICAL", 0, 0, 0, 0, 0.84, 0.75, 0.65, 0.5)
 
     local gradientBottom = panel:CreateTexture(nil, "BORDER")
     gradientBottom:SetTexture(bgTexture)
     gradientBottom:SetSize(width, height)
-    gradientBottom:SetPoint("BOTTOMRIGHT", caelLib.scale(-3), caelLib.scale(2))
+    gradientBottom:SetPoint("BOTTOMRIGHT", pixelScale(-3), pixelScale(2))
     gradientBottom:SetGradientAlpha("VERTICAL", 0, 0, 0, 0.75, 0, 0, 0, 0)
 end
 
