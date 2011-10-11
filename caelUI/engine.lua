@@ -25,5 +25,5 @@ eventFrame:SetScript("OnEvent", function(self, event)
 		cael_global = {}
 	end
 
-	F.initialize_database()
+	F.initialize_databases()
 end)
