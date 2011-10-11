@@ -217,8 +217,8 @@ local PostUpdateHealth = function(health, unit, min, max)
             health.value:SetText("|cffD7BEA5".."Dead".."|r")
         end
     else
-        --local r, g, b = oUF.ColorGradient(min/max, 0.78, 0.31, 0.31, 0.71, 0.43, 0.27, 0.17, 0.17, 0.24)
-        local r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
+        --local r, g, b = oUF.ColorGradient(min, max, 0.78, 0.31, 0.31, 0.71, 0.43, 0.27, 0.17, 0.17, 0.24)
+        local r, g, b = oUF.ColorGradient(min, max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
 
         health:SetValue(min)
         
@@ -585,7 +585,7 @@ do
     PostUpdateIcon = function(icons, unit, icon, index, offset)
         local _, _, _, _, _, duration, expirationTime, unitCaster, _ = UnitAura(unit, index, icon.filter)
         if playerUnits[unitCaster] then
-            if icon.debuff then
+            if icon.isDebuff then
                 icon.overlay:SetVertexColor(0.69, 0.31, 0.31)
                 icon.gloss:SetBackdropColor(0.69, 0.31, 0.31, 0.5)
             else
@@ -594,7 +594,7 @@ do
             end
         else
             if UnitIsEnemy("player", unit) then
-                if icon.debuff then
+                if icon.isDebuff then
                     icon.icon:SetDesaturated(true)
                 end
             end
@@ -629,7 +629,7 @@ local CustomFilter = function(icons, unit, icon, name, rank, texture, count, dty
             casterClass = select(2, UnitClass(caster))
         end
 
-        if not icon.debuff or (casterClass and casterClass == playerClass) then
+        if not icon.isDebuff or (casterClass and casterClass == playerClass) then
             return true
         end
     else
@@ -641,7 +641,6 @@ local CustomFilter = function(icons, unit, icon, name, rank, texture, count, dty
 
         if((icons.onlyShowPlayer and isPlayer) or (not icons.onlyShowPlayer and name)) then
             icon.isPlayer = isPlayer
-            icon.owner = caster
             return true
         end
     end
