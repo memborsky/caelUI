@@ -22,6 +22,8 @@ media.customFonts = {
 ]=]
 
 media.customFonts = {
-	NORMAL				= [=[Interface\Addons\caelUI\media\fonts\Continuum_Medium.ttf]=],
-	DAMAGE_TEXT_FONT	= [=[Interface\Addons\caelUI\media\fonts\tramyad.ttf]=],
+    NORMAL              = [=[Interface\Addons\caelUI\media\fonts\Continuum_Medium.ttf]=],
+    DAMAGE_TEXT_FONT    = [=[Interface\Addons\caelUI\media\fonts\tramyad.ttf]=],
 }
+
+media:save()

@@ -46,3 +46,5 @@ end
 --local media = F.get_database("media")
 
 media.fonts = originalFonts
+
+media:save()

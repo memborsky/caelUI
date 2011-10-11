@@ -60,7 +60,7 @@ media.borderTable = {
     insets   = media.insetTable
 }
 
-function media.createBackdrop (parent)
+media.createBackdrop = function (parent)
     local backdrop = CreateFrame("Frame", nil, parent)
     backdrop:SetPoint("TOPLEFT", parent, "TOPLEFT", pixelScale(-2.5), pixelScale(2.5))
     backdrop:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", pixelScale(2.5), pixelScale(-2.5))
