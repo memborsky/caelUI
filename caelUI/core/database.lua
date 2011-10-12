@@ -1,9 +1,10 @@
-local F = select(1, unpack(select(2, ...)))
+local F, P, M = unpack(select(2, ...))
 
 local databases = {}
 local system_generated_count = 0
+local P.database = {}
 
-function F.initialize_databases ()
+function P.database.initialize ()
     if cael_user and (cael_user.databases and cael_user.databases ~= {}) then
         databases = cael_user.databases
     else
@@ -11,7 +12,7 @@ function F.initialize_databases ()
     end
 end
 
-function F.get_database (name)
+function P.database.get (name)
     if databases[name] and databases[name] ~= {} then
         return databases[name]
     end
@@ -19,7 +20,7 @@ function F.get_database (name)
     return {name = name}
 end
 
-function F.save_database (self)
+function P.database.get (self)
     if self.name then
         databases[self.name] = self
     else
@@ -40,6 +41,6 @@ function F.save_database (self)
     end
 end
 
-function F.clear_databases ()
+function P.database.clear ()
     databases = {}
 end

@@ -1,8 +1,8 @@
-﻿local F = select(1, unpack(select(2, ...)))
+﻿local F, P = unpack(select(2, ...))
 
 local originalFonts
 
-local media = F.get_database("media")
+local media = P.database.get("media")
 
 do
     local function customFont(font, altFont)
@@ -43,8 +43,6 @@ do
     }
 end
 
---local media = F.get_database("media")
-
 media.fonts = originalFonts
 
-F.save_database(media)
+P.database.save(media)

@@ -1,6 +1,6 @@
 local F = select(1, unpack(select(2, ...)))
 
-local media = F.get_database("media")
+local media = P.database.get("media")
 
 --[=[
 
@@ -17,7 +17,7 @@ so there is no need to specify all fonts.
 Example:
 
 media.customFonts = {
-	BOLD = [[Folder path\To my font\font.ttf]],
+    BOLD = [[Folder path\To my font\font.ttf]],
 }
 ]=]
 
@@ -26,4 +26,4 @@ media.customFonts = {
     DAMAGE_TEXT_FONT    = [=[Interface\Addons\caelUI\media\fonts\tramyad.ttf]=],
 }
 
-F.save_database(media)
+P.database.save(media)

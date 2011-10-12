@@ -7,23 +7,23 @@ ns[3] = {} -- Modules
 -- We don't need to allow the addons to interface to anything that we don't push into the public range.
 caelUI = ns[1]
 
-local F = select(1, unpack(select(2, ...)))
+local F, P, M = unpack(select(2, ...))
 
 local eventFrame = CreateFrame("Frame")
 
 eventFrame:RegisterEvent("ADDON_LOADED")
 eventFrame:SetScript("OnEvent", function(self, event)
-	if addon ~= "caelUI" then
-		return
-	end
+    if addon ~= "caelUI" then
+        return
+    end
 
-	if not cael_user then
-		cael_user = {}
-	end
+    if not cael_user then
+        cael_user = {}
+    end
 
-	if not cael_global then
-		cael_global = {}
-	end
+    if not cael_global then
+        cael_global = {}
+    end
 
-	F.initialize_databases()
+    P.database.initialize()
 end)

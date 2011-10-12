@@ -1,10 +1,10 @@
-local F = select(1, unpack(select(2, ...)))
+local F, P = unpack(select(2, ...))
 
 -- Localizing pixelScale
 local pixelScale = F.pixelScale
 
 -- Get our media database if it exists or create a new one.
-local media = F.get_database("media")
+local media = P.database.get("media")
 
 media.directory = [=[Interface\Addons\caelUI\media\]=]
 
@@ -72,4 +72,4 @@ F.createBackdrop = function (parent)
 end
 
 -- We do this just to make sure that everything is getting saved to the users variables.
-F.save_database(media)
+P.database.save(media)
