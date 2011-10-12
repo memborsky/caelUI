@@ -26,4 +26,4 @@ media.customFonts = {
     DAMAGE_TEXT_FONT    = [=[Interface\Addons\caelUI\media\fonts\tramyad.ttf]=],
 }
 
-media:save()
+F.save_database(media)

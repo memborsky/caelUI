@@ -47,4 +47,4 @@ end
 
 media.fonts = originalFonts
 
-media:save()
+F.save_database(media)
