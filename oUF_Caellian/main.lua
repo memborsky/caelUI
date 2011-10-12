@@ -1016,7 +1016,7 @@ local SetStyle = function(self, unit)
         self.Buffs:SetWidth(pixelScale((self.Buffs.size * 8) + 42))
         self.Buffs:SetHeight(self.Buffs.size)
         self.Buffs.spacing = 6
-        self.Buffs.PreSetPosition = PreSetPosition
+        self.Buffs.PostSetPosition = PreSetPosition
         self.Buffs.PostCreateIcon = PostCreateAura
         self.Buffs.PostUpdateIcon = PostUpdateIcon
 
@@ -1025,7 +1025,7 @@ local SetStyle = function(self, unit)
         self.Debuffs:SetWidth(pixelScale(230))
         self.Debuffs:SetHeight(self.Debuffs.size)
         self.Debuffs.spacing = 6
-        self.Debuffs.PreSetPosition = PreSetPosition
+        self.Debuffs.PostSetPosition = PreSetPosition
         self.Debuffs.PostCreateIcon = PostCreateAura
         self.Debuffs.PostUpdateIcon = PostUpdateIcon
         if unit == "player" then
