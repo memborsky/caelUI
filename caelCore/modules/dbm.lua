@@ -6,6 +6,7 @@ local _, caelCore = ...
 
 local dbm = caelCore.createModule("Deadly Boss Mods")
 
+local caelUI = caelUI
 local media = caelUI.get_database("media")
 
 local SkinBars = function(self)
@@ -33,7 +34,7 @@ local SkinBars = function(self)
                 if not frame.styled then
                     frame:SetScale(1)
                     frame:SetHeight(15)
-                    frame.background = media.createBackdrop(frame)
+                    frame.background = caelUI.createBackdrop(frame)
                     frame.styled = true
                 end
 
@@ -53,7 +54,7 @@ local SkinBars = function(self)
                     icon1.frame = CreateFrame("Frame", nil, tbar)
                     icon1.frame:SetFrameStrata("BACKGROUND")
                     icon1.frame:SetAllPoints(icon1)
-                    icon1.frame.background = media.createBackdrop(icon1.frame)
+                    icon1.frame.background = caelUI.createBackdrop(icon1.frame)
                     icon1.styled = true
                 end
 
@@ -135,22 +136,22 @@ end
 
 hooksecurefunc(DBT, "CreateBar", SkinBars)
 
-DBM.InfoFrame:Show()
+DBM.InfoFrame:Show(5, "health", nil)
 DBM.InfoFrame:Hide()
 
-DBMInfoFrame:HookScript("OnShow", function(self)
+DBM.Frames.infoFrame:HookScript("OnShow", function(self)
     self:SetBackdrop(nil)
-    media.createBackdrop(self)
+    caelUI.createBackdrop(self)
 end)
 
 DBM.RangeCheck:Show()
 DBM.RangeCheck:Hide()
-
-DBMRangeCheck:HookScript("OnShow", function(self)
+--[[
+DBM.RangeCheck:HookScript("OnShow", function(self)
     self:SetBackdrop(nil)
-    media.createBackdrop(self)
+    caelUI.createBackdrop(self)
 end)
-
+--]]
 dbm:RegisterEvent("PLAYER_LOGIN")
 dbm:SetScript("OnEvent", function(self, event)
     SetupDBM()
