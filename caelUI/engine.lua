@@ -25,5 +25,9 @@ eventFrame:SetScript("OnEvent", function(self, event)
         cael_global = {}
     end
 
+    -- Initialize our databases.
     P.database.initialize()
+
+    -- Set our UI Scale so we can provide pixel perfection.
+    P.SetScale()
 end)
