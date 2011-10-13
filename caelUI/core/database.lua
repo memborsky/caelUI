@@ -20,7 +20,7 @@ function P.database.get (name)
     return {name = name}
 end
 
-function P.database.get (self)
+function P.database.save (self)
     if self.name then
         databases[self.name] = self
     else
