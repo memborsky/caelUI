@@ -1,6 +1,6 @@
-local P = select(2, unpack(select(2, ...)))
+local private = unpack(select(2, ...))
 
-local media = P.database.get("media")
+local media = private.database.get("media")
 
 --[=[
 
@@ -26,4 +26,4 @@ media.customFonts = {
     DAMAGE_TEXT_FONT    = [=[Interface\Addons\caelUI\media\fonts\tramyad.ttf]=],
 }
 
-P.database.save(media)
+private.database.save(media)

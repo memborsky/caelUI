@@ -1,4 +1,4 @@
-local P = select(2, unpack(select(2, ...)))
+local private = unpack(select(2, ...))
 
 --[[
 The following section handles all of our UI Pixel Perfection that we need to make sure everything scales
@@ -33,19 +33,19 @@ local screenWidth, screenHeight = string.match((({GetScreenResolutions()})[GetCu
 
 -- Used to set our scale when the ADDON_LOADED event is triggered.
 -- XXX: This needs to be moved into the events interface when it gets built.
-function P.SetScale ()
+function private.SetScale ()
     local uiScale = cael_user.scale or scales[screenWidth] and scales[screenWidth][screenHeight] or 1
     scaleFix = (768/tonumber(GetCVar("gxResolution"):match("%d+x(%d+)"))) / uiScale
 end
 
 do
-    local config = P.database.get("config")
+    local config = private.database.get("config")
 
     -- This will scale our given value to our scale offset.
     function config.pixelScale (value)
         return scaleFix * math.floor(value / scaleFix + 0.5)
     end
 
-    P.database.save(config)
+    private.database.save(config)
 end
 

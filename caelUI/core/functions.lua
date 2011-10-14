@@ -1,6 +1,6 @@
-local P = select(2, unpack(select(2, ...)))
+local private = unpack(select(2, ...))
 
-function P.is_in (needle, haystack)
+function private.is_in (needle, haystack)
     if type(haystack) == "table" then
         for key, value in pairs(haystack) do
             if key == needle then
@@ -27,7 +27,7 @@ This function works exactly like the PHP explode function. It will take an input
 @param  sep     string  Our deliminter.
 @return         table   This is our results table indexed by # and valued with our words between the delimiter.
 --]]
-function P.explode (text, delimiter)
+function private.explode (text, delimiter)
     if not delimiter or type(delimiter) ~= "string" then
         delimiter = ":"
     end
@@ -63,7 +63,7 @@ If it is found to be invalid, then it will print an error message, else it will 
 @param  str     value   This is the type name we are passing in to check our parameter against.
 @param  num     num     This is the argument number in the list. The numbering should start at 1.
 --]]
-function P.argcheck (value, num, ...)
+function private.argcheck (value, num, ...)
     assert(type(num) == 'number', "Bad argument #2 to 'argcheck' (number expected, got " .. type(num) .. ")")
 
     for index = 1, select("#", ...) do
@@ -74,16 +74,16 @@ function P.argcheck (value, num, ...)
 
     local types = strjoin(", ", ...)
     local name = string.match(debugstack(2, 2, 0), ": in function [`<](.-)['>]")
-    P.error(("Bad argument #%d to '%s' (%s expected, got %s"):format(num, name, types, type(value)), 3)
+    private.error(("Bad argument #%d to '%s' (%s expected, got %s"):format(num, name, types, type(value)), 3)
 end
 
 -- Returns the name of the spell ID.
-function P.GetSpellName (spellId)
+function private.GetSpellName (spellId)
     return GetSpellInfo(spellId)
 end
 
 
-function P.utf8sub (string, index, dots)
+function private.utf8sub (string, index, dots)
     local bytes = string:len()
 
     if bytes <= index then

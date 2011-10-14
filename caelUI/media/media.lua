@@ -1,10 +1,10 @@
-local P = select(2, unpack(select(2, ...)))
+local private = unpack(select(2, ...))
 
 -- Localizing pixelScale
-local pixelScale = P.database.get("config").pixelScale
+local pixelScale = private.database.get("config").pixelScale
 
 -- Get our media database if it exists or create a new one.
-local media = P.database.get("media")
+local media = private.database.get("media")
 
 media.directory = [=[Interface\Addons\caelUI\media\]=]
 
@@ -60,7 +60,7 @@ media.borderTable = {
     insets   = media.insetTable
 }
 
-F.createBackdrop = function (parent)
+private.database.get("panels").createBackdrop = function (parent)
     local backdrop = CreateFrame("Frame", nil, parent)
     backdrop:SetPoint("TOPLEFT", parent, "TOPLEFT", pixelScale(-2.5), pixelScale(2.5))
     backdrop:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", pixelScale(2.5), pixelScale(-2.5))
@@ -72,4 +72,4 @@ F.createBackdrop = function (parent)
 end
 
 -- We do this just to make sure that everything is getting saved to the users variables.
-P.database.save(media)
+private.database.save(media)

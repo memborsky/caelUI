@@ -1,11 +1,11 @@
-local F = select(1, unpack(select(2, ...)))
+local private = unpack(select(2, ...))
 
 --[[
 Check to see if the UI is loaded on the PTR server
 
 @return boolean True for PTR server
 --]]
-function F.OnThePTR ()
+function private.OnThePTR ()
     local _, version = GetBuildInfo()
 
     if tonumber(version) > 14732 then

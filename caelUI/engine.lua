@@ -1,13 +1,13 @@
 local addon, ns = ...
 
-ns[1] = {} -- (Public) Functions
-ns[2] = {} -- (Private) Functions
-ns[3] = {} -- Modules
+ns[1] = {} -- (Private) Functions
+ns[2] = {} -- Modules
+ns[3] = {} -- (Public) Functions
 
 -- We don't need to allow the addons to interface to anything that we don't push into the public range.
-caelUI = ns[1]
+caelUI = ns[3]
 
-local F, P, M = unpack(select(2, ...))
+local private, modules, public = unpack(select(2, ...))
 
 local eventFrame = CreateFrame("Frame")
 
@@ -30,10 +30,10 @@ eventFrame:SetScript("OnEvent", function(self, event)
         end
 
         -- Initialize our databases.
-        P.database.initialize()
+        private.database.initialize()
 
         -- Set our UI Scale so we can provide pixel perfection.
-        P.SetScale()
+        private.SetScale()
     elseif event == "PLAYER_LEAVING_WORLD" then
         -- XXX: Needs to be moved to event system.
         cael_user.scale = math.floor(GetCVar("uiScale") * 100 + 0.5)/100
