@@ -2,7 +2,6 @@ local F, P, M = unpack(select(2, ...))
 
 local config = P.database.get("config")
 
-
 if config == {} then
     config.player = {
         ["name"]    = UnitName("player"),
