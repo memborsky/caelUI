@@ -1,17 +1,17 @@
-local F = select(1, unpack(select(2, ...)))
+local P = select(2, unpack(select(2, ...)))
 
 local strings = {
     ["cael"] = "|cffD7BEA5cael|r%s: ",
 }
 
-function F.print (addon, ...)
+function P.print (addon, ...)
     print(strings.cael:format(addon), ...)
 end
 
-function F.error (...)
+function P.error (...)
     print("Error", string.format(...))
 end
 
-function F.debug (...)
+function P.debug (...)
     print("Debug", string.format(...))
 end

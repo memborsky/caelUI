@@ -1,6 +1,6 @@
-local F = select(1, unpack(select(2, ...)))
+local P = select(2, unpack(select(2, ...)))
 
-function F.is_in (needle, haystack)
+function P.is_in (needle, haystack)
     if type(haystack) == "table" then
         for key, value in pairs(haystack) do
             if key == needle then
@@ -27,7 +27,7 @@ This function works exactly like the PHP explode function. It will take an input
 @param  sep     string  Our deliminter.
 @return         table   This is our results table indexed by # and valued with our words between the delimiter.
 --]]
-function F.explode (text, delimiter)
+function P.explode (text, delimiter)
     if not delimiter or type(delimiter) ~= "string" then
         delimiter = ":"
     end
@@ -63,7 +63,7 @@ If it is found to be invalid, then it will print an error message, else it will 
 @param  str     value   This is the type name we are passing in to check our parameter against.
 @param  num     num     This is the argument number in the list. The numbering should start at 1.
 --]]
-function F.argcheck (value, num, ...)
+function P.argcheck (value, num, ...)
     assert(type(num) == 'number', "Bad argument #2 to 'argcheck' (number expected, got " .. type(num) .. ")")
 
     for index = 1, select("#", ...) do
@@ -74,5 +74,45 @@ function F.argcheck (value, num, ...)
 
     local types = strjoin(", ", ...)
     local name = string.match(debugstack(2, 2, 0), ": in function [`<](.-)['>]")
-    F.error(("Bad argument #%d to '%s' (%s expected, got %s"):format(num, name, types, type(value)), 3)
+    P.error(("Bad argument #%d to '%s' (%s expected, got %s"):format(num, name, types, type(value)), 3)
+end
+
+-- Returns the name of the spell ID.
+function P.GetSpellName (spellId)
+    return GetSpellInfo(spellId)
+end
+
+
+function P.utf8sub (string, index, dots)
+    local bytes = string:len()
+
+    if bytes <= index then
+        return string
+    else
+        local length, position = 0, 1
+
+        while position <= bytes do
+            length = length + 1
+            local char = string:byte(position)
+            if char > 240 then
+                position = position + 4
+            elseif char > 225 then
+                position = position + 3
+            elseif char > 192 then
+                position = position + 2
+            else
+                position = position + 1
+            end
+
+            if length == index then
+                break
+            end
+        end
+
+        if length == index and position <= bytes then
+            return string:sub(1, position - 1)..(dots and "..." or "")
+        else
+            return string
+        end
+    end
 end

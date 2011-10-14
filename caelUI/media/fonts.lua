@@ -1,4 +1,4 @@
-﻿local F, P = unpack(select(2, ...))
+﻿local P = select(2, unpack(select(2, ...)))
 
 local originalFonts
 

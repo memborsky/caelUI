@@ -1,7 +1,7 @@
-local F, P = unpack(select(2, ...))
+local P = select(2, unpack(select(2, ...)))
 
 -- Localizing pixelScale
-local pixelScale = F.pixelScale
+local pixelScale = P.database.get("config").pixelScale
 
 -- Get our media database if it exists or create a new one.
 local media = P.database.get("media")
