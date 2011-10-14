@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, oUF_Caellian = ...
 
 oUF.Tags.Events["caellian:diffcolor"] = "UNIT_LEVEL"

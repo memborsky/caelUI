@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-local _, caelQuest = ...
+﻿local _, caelQuest = ...
 
 caelQuest.eventFrame = CreateFrame"Frame"
 

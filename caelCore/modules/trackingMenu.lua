@@ -1,6 +1,4 @@
---[[    $Id$    ]]
-
-if caelLib.locale ~= "enUS" then return end
+if caelUI.config.locale ~= "enUS" then return end
 
 --    Rawr! GTFO POI tracking!  Default _Init, with filter for only find/track/quest entries.
 function MiniMapTrackingDropDown_Initialize()

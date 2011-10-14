@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-local _, caelCore = ...
+﻿local _, caelCore = ...
 
 --[[    Blacklist some UIerrorFrame messages    ]]
 

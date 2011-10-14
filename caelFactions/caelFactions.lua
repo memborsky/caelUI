@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelFactions = ...
 
 caelFactions.eventFrame = CreateFrame("Frame", nil, UIParent)

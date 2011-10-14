@@ -1,14 +1,12 @@
-﻿--[[    $Id$    ]]
-
-local _, caelMap = ...
+﻿local _, caelMap = ...
 
 caelMap.eventFrame = CreateFrame"Frame"
 
 local kill = caelLib.kill
 local dummy = caelLib.dummy
 
-local media = caelUI.get_database("media")
-local pixelScale = caelUI.pixelScale
+local media = caelUI.media
+local pixelScale = caelUI.config.pixelScale
 
 local Player = WorldMapButton:CreateFontString(nil, "ARTWORK")
 Player:SetPoint("TOPLEFT", WorldMapButton, 0, 40)

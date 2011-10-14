@@ -1,9 +1,7 @@
---[[    $Id$    ]]
-
 local _, caelCooldowns = ...
 
 local minScale = 0.5
-local minDuration = caelLib.playerClass == "HUNTER" and 1 or 1.5
+local minDuration = caelUI.config.player.class == "HUNTER" and 1 or 1.5
 
 local format = string.format
 local floor = math.floor
@@ -59,7 +57,7 @@ local timerCreate = function(self)
     else
         local text = self:CreateFontString(nil, "OVERLAY")
         text:SetPoint("CENTER", 0, 1)
-        text:SetFont(caelUI.get_database("media")["fonts"]["NORMAL"], 12 * scale, "OUTLINE")
+        text:SetFont(caelUI.media.fonts.NORMAL, 12 * scale, "OUTLINE")
         text:SetTextColor(0.84, 0.75, 0.65)
 
         self.text = text

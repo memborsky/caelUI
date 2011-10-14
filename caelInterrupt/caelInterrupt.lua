@@ -1,12 +1,10 @@
-﻿--[[    $Id$    ]]
-
-local _, caelInterrupt = ...
+﻿local _, caelInterrupt = ...
 
 caelInterrupt.eventFrame = CreateFrame("Frame", nil, UIParent)
 
 local playerGuid = nil
 local msg = "%s: %s (%s)"
-local emo = caelLib.locale == "frFR" and "a interrompu %s. (%s)" or "interrupted %s. (%s)"
+local emo = caelUI.config.locale == "frFR" and "a interrompu %s. (%s)" or "interrupted %s. (%s)"
 local grouped = nil
 local lastTimestamp = nil
 local lastInterrupted = nil

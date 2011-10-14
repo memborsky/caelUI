@@ -1,11 +1,9 @@
---[[    $Id$    ]]
-
 local _, caelCombatLog = ...
 
 caelCombatLog.frame = CreateFrame("Frame", "caelCombatLogFrame", UIParent)
 
-local media = caelUI.get_database("media")
-local pixelScale = caelUI.pixelScale
+local media = caelUI.media
+local pixelScale = caelUI.config.pixelScale
 
 caelCombatLog.frame:ClearAllPoints()
 caelCombatLog.frame:SetWidth(caelPanel_CombatLog:GetWidth() - pixelScale(3))

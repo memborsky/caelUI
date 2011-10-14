@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 --[[
 Bar creation reference.
 
@@ -26,11 +24,11 @@ EVERYONE
     --Create("Toasty Fire",    "player", "buff",    false, .4, .4, .4,    200, 10, "CENTER", UIParent, "CENTER", 0, 0)
 
 LEVELBASED
-if caelLib.playerLevel == 80 then
+if caelUI.config.player.level == 80 then
 end
 --]]
 
-if caelLib.playerClass ~= "WARRIOR" then return end
+if caelUI.config.player.class ~= "WARRIOR" then return end
 
 local _, caelTimers = ...
 

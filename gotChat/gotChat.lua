@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
--- At some point in the past, this was idChat.
+﻿-- At some point in the past, this was idChat.
 
 local kill = caelLib.kill
 

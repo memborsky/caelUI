@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-local _, caelCore = ...
+﻿local _, caelCore = ...
 
 local dummy = caelLib.dummy
 

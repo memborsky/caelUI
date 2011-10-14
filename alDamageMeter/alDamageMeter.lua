@@ -1,7 +1,7 @@
 -- Config start
 
-local media = caelUI.get_database("media")
-local pixelScale = caelUI.pixelScale
+local media = caelUI.media
+local pixelScale = caelUI.config.pixelScale
 
 local anchor = "BOTTOM"
 local x, y = pixelScale(-647), pixelScale(23)

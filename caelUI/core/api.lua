@@ -1,7 +1,7 @@
 local F, P, M = unpack(select(2, ...))
 
--- Allow external addons to pull back databases.
-F.get_database = P.database.get
+-- Allow external addons to have access to the media database.
+F.media = P.database.get("media")
 
--- Allow external addons to build pixel perfect UI stuff with our UI scaling.
-F.pixelScale = P.database.get("config")["pixelScale"]
+-- Allow exteranl addons to have access to the config database.
+F.config = P.database.get("config")

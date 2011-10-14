@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelCore = ...
 
 --[[    Put a shadow edge around the screen    ]]

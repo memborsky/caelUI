@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelDataFeeds = ...
 
 local durability = caelDataFeeds.createModule("Durability")

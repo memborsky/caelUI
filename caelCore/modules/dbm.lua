@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 if not IsAddOnLoaded("DBM-Core") then return end
 
 local _, caelCore = ...

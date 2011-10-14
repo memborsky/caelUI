@@ -1,13 +1,11 @@
---[[    $Id$    ]]
-
 local _, caelTimers = ...
 
 caelTimers.eventFrame = CreateFrame("Frame", nil, UIParent)
 
 local floor, format, mod, pairs = math.floor, string.format, mod, pairs
 local UnitBuff, UnitDebuff = UnitBuff, UnitDebuff
-local pixelScale = caelUI.pixelScale
-local media = caelUI.get_database("media")
+local pixelScale = caelUI.config.pixelScale
+local media = caelUI.media
 
 --[[
 local aura_colors  = {

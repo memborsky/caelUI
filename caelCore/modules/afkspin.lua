@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelCore = ...
 
 local afkspin = caelCore.createModule("AfkSpin")

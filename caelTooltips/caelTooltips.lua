@@ -1,14 +1,12 @@
-﻿--[[    $Id$    ]]
-
-local _, caelTooltips = ...
+﻿local _, caelTooltips = ...
 
 caelTooltips = CreateFrame("Frame", nil, UIParent)
 
 local _G = getfenv(0)
 local orig1, orig2 = {}, {}
 local height
-local pixelScale = caelUI.pixelScale
-local media = caelUI.get_database("media")
+local pixelScale = caelUI.config.pixelScale
+local media = caelUI.media
 
 -- Used to allow the tooltips to be enabled on the cursor
 local cursor = true

@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelBossWhisperer = ...
 
 caelBossWhisperer.eventFrame = CreateFrame("Frame", nil, UIParent)

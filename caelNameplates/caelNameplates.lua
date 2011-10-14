@@ -1,13 +1,16 @@
---[[    $Id$    ]]
-
 local _, caelNameplates = ...
 
 caelNameplates.eventFrame = CreateFrame("Frame", nil, UIParent)
 
 if not IsAddOnLoaded("caelCore") then
-    SetCVar("bloattest", 0) -- 1 might make nameplates larger but it fixes the disappearing ones.
-    SetCVar("bloatnameplates", 0) -- 1 makes nameplates larger depending on threat percentage.
-    SetCVar("bloatthreat", 0) -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat table.
+    -- 1 might make nameplates larger but it fixes the disappearing ones.
+    SetCVar("bloattest", 0)
+
+    -- 1 makes nameplates larger depending on threat percentage.
+    SetCVar("bloatnameplates", 0)
+
+    -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat table.
+    SetCVar("bloatthreat", 0)
 end
 
 -- Not sure (testing)
@@ -15,13 +18,13 @@ SetCVar("threatWarning", 3)
 SetCVar("nameplateMotion", "0")
 --InterfaceOptionsNamesPanelUnitNameplatesMotionDropDown:Kill()
 
-local media = caelUI.get_database("media")
+local media = caelUI.media
 local barTexture = media.files.statusBarC
 local iconTexture = media.files.buttonNormal
 local raidIcons = media.files.raidIcons
 local overlayTexture = [=[Interface\Tooltips\Nameplate-Border]=]
 local font, fontSize, fontOutline = media.fonts.CAELNAMEPLATE_FONT, 9, 8
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 local UpdateTime = function(self, curValue)
     local minValue, maxValue = self:GetMinMaxValues()

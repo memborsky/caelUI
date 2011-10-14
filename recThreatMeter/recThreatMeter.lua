@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local round_off = true            -- Should we leave 2 decimal places, or round the threat off?  This is for display only, internally the values will retain their precision.
 
 local raid_threat = {}
@@ -14,8 +12,8 @@ local need_reset = true
 local in_raid, in_party, warning_played, i_am_tank, target_okay
 local top_threat, overtake_threat, my_threat = 0, -1, -1
 local HIDDEN, TANKING, BLANK = "* %s", ">>> %s <<<", " "
-local pixelScale = caelUI.pixelScale
-local media = caelUI.get_database("media")
+local pixelScale = caelUI.config.pixelScale
+local media = caelUI.media
 --local 10   = 10 -- This is set in MakeDisplay() to its true number.
 
 local recycle_bin = {}

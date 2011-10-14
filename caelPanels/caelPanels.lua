@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelPanels = ...
 
 local bar1OnLeft = false
@@ -8,8 +6,8 @@ local chatOnLeft = false
 caelPanels.eventFrame = CreateFrame("frame", nil, UIParent)
 
 local panels = {}
-local pixelScale = caelUI.pixelScale
-local media = caelUI.get_database("media")
+local pixelScale = caelUI.config.pixelScale
+local media = caelUI.media
 
 local defaultPanel = {
     ["EnableMouse"] = false,
@@ -41,12 +39,12 @@ function caelPanels.createPanel (name, size, point, override)
         for key, value in pairs(defaultPanel) do
             panel[key](panel, value)
         end
-        
+
         panel:SetBackdropColor(unpack(defaultPanel["SetBackdropColor"]))
         panel:SetBackdropBorderColor(unpack(defaultPanel["SetBackdropBorderColor"]))
 
     end
-     
+
     if size then
         if type(size) == "table" then
             panel:SetSize(unpack(size))

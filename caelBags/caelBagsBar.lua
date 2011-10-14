@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelBags = ...
 
 local bagButtons = {}
@@ -17,8 +15,8 @@ bagButtons[10] = "BankFrameBag6"
 bagButtons[11] = "BankFrameBag7"
 
 -- Used to trasnfer media and pixel scale to caelUI instead of the old system.
-local media = caelUI.get_database("media")
-local pixelScale = caelUI.pixelScale
+local media = caelUI.media
+local pixelScale = caelUI.config.pixelScale
 
 local bagBar, bagsButton
 local bankBagBar, bankBagsButton

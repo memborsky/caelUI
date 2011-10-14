@@ -1,10 +1,6 @@
---[[    $Id$    ]]
-
-local media = caelUI.get_database("media")
-
 -- Font Settings
-recScrollAreas.font_face                    = media.fonts.SCROLLFRAME_NORMAL
-recScrollAreas.font_face_sticky             = media.fonts.SCROLLFRAME_BOLD
+recScrollAreas.font_face                    = caelUI.media.fonts.SCROLLFRAME_NORMAL
+recScrollAreas.font_face_sticky             = caelUI.media.fonts.SCROLLFRAME_BOLD
 recScrollAreas.font_flags                   = "OUTLINE"    -- Some text can be hard to read without it.
 recScrollAreas.font_flags_sticky            = "OUTLINE"
 recScrollAreas.font_size                    = 9

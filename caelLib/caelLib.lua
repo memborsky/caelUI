@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-local _, caelLib = ...
+﻿local _, caelLib = ...
 _G["caelLib"] = caelLib
 
 local EventFrame = CreateFrame("Frame")
@@ -10,9 +8,6 @@ EventFrame:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
-caelLib.playerClass = select(2, UnitClass("player"))
-caelLib.playerName = UnitName("player")
-caelLib.playerRealm = GetRealmName()
 caelLib.zoneName = GetRealZoneText()
 caelLib.iLvl = math.floor(GetAverageItemLevel("player"))
 
@@ -197,5 +192,3 @@ caelLib.kill = function(object)
     objectReference.Show = caelLib.dummy
     objectReference:Hide()
 end
-
-caelLib.locale = caelLib.isCharListA and "frFR" or GetLocale()

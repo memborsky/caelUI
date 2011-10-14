@@ -1,12 +1,10 @@
-﻿--[[    $Id$    ]]
-
-local _, caelLoot = ...
+﻿local _, caelLoot = ...
 
 caelLoot.eventFrame = CreateFrame("Frame", nil, UIParent)
 
-local pixelScale = caelUI.pixelScale
-local playerName = caelLib.playerName
-local media = caelUI.get_database("media")
+local pixelScale = caelUI.config.pixelScale
+local playerName = caelUI.config.player.name
+local media = caelUI.media
 
 local curSlot
 local curLootSlots = {}

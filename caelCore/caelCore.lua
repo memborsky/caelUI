@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-local addonName, caelCore = ...
+﻿local addonName, caelCore = ...
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")

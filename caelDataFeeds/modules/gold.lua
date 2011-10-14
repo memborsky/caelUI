@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelDataFeeds = ...
 
 local gold = caelDataFeeds.createModule("Gold")

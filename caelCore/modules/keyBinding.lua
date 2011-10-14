@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-if not caelLib.isCharListA then return end
+﻿if not caelLib.isCharListA then return end
 
 local _, caelCore = ...
 

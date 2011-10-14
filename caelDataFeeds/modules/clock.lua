@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelDataFeeds = ...
 
 local clock = caelDataFeeds.createModule("Clock")

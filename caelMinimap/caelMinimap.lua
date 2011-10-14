@@ -1,8 +1,6 @@
---[[    $Id$    ]]
-
 local caelMinimap = CreateFrame("Frame", nil, Minimap)
-local pixelScale = caelUI.pixelScale
-local media = caelUI.get_database("media")
+local pixelScale = caelUI.config.pixelScale
+local media = caelUI.media
 
 for _, object in pairs({
     GameTimeFrame,

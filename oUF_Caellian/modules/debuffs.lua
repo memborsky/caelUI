@@ -1,10 +1,8 @@
-﻿--[[    $Id$    ]]
-
-if not oUF then return end
+﻿if not oUF then return end
 
 local _, oUF_Caellian = ...
 
-local playerClass = caelLib.playerClass
+local playerClass = caelUI.config.player.class
 local GetSpellName = caelLib.GetSpellName
 
 --------------------

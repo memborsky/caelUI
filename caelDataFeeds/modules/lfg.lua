@@ -1,6 +1,4 @@
-﻿--[[    $Id: lfg.lua 1718 2010-11-17 16:06:42Z sdkyron@gmail.com $    ]]
-
-local _, caelDataFeeds = ...
+﻿local _, caelDataFeeds = ...
 
 local lfg = caelDataFeeds.createModule("LFG")
 
@@ -22,7 +20,7 @@ local format = string.format
 
 local red, green = "AF5050", "559655"
 
-local leaveMsg = caelLib.locale == "frFR" and "Merci pour le gruope, bye." or "Thank you for the group, goodbye."
+local leaveMsg = caelUI.config.locale == "frFR" and "Merci pour le gruope, bye." or "Thank you for the group, goodbye."
 
 -- Average item gear level
 local iLvl = math.floor(GetAverageItemLevel("player"))

@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-if caelLib.playerClass ~= "HUNTER" then
+﻿if caelUI.config.player.class ~= "HUNTER" then
     print("|cffD7BEA5cael|rMisdirection: You are not a Hunter, caelMisdirection will be disabled on next UI reload.")
     return DisableAddOn("caelMisdirection")
 end
@@ -9,7 +7,7 @@ local _, caelMisdirection = ...
 
 caelMisdirection.eventFrame = CreateFrame("Frame", nil, UIParent)
 
-local locale = caelLib.locale
+local locale = caelUI.config.locale
 
 local msgInfo = locale == "frFR" and " d'aggro transférée à " or " threat transferred to "
 local msgChat = locale == "frFR" and "détourné " or "misdirected "
@@ -28,14 +26,14 @@ local index = GetChannelName("WeDidHunter")
 caelMisdirection.eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 caelMisdirection.eventFrame:SetScript("OnEvent", function(_, _, _, subEvent, _, _, sourceName, _, _, _, destName, _, _, spellId, _, _, amount, ...)
 
-    if sourceName and sourceName == caelLib.playerName then
+    if sourceName and sourceName == caelUI.config.player.name then
         if UnitIsPlayer(destName) and not UnitIsUnit(destName, "pet") then
             if subEvent == "SPELL_CAST_SUCCESS" then
                 if  spellId == 34477 then
                     SendChatMessage((msgWhisper), "WHISPER", GetDefaultLanguage("player"), destName)
                     RaidNotice_AddMessage(RaidWarningFrame, msgChannel..destName, textColor)
 
-                    if index ~= nil then 
+                    if index ~= nil then
                         SendChatMessage((msgChat..destName) , "CHANNEL", nil, index)
                     end
 

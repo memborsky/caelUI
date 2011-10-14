@@ -1,9 +1,7 @@
-﻿--[[    $Id$    ]]
+﻿local _G = _G
 
-local _G = getfenv(0)
-
-local media = caelUI.get_database("media")
-local pixelScale = caelUI.pixelScale
+local media = caelUI.media
+local pixelScale = caelUI.config.pixelScale
 
 local hideHotkeys = true
 

@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-local dummy = caelLib.dummy
+﻿local dummy = caelLib.dummy
 
 local nextline = 1
 

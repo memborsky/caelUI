@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-local _, caelCore = ...
+﻿local _, caelCore = ...
 
 local function debug(msg) DEFAULT_CHAT_FRAME:AddMessage(msg) end
 
@@ -24,8 +22,8 @@ local reagents = {
 local merchant = caelCore.createModule("Merchant")
 
 -- Internal settings
-local playerName            = caelLib.playerName
-local playerRealm           = caelLib.playerRealm
+local playerName            = caelUI.config.player.name
+local playerRealm           = caelUI.config.player.realm
 --[[
 Ensures that we have the player's name, their realm, and that a table actually exists for
 that particular character before scanning the vendor for purchases.

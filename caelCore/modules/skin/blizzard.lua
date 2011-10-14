@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-local addonName, caelCore = ...
+﻿local addonName, caelCore = ...
 
 --[[    Reskin Blizzard windows ]]
 

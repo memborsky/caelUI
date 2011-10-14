@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelCCBreak = ...
 
 caelCCBreak.eventFrame = CreateFrame("Frame", nil, UIParent)
@@ -17,7 +15,7 @@ local messageStrings = {
 }
 local messageNumber = 2
 
-local locale = caelLib.locale
+local locale = caelUI.config.locale
 
 local hostile = COMBATLOG_OBJECT_REACTION_HOSTILE or 64 or 0x00000040
 

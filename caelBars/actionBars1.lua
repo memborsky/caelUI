@@ -1,16 +1,13 @@
---[[    $Id$   ]]
-
 local _, caelBars = ...
 
-local pixelScale = caelUI.pixelScale
-
-local playerClass = caelLib.playerClass
+local pixelScale = caelUI.config.pixelScale
+local playerClass = caelUI.config.player.class
 
 local bar1 = CreateFrame("Frame", "bar1", caelPanel_ActionBar1, "SecureHandlerStateTemplate")
 bar1:ClearAllPoints()
 bar1:SetAllPoints(caelPanel_ActionBar1)
 
---[[ 
+--[[
 Bonus bar classes id
 
 DRUID: Caster: 0, Cat: 1, Tree of Life: 0, Bear: 3, Moonkin: 4
@@ -31,8 +28,7 @@ local barPage = {
 
 local function GetBar()
     local condition = barPage["DEFAULT"]
-    local class = playerClass
-    local page = barPage[class]
+    local page = barPage[playerClass]
 
     if page then
         condition = condition.." "..page
@@ -67,7 +63,7 @@ bar1:SetScript("OnEvent", function(self, event, ...)
         end
         ]])
 
-        self:SetAttribute("_onstate-page", [[ 
+        self:SetAttribute("_onstate-page", [[
         for i, button in ipairs(buttons) do
             button:SetAttribute("actionpage", tonumber(newstate))
         end

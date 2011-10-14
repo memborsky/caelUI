@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-if UnitLevel("player") ~= MAX_PLAYER_LEVEL then return end
+﻿if UnitLevel("player") ~= MAX_PLAYER_LEVEL then return end
 
 local _, caelDataFeeds = ...
 

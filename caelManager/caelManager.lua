@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-local function debug (message) DEFAULT_CHAT_FRAME:AddMessage(message) end
+﻿local function debug (message) DEFAULT_CHAT_FRAME:AddMessage(message) end
 
 local caelManager = CreateFrame("Frame", nil, UIParent)
 

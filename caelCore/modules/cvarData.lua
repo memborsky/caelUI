@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelCore = ...
 
 local cvardata = caelCore.createModule("cvarData")
@@ -10,7 +8,7 @@ local myChars = caelLib.myChars
 local ZoneChange = function(zone)
         local _, instanceType = IsInInstance()
         if zone == "Orgrimmar" or zone == "Stormwind" then
-            if caelLib.playerClass == "HUNTER" then SetTracking(nil) end
+            if caelUI.config.player.class == "HUNTER" then SetTracking(nil) end
             SetCVar("chatBubbles", 0)
         elseif instanceType == "raid" then
             SetCVar("chatBubbles", 1)
@@ -97,7 +95,7 @@ local defaultCVarValues = {
     ["fctSpellMechanics"] = 1,
     ["enableCombatText"] = 0,
     ["showArenaEnemyFrames"] = 0,
-    ["autointeract"] = caelLib.isCharListA and 1 or 0,
+    ["autointeract"] = 0,
     ["showTutorials"] = 0,
     ["UberTooltips"] = 1,
     ["showNewbieTips"] = 0,

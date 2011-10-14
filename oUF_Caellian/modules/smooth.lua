@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 if not oUF then return end
 
 local _, oUF_Caellian = ...

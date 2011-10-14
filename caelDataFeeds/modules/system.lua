@@ -1,5 +1,3 @@
---[[    $Id: system.lua 1728 2010-11-18 23:23:58Z sdkyron@gmail.com $    ]]
-
 local _, caelDataFeeds = ...
 
 local system = caelDataFeeds.createModule("System")

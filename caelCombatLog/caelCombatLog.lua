@@ -1,8 +1,6 @@
-﻿--[[    $Id$    ]]
+﻿local _, caelCombatLog = ...
 
-local _, caelCombatLog = ...
-
-local media = caelUI.get_database("media")
+local media = caelUI.media
 
 local cCL, collumns = caelCombatLog.frame, caelCombatLog.frame.collumns
 

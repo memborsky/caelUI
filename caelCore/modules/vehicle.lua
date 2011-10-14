@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
---[[    Hiding the vehicle seat indicator    ]]
+﻿--[[    Hiding the vehicle seat indicator    ]]
 
 VehicleSeatIndicator:UnregisterAllEvents()
 VehicleSeatIndicator_UnloadTextures()

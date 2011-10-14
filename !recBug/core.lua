@@ -1,4 +1,3 @@
---[[    $Id$    ]]
 ----------------------------------------
 -- NOTE:
 -- You probably do not have this stuff set, as it is from recMedia.

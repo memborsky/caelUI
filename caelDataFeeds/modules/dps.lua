@@ -1,11 +1,9 @@
---[[    $Id$    ]]
-
 local _, caelDataFeeds = ...
 
 local dps = caelDataFeeds.createModule("DPS")
 
-local playerName = caelLib.playerName
-local pixelScale = caelUI.pixelScale
+local playerName = caelUI.config.player.name
+local pixelScale = caelUI.config.pixelScale
 
 dps.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixelScale(125), 0)
 dps.text:SetText("|cffD7BEA5dps|r 0")

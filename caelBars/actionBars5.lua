@@ -1,10 +1,6 @@
---[[    $Id$   ]]
-
 local _, caelBars = ...
 
-local pixelScale = caelUI.pixelScale
-
-local playerClass = caelLib.playerClass
+local pixelScale = caelUI.config.pixelScale
 
 local bar5 = CreateFrame("Frame", "bar5", UIParent)
 

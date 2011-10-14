@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 --Initialization Steps
 recScrollAreas = {}
 recScrollAreas.empty_strings = {}

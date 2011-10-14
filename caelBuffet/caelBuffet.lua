@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local macroHP = "#showtooltip\n%MACRO%"
 local macroMP = "#showtooltip\n%MACRO%"
 local bests = {}

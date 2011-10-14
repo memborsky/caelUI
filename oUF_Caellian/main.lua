@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-local _, oUF_Caellian = ...
+﻿local _, oUF_Caellian = ...
 
 oUF_Caellian.main = CreateFrame("Frame", nil, UIParent)
 
@@ -8,9 +6,9 @@ local main = oUF_Caellian.main
 local config = oUF_Caellian.config
 
 -- Define variables from caelUI or the old system.
-local media = caelUI.get_database("media")
+local media = caelUI.media
 local mediaPath = media.directory
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 local floor, format, insert, sort = math.floor, string.format, table.insert, table.sort
 
@@ -24,7 +22,7 @@ local highlightTex = mediaPath..[=[miscellaneous\highlighttex]=]
 local font = media.fonts.NORMAL
 local fontn = media.fonts.CUSTOM_NUMBERFONT
 
-local playerClass = caelLib.playerClass
+local playerClass = caelUI.config.player.class
 local playerSpec = GetPrimaryTalentTree()
 
 local manaThreshold = config.manaThreshold

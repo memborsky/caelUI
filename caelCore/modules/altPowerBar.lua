@@ -1,6 +1,4 @@
-﻿--[[    $Id$    ]]
-
-PlayerPowerBarAlt:SetMovable(true)
+﻿PlayerPowerBarAlt:SetMovable(true)
 PlayerPowerBarAlt:EnableMouse(true)
 PlayerPowerBarAlt:SetUserPlaced(true)
 PlayerPowerBarAlt:SetClampedToScreen(true)

@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelTimers = ...
 
 -- Stores bars which are being smoothed.

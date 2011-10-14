@@ -1,13 +1,11 @@
---[[    $Id$    ]]
-
 local _, caelCooldowns = ...
 
 caelCooldowns.eventFrame = CreateFrame"Frame"
 
 local cdPulse = caelCooldowns.eventFrame
 
-local media = caelUI.get_database("media")
-local pixelScale = caelUI.pixelScale
+local media = caelUI.media
+local pixelScale = caelUI.config.pixelScale
 
 local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime, ignoredSpells
 local cooldowns, animating, watching = { }, { }, { }

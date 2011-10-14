@@ -1,11 +1,9 @@
---[[    $Id$    ]]
-
 local _, caelThreat = ...
 
 local abs = math.abs
-local playerClass = caelLib.playerClass
+local playerClass = caelUI.config.player.class
 local unitClass, lastWarning
-local media = caelUI.get_database("media")
+local media = caelUI.media
 
 caelThreat.eventFrame = CreateFrame"Frame"
 

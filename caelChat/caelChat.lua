@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelChat = ...
 
 local _G = getfenv(0)
@@ -10,12 +8,15 @@ FCF_ResetChatWindows() -- This should fix issues with the Dimension problems a w
 
 caelChat.eventFrame = CreateFrame("Frame", nil, UIParent)
 
-local media = caelUI.get_database("media")
-local pixelScale = caelUI.pixelScale
+-- Local the global
+local caelUI = caelUI
+
+local media = caelUI.media
+local pixelScale = caelUI.config.pixelScale
+local playerClass = caelUI.config.player.class
 
 local kill = caelLib.kill
 local isCharListA = caelLib.isCharListA
-local playerClass = caelLib.playerClass
 
 CHAT_TELL_ALERT_TIME = 0 -- sound on every whisper
 DEFAULT_CHATFRAME_ALPHA = 0 -- remove mouseover background

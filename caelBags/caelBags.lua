@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local _, caelBags = ...
 
 _G["caelBags"] = caelBags
@@ -8,8 +6,8 @@ _G["caelBags"] = caelBags
 local dummy = caelLib.dummy
 
 -- Used to for moving to the new caelUI system.
-local media = caelUI.get_database("media")
-local pixelScale = caelUI.pixelScale
+local media = caelUI.media
+local pixelScale = caelUI.config.pixelScale
 
 -- Constants
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS         -- Amount of bag slots.

@@ -1,7 +1,7 @@
 local movable = false;
 
-local pixelScale = caelUI.pixelScale
-local media = caelUI.get_database("media")
+local pixelScale = caelUI.config.pixelScale
+local media = caelUI.media
 
 --- Options ---
 local LAYOUT = 2; -- 1 = Vertical, Anything else = Horizontal

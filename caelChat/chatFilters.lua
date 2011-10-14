@@ -1,10 +1,6 @@
-﻿--[[    $Id$    ]]
-
-local gsub, find, match, lower = string.gsub, string.find, string.match, string.lower
+﻿local gsub, find, match, lower = string.gsub, string.find, string.match, string.lower
 
 --[[    Filter npc spam    ]]
-
-local media = caelUI.get_database("media")
 
 local npcChannels = {
     "CHAT_MSG_MONSTER_SAY",
@@ -15,7 +11,7 @@ local npcChannels = {
 local isNpcChat = function(self, event, ...)
     local msg = ...
     local isResting = IsResting()
-    if isResting and not msg:find(caelLib.playerName) then
+    if isResting and not msg:find(caelUI.config.player.name) then
         return true, ...
     end
     return false, ...
@@ -36,7 +32,7 @@ local filteredchannels = {
 
 local IsSpam = function(self, event, ...)
     local msg = ...
-    if msg:find("%*%*%*") or msg:find("%<%D%B%M%>") or msg:find("%<%B%W%>") then 
+    if msg:find("%*%*%*") or msg:find("%<%D%B%M%>") or msg:find("%<%B%W%>") then
         return true, ...
     end
     return false, ...
@@ -117,7 +113,7 @@ RaidNotice_AddMessage = function(noticeFrame, textString, colorInfo, ...)
         else
             hooks.RaidNotice_AddMessage(noticeFrame, textString, colorInfo, ...)
         end
-        PlaySoundFile(media.files.soundAlarm)
+        PlaySoundFile(caelUI.media.files.soundAlarm)
     end
 end
 

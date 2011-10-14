@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local pixelScale = caelUI.pixelScale
 
 function recScrollAreas:CreateScrollArea(id, height, x_pos, y_pos, textalign, direction, font_face, font_size, font_flags, font_face_sticky, font_size_sticky, font_flags_sticky, animation_duration, animation_duration_sticky)

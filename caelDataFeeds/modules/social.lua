@@ -1,10 +1,8 @@
-﻿--[[    $Id$    ]]
-
-local _, caelDataFeeds = ...
+﻿local _, caelDataFeeds = ...
 
 local social = caelDataFeeds.createModule("Social")
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 social.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixelScale(325), 0)
 
@@ -62,7 +60,7 @@ social:SetScript("OnEnter", function(self)
             local name, _, _, level, _, zone, _, _, isOnline, status, classFileName = GetGuildRosterInfo(i)
             local color = RAID_CLASS_COLORS[classFileName]
 
-            if isOnline and name ~= caelLib.playerName then
+            if isOnline and name ~= caelUI.config.player.name then
                 GameTooltip:AddDoubleLine("|cffD7BEA5"..level.." |r"..name.." "..status, zone, color.r, color.g, color.b, 0.65, 0.63, 0.35)
             end
         end
@@ -86,7 +84,7 @@ social:SetScript("OnEnter", function(self)
                 end
             end
 
-            if caelLib.Locale ~= "enUS" then -- female class localization
+            if caelUI.config.locale ~= "enUS" then -- female class localization
                 for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
                     if class == v then
                         class = k
@@ -124,7 +122,7 @@ social:SetScript("OnEnter", function(self)
                     end
                 end
 
-                if caelLib.Locale ~= "enUS" then
+                if caelUI.config.locale ~= "enUS" then
                     for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
                         if class == v then
                             class = k

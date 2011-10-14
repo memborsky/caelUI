@@ -1,8 +1,6 @@
---[[    $Id$    ]]
-
 local _, caelDataFeeds = ...
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 caelDataFeeds.createModule = function(name)
 
@@ -11,7 +9,7 @@ caelDataFeeds.createModule = function(name)
 
     -- Create module text.
     module.text = caelPanel_DataFeed:CreateFontString(nil, "OVERLAY")
-    module.text:SetFont(caelUI.get_database("media")["fonts"]["NORMAL"], 11)
+    module.text:SetFont(caelUI.media.fonts.NORMAL, 11)
 
     -- Setup module.
     module:SetAllPoints(module.text)

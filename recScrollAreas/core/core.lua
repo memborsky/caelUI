@@ -1,5 +1,3 @@
---[[    $Id$    ]]
-
 local last_use = 0
 
 local function CollisionCheck(newtext)
