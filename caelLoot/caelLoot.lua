@@ -136,7 +136,7 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
                     if name == select(1, GetItemInfo(52078)) then
                         RollOnLoot(id, 1)
                     else --]]
-                        if (quality == 2 and not BoP) or (quality == 3 and caelLib.iLvl >= 355) then
+                        if (quality == 2 and not BoP) or (quality == 3 and caelUI.config.player.iLvl >= 355) then
                             RollOnLoot(id, canDE and 3 or 2)
                         end
                     --end

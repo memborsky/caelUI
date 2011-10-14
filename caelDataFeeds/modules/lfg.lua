@@ -22,9 +22,6 @@ local red, green = "AF5050", "559655"
 
 local leaveMsg = caelUI.config.locale == "frFR" and "Merci pour le gruope, bye." or "Thank you for the group, goodbye."
 
--- Average item gear level
-local iLvl = math.floor(GetAverageItemLevel("player"))
-
 AlertFrame:UnregisterEvent"LFG_COMPLETION_REWARD" -- Dont Show the Dungeon Complete Frame
 
 local delay = 0

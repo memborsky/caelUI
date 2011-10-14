@@ -9,7 +9,6 @@ EventFrame:SetScript("OnEvent", function(self, event, ...)
 end)
 
 caelLib.zoneName = GetRealZoneText()
-caelLib.iLvl = math.floor(GetAverageItemLevel("player"))
 
 -- Setup myChars and charListA list
 do
