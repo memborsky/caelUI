@@ -2,7 +2,7 @@
 
 local lfg = caelDataFeeds.createModule("LFG")
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 lfg.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixelScale(-150), 0)
 

@@ -2,7 +2,7 @@ local _, caelDataFeeds = ...
 
 local coords = caelDataFeeds.createModule("Coords")
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 coords.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixelScale(425), 0)
 

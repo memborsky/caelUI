@@ -4,7 +4,7 @@
 
 local autoinvite = caelCore.createModule("AutoInvite")
 
-local media = caelUI.get_database("media")
+local media = caelUI.media
 
 local AcceptFriends = false
 local AcceptGuild = true

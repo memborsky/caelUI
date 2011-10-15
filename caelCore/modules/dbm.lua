@@ -5,7 +5,7 @@ local _, caelCore = ...
 local dbm = caelCore.createModule("Deadly Boss Mods")
 
 local caelUI = caelUI
-local media = caelUI.get_database("media")
+local media = caelUI.media
 
 local SkinBars = function(self)
     for bar in self:GetBarIterator() do

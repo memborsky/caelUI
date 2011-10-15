@@ -2,7 +2,7 @@ local _, caelDataFeeds = ...
 
 local durability = caelDataFeeds.createModule("Durability")
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 durability.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixelScale(225), 0)
 

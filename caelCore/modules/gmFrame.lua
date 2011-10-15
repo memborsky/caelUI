@@ -4,7 +4,7 @@
 
 local gmframe = caelCore.createModule("GMFrame")
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 TicketStatusFrame:ClearAllPoints()
 TicketStatusFrame:SetPoint("TOP", UIParent, 0, pixelScale(-5))

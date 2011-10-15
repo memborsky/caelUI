@@ -2,7 +2,7 @@ local _, caelDataFeeds = ...
 
 local clock = caelDataFeeds.createModule("Clock")
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 clock.text:SetPoint("RIGHT", caelPanel_DataFeed, "RIGHT", pixelScale(-10), 0)
 

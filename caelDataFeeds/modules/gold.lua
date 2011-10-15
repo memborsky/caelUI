@@ -2,7 +2,7 @@ local _, caelDataFeeds = ...
 
 local gold = caelDataFeeds.createModule("Gold")
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 gold.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixelScale(-300), 0)
 

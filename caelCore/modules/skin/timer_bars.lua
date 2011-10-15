@@ -5,8 +5,8 @@
 local addonName, caelCore = ...
 
 -- Local Variables
-local media = caelUI.get_database("media")
-local pixelScale = caelUI.pixelScale
+local media = caelUI.media
+local pixelScale = caelUI.config.pixelScale
 
 local statusBarTexture = media.files.statusBarE
 local font = media.fonts.NORMAL

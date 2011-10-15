@@ -4,7 +4,7 @@ local _, caelDataFeeds = ...
 
 local tbtimer = caelDataFeeds.createModule("TolBaradTimer")
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 tbtimer:SetFrameStrata("HIGH")
 tbtimer.text:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, pixelScale(5))

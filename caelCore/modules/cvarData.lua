@@ -185,7 +185,7 @@ function cvardata:init()
     setmetatable(self.db.cvarValues, {__index = defaultCVarValues})
     
     local screenWidth, screenHeight = caelLib.screenWidth, caelLib.screenHeight
-    if caelLib.scales[screenWidth] and caelLib.scales[screenWidth][screenHeight] then
+    if caelLib.scales and caelLib.scales[screenWidth] and caelLib.scales[screenWidth][screenHeight] then
         SetCVar("useUiScale", 1)
         SetCVar("uiScale", caelLib.scales[screenWidth][screenHeight])
 

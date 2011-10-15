@@ -2,7 +2,7 @@ local _, caelDataFeeds = ...
 
 local system = caelDataFeeds.createModule("System")
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 system.text:SetPoint("LEFT", caelPanel_DataFeed, "LEFT", pixelScale(10), 0)
 

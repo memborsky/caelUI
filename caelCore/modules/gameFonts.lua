@@ -2,7 +2,7 @@ local _, caelCore = ...
 
 local gameFonts = caelCore.createModule("gameFonts")
 
-local fonts = caelUI.get_database("media")["fonts"]
+local fonts = caelUI.media.fonts
 
 local SetFont = function(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
     obj:SetFont(font, size, style)

@@ -2,8 +2,8 @@
 
 local nextline = 1
 
-local media = caelUI.get_database("media")
-local pixelScale = caelUI.pixelScale
+local media = caelUI.media
+local pixelScale = caelUI.config.pixelScale
 
 WatchFrame:ClearAllPoints()
 WatchFrame:SetHeight(pixelScale(600))

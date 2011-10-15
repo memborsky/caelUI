@@ -4,7 +4,7 @@ local dummy = caelLib.dummy
 
 local characterpanel = caelCore.createModule("CharacterPanel")
 
-local pixelScale = caelUI.pixelScale
+local pixelScale = caelUI.config.pixelScale
 
 local helm = characterpanel.helm
 local cloak = characterpanel.cloak
