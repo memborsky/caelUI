@@ -2,7 +2,7 @@ local private = unpack(select(2, ...))
 
 local databases = {}
 local system_generated_count = 0
-local private.database = {}
+private.database = {}
 
 function private.database.initialize ()
     if cael_user and (cael_user.databases and cael_user.databases ~= {}) then
