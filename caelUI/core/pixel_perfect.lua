@@ -48,4 +48,3 @@ do
 
     private.database.save(config)
 end
-
