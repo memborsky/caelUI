@@ -2,7 +2,7 @@
 ## Author: Caellian
 ## Title: |cffD7BEA5cael|rMisdirection
 ## Notes: Misdirection warnings to custom channels
-## RequiredDeps: caelLib
+## RequiredDeps: caelUI
 ## X-Revision: $Id$
 ## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
 ## X-Category: Hunters

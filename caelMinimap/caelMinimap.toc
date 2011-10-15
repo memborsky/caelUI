@@ -2,7 +2,7 @@
 ## Author: Caellian
 ## Title: |cffD7BEA5cael|rMinimap
 ## Notes: Modifies the minimap in a few ways
-## RequiredDeps: caelLib, caelPanels, caelUI
+## RequiredDeps: caelPanels, caelUI
 ## X-Revision: $Id$
 ## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
 ## X-Category: Maps

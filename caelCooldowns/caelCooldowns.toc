@@ -2,7 +2,7 @@
 ## Author: Caellian
 ## Title: |cffD7BEA5cael|rCooldowns
 ## Notes: featureless version of OmniCC
-## RequiredDeps: caelLib, caelUI
+## RequiredDeps: caelUI
 ## X-Revision: $Id$
 ## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
 ## X-Category: Interface Enhancements
