@@ -26,7 +26,7 @@ local scales = {
 }
 
 -- Our scale offset to screen resolution.
-local scaleFix
+local scaleFix = 1
 
 -- Our screen width and height.
 local screenWidth, screenHeight = string.match((({GetScreenResolutions()})[GetCurrentResolution()] or ""), "(%d+).-(%d+)")
