@@ -1,19 +1,25 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <!-- Load function check for PTR. -->
-    <script file="ptr.lua" />
+    <!-- Load the database manager. -->
+    <script file="database.lua" />
+
+    <!-- Handle loading the configuration database. -->
+    <script file="config.lua" />
 
     <!-- Loads our private functions used inside caelUI only. These are to _NOT_ be used by outside addons. -->
-    <script file="private.lua" />
+    <script file="functions.lua" />
 
-    <!-- Loads our public interface file. These can be used by outside addons. -->
-    <script file="public.lua" />
+    <!-- Handles the pixel perfection for the UI to be perfectly spaced. -->
+    <script file="pixel_perfect.lua" />
 
     <!-- Loading our output functions. -->
     <script file="output.lua" />
 
-    <!-- Load the database manager. -->
-    <script file="database.lua" />
+    <!-- Load function check for PTR. -->
+    <script file="ptr.lua" />
 
-    <!-- Handles the pixel perfection for the UI to be perfectly spaced. -->
-    <script file="pixel_perfect.lua" />
+    <!--
+        We are loading this as the very LAST file in the caelui.toc file.
+        This is because we want to make sure everything is loaded in caelUI before we attempt to index it from external addons.
+     -->
+    <!-- script file="api.lua" / -->
 </Ui>
