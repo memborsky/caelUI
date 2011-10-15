@@ -11,3 +11,5 @@ public.functions = {
     ["utf8sub"]         = private.utf8sub,
     ["GetSpellName"]    = private.GetSpellName,
 }
+
+public.createBackdrop = private.database.get("panels").createBackdrop
