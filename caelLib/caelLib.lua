@@ -10,51 +10,8 @@ end)
 
 caelLib.zoneName = GetRealZoneText()
 
--- Setup myChars and charListA list
+-- Setup charListA list
 do
-    local myChars = {
-        ["Earthen Ring"] = {
-            ["WARRIOR"] = {
-                ["Belliofria"]  = true,
-            },
-            ["PALADIN"] = {
-                ["Keltric"]     = true,
-            },
-            ["DRUID"] = {
-                ["Yeebuddy"]    = true,
-            },
-            ["PRIEST"] = {
-                ["Jankly"]      = true,
-            },
-            ["HUNTER"] = {
-                ["Meybe"]       = true,
-            },
-            ["WARLOCK"] = {
-                ["Jeprscreprs"] = true,
-            },
-            ["SHAMAN"] = {
-                ["Illexia"]     = true,
-            },
-            ["ROGUE"] = {
-                ["Burlesque"]   = true,
-            },
-            ["DEATHKNIGHT"] = {
-                ["Sey"]         = true,
-            }
-        },
-        ["Korgath"] = {
-            ["MAGE"] = {
-                ["Regretfully"] = true,
-            },
-        },
-        ["Broxigar (US)"] = {
-            ["WARRIOR"] = {
-                ["Bellio"]      = true,
-                ["Belliofria"]  = true,
-            },
-        }
-    }
-
     local charListA = {
         ["Illidan"] = { 
             ["HUNTER"] = {
@@ -80,10 +37,6 @@ do
             }
         }
     }
-
-    if myChars[caelLib.playerRealm] and myChars[caelLib.playerRealm][caelLib.playerClass] and myChars[caelLib.playerRealm][caelLib.playerClass][UnitName("player")] then
-        caelLib.myChars = true
-    end
 
     if charListA[caelLib.playerRealm] and charListA[caelLib.playerRealm][caelLib.playerClass] and charListA[caelLib.playerRealm][caelLib.playerClass][UnitName("player")] then
         caelLib.isCharListA = true

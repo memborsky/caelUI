@@ -4,7 +4,6 @@ local cvardata = caelCore.createModule("cvarData")
 
 cvardata.initOn = "PLAYER_ENTERING_WORLD"
 
-local myChars = caelLib.myChars
 local ZoneChange = function(zone)
         local _, instanceType = IsInInstance()
         if zone == "Orgrimmar" or zone == "Stormwind" then
@@ -111,10 +110,10 @@ local defaultCVarValues = {
     ["showToastWindow"] = 0,
     ["toastDuration"] = 0,
 
-    ["M2Faster"] = myChars and 3 or 2, -- Adds additional threads used in rendering models on screen (0 = no additional threads, 1 - 3 = adds additional threads to the WoW Client)
+    ["M2Faster"] = 3, -- Adds additional threads used in rendering models on screen (0 = no additional threads, 1 - 3 = adds additional threads to the WoW Client)
     --[[
-    ["gxTextureCacheSize"] = myChars and 1024 or 512,
-    ["gxMultisample"] = myChars and 8 or 4,
+    ["gxTextureCacheSize"] = 1024,
+    ["gxMultisample"] = 8,
     ["gxMultisampleQuality"] = 0.000000,
     ["gxVSync"] = 0,
     ["gxTripleBuffer"] = 0,
@@ -125,7 +124,7 @@ local defaultCVarValues = {
     ["maxfpsbk"] = 100,
     --[[
     ["ffx"] = 0,
-    ["textureFilteringMode"] = myChars and 5 or 1,
+    ["textureFilteringMode"] = 5,
     ["baseMip"] = 0, -- 0 for max
     ["ffxDeath"] = 0,
     ["ffxGlow"] = 0,
@@ -134,17 +133,17 @@ local defaultCVarValues = {
     ["farclip"] = 1600,
     --["shadowMode"] = 0,
     ["componentCompress"] = 1,
-    ["componentThread"] = myChars and 3 or 1,
+    ["componentThread"] = 3,
     ["componentTextureLevel"] = 9, -- min 8
-    ["sunshafts"] = myChars and 2 or 1,
-    ["waterdetail"] = myChars and 3 or 2,
-    ["rippleDetail"] = myChars and 2 or 1,
-    ["reflectionmode"] = myChars and 3 or 0,
+    ["sunshafts"] = 2,
+    ["waterdetail"] = 3,
+    ["rippleDetail"] = 2,
+    ["reflectionmode"] = 3,
     ["violencelevel"] = 5, -- 0-5 Level of violence, 0 == none, 1 == green blood 2-5 == red blood
 
     --[[
     ["Sound_EnableHardware"] = 1,
-    ["Sound_NumChannels"] = myChars and 128 or 64, -- 12, 32, 64, 128
+    ["Sound_NumChannels"] = 128, -- 12, 32, 64, 128
     ["Sound_OutputQuality"] = 2, -- 0-2
     ["Sound_EnableSoftwareHRTF"] = 1, -- Enables headphone designed sound subsystem
     ["Sound_AmbienceVolume"] = 0.10000000149012,

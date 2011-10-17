@@ -122,6 +122,7 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
             LootFrameDownButton:SetSize(0.01, 0.01)
         end
     elseif event == "START_LOOT_ROLL" then
+        --[[
         if UnitLevel("player") ~= MAX_PLAYER_LEVEL then return end
 
         local _, instanceType = IsInInstance()
@@ -132,14 +133,14 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
             if id then
                 if caelLib.myChars then
                     -- Need the Chaos Orb
-                    --[[
+                    
                     if name == select(1, GetItemInfo(52078)) then
                         RollOnLoot(id, 1)
-                    else --]]
+                    else
                         if (quality == 2 and not BoP) or (quality == 3 and caelUI.config.player.iLvl >= 355) then
                             RollOnLoot(id, canDE and 3 or 2)
                         end
-                    --end
+                    end
                 else
                     if (quality == 2 and not BoP) then
                         RollOnLoot(id, canDE and 3 or 2)
@@ -147,6 +148,7 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
                 end
             end
         end
+        --]]
     end
 
     for index = 1, STATICPOPUP_NUMDIALOGS do
