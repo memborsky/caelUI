@@ -1,6 +1,4 @@
-﻿if not caelLib.isCharListA then return end
-
-local _, caelCore = ...
+﻿local _, caelCore = ...
 
 local keybinding = caelCore.createModule("KeyBinding")
 

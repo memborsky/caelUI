@@ -16,7 +16,6 @@ local pixelScale = caelUI.config.pixelScale
 local playerClass = caelUI.config.player.class
 
 local kill = caelLib.kill
-local isCharListA = caelLib.isCharListA
 
 CHAT_TELL_ALERT_TIME = 0 -- sound on every whisper
 DEFAULT_CHATFRAME_ALPHA = 0 -- remove mouseover background
@@ -310,14 +309,19 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
 
                 -- Setup the chatframes
 
+                --[[
+                
                 if isCharListA then
                     ChatFrame_RemoveAllChannels(frame)
                     ChatFrame_RemoveAllMessageGroups(frame)
                 end
+                --]]
 
                 if i == 1 then
                     FCF_SetWindowName(frame, "• Gen •")
 
+                    --[[
+                    -- XXX: We are removing all usage of isCharListA and myChars due to globalization of the UI.
                     if isCharListA then
                         for i = 0, 30 do
                             if i < 16 then -- Everything up to 15
@@ -328,6 +332,7 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
                             end
                         end
                     end
+                    --]]
                 elseif i == 2 then
                     FCF_SetWindowName(frame, "• Log •")
                     FCF_UnDockFrame(frame)
@@ -549,25 +554,20 @@ local caelChat_OnUpdate = function(self, elapsed)
             ChangeChatColor("WHISPER", 0.3, 0.6, 0.9)
             ChangeChatColor("WHISPER_INFORM", 0.3, 0.6, 0.9)
 
-            --[[
-            if caelLib.mychars then
-                JoinTemporaryChannel("")
-                ChatFrame_AddChannel(_G.ChatFrame1, "")
-            end
-            --]]
             -- Caellian stuff
             --[[
+            -- XXX: We are removing all usage of isCharListA and myChars due to globalization of the UI.
             if isCharListA and playerClass == "HUNTER" then
-            JoinTemporaryChannel("WeDidHunter")
-            ChatFrame_AddChannel(_G.ChatFrame1, "WeDidHunter")
-            ChangeChatColor("CHANNEL5", 0.67, 0.83, 0.45)
+                JoinTemporaryChannel("WeDidHunter")
+                ChatFrame_AddChannel(_G.ChatFrame1, "WeDidHunter")
+                ChangeChatColor("CHANNEL5", 0.67, 0.83, 0.45)
             elseif isCharListA and playerClass == "DRUID" or playerClass == "ROGUE" or playerClass == "WARRIOR" or playerClass == "DEATHKNIGHT" then
-            JoinTemporaryChannel("WeDidCaC")
-            ChatFrame_AddChannel(_G.ChatFrame1, "WeDidCaC")
-            if playerClass == "DRUID" then ChangeChatColor("CHANNEL5", 1, 0.49, 0.04) end
-            if playerClass == "ROGUE" then ChangeChatColor("CHANNEL5", 1, 0.96, 0.41) end
-            if playerClass == "WARRIOR" then ChangeChatColor("CHANNEL5", 0.78, 0.61, 0.43) end
-            if playerClass == "DEATHKNIGHT" then ChangeChatColor("CHANNEL5", 0.77, 0.12, 0.23) end
+                JoinTemporaryChannel("WeDidCaC")
+                ChatFrame_AddChannel(_G.ChatFrame1, "WeDidCaC")
+                if playerClass == "DRUID" then ChangeChatColor("CHANNEL5", 1, 0.49, 0.04) end
+                if playerClass == "ROGUE" then ChangeChatColor("CHANNEL5", 1, 0.96, 0.41) end
+                if playerClass == "WARRIOR" then ChangeChatColor("CHANNEL5", 0.78, 0.61, 0.43) end
+                if playerClass == "DEATHKNIGHT" then ChangeChatColor("CHANNEL5", 0.77, 0.12, 0.23) end
             end
             --]]
 

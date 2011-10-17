@@ -10,39 +10,6 @@ end)
 
 caelLib.zoneName = GetRealZoneText()
 
--- Setup charListA list
-do
-    local charListA = {
-        ["Illidan"] = { 
-            ["HUNTER"] = {
-                ["Ragnuk"]      = true,
-                ["Callysto"]    = true
-            },
-            ["DRUID"] = {
-                ["Cowdiak"]     = true,
-                ["Kallysto"]    = true
-            },
-            ["PALADIN"] = {
-                ["Calyr"]       = true
-            },
-            ["PRIEST"] = {
-                ["Baelnorn"]    = true,
-                ["Nïmue"]       = true
-            },
-            ["SHAMAN"] = {
-                ["Pimiko"]      = true
-            },
-            ["WARRIOR"] = {
-                ["Ragnøk"]      = true
-            }
-        }
-    }
-
-    if charListA[caelLib.playerRealm] and charListA[caelLib.playerRealm][caelLib.playerClass] and charListA[caelLib.playerRealm][caelLib.playerClass][UnitName("player")] then
-        caelLib.isCharListA = true
-    end
-end
-
 -- Returns the name of the spell ID.
 caelLib.GetSpellName = function(spellId) return GetSpellInfo(spellId) end
 
