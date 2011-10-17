@@ -55,17 +55,3 @@ frame:SetScript("OnEvent", function(self, event, ...)
         self:UnregisterEvent(event)
     end
 end)
-
--- Our event counter.
-local eventCount = 0
-local garbageCollector = CreateFrame("Frame")
-garbageCollector:RegisterAllEvents()
-garbageCollector:SetScript("OnEvent", function(self, event)
-    eventCount = eventCount + 1
-    if InCombatLockdown() then return end
-
-    if eventCount > 10000 then
-        collectgarbage("collect")
-        eventCount = 0        
-    end
-end)
