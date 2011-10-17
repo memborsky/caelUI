@@ -2,9 +2,6 @@ local _, caelBags = ...
 
 _G["caelBags"] = caelBags
 
--- Dummy func so we can trash some functions we can't avoid being called.
-local dummy = caelLib.dummy
-
 -- Used to for moving to the new caelUI system.
 local media = caelUI.media
 local pixelScale = caelUI.config.pixelScale
@@ -20,7 +17,7 @@ local FIRST_BANKBAG = NUM_BAG_SLOTS + 1         -- BagID of first bankbag slot.
 local LAST_BANKBAG = NUM_BAG_SLOTS + NUM_BANKBAGSLOTS   -- BagID of the last bankbag slot.
 
 -- Prevent automatic resizing of the container frames.
-updateContainerFrameAnchors = dummy
+updateContainerFrameAnchors = function() end
 
 -- Layout settings
 -- Sizing
@@ -171,7 +168,7 @@ local function ApplyButtonLayout(button)
 
     -- Hide that ugly new quest border
     questTexture:Hide()
-    questTexture.Show = dummy
+    questTexture.Show = questTexture.Hide
 
     -- Replace textures.
     button:SetNormalTexture(media.files.buttonNormal)
@@ -267,17 +264,17 @@ do
 
     -- Fix token frame glitch
     BackpackTokenFrame:Hide()
-    BackpackTokenFrame.Show = dummy
+    BackpackTokenFrame.Show = BackpackTokenFrame.Hide
 
     -- Trash some BankFrame functionality.
     BankFrame:EnableMouse(false)
     BankCloseButton:Hide()
 
     BankFramePurchaseInfo:Hide()
-    BankFramePurchaseInfo.Show = dummy
+    BankFramePurchaseInfo.Show = BankFramePurchaseInfo.Hide
 
     BankFrameMoneyFrame:Hide()
-    BankFrameMoneyFrame.Show = dummy
+    BankFrameMoneyFrame.Show = BankFrameMoneyFrame.Hide
 
 
     for i = 1, 7 do

@@ -277,7 +277,12 @@ skin:SetScript("OnEvent", function(self, event, addon)
     -- Others
     _G["ReadyCheckListenerFrame"]:SetAlpha(0)
     _G["ReadyCheckFrame"]:HookScript("OnShow", function(self) if UnitIsUnit("player", self.initiator) then self:Hide() end end)
-    _G["PlayerPowerBarAlt"]:HookScript("OnShow", function(self) self:ClearAllPoints() self.ClearAllPoints = caelLib.dummy self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixelScale(25)) self.SetPoint = caelLib.dummy end)
+    _G["PlayerPowerBarAlt"]:HookScript("OnShow", function(self)
+        self:ClearAllPoints()
+        self.ClearAllPoints = function () end
+        self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixelScale(25))
+        self.SetPoint = function () end
+    end)
     SkinPanel(_G["StackSplitFrame"])
     SkinButton(_G["StackSplitOkayButton"])
     SkinButton(_G["StackSplitCancelButton"])

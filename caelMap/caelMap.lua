@@ -3,7 +3,6 @@
 caelMap.eventFrame = CreateFrame"Frame"
 
 local kill = caelLib.kill
-local dummy = caelLib.dummy
 
 local media = caelUI.media
 local pixelScale = caelUI.config.pixelScale
@@ -27,8 +26,8 @@ local function setupMap(self)
         ToggleFrame(WorldMapFrame)
     end
 
-    WorldMap_ToggleSizeDown = dummy
-    WorldMap_ToggleSizeUp = dummy
+    WorldMap_ToggleSizeDown = function() end
+    WorldMap_ToggleSizeUp = function() end
 
     WorldMapFrame.oArrow = PositionWorldMapArrowFrame
     PositionWorldMapArrowFrame = function(point, frame, anchor, x, y)
@@ -69,26 +68,26 @@ local function setupMap(self)
 
     WorldMapFrame:EnableKeyboard(false)
     WorldMapFrame:EnableMouse(false)
-    WorldMapFrame.EnableKeyboard = dummy
-    WorldMapFrame.EnableMouse = dummy
+    WorldMapFrame.EnableKeyboard = function () end
+    WorldMapFrame.EnableMouse = function () end
 
-    WorldMap_LoadTextures = dummy
+    WorldMap_LoadTextures = function() end
 
     WorldMapPositioningGuide:ClearAllPoints()
     WorldMapPositioningGuide:SetPoint("CENTER")
-    WorldMapPositioningGuide.ClearAllPoints = dummy
-    WorldMapPositioningGuide.SetPoint = dummy
+    WorldMapPositioningGuide.ClearAllPoints = function() end
+    WorldMapPositioningGuide.SetPoint = function() end
 
     WorldMapDetailFrame:SetPoint("TOPLEFT", WorldMapPositioningGuide, "TOP", -502, -69)
 
     local function StopMessingWithMyShitBlizzard(frame)
         frame:SetScale(WORLDMAP_QUESTLIST_SIZE)
-        frame.ClearAllPoints = dummy
-        frame.SetPoint = dummy
-        frame.SetScale = dummy
-        frame.SetWidth = dummy
-        frame.SetHeight = dummy
-        frame.SetSize = dummy
+        frame.ClearAllPoints = function () end
+        frame.SetPoint = function () end
+        frame.SetScale = function () end
+        frame.SetWidth = function () end
+        frame.SetHeight = function () end
+        frame.SetSize = function () end
     end
 
     StopMessingWithMyShitBlizzard(WorldMapPositioningGuide)
@@ -108,7 +107,7 @@ local function setupMap(self)
     end
 
     WorldMapFrame:SetAlpha(0.75)
-    WorldMapFrame.SetAlpha = dummy
+    WorldMapFrame.SetAlpha = function () end
 
     WorldMapDetailFrame.bg = CreateFrame("Frame", nil, WorldMapDetailFrame)
     WorldMapDetailFrame.bg:SetPoint("TOPLEFT", -10, 50)
@@ -186,9 +185,9 @@ caelMap.eventFrame:SetScript("OnEvent", function(self, event, ...)
         WorldMapBlobFrame:Hide()
         WorldMapPOIFrame:Hide()
 
-        WorldMapArchaeologyDigSites.Show = dummy
-        WorldMapBlobFrame.Show = dummy
-        WorldMapPOIFrame.Show = dummy
+        WorldMapArchaeologyDigSites.Show = WorldMapArchaeologyDigSites.Hide
+        WorldMapBlobFrame.Show = WorldMapBlobFrame.Hide
+        WorldMapPOIFrame.Show = WorldMapPOIFrame.Hide
 
         WatchFrame_Update()
     elseif event == "PLAYER_REGEN_ENABLED" then

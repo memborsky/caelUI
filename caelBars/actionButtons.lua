@@ -75,7 +75,7 @@ local function StyleButton(name, action)
             hotkey:SetPoint("TOPRIGHT", pixelScale(3), pixelScale(1))
         else
             hotkey:Hide()
-            hotkey.Show = caelLib.dummy
+            hotkey.Show = hotkey.Hide
         end
 
         name:Hide()

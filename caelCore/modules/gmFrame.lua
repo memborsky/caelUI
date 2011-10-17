@@ -29,5 +29,5 @@ gmframe:SetScript("OnEvent", function(self, event, name)
     GMChatFrameResizeButton:Hide()
     GMChatTab:Hide()
 
-    enhanceGMFrame = caelLib.dummy
+    enhanceGMFrame = function () end
 end)

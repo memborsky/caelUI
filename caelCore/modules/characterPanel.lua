@@ -1,7 +1,5 @@
 ﻿local _, caelCore = ...
 
-local dummy = caelLib.dummy
-
 local characterpanel = caelCore.createModule("CharacterPanel")
 
 local pixelScale = caelUI.config.pixelScale
@@ -19,7 +17,8 @@ CharacterModelFrameRotateRightButton:SetScale(pixelScale(0.85))
 CharacterModelFrameRotateRightButton:SetPoint("RIGHT", PaperDollFrame, "RIGHT", pixelScale(-112.5), 0)
 
 local ShowCloak, ShowHelm = ShowCloak, ShowHelm
-_G.ShowCloak, _G.ShowHelm = dummy, dummy
+_G.ShowCloak = function () end
+_G.ShowHelm = function () end
 
 for k, v in next, {InterfaceOptionsDisplayPanelShowCloak, InterfaceOptionsDisplayPanelShowHelm} do
     v:SetButtonState("DISABLED", true)

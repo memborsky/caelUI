@@ -1,6 +1,4 @@
-﻿local dummy = caelLib.dummy
-
-local nextline = 1
+﻿local nextline = 1
 
 local media = caelUI.media
 local pixelScale = caelUI.config.pixelScale
@@ -10,9 +8,9 @@ WatchFrame:SetHeight(pixelScale(600))
 WatchFrame:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", pixelScale(-15), pixelScale(-15))
 --WatchFrameCollapseExpandButton:Hide()
 
-WatchFrame.ClearAllPoints = dummy
-WatchFrame.SetPoint = dummy
---WatchFrameCollapseExpandButton.Show = dummy
+WatchFrame.ClearAllPoints = function () end
+WatchFrame.SetPoint = function () end
+--WatchFrameCollapseExpandButton.Show = function () end
 
 WatchFrameTitle:SetFont(media.fonts.NORMAL, 11)
 

@@ -174,9 +174,6 @@ EventFrame.PLAYER_ENTERING_WORLD = function(self, event, ...)
 end
 EventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
--- Dummy function
-caelLib.dummy = function() end
-
 caelLib.kill = function(object)
     local objectReference = object
     if type(object) == "string" then
@@ -188,6 +185,6 @@ caelLib.kill = function(object)
     if type(objectReference) == "frame" then
         objectReference:UnregisterAllEvents()
     end
-    objectReference.Show = caelLib.dummy
     objectReference:Hide()
+    objectReference.Show = objectReference.Hide
 end
