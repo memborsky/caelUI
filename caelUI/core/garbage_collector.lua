@@ -2,7 +2,7 @@
 -- -OR-
 -- we are at 10k+ events since our last garbage clean outside of combat.
 local function checkCount (currentCount)
-    if (InCombatLockdown() and eventCount > 25000) or eventCount > 10000 then
+    if (InCombatLockdown() and currentCount > 25000) or currentCount > 10000 then
         return true
     end
 end
