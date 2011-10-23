@@ -27,39 +27,6 @@ function caelLib.IsIn (needle, haystack)
     return false, nil
 end
 
-caelLib.utf8sub = function(string, index, dots)
-    local bytes = string:len()
-    if bytes <= index then
-        return string
-    else
-        local length, currentIndex = 0, 1
-
-        while currentIndex <= bytes do
-            length = length + 1
-            local char = string:byte(currentIndex)
-            if char > 240 then
-                currentIndex = currentIndex + 4
-            elseif char > 225 then
-                currentIndex = currentIndex + 3
-            elseif char > 192 then
-                currentIndex = currentIndex + 2
-            else
-                currentIndex = currentIndex + 1
-            end
-
-            if length == index then
-                break
-            end
-        end
-
-        if length == index and currentIndex <= bytes then
-            return string:sub(1, currentIndex - 1)..(dots and "..." or "")
-        else
-            return string
-        end
-    end
-end
-
 -------------------------------------
 -- Check if we are in a guild group
 -------------------------------------

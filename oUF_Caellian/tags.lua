@@ -1,5 +1,7 @@
 local _, oUF_Caellian = ...
 
+local utf8sub = caelUI.utf8sub
+
 oUF.Tags.Events["caellian:diffcolor"] = "UNIT_LEVEL"
 if (not oUF.Tags.Methods["caellian:diffcolor"]) then
     oUF.Tags.Methods["caellian:diffcolor"]  = function(unit)
@@ -52,7 +54,7 @@ if (not oUF.Tags.Methods["caellian:nameshort"]) then
     oUF.Tags.Methods["caellian:nameshort"] = function(unit)
         local oldName = UnitName(unit) and UnitName(unit) or ""
         local newName = (string.len(oldName) > 8) and string.gsub(oldName, "%s?(.[\128-\191]*)%S+%s", "%1. ") or oldName -- "%s?(.)%S+%s"
-        return caelLib.utf8sub(newName, 8, false)
+        return utf8sub(newName, 8, false)
     end
 end
 
@@ -66,7 +68,7 @@ if (not oUF.Tags.Methods["caellian:namemedium"]) then
         elseif (unit == PetFrame.unit and oldName == UnitName("player")) then
             return
         else
-            return caelLib.utf8sub(newName, 12, true)
+            return utf8sub(newName, 12, true)
         end
     end
 end
@@ -76,7 +78,7 @@ if (not oUF.Tags.Methods["caellian:namelong"]) then
     oUF.Tags.Methods["caellian:namelong"] = function(unit)
         local oldName = UnitName(unit) and UnitName(unit) or ""
         local newName = (string.len(oldName) > 18) and string.gsub(oldName, "%s?(.[\128-\191]*)%S+%s", "%1. ") or oldName
-        return caelLib.utf8sub(newName, 18, true)
+        return utf8sub(newName, 18, true)
     end
 end
 
