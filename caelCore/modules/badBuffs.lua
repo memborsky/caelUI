@@ -8,6 +8,7 @@ local badBuffsList = {
     ["Mohawked!"]			= true,
     ["Rabbit Costume"]		= true,
     ["Hand of Proection"]	= true,
+    ["Jack-o'-Lanterned!"]	= true,
 }
 
 badbuffs:RegisterEvent("UNIT_AURA")
