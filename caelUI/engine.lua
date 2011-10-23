@@ -33,7 +33,11 @@ eventFrame:SetScript("OnEvent", function(self, event)
         private.database.initialize()
 
         -- Set our UI Scale so we can provide pixel perfection.
-        private.SetScale()
+        if cael_user.scale then
+            private.SetScale(cael_user.scale)
+        else
+            private.SetScale()
+        end
     elseif event == "PLAYER_LEAVING_WORLD" then
         -- XXX: Needs to be moved to event system.
         cael_user.scale = math.floor(GetCVar("uiScale") * 100 + 0.5)/100

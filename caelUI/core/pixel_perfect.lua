@@ -1,12 +1,19 @@
 local private = unpack(select(2, ...))
 
+local config = private.database.get("config")
+config.pixelPerfect = {}
+
 --[[
 The following section handles all of our UI Pixel Perfection that we need to make sure everything scales
 like we want it when we build the UI for all user screen sizes.
 --]]
 
+-- Our screen width and height.
+local screenWidth    = string.match((({GetScreenResolutions()})[GetCurrentResolution()] or ""), "%d+x(%d+)")
+local screenHeight   = string.match((({GetScreenResolutions()})[GetCurrentResolution()] or ""), "(%d+)x+%d")
+
 -- This is our scales database. We only need this inside this file because we only reference it here.
-local scales = {
+config.pixelPerfect.scales = {
     ["720"]     = { ["576"]  = 0.65  },
     ["800"]     = { ["600"]  = 0.70  },
     ["960"]     = { ["600"]  = 0.84  },
@@ -25,26 +32,31 @@ local scales = {
     ["2560"]    = { ["1440"] = 0.93, ["1600"] = 0.84},
 }
 
+local scales = config.pixelPerfect.scales
+
 -- Our scale offset to screen resolution.
 local scaleFix = 1
 
--- Our screen width and height.
-local screenWidth, screenHeight = string.match((({GetScreenResolutions()})[GetCurrentResolution()] or ""), "(%d+).-(%d+)")
-
 -- Used to set our scale when the ADDON_LOADED event is triggered.
 -- XXX: This needs to be moved into the events interface when it gets built.
-function private.SetScale ()
-    local uiScale = cael_user.scale or scales[screenWidth] and scales[screenWidth][screenHeight] or 1
+function private.SetScale (...)
+    local scale, screenWidth, screenHeight
+
+    if select("#", ...) == 1 then
+        scale = ...
+    elseif select("#", ...) == 2 then
+        local width, height = select(1, ...), select(2, ...)
+        screenWidth = width or screenWidth
+        screenHeight = height or screenHeight
+    end
+
+    local uiScale = scale or scales[screenWidth] and scales[screenWidth][screenHeight] or 1
     scaleFix = (768/tonumber(GetCVar("gxResolution"):match("%d+x(%d+)"))) / uiScale
 end
 
-do
-    local config = private.database.get("config")
-
-    -- This will scale our given value to our scale offset.
-    function config.pixelScale (value)
-        return scaleFix * math.floor(value / scaleFix + 0.5)
-    end
-
-    private.database.save(config)
+-- This will scale our given value to our scale offset.
+function config.pixelScale (value)
+    return scaleFix * math.floor(value / scaleFix + 0.5)
 end
+
+private.database.save(config)
