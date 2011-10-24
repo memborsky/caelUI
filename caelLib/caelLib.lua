@@ -10,23 +10,6 @@ end)
 
 caelLib.zoneName = GetRealZoneText()
 
--- Returns the name of the spell ID.
-caelLib.GetSpellName = function(spellId) return GetSpellInfo(spellId) end
-
-function caelLib.IsIn (needle, haystack)
-    if type(haystack) == "table" then
-        for key, value in pairs(haystack) do
-            if key == needle then
-                return true, "key"
-            elseif value == needle then
-                return true, "value"
-            end
-        end
-    end
-
-    return false, nil
-end
-
 -------------------------------------
 -- Check if we are in a guild group
 -------------------------------------

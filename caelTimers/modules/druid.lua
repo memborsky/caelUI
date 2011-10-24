@@ -34,7 +34,7 @@ local _, caelTimers = ...
 
 local Create = caelTimers.Create
 
-local GetSpellName = caelLib.GetSpellName
+local GetSpellName = caelUI.get_spell_name
 
 -- 331
 -- 316

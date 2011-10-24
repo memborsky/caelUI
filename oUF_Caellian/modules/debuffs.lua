@@ -3,7 +3,7 @@
 local _, oUF_Caellian = ...
 
 local playerClass = caelUI.config.player.class
-local GetSpellName = caelLib.GetSpellName
+local GetSpellName = caelUI.get_spell_name
 
 --------------------
 -- Can we dispell --
