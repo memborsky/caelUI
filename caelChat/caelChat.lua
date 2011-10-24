@@ -12,7 +12,7 @@ caelChat.eventFrame = CreateFrame("Frame", nil, UIParent)
 local caelUI = caelUI
 
 local media = caelUI.media
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 local playerClass = caelUI.config.player.class
 
 local kill = caelLib.kill
@@ -271,10 +271,10 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
                 if i ~= 2 then
                     frame:ClearAllPoints()
                     --frame:SetAllPoints(caelPanel_ChatFrame)
-                    frame:SetWidth(caelPanel_ChatFrame:GetWidth() - pixelScale(10))
-                    frame:SetHeight(caelPanel_ChatFrame:GetHeight() - pixelScale(5))
-                    frame:SetPoint("TOPLEFT", caelPanel_ChatFrame, "TOPLEFT", pixelScale(5), pixelScale(-5))
-                    frame:SetPoint("BOTTOMRIGHT", caelPanel_ChatFrame, "BOTTOMRIGHT", pixelScale(-5), pixelScale(5))
+                    frame:SetWidth(caelPanel_ChatFrame:GetWidth() - pixel_scale(10))
+                    frame:SetHeight(caelPanel_ChatFrame:GetHeight() - pixel_scale(5))
+                    frame:SetPoint("TOPLEFT", caelPanel_ChatFrame, "TOPLEFT", pixel_scale(5), pixel_scale(-5))
+                    frame:SetPoint("BOTTOMRIGHT", caelPanel_ChatFrame, "BOTTOMRIGHT", pixel_scale(-5), pixel_scale(5))
                     frame:SetMaxLines(1500)
                     --frame.SetPoint = function() end
 
@@ -284,9 +284,9 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
                     cfeb:SetMaxLetters(99999)
                     cfeb:SetAutoFocus(false)
                     cfeb:EnableMouse(true)
-                    cfeb:SetFont(media.fonts.NORMAL, 12)
-                    cfebh:SetPoint("LEFT", caelPanel_EditBox, pixelScale(5), pixelScale(1))
-                    cfebh:SetFont(media.fonts.NORMAL, 12)
+                    cfeb:SetFont(media.fonts.normal, 12)
+                    cfebh:SetPoint("LEFT", caelPanel_EditBox, pixel_scale(5), pixel_scale(1))
+                    cfebh:SetFont(media.fonts.normal, 12)
 
                     -- Hide editbox on load
                     cfeb:Hide()
@@ -337,8 +337,8 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
                     FCF_SetWindowName(frame, "• Log •")
                     FCF_UnDockFrame(frame)
                     frame:ClearAllPoints()
-                    frame:SetPoint("TOPLEFT", caelPanel_CombatLog, "TOPLEFT", pixelScale(5), pixelScale(-30))
-                    frame:SetPoint("BOTTOMRIGHT", caelPanel_CombatLog, "BOTTOMRIGHT", pixelScale(-5), pixelScale(-10))
+                    frame:SetPoint("TOPLEFT", caelPanel_CombatLog, "TOPLEFT", pixel_scale(5), pixel_scale(-30))
+                    frame:SetPoint("BOTTOMRIGHT", caelPanel_CombatLog, "BOTTOMRIGHT", pixel_scale(-5), pixel_scale(-10))
                     frame.SetPoint = function() end
                     FCF_SetTabPosition(frame, 0)
                     frame:SetJustifyH("RIGHT")
@@ -370,8 +370,8 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
                 cfeb.oldSetTextInsets = cfeb.SetTextInsets
                 -- override function to modify values.
                 cfeb.SetTextInsets = function(self, left, right, top, bottom)
-                    left = pixelScale(left - 10)
-                    top = pixelScale(top - 2)
+                    left = pixel_scale(left - 10)
+                    top = pixel_scale(top - 2)
                     -- call original function
                     cfeb.oldSetTextInsets(self, left, right, top, bottom)
                 end
@@ -395,7 +395,7 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
             local MakeButton = function(id, txt, tip)
                 local btn = CreateFrame("Button", format("ChatButton%s", id), cftbb)
                 btn.id = id
-                btn:SetSize(pixelScale(30), pixelScale(20))
+                btn:SetSize(pixel_scale(30), pixel_scale(20))
                 -- If you want them to only show on_enter
                 --btn:SetScript("OnEnter", function(...) ChatButtonBar:SetAlpha(1) end)
                 --btn:SetScript("OnLeave", function(...) ChatButtonBar:SetAlpha(0) end)
@@ -411,7 +411,7 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
                     end
                 end)
                 btn:SetScript("OnEnter", function(self)
-                    --GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixelScale(3))
+                    --GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixel_scale(3))
                     GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
                     GameTooltip:AddLine(tip)
                     GameTooltip:Show()
@@ -420,19 +420,19 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
                     GameTooltip:Hide()
                 end)
                 btn.t = btn:CreateFontString(nil, "OVERLAY")
-                btn.t:SetFont(media.fonts.NORMAL, 9)
-                btn.t:SetPoint("CENTER", 0, pixelScale(1))
+                btn.t:SetFont(media.fonts.normal, 9)
+                btn.t:SetPoint("CENTER", 0, pixel_scale(1))
                 btn.t:SetTextColor(1, 1, 1)
                 btn.t:SetText(txt)
 
-                btn:SetBackdrop(media.backdropTable)
+                btn:SetBackdrop(media.backdrop_table)
                 btn:SetBackdropColor(0.1, 0.1, 0.1, 0)
                 btn:SetBackdropBorderColor(0.1, 0.1, 0.1)
 
                 -- Create the flash frame
                 btn.flash = CreateFrame("Frame", format("ChatButton%sFlash", id), btn)
                 btn.flash:SetAllPoints()
-                btn.flash:SetBackdrop(media.backdropTable)
+                btn.flash:SetBackdrop(media.backdrop_table)
                 btn.flash:SetBackdropColor(0.69, 0.31, 0.31, 0.5)
                 btn.flash:SetBackdropBorderColor(0, 0, 0)
                 btn.flash.frequency = .025
@@ -466,17 +466,17 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
 
                 --[[
                 btn.skinTop = btn:CreateTexture(nil, "BORDER")
-                btn.skinTop:SetTexture(media.files.bgFile)
-                btn.skinTop:SetHeight(pixelScale(4))
-                btn.skinTop:SetPoint("TOPLEFT", pixelScale(2), pixelScale(-2))
-                btn.skinTop:SetPoint("TOPRIGHT", pixelScale(-2), pixelScale(-2))
+                btn.skinTop:SetTexture(media.files.background)
+                btn.skinTop:SetHeight(pixel_scale(4))
+                btn.skinTop:SetPoint("TOPLEFT", pixel_scale(2), pixel_scale(-2))
+                btn.skinTop:SetPoint("TOPRIGHT", pixel_scale(-2), pixel_scale(-2))
                 btn.skinTop:SetGradientAlpha("VERTICAL", 0, 0, 0, 0, 0.84, 0.75, 0.65, 0.5)
 
                 btn.skinBottom = btn:CreateTexture(nil, "BORDER")
-                btn.skinBottom:SetTexture(media.files.bgFile)
-                btn.skinBottom:SetHeight(pixelScale(4))
-                btn.skinBottom:SetPoint("TOPLEFT", pixelScale(2), pixelScale(-12))
-                btn.skinBottom:SetPoint("BOTTOMRIGHT", pixelScale(-2), pixelScale(2))
+                btn.skinBottom:SetTexture(media.files.background)
+                btn.skinBottom:SetHeight(pixel_scale(4))
+                btn.skinBottom:SetPoint("TOPLEFT", pixel_scale(2), pixel_scale(-12))
+                btn.skinBottom:SetPoint("BOTTOMRIGHT", pixel_scale(-2), pixel_scale(2))
                 btn.skinBottom:SetGradientAlpha("VERTICAL", 0, 0, 0, 0.75, 0, 0, 0, 0)
                 --]]
 
@@ -488,7 +488,7 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
             local cft3 = MakeButton(3, "W", "• w <-> •")
             local cft4 = MakeButton(4, "L", "• Loot •")
 
-            cft4:SetPoint("TOPRIGHT", caelPanel_ChatFrame, "TOPRIGHT", 0, pixelScale(-1.5))
+            cft4:SetPoint("TOPRIGHT", caelPanel_ChatFrame, "TOPRIGHT", 0, pixel_scale(-1.5))
             cft3:SetPoint("RIGHT", cft4, "LEFT")
             cft1:SetPoint("RIGHT", cft3, "LEFT")
 

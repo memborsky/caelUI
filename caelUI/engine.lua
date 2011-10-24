@@ -1,21 +1,22 @@
 local addon, ns = ...
 
-ns[1] = {} -- (Private) Functions
-ns[2] = {} -- Modules
-ns[3] = {} -- (Public) Functions
+ns[1] = {} -- (private) Functions
+ns[2] = {} -- modules
+ns[3] = {} -- (public) Functions
 
 -- We don't need to allow the addons to interface to anything that we don't push into the public range.
 caelUI = ns[3]
+--caelUIdebug = ns[1]
 
 local private, modules, public = unpack(select(2, ...))
 
-local eventFrame = CreateFrame("Frame")
+local Event_Frame = CreateFrame("Frame")
 
-eventFrame:RegisterEvent("ADDON_LOADED")
-eventFrame:RegisterEvent("PLAYER_LOGOUT")
-eventFrame:RegisterEvent("UPDATE_FLOATING_CHAT_WINDOWS")
-eventFrame:RegisterEvent("PLAYER_LEAVING_WORLD")
-eventFrame:SetScript("OnEvent", function(self, event)
+Event_Frame:RegisterEvent("ADDON_LOADED")
+Event_Frame:RegisterEvent("PLAYER_LOGOUT")
+Event_Frame:RegisterEvent("UPDATE_FLOATING_CHAT_WINDOWS")
+Event_Frame:RegisterEvent("PLAYER_LEAVING_WORLD")
+Event_Frame:SetScript("OnEvent", function(self, event, addon)
     if addon ~= "caelUI" then
         return
     end
@@ -34,9 +35,9 @@ eventFrame:SetScript("OnEvent", function(self, event)
 
         -- Set our UI Scale so we can provide pixel perfection.
         if cael_user.scale then
-            private.SetScale(cael_user.scale)
+            private.set_scale(cael_user.scale)
         else
-            private.SetScale()
+            private.set_scale()
         end
     elseif event == "PLAYER_LEAVING_WORLD" then
         -- XXX: Needs to be moved to event system.

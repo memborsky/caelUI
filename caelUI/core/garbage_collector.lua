@@ -1,22 +1,22 @@
 -- Only return true of we are in combat and have 25k+ events since our last garbage clean
 -- -OR-
 -- we are at 10k+ events since our last garbage clean outside of combat.
-local function checkCount (currentCount)
-    if (InCombatLockdown() and currentCount > 25000) or currentCount > 10000 then
+local function check_event_counter (current_event_count)
+    if (InCombatLockdown() and current_event_count > 25000) or current_event_count > 10000 then
         return true
     end
 end
 
 -- Our event counter.
-local eventCount = 0
-local garbageCollector = CreateFrame("Frame")
+local event_counter = 0
+local garbage_collector = CreateFrame("Frame")
 
-garbageCollector:RegisterAllEvents()
-garbageCollector:SetScript("OnEvent", function(self, event)
-    eventCount = eventCount + 1
+garbage_collector:RegisterAllEvents()
+garbage_collector:SetScript("OnEvent", function()
+    event_counter = event_counter + 1
 
-    if checkCount(eventCount) then
+    if check_event_counter(event_counter) then
         collectgarbage("collect")
-        eventCount = 0        
+        event_counter = 0
     end
 end)

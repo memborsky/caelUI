@@ -4,14 +4,14 @@ local _, caelDataFeeds = ...
 
 local tbtimer = caelDataFeeds.createModule("TolBaradTimer")
 
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
 tbtimer:SetFrameStrata("HIGH")
-tbtimer.text:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, pixelScale(5))
+tbtimer.text:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, pixel_scale(5))
 tbtimer.text:SetParent(Minimap)
 
 tbtimer.text:SetShadowColor(0, 0, 0)
-tbtimer.text:SetShadowOffset(pixelScale(1), pixelScale(-1))
+tbtimer.text:SetShadowOffset(pixel_scale(1), pixel_scale(-1))
 
 local delay = 0
 tbtimer:SetScript("OnUpdate", function(self, elapsed)

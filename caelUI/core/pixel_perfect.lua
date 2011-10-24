@@ -1,19 +1,19 @@
 local private = unpack(select(2, ...))
 
 local config = private.database.get("config")
-config.pixelPerfect = {}
+config.pixel_perfect = {}
 
 --[[
-The following section handles all of our UI Pixel Perfection that we need to make sure everything scales
+The following section handles all of our UI pixel perfection that we need to make sure everything scales
 like we want it when we build the UI for all user screen sizes.
 --]]
 
 -- Our screen width and height.
-local screenWidth    = string.match((({GetScreenResolutions()})[GetCurrentResolution()] or ""), "%d+x(%d+)")
-local screenHeight   = string.match((({GetScreenResolutions()})[GetCurrentResolution()] or ""), "(%d+)x+%d")
+local screen_width    = string.match((({GetScreenResolutions()})[GetCurrentResolution()] or ""), "%d+x(%d+)")
+local screen_height   = string.match((({GetScreenResolutions()})[GetCurrentResolution()] or ""), "(%d+)x+%d")
 
 -- This is our scales database. We only need this inside this file because we only reference it here.
-config.pixelPerfect.scales = {
+config.pixel_perfect.scales = {
     ["720"]     = { ["576"]  = 0.65  },
     ["800"]     = { ["600"]  = 0.70  },
     ["960"]     = { ["600"]  = 0.84  },
@@ -32,31 +32,37 @@ config.pixelPerfect.scales = {
     ["2560"]    = { ["1440"] = 0.93, ["1600"] = 0.84},
 }
 
-local scales = config.pixelPerfect.scales
+local scales = config.pixel_perfect.scales
 
 -- Our scale offset to screen resolution.
-local scaleFix = 1
+local scale_fix = 1
 
 -- Used to set our scale when the ADDON_LOADED event is triggered.
 -- XXX: This needs to be moved into the events interface when it gets built.
-function private.SetScale (...)
-    local scale, screenWidth, screenHeight
+function private.set_scale (...)
+    local ui_scale = select("#", ...)
 
-    if select("#", ...) == 1 then
-        scale = ...
-    elseif select("#", ...) == 2 then
-        local width, height = select(1, ...), select(2, ...)
-        screenWidth = width or screenWidth
-        screenHeight = height or screenHeight
+    if ui_scale == 1 then
+        ui_scale = ...
+    elseif ui_scale == 2 then
+        local screen_width = select(1, ...) or screen_width
+        local screen_height = select(2, ...) or screen_height
+
+        if scales[screen_width] and scales[screen_width][screen_height] then
+            ui_scale = scales[screen_width][screen_height]
+        else
+            ui_scale = 1
+        end
+    else
+        ui_scale = 1
     end
 
-    local uiScale = scale or scales[screenWidth] and scales[screenWidth][screenHeight] or 1
-    scaleFix = (768/tonumber(GetCVar("gxResolution"):match("%d+x(%d+)"))) / uiScale
+    scale_fix = (768/tonumber(GetCVar("gxResolution"):match("%d+x(%d+)"))) / ui_scale
 end
 
 -- This will scale our given value to our scale offset.
-function config.pixelScale (value)
-    return scaleFix * math.floor(value / scaleFix + 0.5)
+function config.pixel_scale (value)
+    return scale_fix * math.floor(value / scale_fix + 0.5)
 end
 
 private.database.save(config)

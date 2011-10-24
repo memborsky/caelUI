@@ -13,6 +13,9 @@ function private.database.initialize ()
 end
 
 function private.database.get (name)
+    -- No matter what we pass in here, the name of the table will always be lower case.
+    name = name:lower()
+
     if databases[name] and databases[name] ~= {} then
         return databases[name]
     end
@@ -25,9 +28,9 @@ function private.database.save (self)
         databases[self.name] = self
     else
         if type(self) == "table" then
-            self.name = "sys" .. system_generated_count
+            self.name = "system_" .. system_generated_count
             databases[self.name] = self
-            system_generated_count = system_generated_count + 1
+            System_Generated_Count = system_generated_count + 1
         end
     end
 

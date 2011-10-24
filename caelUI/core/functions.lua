@@ -61,10 +61,10 @@ We will go through the process of checking the given argument type against the p
 If it is found to be invalid, then it will print an error message, else it will just return to the caller with no response.
 
 @param  str     value   This is the type name we are passing in to check our parameter against.
-@param  num     num     This is the argument number in the list. The numbering should start at 1.
+@param  num     number  This is the argument number in the list. The numbering should start at 1.
 --]]
-function private.argcheck (value, num, ...)
-    assert(type(num) == 'number', "Bad argument #2 to 'argcheck' (number expected, got " .. type(num) .. ")")
+function private.argument_check (value, number, ...)
+    assert(type(number) == 'number', "Bad argument #2 to 'argcheck' (number expected, got " .. type(number) .. ")")
 
     for index = 1, select("#", ...) do
         if type(value) == select(index, ...) then
@@ -74,16 +74,16 @@ function private.argcheck (value, num, ...)
 
     local types = strjoin(", ", ...)
     local name = string.match(debugstack(2, 2, 0), ": in function [`<](.-)['>]")
-    private.error(("Bad argument #%d to '%s' (%s expected, got %s"):format(num, name, types, type(value)), 3)
+    private.error(("Bad argument #%d to '%s' (%s expected, got %s"):format(number, name, types, type(value)), 3)
 end
 
 -- Returns the name of the spell ID.
-function private.GetSpellName (spellId)
-    return GetSpellInfo(spellId)
+function private.get_spell_name (spell_id)
+    return GetSpellInfo(spell_id)
 end
 
 
-function private.utf8sub (string, index, dots)
+function private.UTF8_substitution (string, index, dots)
     local bytes = string:len()
 
     if bytes <= index then
@@ -93,12 +93,14 @@ function private.utf8sub (string, index, dots)
 
         while position <= bytes do
             length = length + 1
-            local char = string:byte(position)
-            if char > 240 then
+
+            local character = string:byte(position)
+
+            if character > 240 then
                 position = position + 4
-            elseif char > 225 then
+            elseif character > 225 then
                 position = position + 3
-            elseif char > 192 then
+            elseif character > 192 then
                 position = position + 2
             else
                 position = position + 1

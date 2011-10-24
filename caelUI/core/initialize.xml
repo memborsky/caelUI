@@ -15,7 +15,7 @@
     <script file="output.lua" />
 
     <!-- Load function check for PTR. -->
-    <script file="ptr.lua" />
+    <script file="public_test_realm.lua" />
 
     <!-- Collects our garbage on a regular event interval of 10k events. -->
     <script file="garbage_collector.lua" />

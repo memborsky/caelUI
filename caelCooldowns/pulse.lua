@@ -5,30 +5,30 @@ caelCooldowns.eventFrame = CreateFrame"Frame"
 local cdPulse = caelCooldowns.eventFrame
 
 local media = caelUI.media
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
 local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime, ignoredSpells
 local cooldowns, animating, watching = { }, { }, { }
 
-cdPulse:SetBackdrop(media.borderTable)
+cdPulse:SetBackdrop(media.border_table)
 
 local texture = cdPulse:CreateTexture(nil, "ARTWORK")
-texture:SetPoint("TOPLEFT", cdPulse, pixelScale(6), pixelScale(-6))
-texture:SetPoint("BOTTOMRIGHT", cdPulse, pixelScale(-6), pixelScale(6))
+texture:SetPoint("TOPLEFT", cdPulse, pixel_scale(6), pixel_scale(-6))
+texture:SetPoint("BOTTOMRIGHT", cdPulse, pixel_scale(-6), pixel_scale(6))
 texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
 local border = cdPulse:CreateTexture(nil, "ARTWORK")
-border:SetPoint("TOPLEFT", cdPulse, pixelScale(-1), pixelScale(1))
-border:SetPoint("BOTTOMRIGHT", cdPulse, pixelScale(1), pixelScale(-1))
-border:SetTexture(media.files.buttonNormal)
+border:SetPoint("TOPLEFT", cdPulse, pixel_scale(-1), pixel_scale(1))
+border:SetPoint("BOTTOMRIGHT", cdPulse, pixel_scale(1), pixel_scale(-1))
+border:SetTexture(media.files.button_normal)
 
 local gloss = CreateFrame("Frame", nil, cdPulse)
 gloss:SetFrameLevel(gloss:GetFrameLevel() + 1)
-gloss:SetPoint("TOPLEFT", cdPulse, pixelScale(-2), pixelScale(2))
-gloss:SetPoint("BOTTOMRIGHT", cdPulse, pixelScale(2), pixelScale(-2))
+gloss:SetPoint("TOPLEFT", cdPulse, pixel_scale(-2), pixel_scale(2))
+gloss:SetPoint("BOTTOMRIGHT", cdPulse, pixel_scale(2), pixel_scale(-2))
 gloss:SetBackdrop({
-    bgFile = media.files.buttonGloss,
-    insets = {top = pixelScale(-1), left = pixelScale(-1), bottom = pixelScale(-1), right = pixelScale(-1)}
+    bgFile = media.files.button_gloss,
+    insets = {top = pixel_scale(-1), left = pixel_scale(-1), bottom = pixel_scale(-1), right = pixel_scale(-1)}
 })
 gloss:SetBackdropColor(0.5, 0.5, 0.5, 0.5)
 
@@ -46,12 +46,12 @@ cdPulse:SetScript("OnEvent", function(self, event)
     fadeOutTime = 0.5
     maxAlpha = 1
     animScale = 1.2
-    iconSize = pixelScale(45)
+    iconSize = pixel_scale(45)
     holdTime = 0.75
 
     ignoredSpells = {}
 
-    self:SetPoint("CENTER", UIParent, 0, pixelScale(100))
+    self:SetPoint("CENTER", UIParent, 0, pixel_scale(100))
     self:UnregisterEvent("ADDON_LOADED")
 end)
 

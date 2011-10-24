@@ -2,9 +2,9 @@ local _, caelDataFeeds = ...
 
 local durability = caelDataFeeds.createModule("Durability")
 
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
-durability.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixelScale(225), 0)
+durability.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixel_scale(225), 0)
 
 durability:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 
@@ -48,7 +48,7 @@ durability:SetScript("OnEvent", function(self, event)
 end)
 
 durability:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixelScale(4))
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixel_scale(4))
 
     for i = 1, 11 do
         if Slots[i][3] ~= 1 then

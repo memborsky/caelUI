@@ -4,7 +4,7 @@
 
 local skin = caelCore.createModule("Skin")
 
-local pixelScale = caelUI.pixelScale
+local pixel_scale = caelUI.pixel_scale
 
 local backdrop = {
     bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
@@ -280,7 +280,7 @@ skin:SetScript("OnEvent", function(self, event, addon)
     _G["PlayerPowerBarAlt"]:HookScript("OnShow", function(self)
         self:ClearAllPoints()
         self.ClearAllPoints = function () end
-        self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixelScale(25))
+        self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixel_scale(25))
         self.SetPoint = function () end
     end)
     SkinPanel(_G["StackSplitFrame"])

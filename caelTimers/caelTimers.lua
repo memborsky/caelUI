@@ -4,7 +4,7 @@ caelTimers.eventFrame = CreateFrame("Frame", nil, UIParent)
 
 local floor, format, mod, pairs = math.floor, string.format, mod, pairs
 local UnitBuff, UnitDebuff = UnitBuff, UnitDebuff
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 local media = caelUI.media
 
 --[[
@@ -87,8 +87,8 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
     local newId = (#bars or 0) + 1
     bars[newId] = CreateFrame("StatusBar", format("caelTimers_Bar_%d", newId), parentFrame)
     caelTimers.SmoothBar(bars[newId])
-    bars[newId]:SetHeight(pixelScale(height))
-    bars[newId]:SetWidth(pixelScale(width))
+    bars[newId]:SetHeight(pixel_scale(height))
+    bars[newId]:SetWidth(pixel_scale(width))
     bars[newId].spellName = spellName
     bars[newId].unit = unit
     bars[newId].buffType = buffType
@@ -107,22 +107,22 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
             attach_point   = attach_point1,
             parentFrame   = parentFrame1,
             relative_point = relative_point1,
-            xOffset       = pixelScale(xOffset1),
-            yOffset       = pixelScale(yOffset1)
+            xOffset       = pixel_scale(xOffset1),
+            yOffset       = pixel_scale(yOffset1)
         },
         -- Talent spec 2 references - default to spec 1 values if user did not provide them.
         [2] = {
             attach_point   = attach_point2   or attach_point1,
             parentFrame   = parentFrame2   or parentFrame1,
             relative_point = relative_point2 or relative_point1,
-            xOffset       = pixelScale(xOffset2 and xOffset2 or xOffset1),
-            yOffset       = pixelScale(yOffset2 and yOffset2 or yOffset1)
+            xOffset       = pixel_scale(xOffset2 and xOffset2 or xOffset1),
+            yOffset       = pixel_scale(yOffset2 and yOffset2 or yOffset1)
         }
     }
     
     bars[newId].tx = bars[newId]:CreateTexture(nil, "ARTWORK")
     bars[newId].tx:SetAllPoints()
-    bars[newId].tx:SetTexture(media.files.statusBarC)
+    bars[newId].tx:SetTexture(media.files.statusbar_c)
     -- Color bar with user values unless they enter nil values.  If so, then we color bar based on aura type
     if r and g and b then
         bars[newId].tx:SetVertexColor(r, g, b, 1)
@@ -132,12 +132,12 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
     bars[newId]:SetStatusBarTexture(bars[newId].tx)
 
     bars[newId].soft_edge = CreateFrame("Frame", nil, bars[newId])
-    bars[newId].soft_edge:SetPoint("TOPLEFT", pixelScale(-3.5), pixelScale(3.5))
-    bars[newId].soft_edge:SetPoint("BOTTOMRIGHT", pixelScale(3.5), pixelScale(-3.5))
+    bars[newId].soft_edge:SetPoint("TOPLEFT", pixel_scale(-3.5), pixel_scale(3.5))
+    bars[newId].soft_edge:SetPoint("BOTTOMRIGHT", pixel_scale(3.5), pixel_scale(-3.5))
     bars[newId].soft_edge:SetBackdrop({
-        bgFile = media.files.bgFile,
-        edgeFile = media.files.edgeFile, edgeSize = pixelScale(3),
-        insets = {left = pixelScale(3), right = pixelScale(3), top = pixelScale(3), bottom = pixelScale(3)}
+        bgFile = media.files.background,
+        edgeFile = media.files.edge, edgeSize = pixel_scale(3),
+        insets = {left = pixel_scale(3), right = pixel_scale(3), top = pixel_scale(3), bottom = pixel_scale(3)}
     })
     bars[newId].soft_edge:SetFrameStrata("BACKGROUND")
     bars[newId].soft_edge:SetBackdropColor(0.25, 0.25, 0.25)
@@ -146,7 +146,7 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
     bars[newId].bg = bars[newId]:CreateTexture(nil, "BORDER")
     bars[newId].bg:SetPoint("TOPLEFT")
     bars[newId].bg:SetPoint("BOTTOMRIGHT")
-    bars[newId].bg:SetTexture(media.files.statusBarC)
+    bars[newId].bg:SetTexture(media.files.statusbar_c)
     bars[newId].bg:SetVertexColor(0.25, 0.25, 0.25, 1)
 
     bars[newId].icon = bars[newId]:CreateTexture(nil, "BORDER")
@@ -156,8 +156,8 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
     bars[newId].icon:SetTexture(nil)
     
     bars[newId].text = bars[newId]:CreateFontString(format("caelTimers_Bartext_%d", newId), "OVERLAY")
-    bars[newId].text:SetFont(media.fonts.NORMAL, 8)
-    bars[newId].text:SetPoint("CENTER", bars[newId], "CENTER", 0, pixelScale(1))
+    bars[newId].text:SetFont(media.fonts.normal, 8)
+    bars[newId].text:SetPoint("CENTER", bars[newId], "CENTER", 0, pixel_scale(1))
     
     if ( SPARK ) then
         local spark = bars[newId]:CreateTexture(nil, "OVERLAY", nil);

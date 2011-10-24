@@ -6,13 +6,13 @@ local chatOnLeft = false
 caelPanels.eventFrame = CreateFrame("frame", nil, UIParent)
 
 local panels = {}
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 local media = caelUI.media
 
 local defaultPanel = {
     ["EnableMouse"] = false,
     ["SetFrameStrata"] = "BACKGROUND",
-    ["SetBackdrop"] = media.backdropTable,
+    ["SetBackdrop"] = media.backdrop_table,
     ["SetBackdropColor"] = {0, 0, 0, 0.7},
     ["SetBackdropBorderColor"] = {0, 0, 0, 1},
 }
@@ -73,20 +73,20 @@ function caelPanels.createPanel (name, size, point, override)
 end
 
 function caelPanels.gradientPanel (panel)
-    local width = pixelScale(panel:GetWidth() - 6)
-    local height = pixelScale(panel:GetHeight() / 5)
-    local bgTexture = media.files.bgFile
+    local width = pixel_scale(panel:GetWidth() - 6)
+    local height = pixel_scale(panel:GetHeight() / 5)
+    local bgTexture = media.files.background
 
     local gradientTop = panel:CreateTexture(nil, "BORDER")
     gradientTop:SetTexture(bgTexture)
     gradientTop:SetSize(width, height)
-    gradientTop:SetPoint("TOPLEFT", pixelScale(3), pixelScale(-2))
+    gradientTop:SetPoint("TOPLEFT", pixel_scale(3), pixel_scale(-2))
     gradientTop:SetGradientAlpha("VERTICAL", 0, 0, 0, 0, 0.84, 0.75, 0.65, 0.5)
 
     local gradientBottom = panel:CreateTexture(nil, "BORDER")
     gradientBottom:SetTexture(bgTexture)
     gradientBottom:SetSize(width, height)
-    gradientBottom:SetPoint("BOTTOMRIGHT", pixelScale(-3), pixelScale(2))
+    gradientBottom:SetPoint("BOTTOMRIGHT", pixel_scale(-3), pixel_scale(2))
     gradientBottom:SetGradientAlpha("VERTICAL", 0, 0, 0, 0.75, 0, 0, 0, 0)
 end
 
@@ -105,15 +105,15 @@ caelPanels.eventFrame:SetScript("OnEvent", function(self, event, ...)
             local threatPoint = {}
 
             -- This variable lets us change the size of caelPanel_ActionBar<1-4> with ease.
-            local actionBarSize = {pixelScale(161), pixelScale(53)}
+            local actionBarSize = {pixel_scale(161), pixel_scale(53)}
 
             local createPanel = caelPanels.createPanel
 
             -- DataFeed bar
-            createPanel("caelPanel_DataFeed", {pixelScale(1120), pixelScale(20)}, {"BOTTOM", UIParent, "BOTTOM", 0, pixelScale(2)})
+            createPanel("caelPanel_DataFeed", {pixel_scale(1120), pixel_scale(20)}, {"BOTTOM", UIParent, "BOTTOM", 0, pixel_scale(2)})
 
             -- MiniMap
-            createPanel("caelPanel_Minimap", {pixelScale(140), pixelScale(140)}, {"BOTTOM", caelPanel_DataFeed, "TOP", 0, pixelScale(2)})
+            createPanel("caelPanel_Minimap", {pixel_scale(140), pixel_scale(140)}, {"BOTTOM", caelPanel_DataFeed, "TOP", 0, pixel_scale(2)})
 
 
             --  AB1 ON LEFT LAYOUT  --
@@ -124,11 +124,11 @@ caelPanels.eventFrame:SetScript("OnEvent", function(self, event, ...)
             -- BAR 2 -- MM -- BAR 1 --
             -- BAR 3 -- MM -- BAR 4 --
             if bar1OnLeft then
-                bar1Point = {"TOPRIGHT", caelPanel_Minimap, "TOPLEFT", pixelScale(-2), 0}
-                bar2Point = {"TOPLEFT", caelPanel_Minimap, "TOPRIGHT", pixelScale(2), 0}
+                bar1Point = {"TOPRIGHT", caelPanel_Minimap, "TOPLEFT", pixel_scale(-2), 0}
+                bar2Point = {"TOPLEFT", caelPanel_Minimap, "TOPRIGHT", pixel_scale(2), 0}
             else
-                bar1Point = {"TOPLEFT", caelPanel_Minimap, "TOPRIGHT", pixelScale(2), 0}
-                bar2Point = {"TOPRIGHT", caelPanel_Minimap, "TOPLEFT", pixelScale(-2), 0}
+                bar1Point = {"TOPLEFT", caelPanel_Minimap, "TOPRIGHT", pixel_scale(2), 0}
+                bar2Point = {"TOPRIGHT", caelPanel_Minimap, "TOPLEFT", pixel_scale(-2), 0}
             end
 
             -- bar1
@@ -138,69 +138,69 @@ caelPanels.eventFrame:SetScript("OnEvent", function(self, event, ...)
             createPanel("caelPanel_ActionBar2", actionBarSize, bar2Point)
 
             -- bar3
-            createPanel("caelPanel_ActionBar3", actionBarSize, {"BOTTOMRIGHT", caelPanel_Minimap, "BOTTOMLEFT", pixelScale(-2), 0})
+            createPanel("caelPanel_ActionBar3", actionBarSize, {"BOTTOMRIGHT", caelPanel_Minimap, "BOTTOMLEFT", pixel_scale(-2), 0})
 
             -- bar4
-            createPanel("caelPanel_ActionBar4", actionBarSize, {"BOTTOMLEFT", caelPanel_Minimap, "BOTTOMRIGHT", pixelScale(2), 0})
+            createPanel("caelPanel_ActionBar4", actionBarSize, {"BOTTOMLEFT", caelPanel_Minimap, "BOTTOMRIGHT", pixel_scale(2), 0})
 
             -- bar5
-            createPanel("caelPanel_ActionBar5", {pixelScale(29), pixelScale(314)}, {"RIGHT", UIParent, "Right", pixelScale(-2), 0})
+            createPanel("caelPanel_ActionBar5", {pixel_scale(29), pixel_scale(314)}, {"RIGHT", UIParent, "Right", pixel_scale(-2), 0})
 
 
             -- Chat Frame & Editbox / Combat Log
             if bar1OnLeft == true then
                 if chatOnLeft == true then
-                    chatPoint = {"TOPRIGHT", caelPanel_ActionBar1, "TOPLEFT", pixelScale(-2), 0}
-                    combatPoint = {"TOPLEFT", caelPanel_ActionBar2, "TOPRIGHT", pixelScale(2), 0}
+                    chatPoint = {"TOPRIGHT", caelPanel_ActionBar1, "TOPLEFT", pixel_scale(-2), 0}
+                    combatPoint = {"TOPLEFT", caelPanel_ActionBar2, "TOPRIGHT", pixel_scale(2), 0}
                 else
-                    chatPoint = {"TOPLEFT", caelPanel_ActionBar2, "TOPRIGHT", pixelScale(2), 0}
-                    combatPoint = {"TOPRIGHT", caelPanel_ActionBar1, "TOPLEFT", pixelScale(-2), 0}
+                    chatPoint = {"TOPLEFT", caelPanel_ActionBar2, "TOPRIGHT", pixel_scale(2), 0}
+                    combatPoint = {"TOPRIGHT", caelPanel_ActionBar1, "TOPLEFT", pixel_scale(-2), 0}
                 end
             else
                 if chatOnLeft == true then
-                    chatPoint = {"TOPRIGHT", caelPanel_ActionBar2, "TOPLEFT", pixelScale(-2), 0}
-                    combatPoint = {"TOPLEFT", caelPanel_ActionBar1, "TOPRIGHT", pixelScale(2), 0}
+                    chatPoint = {"TOPRIGHT", caelPanel_ActionBar2, "TOPLEFT", pixel_scale(-2), 0}
+                    combatPoint = {"TOPLEFT", caelPanel_ActionBar1, "TOPRIGHT", pixel_scale(2), 0}
                 else
-                    chatPoint = {"TOPLEFT", caelPanel_ActionBar1, "TOPRIGHT", pixelScale(2), 0}
-                    combatPoint = {"TOPRIGHT", caelPanel_ActionBar2, "TOPLEFT", pixelScale(-2), 0}
+                    chatPoint = {"TOPLEFT", caelPanel_ActionBar1, "TOPRIGHT", pixel_scale(2), 0}
+                    combatPoint = {"TOPRIGHT", caelPanel_ActionBar2, "TOPLEFT", pixel_scale(-2), 0}
                 end
             end
 
             -- Chat Frame
-            createPanel("caelPanel_ChatFrame", {pixelScale(324), pixelScale(140)}, chatPoint)
+            createPanel("caelPanel_ChatFrame", {pixel_scale(324), pixel_scale(140)}, chatPoint)
 
             -- Editbox
-            createPanel("caelPanel_EditBox", {caelPanel_ChatFrame:GetWidth(), pixelScale(20)}, {"BOTTOMLEFT", caelPanel_ChatFrame, "TOPLEFT", pixelScale(-1), pixelScale(0)})
+            createPanel("caelPanel_EditBox", {caelPanel_ChatFrame:GetWidth(), pixel_scale(20)}, {"BOTTOMLEFT", caelPanel_ChatFrame, "TOPLEFT", pixel_scale(-1), pixel_scale(0)})
 
             -- Combat Log
-            createPanel("caelPanel_CombatLog", {pixelScale(324), pixelScale(140)}, combatPoint)
+            createPanel("caelPanel_CombatLog", {pixel_scale(324), pixel_scale(140)}, combatPoint)
 
             if bar1OnLeft == true then
                 if chatOnLeft == true then
-                    damagePoint = {"TOPRIGHT", caelPanel_ChatFrame, "TOPLEFT", pixelScale(-2), 0}
-                    threatPoint = {"TOPLEFT", caelPanel_CombatLog, "TOPRIGHT", pixelScale(2), 0}
+                    damagePoint = {"TOPRIGHT", caelPanel_ChatFrame, "TOPLEFT", pixel_scale(-2), 0}
+                    threatPoint = {"TOPLEFT", caelPanel_CombatLog, "TOPRIGHT", pixel_scale(2), 0}
                 else
-                    damagePoint = {"TOPRIGHT", caelPanel_CombatLog, "TOPLEFT", pixelScale(-2), 0}
-                    threatPoint = {"TOPLEFT", caelPanel_ChatFrame, "TOPRIGHT", pixelScale(2), 0}
+                    damagePoint = {"TOPRIGHT", caelPanel_CombatLog, "TOPLEFT", pixel_scale(-2), 0}
+                    threatPoint = {"TOPLEFT", caelPanel_ChatFrame, "TOPRIGHT", pixel_scale(2), 0}
                 end
             else
                 if chatOnLeft == true then
-                    damagePoint = {"TOPRIGHT", caelPanel_ChatFrame, "TOPLEFT", pixelScale(-2), 0}
-                    threatPoint = {"TOPLEFT", caelPanel_CombatLog, "TOPRIGHT", pixelScale(2), 0}
+                    damagePoint = {"TOPRIGHT", caelPanel_ChatFrame, "TOPLEFT", pixel_scale(-2), 0}
+                    threatPoint = {"TOPLEFT", caelPanel_CombatLog, "TOPRIGHT", pixel_scale(2), 0}
                 else
-                    damagePoint = {"TOPRIGHT", caelPanel_CombatLog, "TOPLEFT", pixelScale(-2), 0}
-                    threatPoint = {"TOPLEFT", caelPanel_ChatFrame, "TOPRIGHT", pixelScale(2), 0}
+                    damagePoint = {"TOPRIGHT", caelPanel_CombatLog, "TOPLEFT", pixel_scale(-2), 0}
+                    threatPoint = {"TOPLEFT", caelPanel_ChatFrame, "TOPRIGHT", pixel_scale(2), 0}
                 end
             end
 
             -- Damage Meter
             if IsAddOnLoaded("alDamageMeter") then
-                caelPanels.createPanel("caelPanel_DamageMeter", {pixelScale(165), pixelScale(162)}, damagePoint)
+                caelPanels.createPanel("caelPanel_DamageMeter", {pixel_scale(165), pixel_scale(162)}, damagePoint)
             end
 
             -- Threat Meter
             -- XXX: hack_threat_01, recThreatMeter currently requires that we always make the panel and just hide it here if we aren't using it.
-            createPanel("caelPanel_ThreatMeter", {pixelScale(165), pixelScale(162)}, threatPoint):Hide()
+            createPanel("caelPanel_ThreatMeter", {pixel_scale(165), pixel_scale(162)}, threatPoint):Hide()
 
             for index = 1, 12 do
                 --caelPanels.gradientPanel(_G["caelPanel" .. index])
@@ -215,8 +215,8 @@ function caelPanels.SetupAddonPanel(panel, frame)
     --caelPanels.gradientPanel(panel)
 
     frame:ClearAllPoints()
-    frame:SetWidth(panel:GetWidth() - pixelScale(2))
-    frame:SetHeight(panel:GetHeight() - pixelScale(2))
+    frame:SetWidth(panel:GetWidth() - pixel_scale(2))
+    frame:SetHeight(panel:GetHeight() - pixel_scale(2))
     frame:SetAllPoints(panel)
     frame:SetFrameLevel(panel:GetFrameLevel() + 1)
 end

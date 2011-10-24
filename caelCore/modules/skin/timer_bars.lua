@@ -6,10 +6,10 @@ local addonName, caelCore = ...
 
 -- Local Variables
 local media = caelUI.media
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
-local statusBarTexture = media.files.statusBarE
-local font = media.fonts.NORMAL
+local statusBarTexture = media.files.statusbar_e
+local font = media.fonts.normal
 
 -- Redefined the MirrorTimerColors list
 MirrorTimerColors = {
@@ -25,8 +25,8 @@ local function SkinBar(bar)
     local color = {}
 
     -- Increase the size of the bars just ever so slightly.
-    bar:SetHeight(pixelScale(22))
-    bar:SetWidth(pixelScale(220))
+    bar:SetHeight(pixel_scale(22))
+    bar:SetWidth(pixel_scale(220))
 
     if name:find("MirrorTimer%d") then
         barType = "mirror"
@@ -52,8 +52,8 @@ local function SkinBar(bar)
 
     bar.backdrop = CreateFrame("Frame", nil, bar)
     bar.backdrop:SetFrameLevel(0)
-    bar.backdrop:SetPoint("TOPLEFT", bar, "TOPLEFT", pixelScale(-2), pixelScale(2))
-    bar.backdrop:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", pixelScale(2), pixelScale(-2))
+    bar.backdrop:SetPoint("TOPLEFT", bar, "TOPLEFT", pixel_scale(-2), pixel_scale(2))
+    bar.backdrop:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", pixel_scale(2), pixel_scale(-2))
 
     if barType == "tracker" then
         bar:SetStatusBarTexture(statusBarTexture)
@@ -63,7 +63,7 @@ local function SkinBar(bar)
         statusbar:SetAllPoints(bar)
     end
 
-    bar.backdrop:SetBackdrop(media.backdropTable)
+    bar.backdrop:SetBackdrop(media.backdrop_table)
     bar.backdrop:SetBackdropBorderColor(0, 0, 0)
     bar.backdrop:SetBackdropColor(0, 0, 0, 0.4)
 
@@ -86,7 +86,7 @@ local function SkinBlizzTimer(self, event)
 
             -- Move the bars apart from each other just a little.
             if index ~= 1 then
-                bar:SetPoint("TOP", _G["MirrorTimer" .. index - 1], "BOTTOM", 0, pixelScale(-5))
+                bar:SetPoint("TOP", _G["MirrorTimer" .. index - 1], "BOTTOM", 0, pixel_scale(-5))
             end
         end
     end

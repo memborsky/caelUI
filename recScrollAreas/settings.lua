@@ -1,6 +1,6 @@
 -- Font Settings
-recScrollAreas.font_face                    = caelUI.media.fonts.SCROLLFRAME_NORMAL
-recScrollAreas.font_face_sticky             = caelUI.media.fonts.SCROLLFRAME_BOLD
+recScrollAreas.font_face                    = caelUI.media.fonts.scroll_frame_normal
+recScrollAreas.font_face_sticky             = caelUI.media.fonts.scroll_frame_bold
 recScrollAreas.font_flags                   = "OUTLINE"    -- Some text can be hard to read without it.
 recScrollAreas.font_flags_sticky            = "OUTLINE"
 recScrollAreas.font_size                    = 9

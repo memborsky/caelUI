@@ -7,20 +7,20 @@ local config = oUF_Caellian.config
 
 -- Define variables from caelUI or the old system.
 local media = caelUI.media
-local mediaPath = media.directory
-local pixelScale = caelUI.config.pixelScale
+local media_path = media.directory
+local pixel_scale = caelUI.config.pixel_scale
 
 local floor, format, insert, sort = math.floor, string.format, table.insert, table.sort
 
-local normtex = media.files.statusBarE
-local buttonTex = media.files.buttonNormal
-local raidIcons = media.files.raidIcons
-local bubbleTex = mediaPath..[=[miscellaneous\bubbletex]=]
-local shaderTex = mediaPath..[=[miscellaneous\smallshadertex]=]
-local highlightTex = mediaPath..[=[miscellaneous\highlighttex]=]
+local normtex = media.files.statusbar_e
+local buttonTex = media.files.button_normal
+local raidIcons = media.files.raid_icons
+local bubbleTex = media_path..[=[miscellaneous\bubbletex]=]
+local shaderTex = media_path..[=[miscellaneous\smallshadertex]=]
+local highlightTex = media_path..[=[miscellaneous\highlighttex]=]
 
-local font = media.fonts.NORMAL
-local fontn = media.fonts.CUSTOM_NUMBERFONT
+local font = media.fonts.normal
+local fontn = media.fonts.custom_number
 
 local playerClass = caelUI.config.player.class
 local playerSpec = GetPrimaryTalentTree()
@@ -44,11 +44,11 @@ local healingSpecs = {
     ["DRUID"]   = 3,
 }
 
-local auraSize = pixelScale(((230 - (9 * 6)) / 10))
+local auraSize = pixel_scale(((230 - (9 * 6)) / 10))
 
 local backdrop = {
     bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
-    insets = {top = pixelScale(-1), left = pixelScale(-1), bottom = pixelScale(-1), right = pixelScale(-1)},
+    insets = {top = pixel_scale(-1), left = pixel_scale(-1), bottom = pixel_scale(-1), right = pixel_scale(-1)},
 }
 
 local runeloadcolors = {
@@ -243,9 +243,9 @@ end
 local PostUpdateName = function(self, power)
     self.Info:ClearAllPoints()
     if power.value:GetText() then
-        self.Info:SetPoint("TOP", 0, pixelScale(-3.5))
+        self.Info:SetPoint("TOP", 0, pixel_scale(-3.5))
     else
-        self.Info:SetPoint("TOPLEFT", pixelScale(3.5), pixelScale(-3.5))
+        self.Info:SetPoint("TOPLEFT", pixel_scale(3.5), pixel_scale(-3.5))
     end
 end
 
@@ -377,10 +377,10 @@ local UpdateDruidMana = function(self)
 
         if min ~= max then
             if self.Power.value:GetText() then
-                self.DruidMana:SetPoint("TOPLEFT", self.Power.value, "TOPRIGHT", pixelScale(1), 0)
+                self.DruidMana:SetPoint("TOPLEFT", self.Power.value, "TOPRIGHT", pixel_scale(1), 0)
                 self.DruidMana:SetFormattedText("|cffD7BEA5-|r %d%%|r", floor(min / max * 100))
             else
-                self.DruidMana:SetPoint("TOPLEFT", pixelScale(3.5), pixelScale(-3.5))
+                self.DruidMana:SetPoint("TOPLEFT", pixel_scale(3.5), pixel_scale(-3.5))
                 self.DruidMana:SetFormattedText("%d%%", floor(min / max * 100))
             end
         else
@@ -411,7 +411,7 @@ local PostCastStart = function(castbar, unit, name, rank, castid)
             castbar.Latency:SetText(("%d ms"):format(latency * 1e3))
         end
 
-        castbar.SafeZone:SetWidth(pixelScale(castbar:GetWidth() * latency / castbar.max))
+        castbar.SafeZone:SetWidth(pixel_scale(castbar:GetWidth() * latency / castbar.max))
         castbar.SafeZone:ClearAllPoints()
         castbar.SafeZone:SetPoint("TOPRIGHT")
         castbar.SafeZone:SetPoint("BOTTOMRIGHT")
@@ -436,7 +436,7 @@ local PostChannelStart = function(castbar, unit, name)
             castbar.Latency:SetText(("%d ms"):format(latency * 1e3))
         end
         
-        castbar.SafeZone:SetWidth(pixelScale(castbar:GetWidth() * latency / castbar.max))
+        castbar.SafeZone:SetWidth(pixel_scale(castbar:GetWidth() * latency / castbar.max))
         castbar.SafeZone:ClearAllPoints()
         castbar.SafeZone:SetPoint("TOPLEFT")
         castbar.SafeZone:SetPoint("BOTTOMLEFT")
@@ -525,21 +525,21 @@ local PostCreateAura = function(auras, button)
     button.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
     button.backdrop = CreateFrame("Frame", nil, button)
-    button.backdrop:SetPoint("TOPLEFT", pixelScale(-5), pixelScale(5))
-    button.backdrop:SetPoint("BOTTOMRIGHT", pixelScale(5), pixelScale(-5))
-    button.backdrop:SetBackdrop(media.borderTable)
+    button.backdrop:SetPoint("TOPLEFT", pixel_scale(-5), pixel_scale(5))
+    button.backdrop:SetPoint("BOTTOMRIGHT", pixel_scale(5), pixel_scale(-5))
+    button.backdrop:SetBackdrop(media.border_table)
     button.backdrop:SetBackdropBorderColor(0, 0, 0)
 
     button.gloss = CreateFrame("Frame", nil, button)
-    button.gloss:SetPoint("TOPLEFT", pixelScale(-3), pixelScale(3))
-    button.gloss:SetPoint("BOTTOMRIGHT", pixelScale(3), pixelScale(-3))
+    button.gloss:SetPoint("TOPLEFT", pixel_scale(-3), pixel_scale(3))
+    button.gloss:SetPoint("BOTTOMRIGHT", pixel_scale(3), pixel_scale(-3))
     button.gloss:SetBackdrop({
-        bgFile = media.files.buttonGloss,
-        insets = {top = pixelScale(-1), left = pixelScale(-1), bottom = pixelScale(-1), right = pixelScale(-1)},
+        bgFile = media.files.button_gloss,
+        insets = {top = pixel_scale(-1), left = pixel_scale(-1), bottom = pixel_scale(-1), right = pixel_scale(-1)},
     })
     button.gloss:SetBackdropColor(0.25, 0.25, 0.25, 0.5)
 
-    button.count:SetPoint("BOTTOMRIGHT", pixelScale(1), pixelScale(1.5))
+    button.count:SetPoint("BOTTOMRIGHT", pixel_scale(1), pixel_scale(1.5))
     button.count:SetFont(fontn, 8, "OUTLINE")
     button.count:SetTextColor(0.84, 0.75, 0.65)
     button.count:SetJustifyH("RIGHT")
@@ -549,13 +549,13 @@ local PostCreateAura = function(auras, button)
     auras.disableCooldown = true
 
     button.overlay:SetTexture(buttonTex)
-    button.overlay:SetPoint("TOPLEFT", pixelScale(-3.5), pixelScale(3.5))
-    button.overlay:SetPoint("BOTTOMRIGHT", pixelScale(3.5), pixelScale(-3.5))
+    button.overlay:SetPoint("TOPLEFT", pixel_scale(-3.5), pixel_scale(3.5))
+    button.overlay:SetPoint("BOTTOMRIGHT", pixel_scale(3.5), pixel_scale(-3.5))
     button.overlay:SetTexCoord(0, 1, 0, 1)
     button.overlay.Hide = function(self) end
 
     button.remaining = SetFontString(button.backdrop, fontn, 8, "OUTLINE")
-    button.remaining:SetPoint("TOP", 0, pixelScale(-2))
+    button.remaining:SetPoint("TOP", 0, pixel_scale(-2))
 end
 
 local CreateEnchantTimer = function(self, icons)
@@ -675,19 +675,19 @@ local SetStyle = function(self, unit)
 
     self.FrameBackdrop = CreateFrame("Frame", nil, self)
     self.FrameBackdrop:SetFrameLevel(self:GetFrameLevel() - 1)
-    self.FrameBackdrop:SetPoint("TOPLEFT", self, pixelScale(-3), pixelScale(3))
+    self.FrameBackdrop:SetPoint("TOPLEFT", self, pixel_scale(-3), pixel_scale(3))
     self.FrameBackdrop:SetFrameStrata("MEDIUM")
 
     if unit == "player" and (playerClass == "DEATHKNIGHT" or (playerClass == "DRUID" and GetPrimaryTalentTree() == 1) or (IsAddOnLoaded("oUF_TotemBar") and playerClass == "SHAMAN")) then
-        self.FrameBackdrop:SetPoint("BOTTOMRIGHT", self, pixelScale(3), pixelScale(-12))
+        self.FrameBackdrop:SetPoint("BOTTOMRIGHT", self, pixel_scale(3), pixel_scale(-12))
     else
-        self.FrameBackdrop:SetPoint("BOTTOMRIGHT", self, pixelScale(3), pixelScale(-3))
+        self.FrameBackdrop:SetPoint("BOTTOMRIGHT", self, pixel_scale(3), pixel_scale(-3))
     end
 
     self.Health = CreateFrame("StatusBar", self:GetName().."_Health", self)
-    self.Health:SetHeight((unit == "player" or unit == "target") and pixelScale(30) or unitInRaid and pixelScale(20) or unitIsPartyPet and pixelScale(10) or pixelScale(16))
-    self.Health:SetPoint("TOPLEFT", pixelScale(1), pixelScale(-1))
-    self.Health:SetPoint("TOPRIGHT", pixelScale(-1), pixelScale(-1))
+    self.Health:SetHeight((unit == "player" or unit == "target") and pixel_scale(30) or unitInRaid and pixel_scale(20) or unitIsPartyPet and pixel_scale(10) or pixel_scale(16))
+    self.Health:SetPoint("TOPLEFT", pixel_scale(1), pixel_scale(-1))
+    self.Health:SetPoint("TOPRIGHT", pixel_scale(-1), pixel_scale(-1))
     self.Health:SetStatusBarTexture(normtex)
     self.Health:SetBackdrop(backdrop)
     self.Health:SetStatusBarColor(0, 0, 0)
@@ -704,22 +704,22 @@ local SetStyle = function(self, unit)
 
     self.Health.value = SetFontString(self.Health, font,(unit == "player" or unit == "target") and 11 or 9)
     if unitInRaid then
-        self.Health.value:SetPoint("BOTTOMRIGHT", pixelScale(-1), pixelScale(2))
+        self.Health.value:SetPoint("BOTTOMRIGHT", pixel_scale(-1), pixel_scale(2))
     elseif unitIsPartyPet then
-        self.Health.value:SetPoint("RIGHT", pixelScale(-1), pixelScale(1))
+        self.Health.value:SetPoint("RIGHT", pixel_scale(-1), pixel_scale(1))
     else
-        self.Health.value:SetPoint("TOPRIGHT", pixelScale(-3.5), pixelScale(-3.5))
+        self.Health.value:SetPoint("TOPRIGHT", pixel_scale(-3.5), pixel_scale(-3.5))
     end
 
     if not unitIsPartyPet then
         self.Power = CreateFrame("StatusBar", self:GetName().."_Power", self)
-        self.Power:SetHeight((unit == "player" or unit == "target") and pixelScale(15) or pixelScale(5))
+        self.Power:SetHeight((unit == "player" or unit == "target") and pixel_scale(15) or pixel_scale(5))
         if unitInRaid then
-            self.Power:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, pixelScale(-1))
-            self.Power:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT", 0, pixelScale(-1))
+            self.Power:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, pixel_scale(-1))
+            self.Power:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT", 0, pixel_scale(-1))
         else
-            self.Power:SetPoint("BOTTOMLEFT", pixelScale(1), pixelScale(1))
-            self.Power:SetPoint("BOTTOMRIGHT", pixelScale(-1), pixelScale(1))
+            self.Power:SetPoint("BOTTOMLEFT", pixel_scale(1), pixel_scale(1))
+            self.Power:SetPoint("BOTTOMRIGHT", pixel_scale(-1), pixel_scale(1))
         end
         self.Power:SetStatusBarTexture(normtex)
         self.Power:SetBackdrop(backdrop)
@@ -740,19 +740,19 @@ local SetStyle = function(self, unit)
         self.Power.bg:SetTexture(normtex)
         self.Power.bg.multiplier = 0.5
 
-        self.Power.value = SetFontString(self.Health, font, (unit == "player" or unit == "target") and pixelScale(11) or pixelScale(9))
-        self.Power.value:SetPoint("TOPLEFT", pixelScale(3.5), pixelScale(-3.5))
+        self.Power.value = SetFontString(self.Health, font, (unit == "player" or unit == "target") and pixel_scale(11) or pixel_scale(9))
+        self.Power.value:SetPoint("TOPLEFT", pixel_scale(3.5), pixel_scale(-3.5))
     end
 
     if unitInRaid then
         self.Nameplate = CreateFrame("Frame", nil, self.FrameBackdrop)
         self.Nameplate:SetFrameLevel(self:GetFrameLevel() + 1)
-        self.Nameplate:SetPoint("TOPLEFT", self, 0, pixelScale(-28))
+        self.Nameplate:SetPoint("TOPLEFT", self, 0, pixel_scale(-28))
         self.Nameplate:SetPoint("BOTTOMRIGHT", self)
         self.Nameplate:SetBackdrop {
-            bgFile = media.files.bgFile,
-            edgeFile = media.files.bgFile,
-            tile = false, tileSize = 0, edgeSize = pixelScale(1),
+            bgFile = media.files.background,
+            edgeFile = media.files.background,
+            tile = false, tileSize = 0, edgeSize = pixel_scale(1),
             insets = {left = 0, right = 0, top = 1, bottom = 0}
         }
         self.Nameplate:SetBackdropColor(0.15, 0.15, 0.15)
@@ -762,44 +762,44 @@ local SetStyle = function(self, unit)
     if unit ~= "player" then
         self.Info = SetFontString(unitInRaid and self.Nameplate or self.Health, font, unit == "target" and 11 or 9)
         if unitInRaid then
-            self.Info:SetPoint("BOTTOM", self, 0, pixelScale(3))
+            self.Info:SetPoint("BOTTOM", self, 0, pixel_scale(3))
             self:Tag(self.Info, "[caellian:getnamecolor][caellian:nameshort]")
         elseif unit == "target" then
-            self.Info:SetPoint("TOPLEFT", pixelScale(3.5), pixelScale(-3.5))
+            self.Info:SetPoint("TOPLEFT", pixel_scale(3.5), pixel_scale(-3.5))
             self:Tag(self.Info, "[caellian:getnamecolor][caellian:namelong] [caellian:diffcolor][level] [shortclassification]")
         elseif unit == pet then
-            self.Info:SetPoint("LEFT", pixelScale(1), pixelScale(1))
+            self.Info:SetPoint("LEFT", pixel_scale(1), pixel_scale(1))
             self:Tag(self.Info, "[caellian:getnamecolor][caellian:nameshort]")
         else
-            self.Info:SetPoint("LEFT", pixelScale(1), pixelScale(1))
+            self.Info:SetPoint("LEFT", pixel_scale(1), pixel_scale(1))
             self:Tag(self.Info, "[caellian:getnamecolor][caellian:namemedium]")
         end
     end
 
     if unit == "player" then
         self.Combat = self.Health:CreateTexture(nil, "OVERLAY")
-        self.Combat:SetSize(pixelScale(12), pixelScale(12))
-        self.Combat:SetPoint("TOP", 0, pixelScale(-3.5))
+        self.Combat:SetSize(pixel_scale(12), pixel_scale(12))
+        self.Combat:SetPoint("TOP", 0, pixel_scale(-3.5))
         self.Combat:SetTexture(bubbleTex)
         self.Combat:SetVertexColor(0.69, 0.31, 0.31)
 
         if UnitLevel("player") ~= MAX_PLAYER_LEVEL then
             self.Resting = self.Power:CreateTexture(nil, "OVERLAY")
-            self.Resting:SetSize(pixelScale(18), pixelScale(18))
-            self.Resting:SetPoint("BOTTOMLEFT", pixelScale(-8.5), pixelScale(-8.5))
+            self.Resting:SetSize(pixel_scale(18), pixel_scale(18))
+            self.Resting:SetPoint("BOTTOMLEFT", pixel_scale(-8.5), pixel_scale(-8.5))
             self.Resting:SetTexture([=[Interface\CharacterFrame\UI-StateIcon]=])
             self.Resting:SetTexCoord(0, 0.5, 0, 0.421875)
         end
 
         self.MyHealBar = CreateFrame("StatusBar", nil, self.Health)
-        self.MyHealBar:SetWidth(pixelScale(230))
+        self.MyHealBar:SetWidth(pixel_scale(230))
         self.MyHealBar:SetPoint("TOPLEFT", self.Health:GetStatusBarTexture(), "TOPRIGHT")
         self.MyHealBar:SetPoint("BOTTOMLEFT", self.Health:GetStatusBarTexture(), "BOTTOMRIGHT")
         self.MyHealBar:SetStatusBarTexture(normtex)
         self.MyHealBar:SetStatusBarColor(0.33, 0.59, 0.33, 0.75)
 
         self.OtherHealBar = CreateFrame("StatusBar", nil, self.Health)
-        self.OtherHealBar:SetWidth(pixelScale(230))
+        self.OtherHealBar:SetWidth(pixel_scale(230))
         self.OtherHealBar:SetPoint("TOPLEFT", self.MyHealBar:GetStatusBarTexture(), "TOPRIGHT")
         self.OtherHealBar:SetPoint("BOTTOMLEFT", self.MyHealBar:GetStatusBarTexture(), "BOTTOMRIGHT")
         self.OtherHealBar:SetStatusBarTexture(normtex)
@@ -814,9 +814,9 @@ local SetStyle = function(self, unit)
         if IsAddOnLoaded("oUF_WeaponEnchant") then
             self.Enchant = CreateFrame("Frame", nil, self)
             self.Enchant.size = auraSize
-            self.Enchant:SetWidth(pixelScale((self.Enchant.size * 2) + 6))
+            self.Enchant:SetWidth(pixel_scale((self.Enchant.size * 2) + 6))
             self.Enchant:SetHeight(self.Enchant.size)
-            self.Enchant:SetPoint("TOPLEFT", self, "TOPRIGHT", pixelScale(9), pixelScale(-1))
+            self.Enchant:SetPoint("TOPLEFT", self, "TOPRIGHT", pixel_scale(9), pixel_scale(-1))
             self.Enchant.spacing = 6
             self.Enchant.initialAnchor = "TOPLEFT"
             self.Enchant["growth-x"] = "RIGHT"
@@ -826,19 +826,19 @@ local SetStyle = function(self, unit)
 
         if playerClass == "DEATHKNIGHT" then
             self.Runes = CreateFrame("Frame", nil, self)
-            self.Runes:SetPoint("TOPLEFT", self, "BOTTOMLEFT", pixelScale(1), pixelScale(-1.5))
-            self.Runes:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", pixelScale(-1), pixelScale(-1.5))
-            self.Runes:SetHeight(pixelScale(7))
+            self.Runes:SetPoint("TOPLEFT", self, "BOTTOMLEFT", pixel_scale(1), pixel_scale(-1.5))
+            self.Runes:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", pixel_scale(-1), pixel_scale(-1.5))
+            self.Runes:SetHeight(pixel_scale(7))
             self.Runes:SetBackdrop(backdrop)
             self.Runes:SetBackdropColor(0, 0, 0)
 
             for i = 1, 6 do
                 self.Runes[i] = CreateFrame("StatusBar", self:GetName().."_Runes"..i, self.Runes)
-                self.Runes[i]:SetSize(pixelScale(((230 - 5) / 6)), pixelScale(7))
+                self.Runes[i]:SetSize(pixel_scale(((230 - 5) / 6)), pixel_scale(7))
                 if (i == 1) then
                     self.Runes[i]:SetPoint("LEFT")
                 else
-                    self.Runes[i]:SetPoint("LEFT", self.Runes[i-1], "RIGHT", pixelScale(1), 0)
+                    self.Runes[i]:SetPoint("LEFT", self.Runes[i-1], "RIGHT", pixel_scale(1), 0)
                 end
                 self.Runes[i]:SetStatusBarTexture(normtex)
                 self.Runes[i]:SetStatusBarColor(unpack(runeloadcolors[i]))
@@ -856,11 +856,11 @@ local SetStyle = function(self, unit)
             self.TotemBar.Destroy = true
             for i = 1, 4 do
                 self.TotemBar[i] = CreateFrame("StatusBar", self:GetName().."_TotemBar"..i, self)
-                self.TotemBar[i]:SetSize(pixelScale(((230 - 3) / 4)), pixelScale(7))
+                self.TotemBar[i]:SetSize(pixel_scale(((230 - 3) / 4)), pixel_scale(7))
                 if (i == 1) then
-                    self.TotemBar[i]:SetPoint("TOPLEFT", self, "BOTTOMLEFT", pixelScale(1), pixelScale(-1.5))
+                    self.TotemBar[i]:SetPoint("TOPLEFT", self, "BOTTOMLEFT", pixel_scale(1), pixel_scale(-1.5))
                 else
-                    self.TotemBar[i]:SetPoint("LEFT", self.TotemBar[i-1], "RIGHT", pixelScale(1), 0)
+                    self.TotemBar[i]:SetPoint("LEFT", self.TotemBar[i-1], "RIGHT", pixel_scale(1), 0)
                 end
                 self.TotemBar[i]:SetStatusBarTexture(normtex)
                 self.TotemBar[i]:SetMinMaxValues(0, 1)
@@ -880,13 +880,13 @@ local SetStyle = function(self, unit)
             self.HolyPower:SetAllPoints()
             for i = 1, 3 do
                 self.HolyPower[i] = self.HolyPower:CreateTexture(nil, "OVERLAY")
-                self.HolyPower[i]:SetSize(pixelScale(12), pixelScale(12))
+                self.HolyPower[i]:SetSize(pixel_scale(12), pixel_scale(12))
                 self.HolyPower[i]:SetTexture(bubbleTex)
                 if (i == 1) then
-                    self.HolyPower[i]:SetPoint("LEFT", pixelScale(3.5), pixelScale(-9))
+                    self.HolyPower[i]:SetPoint("LEFT", pixel_scale(3.5), pixel_scale(-9))
                     self.HolyPower[i]:SetVertexColor(0.69, 0.31, 0.31)
                 else
-                    self.HolyPower[i]:SetPoint("LEFT", self.HolyPower[i-1], "RIGHT", pixelScale(1))
+                    self.HolyPower[i]:SetPoint("LEFT", self.HolyPower[i-1], "RIGHT", pixel_scale(1))
                 end
             end
             self.HolyPower[2]:SetVertexColor(0.65, 0.63, 0.35)
@@ -898,13 +898,13 @@ local SetStyle = function(self, unit)
             self.SoulShards:SetAllPoints()
             for i = 1, 3 do
                 self.SoulShards[i] = self.SoulShards:CreateTexture(nil, "OVERLAY")
-                self.SoulShards[i]:SetSize(pixelScale(12), pixelScale(12))
+                self.SoulShards[i]:SetSize(pixel_scale(12), pixel_scale(12))
                 self.SoulShards[i]:SetTexture(bubbleTex)
                 if (i == 1) then
-                    self.SoulShards[i]:SetPoint("LEFT", pixelScale(3.5), pixelScale(-9))
+                    self.SoulShards[i]:SetPoint("LEFT", pixel_scale(3.5), pixel_scale(-9))
                     self.SoulShards[i]:SetVertexColor(0.69, 0.31, 0.31)
                 else
-                    self.SoulShards[i]:SetPoint("LEFT", self.SoulShards[i-1], "RIGHT", pixelScale(1))
+                    self.SoulShards[i]:SetPoint("LEFT", self.SoulShards[i-1], "RIGHT", pixel_scale(1))
                 end
             end
             self.SoulShards[2]:SetVertexColor(0.65, 0.63, 0.35)
@@ -918,21 +918,21 @@ local SetStyle = function(self, unit)
             self.DruidMana:SetTextColor(1, 0.49, 0.04)
 
             self.EclipseBar = CreateFrame("Frame", nil, self)
-            self.EclipseBar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", pixelScale(1), pixelScale(-1.5))
-            self.EclipseBar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", pixelScale(-1), pixelScale(-1.5))
-            self.EclipseBar:SetHeight(pixelScale(7))
+            self.EclipseBar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", pixel_scale(1), pixel_scale(-1.5))
+            self.EclipseBar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", pixel_scale(-1), pixel_scale(-1.5))
+            self.EclipseBar:SetHeight(pixel_scale(7))
             self.EclipseBar:SetBackdrop(backdrop)
             self.EclipseBar:SetBackdropColor(0, 0, 0)
 
             self.EclipseBar.LunarBar = CreateFrame("StatusBar", nil, self.EclipseBar)
             self.EclipseBar.LunarBar:SetPoint("LEFT")
-            self.EclipseBar.LunarBar:SetSize(pixelScale(228), pixelScale(7))
+            self.EclipseBar.LunarBar:SetSize(pixel_scale(228), pixel_scale(7))
             self.EclipseBar.LunarBar:SetStatusBarTexture(normtex)
             self.EclipseBar.LunarBar:SetStatusBarColor(0.34, 0.1, 0.86)
 
             self.EclipseBar.SolarBar = CreateFrame("StatusBar", nil, self.EclipseBar)
-            self.EclipseBar.SolarBar:SetPoint("LEFT", self.EclipseBar.LunarBar:GetStatusBarTexture(), "RIGHT", pixelScale(1), 0)
-            self.EclipseBar.SolarBar:SetSize(pixelScale(228), pixelScale(7))
+            self.EclipseBar.SolarBar:SetPoint("LEFT", self.EclipseBar.LunarBar:GetStatusBarTexture(), "RIGHT", pixel_scale(1), 0)
+            self.EclipseBar.SolarBar:SetSize(pixel_scale(228), pixel_scale(7))
             self.EclipseBar.SolarBar:SetStatusBarTexture(normtex)
             self.EclipseBar.SolarBar:SetStatusBarColor(0.95, 0.73, 0.15)
         end
@@ -942,7 +942,7 @@ local SetStyle = function(self, unit)
     if unit == "pet" or unit == "targettarget" then
         self.Auras = CreateFrame("Frame", nil, self)
         self.Auras.size = auraSize
-        self.Auras:SetWidth(pixelScale((self.Auras.size * 8) + 42))
+        self.Auras:SetWidth(pixel_scale((self.Auras.size * 8) + 42))
         self.Auras:SetHeight(self.Auras.size)
         self.Auras.spacing = 6
         self.Auras.numBuffs = 16
@@ -951,19 +951,19 @@ local SetStyle = function(self, unit)
         self.Auras.PostCreateIcon = PostCreateAura
         self.Auras.PostUpdateIcon = PostUpdateIcon
         if unit == "pet" then
-            self.Auras:SetPoint("TOPRIGHT", self, "TOPLEFT", pixelScale(-9), pixelScale(-1))
+            self.Auras:SetPoint("TOPRIGHT", self, "TOPLEFT", pixel_scale(-9), pixel_scale(-1))
             self.Auras.initialAnchor = "TOPRIGHT"
             self.Auras["growth-x"] = "LEFT"
         else
-            self.Auras:SetPoint("TOPLEFT", self, "TOPRIGHT", pixelScale(9), pixelScale(-1))
+            self.Auras:SetPoint("TOPLEFT", self, "TOPRIGHT", pixel_scale(9), pixel_scale(-1))
             self.Auras.initialAnchor = "TOPLEFT"
         end
     end
 
     if unit == "player" or unit == "target" then
         self.Portrait = CreateFrame("PlayerModel", nil, self)
-        self.Portrait:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", pixelScale(7.5), pixelScale(10))
-        self.Portrait:SetPoint("BOTTOMRIGHT", self.Power, "TOPRIGHT", pixelScale(-7.5), pixelScale(-7.5))
+        self.Portrait:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", pixel_scale(7.5), pixel_scale(10))
+        self.Portrait:SetPoint("BOTTOMRIGHT", self.Power, "TOPRIGHT", pixel_scale(-7.5), pixel_scale(-7.5))
         self.Portrait:SetFrameLevel(self:GetFrameLevel() + 3)
         self.Portrait:SetBackdrop(backdrop)
         self.Portrait:SetBackdropColor(0, 0, 0)
@@ -971,8 +971,8 @@ local SetStyle = function(self, unit)
         self.Overlay = CreateFrame("StatusBar", self:GetName().."_Overlay", self)
         self.Overlay:SetFrameLevel(self.Portrait:GetFrameLevel() + 1)
         self.Overlay:SetParent(self.Portrait)
-        self.Overlay:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", pixelScale(7.5), pixelScale(10))
-        self.Overlay:SetPoint("BOTTOMRIGHT", self.Power, "TOPRIGHT", pixelScale(-7.5), pixelScale(-7.5))
+        self.Overlay:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", pixel_scale(7.5), pixel_scale(10))
+        self.Overlay:SetPoint("BOTTOMRIGHT", self.Power, "TOPRIGHT", pixel_scale(-7.5), pixel_scale(-7.5))
         self.Overlay:SetStatusBarTexture(shaderTex)
         self.Overlay:SetStatusBarColor(0.1, 0.1, 0.1, 0.75)
 
@@ -988,7 +988,7 @@ local SetStyle = function(self, unit)
         self.FlashInfo:SetScript("OnUpdate", UpdateManaLevel)
 
         self.FlashInfo.WarningMsg = SetFontString(self.FlashInfo, fontn, 14, "OUTLINE")
-        self.FlashInfo.WarningMsg:SetPoint("TOP", 0, pixelScale(-3.5))
+        self.FlashInfo.WarningMsg:SetPoint("TOP", 0, pixel_scale(-3.5))
 
         local FinishIt_OnUpdate = function(self, elapsed)
             if checkDelay then
@@ -1011,7 +1011,7 @@ local SetStyle = function(self, unit)
 
         self.Buffs = CreateFrame("Frame", nil, self)
         self.Buffs.size = auraSize
-        self.Buffs:SetWidth(pixelScale((self.Buffs.size * 8) + 42))
+        self.Buffs:SetWidth(pixel_scale((self.Buffs.size * 8) + 42))
         self.Buffs:SetHeight(self.Buffs.size)
         self.Buffs.spacing = 6
         self.Buffs.PostSetPosition = PreSetPosition
@@ -1020,14 +1020,14 @@ local SetStyle = function(self, unit)
 
         self.Debuffs = CreateFrame("Frame", nil, self)
         self.Debuffs.size = auraSize
-        self.Debuffs:SetWidth(pixelScale(230))
+        self.Debuffs:SetWidth(pixel_scale(230))
         self.Debuffs:SetHeight(self.Debuffs.size)
         self.Debuffs.spacing = 6
         self.Debuffs.PostSetPosition = PreSetPosition
         self.Debuffs.PostCreateIcon = PostCreateAura
         self.Debuffs.PostUpdateIcon = PostUpdateIcon
         if unit == "player" then
-            self.Buffs:SetPoint("TOPRIGHT", self, "TOPLEFT", pixelScale(-9), pixelScale(-1))
+            self.Buffs:SetPoint("TOPRIGHT", self, "TOPLEFT", pixel_scale(-9), pixel_scale(-1))
             self.Buffs.initialAnchor = "TOPRIGHT"
             self.Buffs["growth-x"] = "LEFT"
             self.Buffs["growth-y"] = "DOWN"
@@ -1036,17 +1036,17 @@ local SetStyle = function(self, unit)
             self.Debuffs.initialAnchor = "TOPLEFT"
             self.Debuffs["growth-y"] = "DOWN"
             if playerClass == "DEATHKNIGHT" or IsAddOnLoaded("oUF_TotemBar") and playerClass == "SHAMAN" then
-                self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, pixelScale(-15))
+                self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, pixel_scale(-15))
             else
-                self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, pixelScale(-7.5))
+                self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, pixel_scale(-7.5))
             end
 
         elseif unit == "target" then
-            self.Buffs:SetPoint("TOPLEFT", self, "TOPRIGHT", pixelScale(9), pixelScale(-1))
+            self.Buffs:SetPoint("TOPLEFT", self, "TOPRIGHT", pixel_scale(9), pixel_scale(-1))
             self.Buffs.initialAnchor = "TOPLEFT"
             self.Buffs["growth-y"] = "DOWN"
 
-            self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, pixelScale(-8))
+            self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, pixel_scale(-8))
             self.Debuffs.initialAnchor = "TOPLEFT"
             self.Debuffs["growth-y"] = "DOWN"
             self.Debuffs.onlyShowPlayer = false
@@ -1059,13 +1059,13 @@ local SetStyle = function(self, unit)
             self.CPoints.unit = PlayerFrame.unit
             for i = 1, 5 do
                 self.CPoints[i] = self.CPoints:CreateTexture(nil, "ARTWORK")
-                self.CPoints[i]:SetSize(pixelScale(12), pixelScale(12))
+                self.CPoints[i]:SetSize(pixel_scale(12), pixel_scale(12))
                 self.CPoints[i]:SetTexture(bubbleTex)
                 if i == 1 then
-                    self.CPoints[i]:SetPoint("LEFT", pixelScale(3.5), pixelScale(-9))
+                    self.CPoints[i]:SetPoint("LEFT", pixel_scale(3.5), pixel_scale(-9))
                     self.CPoints[i]:SetVertexColor(0.69, 0.31, 0.31)
                 else
-                    self.CPoints[i]:SetPoint("LEFT", self.CPoints[i-1], "RIGHT", pixelScale(1))
+                    self.CPoints[i]:SetPoint("LEFT", self.CPoints[i-1], "RIGHT", pixel_scale(1))
                 end
             end
             self.CPoints[2]:SetVertexColor(0.69, 0.31, 0.31)
@@ -1095,7 +1095,7 @@ local SetStyle = function(self, unit)
         }
 
         self.Status = SetFontString(self.Overlay, font, 18, "OUTLINE")
-        self.Status:SetPoint("CENTER", 0, pixelScale(2))
+        self.Status:SetPoint("CENTER", 0, pixel_scale(2))
         self.Status:SetTextColor(0.69, 0.31, 0.31, 0)
         self:Tag(self.Status, "[pvp]")
 
@@ -1107,7 +1107,7 @@ local SetStyle = function(self, unit)
 
     self.cDebuff = CreateFrame("StatusBar", nil, (unit == "player" or unit == "target") and self.Overlay or self.Health)
     self.cDebuff:SetFrameLevel(self:GetFrameLevel() + 1)
-    self.cDebuff:SetSize(pixelScale(16), pixelScale(16))
+    self.cDebuff:SetSize(pixel_scale(16), pixel_scale(16))
     self.cDebuff:SetPoint("CENTER")
 
     self.cDebuffBackdrop = self.cDebuff:CreateTexture(nil, "OVERLAY")
@@ -1121,19 +1121,19 @@ local SetStyle = function(self, unit)
     self.cDebuff.icon:SetAllPoints()
 
     self.cDebuff.border = CreateFrame("Frame", nil, self.cDebuff)
-    self.cDebuff.border:SetPoint("TOPLEFT", pixelScale(-1.5), pixelScale(1.5))
-    self.cDebuff.border:SetPoint("BOTTOMRIGHT", pixelScale(1.5), pixelScale(-1.5))
+    self.cDebuff.border:SetPoint("TOPLEFT", pixel_scale(-1.5), pixel_scale(1.5))
+    self.cDebuff.border:SetPoint("BOTTOMRIGHT", pixel_scale(1.5), pixel_scale(-1.5))
     self.cDebuff.border:SetBackdrop({
-        bgFile = media.files.buttonNormal,
-        insets = {top = pixelScale(-1), left = pixelScale(-1), bottom = pixelScale(-1), right = pixelScale(-1)},
+        bgFile = media.files.button_normal,
+        insets = {top = pixel_scale(-1), left = pixel_scale(-1), bottom = pixel_scale(-1), right = pixel_scale(-1)},
     })
 
     self.cDebuff.gloss = CreateFrame("Frame", nil, self.cDebuff.border)
-    self.cDebuff.gloss:SetPoint("TOPLEFT", pixelScale(-1), pixelScale(1))
-    self.cDebuff.gloss:SetPoint("BOTTOMRIGHT", pixelScale(1), pixelScale(-1))
+    self.cDebuff.gloss:SetPoint("TOPLEFT", pixel_scale(-1), pixel_scale(1))
+    self.cDebuff.gloss:SetPoint("BOTTOMRIGHT", pixel_scale(1), pixel_scale(-1))
     self.cDebuff.gloss:SetBackdrop({
-        bgFile = media.files.buttonGloss,
-        insets = {top = pixelScale(-1), left = pixelScale(-1), bottom = pixelScale(-1), right = pixelScale(-1)},
+        bgFile = media.files.button_gloss,
+        insets = {top = pixel_scale(-1), left = pixel_scale(-1), bottom = pixel_scale(-1), right = pixel_scale(-1)},
     })
 
     if not (unitInRaid or unitIsPartyPet) then
@@ -1147,21 +1147,21 @@ local SetStyle = function(self, unit)
         if unit == "player" or unit == "target" then
             self.Castbar:SetAllPoints(self.Overlay)
         else
-            self.Castbar:SetHeight(pixelScale(5))
+            self.Castbar:SetHeight(pixel_scale(5))
             self.Castbar:SetAllPoints()
         end
 
         if unit == "player" or unit == "target" then
             self.Castbar.Time = SetFontString(self.Overlay, font, 9)
-            self.Castbar.Time:SetPoint("TOPRIGHT", pixelScale(-3.5), 0)
+            self.Castbar.Time:SetPoint("TOPRIGHT", pixel_scale(-3.5), 0)
             self.Castbar.Time:SetTextColor(0.84, 0.75, 0.65)
             self.Castbar.Time:SetJustifyH("RIGHT")
             self.Castbar.CustomTimeText = CustomCastTimeText
             self.Castbar.CustomDelayText = CustomCastDelayText
 
             self.Castbar.Text = SetFontString(self.Overlay, font, 11)
-            self.Castbar.Text:SetPoint("LEFT", pixelScale(3.5), pixelScale(1))
-            self.Castbar.Text:SetPoint("RIGHT", self.Castbar.Time, "LEFT", pixelScale(-1), 0)
+            self.Castbar.Text:SetPoint("LEFT", pixel_scale(3.5), pixel_scale(1))
+            self.Castbar.Text:SetPoint("RIGHT", self.Castbar.Time, "LEFT", pixel_scale(-1), 0)
             self.Castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 
             self.Castbar:HookScript("OnShow", function() self.Castbar.Text:Show(); self.Castbar.Time:Show() end)
@@ -1174,7 +1174,7 @@ local SetStyle = function(self, unit)
             self.Castbar.SafeZone:SetVertexColor(0.69, 0.31, 0.31, 0.75)
 
             self.Castbar.Latency = SetFontString(self.Overlay, font, 9)
-            self.Castbar.Latency:SetPoint("BOTTOMRIGHT", pixelScale(-3.5), 0)
+            self.Castbar.Latency:SetPoint("BOTTOMRIGHT", pixel_scale(-3.5), 0)
             self.Castbar.Latency:SetTextColor(0.84, 0.75, 0.65)
 
             self.Castbar:HookScript("OnShow", function() self.Castbar.Latency:Show() end)
@@ -1190,25 +1190,25 @@ local SetStyle = function(self, unit)
 
     if unitInParty and not unitIsPartyPet and not unitIsPartyTarget or unitInRaid or unit == "player" then
         self.Leader = self.Health:CreateTexture(nil, "OVERLAY")
-        self.Leader:SetSize(pixelScale(14), pixelScale(14))
-        self.Leader:SetPoint("TOPLEFT", 0, pixelScale(8))
+        self.Leader:SetSize(pixel_scale(14), pixel_scale(14))
+        self.Leader:SetPoint("TOPLEFT", 0, pixel_scale(8))
 
         self.Assistant = self.Health:CreateTexture(nil, "OVERLAY")
-        self.Assistant:SetSize(pixelScale(14), pixelScale(14))
-        self.Assistant:SetPoint("TOPLEFT", 0, pixelScale(8))
+        self.Assistant:SetSize(pixel_scale(14), pixel_scale(14))
+        self.Assistant:SetPoint("TOPLEFT", 0, pixel_scale(8))
 
         self.MasterLooter = self.Health:CreateTexture(nil, "OVERLAY")
-        self.MasterLooter:SetHeight(pixelScale(11), pixelScale(11))
-        self.MasterLooter:SetPoint("TOPRIGHT", 0, pixelScale(6.5))
+        self.MasterLooter:SetHeight(pixel_scale(11), pixel_scale(11))
+        self.MasterLooter:SetPoint("TOPRIGHT", 0, pixel_scale(6.5))
         if not unit == "player" then
             self.ReadyCheck = self.Health:CreateTexture(nil, "OVERLAY")
             self.ReadyCheck:SetParent(unitInRaid and self.Nameplate or self.Health)
-            self.ReadyCheck:SetSize(pixelScale(12), pixelScale(12))
+            self.ReadyCheck:SetSize(pixel_scale(12), pixel_scale(12))
             self.ReadyCheck.fadeTimer = 5
             if unitInRaid then
-                self.ReadyCheck:SetPoint("BOTTOMLEFT", self, "BOTTOMRIGHT", pixelScale(-5), pixelScale(2))
+                self.ReadyCheck:SetPoint("BOTTOMLEFT", self, "BOTTOMRIGHT", pixel_scale(-5), pixel_scale(2))
             else
-                self.ReadyCheck:SetPoint("TOPRIGHT", pixelScale(7), pixelScale(7))
+                self.ReadyCheck:SetPoint("TOPRIGHT", pixel_scale(7), pixel_scale(7))
             end
         end
 
@@ -1234,23 +1234,23 @@ local SetStyle = function(self, unit)
     end
 
     if unit == "player" or unit == "target" then
-        self:SetSize(pixelScale(230), pixelScale(52))
+        self:SetSize(pixel_scale(230), pixel_scale(52))
     elseif unitIsPartyPet then
-        self:SetSize(pixelScale(113), pixelScale(10))
+        self:SetSize(pixel_scale(113), pixel_scale(10))
     elseif unitInRaid then
-        self:SetSize(pixelScale(64), pixelScale(43))
+        self:SetSize(pixel_scale(64), pixel_scale(43))
     else
-        self:SetSize(pixelScale(113), pixelScale(25))
+        self:SetSize(pixel_scale(113), pixel_scale(25))
     end
 
     self.RaidIcon = self:CreateTexture(nil, "OVERLAY")
     self.RaidIcon:SetParent(unitInRaid and self.Nameplate or self.Health)
     self.RaidIcon:SetTexture(raidIcons)
-    self.RaidIcon:SetSize(unitInRaid and pixelScale(14) or pixelScale(18), unitInRaid and pixelScale(14) or pixelScale(18))
+    self.RaidIcon:SetSize(unitInRaid and pixel_scale(14) or pixel_scale(18), unitInRaid and pixel_scale(14) or pixel_scale(18))
     if unitInRaid then
-        self.RaidIcon:SetPoint("CENTER", 0, pixelScale(10))
+        self.RaidIcon:SetPoint("CENTER", 0, pixel_scale(10))
     else
-        self.RaidIcon:SetPoint("TOP", 0, pixelScale(10))
+        self.RaidIcon:SetPoint("TOP", 0, pixel_scale(10))
     end
 
     if unitInParty or unitInRaid then
@@ -1316,29 +1316,29 @@ oUF:Factory(function(self)
 
     self:SetActiveStyle("Caellian")
 
-    self:Spawn("player", "oUF_Caellian_player"):SetPoint("BOTTOM", UIParent, pixelScale(config.coords.playerX), pixelScale(config.coords.playerY))
-    self:Spawn("target", "oUF_Caellian_target"):SetPoint("BOTTOM", UIParent, pixelScale(config.coords.targetX), pixelScale(config.coords.targetY))
+    self:Spawn("player", "oUF_Caellian_player"):SetPoint("BOTTOM", UIParent, pixel_scale(config.coords.playerX), pixel_scale(config.coords.playerY))
+    self:Spawn("target", "oUF_Caellian_target"):SetPoint("BOTTOM", UIParent, pixel_scale(config.coords.targetX), pixel_scale(config.coords.targetY))
 
-    self:Spawn("pet", "oUF_Caellian_pet"):SetPoint("BOTTOMLEFT", oUF_Caellian_player, "TOPLEFT", 0, pixelScale(10))
-    self:Spawn("focus", "oUF_Caellian_focus"):SetPoint("BOTTOMRIGHT", oUF_Caellian_player, "TOPRIGHT", 0, pixelScale(10))
-    self:Spawn("focustarget", "oUF_Caellian_focustarget"):SetPoint("BOTTOMLEFT", oUF_Caellian_target, "TOPLEFT", 0, pixelScale(10))
-    self:Spawn("targettarget", "oUF_Caellian_targettarget"):SetPoint("BOTTOMRIGHT", oUF_Caellian_target, "TOPRIGHT", 0, pixelScale(10))
+    self:Spawn("pet", "oUF_Caellian_pet"):SetPoint("BOTTOMLEFT", oUF_Caellian_player, "TOPLEFT", 0, pixel_scale(10))
+    self:Spawn("focus", "oUF_Caellian_focus"):SetPoint("BOTTOMRIGHT", oUF_Caellian_player, "TOPRIGHT", 0, pixel_scale(10))
+    self:Spawn("focustarget", "oUF_Caellian_focustarget"):SetPoint("BOTTOMLEFT", oUF_Caellian_target, "TOPLEFT", 0, pixel_scale(10))
+    self:Spawn("targettarget", "oUF_Caellian_targettarget"):SetPoint("BOTTOMRIGHT", oUF_Caellian_target, "TOPRIGHT", 0, pixel_scale(10))
 
     if not config.noParty then
         local party = self:SpawnHeader("oUF_Party", nil, "custom [@raid6,exists] hide; show",
         "showParty", true,
         "showPlayer", true,
-        "yOffset", pixelScale(-27.5),
+        "yOffset", pixel_scale(-27.5),
         "template", "oUF_cParty",
         "oUF-initialConfigFunction", ([[self:SetWidth(113) self:SetHeight(22)]])
         )
 
         if healingSpecs[playerClass] then
             if (playerClass ~= "PRIEST" and playerSpec == healingSpecs[playerClass]) or (playerClass == "PRIEST" and playerSpec ~= healingSpecs[playerClass]) then
-                party:SetPoint("TOPLEFT", UIParent, pixelScale(config.coords.healing.partyX), pixelScale(config.coords.healing.partyY))
+                party:SetPoint("TOPLEFT", UIParent, pixel_scale(config.coords.healing.partyX), pixel_scale(config.coords.healing.partyY))
             end
         else
-            party:SetPoint("TOPLEFT", UIParent, pixelScale(config.coords.other.partyX), pixelScale(config.coords.other.partyY))
+            party:SetPoint("TOPLEFT", UIParent, pixel_scale(config.coords.other.partyX), pixel_scale(config.coords.other.partyY))
         end
     end
 
@@ -1352,20 +1352,20 @@ oUF:Factory(function(self)
             local raidgroup = self:SpawnHeader("oUF_Raid"..i, nil, "custom [@raid6,exists] show; hide",
             "groupFilter", tostring(i),
             "showRaid", true,
-            "yOffSet", pixelScale(-3.5),
+            "yOffSet", pixel_scale(-3.5),
             "oUF-initialConfigFunction", ([[self:SetWidth(113) self:SetHeight(22)]])
             )
             insert(raid, raidgroup)
             if i == 1 then
                 if healingSpecs[playerClass] then
                     if (playerClass ~= "PRIEST" and playerSpec == healingSpecs[playerClass]) or (playerClass == "PRIEST" and playerSpec ~= healingSpecs[playerClass]) then
-                        raidgroup:SetPoint("TOPLEFT", UIParent, pixelScale(config.coords.healing.raidX), pixelScale(config.coords.healing.raidY))
+                        raidgroup:SetPoint("TOPLEFT", UIParent, pixel_scale(config.coords.healing.raidX), pixel_scale(config.coords.healing.raidY))
                     end
                 else
-                    raidgroup:SetPoint("TOPLEFT", UIParent, pixelScale(config.coords.other.raidX), pixelScale(config.coords.other.raidY))
+                    raidgroup:SetPoint("TOPLEFT", UIParent, pixel_scale(config.coords.other.raidX), pixel_scale(config.coords.other.raidY))
                 end
             else
-                raidgroup:SetPoint("TOPLEFT", raid[i-1], "TOPRIGHT", pixelScale(60 * config.scale - 60) + pixelScale(3.5), 0)
+                raidgroup:SetPoint("TOPLEFT", raid[i-1], "TOPRIGHT", pixel_scale(60 * config.scale - 60) + pixel_scale(3.5), 0)
             end
         end
     end
@@ -1375,9 +1375,9 @@ oUF:Factory(function(self)
         boss[i] = self:Spawn("boss"..i, "oUF_Boss"..i)
 
         if i == 1 then
-            boss[i]:SetPoint("TOP", UIParent, 0, pixelScale(-15))
+            boss[i]:SetPoint("TOP", UIParent, 0, pixel_scale(-15))
         else
-            boss[i]:SetPoint("TOP", boss[i-1], "BOTTOM", 0, pixelScale(-26.5))
+            boss[i]:SetPoint("TOP", boss[i-1], "BOTTOM", 0, pixel_scale(-26.5))
         end
     end
 
@@ -1391,13 +1391,13 @@ oUF:Factory(function(self)
             if i == 1 then
                 if healingSpecs[playerClass] then
                     if (playerClass ~= "PRIEST" and playerSpec == healingSpecs[playerClass]) or (playerClass == "PRIEST" and playerSpec ~= healingSpecs[playerClass]) then
-                        arena[i]:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", pixelScale(config.coords.healing.arenaX), pixelScale(config.coords.healing.arenaY))
+                        arena[i]:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", pixel_scale(config.coords.healing.arenaX), pixel_scale(config.coords.healing.arenaY))
                     end
                 else
-                    arena[i]:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", pixelScale(config.coords.other.arenaX), pixelScale(config.coords.other.arenaY))
+                    arena[i]:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", pixel_scale(config.coords.other.arenaX), pixel_scale(config.coords.other.arenaY))
                 end
             else
-                arena[i]:SetPoint("TOP", arena[i-1], "BOTTOM", 0, pixelScale(-26.5))
+                arena[i]:SetPoint("TOP", arena[i-1], "BOTTOM", 0, pixel_scale(-26.5))
             end
         end
 
@@ -1407,9 +1407,9 @@ oUF:Factory(function(self)
         for i = 1, 5 do
             arenatarget[i] = self:Spawn("arena"..i.."target", "oUF_Arena"..i.."target")
             if i == 1 then
-                arenatarget[i]:SetPoint("TOPRIGHT", arena[i], "TOPLEFT", pixelScale(-7.5), 0)
+                arenatarget[i]:SetPoint("TOPRIGHT", arena[i], "TOPLEFT", pixel_scale(-7.5), 0)
             else
-                arenatarget[i]:SetPoint("TOP", arenatarget[i-1], "BOTTOM", 0, pixelScale(-26.5))
+                arenatarget[i]:SetPoint("TOP", arenatarget[i-1], "BOTTOM", 0, pixel_scale(-26.5))
             end
         end
 

@@ -32,7 +32,7 @@ local SkinBars = function(self)
                 if not frame.styled then
                     frame:SetScale(1)
                     frame:SetHeight(15)
-                    frame.background = caelUI.createBackdrop(frame)
+                    frame.background = caelUI.create_backdrop(frame)
                     frame.styled = true
                 end
 
@@ -52,24 +52,24 @@ local SkinBars = function(self)
                     icon1.frame = CreateFrame("Frame", nil, tbar)
                     icon1.frame:SetFrameStrata("BACKGROUND")
                     icon1.frame:SetAllPoints(icon1)
-                    icon1.frame.background = caelUI.createBackdrop(icon1.frame)
+                    icon1.frame.background = caelUI.create_backdrop(icon1.frame)
                     icon1.styled = true
                 end
 
                 if not texture.styled then
-                    texture:SetTexture(media.files.statusBarC)
+                    texture:SetTexture(media.files.statusbar_c)
                     texture.styled = true
                 end
 
                 if not name.styled then
-                    name:SetFont(media.fonts.NORMAL, 10)
+                    name:SetFont(media.fonts.normal, 10)
                     name:SetShadowOffset(0, 0)
                     name.SetFont = function() end
                     name.styled = true
                 end
 
                 if not timer.styled then    
-                    timer:SetFont(media.fonts.CUSTOM_NUMBERFONT, 10)
+                    timer:SetFont(media.fonts.custom_number, 10)
                     timer:SetShadowOffset(0, 0)
                     timer.SetFont = function() end
                     timer.styled = true
@@ -91,7 +91,7 @@ local SetupDBM = function()
     DBM_SavedOptions.SpecialWarningPoint = "CENTER"
     DBM_SavedOptions.SpecialWarningX = 0
     DBM_SavedOptions.SpecialWarningY = 200
-    DBM_SavedOptions.SpecialWarningFont = media.fonts.NORMAL
+    DBM_SavedOptions.SpecialWarningFont = media.fonts.normal
     DBM_SavedOptions.SpecialWarningFontColor = {0.69, 0.31, 0.31}
     DBM_SavedOptions.SpecialWarningFontSize = 15
     DBM_SavedOptions.WarningIconLeft = false
@@ -117,7 +117,7 @@ local SetupDBM = function()
     DBT_SavedOptions["DBM"].BarYOffset = -5
     DBT_SavedOptions["DBM"].HugeBarXOffset = 0
     DBT_SavedOptions["DBM"].HugeBarYOffset = -5
-    DBT_SavedOptions["DBM"].Font = media.fonts.NORMAL
+    DBT_SavedOptions["DBM"].Font = media.fonts.normal
     DBT_SavedOptions["DBM"].FontSize = 10
     DBT_SavedOptions["DBM"].Width = 170
     DBT_SavedOptions["DBM"].HugeWidth = 170
@@ -127,7 +127,7 @@ local SetupDBM = function()
     DBT_SavedOptions["DBM"].FillUpBars = true
     DBT_SavedOptions["DBM"].IconLeft = true
     DBT_SavedOptions["DBM"].ExpandUpwards = true
-    DBT_SavedOptions["DBM"].Texture = media.files.statusBarC
+    DBT_SavedOptions["DBM"].Texture = media.files.statusbar_c
     DBT_SavedOptions["DBM"].IconRight = false
     DBT_SavedOptions["DBM"].HugeBarsEnabled = true
 end
@@ -139,7 +139,7 @@ DBM.InfoFrame:Hide()
 
 DBM.Frames.infoFrame:HookScript("OnShow", function(self)
     self:SetBackdrop(nil)
-    caelUI.createBackdrop(self)
+    caelUI.create_backdrop(self)
 end)
 
 DBM.RangeCheck:Show()
@@ -147,7 +147,7 @@ DBM.RangeCheck:Hide()
 --[[
 DBM.RangeCheck:HookScript("OnShow", function(self)
     self:SetBackdrop(nil)
-    caelUI.createBackdrop(self)
+    caelUI.create_backdrop(self)
 end)
 --]]
 dbm:RegisterEvent("PLAYER_LOGIN")

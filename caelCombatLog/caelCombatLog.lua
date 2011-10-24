@@ -302,7 +302,7 @@ cCL:HookScript("OnEvent", function(self, event, timestamp, subEvent, hideCaster,
 
             if spellName == "Lock and Load" then
                 rsaFrame = "Notification"
-                PlaySoundFile(media.files.soundLnLProc)
+                PlaySoundFile(media.files.sound_lnlproc)
             end
 
             if not (throttledSpells[spellName] and throttledSpells[spellName][unitDirection]) then
@@ -482,7 +482,7 @@ cCL:RegisterEvent("PLAYER_REGEN_DISABLED")
 cCL:HookScript("OnEvent", function(self, event)
     if event == "PLAYER_REGEN_DISABLED" then
         Output(2, "Information", red, "++ Combat ++", nil, true)
-        PlaySoundFile(media.files.soundEnteringCombat)
+        PlaySoundFile(media.files.sound_entering_combat)
 
         duration = GetTime()
         clearSummary()
@@ -513,7 +513,7 @@ cCL:HookScript("OnEvent", function(self, event)
         t[#t+1] = (data.healingIn) > 0 and green..ShortValue(data.healingIn).."|r" or nil
 
         Output(2, "Information", green, "-- Combat --", nil, true)
-        PlaySoundFile(media.files.soundLeavingCombat)
+        PlaySoundFile(media.files.sound_leaving_combat)
 
         if #t > 0 then
             local tooltipMsg = format("%s%s%s%s%s",
@@ -533,9 +533,9 @@ cCL:HookScript("OnEvent", function(self, event)
     if event == "UNIT_COMBO_POINTS" then
         local comboPoints = GetComboPoints("player", "target")
         if comboPoints > 0 and comboPoints ~= MAX_COMBO_POINTS then
-            PlaySoundFile(media.files.soundCombo)
+            PlaySoundFile(media.files.sound_combo)
         elseif comboPoints == MAX_COMBO_POINTS then
-            PlaySoundFile(media.files.soundComboMax)
+            PlaySoundFile(media.files.sound_combo_max)
         end
     end
 end)

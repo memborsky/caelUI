@@ -1,6 +1,6 @@
 local _, caelBars = ...
 
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
 local bar5 = CreateFrame("Frame", "bar5", UIParent)
 
@@ -17,9 +17,9 @@ for index = 1, 12 do
     button:SetAlpha(0.45)
 
     if index == 1 then
-        button:SetPoint("TOPLEFT", caelPanel_ActionBar5, pixelScale(2), pixelScale(-2))
+        button:SetPoint("TOPLEFT", caelPanel_ActionBar5, pixel_scale(2), pixel_scale(-2))
     else
-        button:SetPoint("TOP", buttonPrev, "BOTTOM", 0, pixelScale(-2))
+        button:SetPoint("TOP", buttonPrev, "BOTTOM", 0, pixel_scale(-2))
     end
 
     -- mouse over enable

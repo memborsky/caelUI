@@ -113,7 +113,7 @@ RaidNotice_AddMessage = function(noticeFrame, textString, colorInfo, ...)
         else
             hooks.RaidNotice_AddMessage(noticeFrame, textString, colorInfo, ...)
         end
-        PlaySoundFile(caelUI.media.files.soundAlarm)
+        PlaySoundFile(caelUI.media.files.sound_alarm)
     end
 end
 

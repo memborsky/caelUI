@@ -2,19 +2,19 @@
 
 local characterpanel = caelCore.createModule("CharacterPanel")
 
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
 local helm = characterpanel.helm
 local cloak = characterpanel.cloak
 local undress = characterpanel.undress
 
 CharacterModelFrameRotateLeftButton:ClearAllPoints()
-CharacterModelFrameRotateLeftButton:SetScale(pixelScale(0.85))
-CharacterModelFrameRotateLeftButton:SetPoint("RIGHT", PaperDollFrame, "RIGHT", pixelScale(-140), 0)
+CharacterModelFrameRotateLeftButton:SetScale(pixel_scale(0.85))
+CharacterModelFrameRotateLeftButton:SetPoint("RIGHT", PaperDollFrame, "RIGHT", pixel_scale(-140), 0)
 
 CharacterModelFrameRotateRightButton:ClearAllPoints()
-CharacterModelFrameRotateRightButton:SetScale(pixelScale(0.85))
-CharacterModelFrameRotateRightButton:SetPoint("RIGHT", PaperDollFrame, "RIGHT", pixelScale(-112.5), 0)
+CharacterModelFrameRotateRightButton:SetScale(pixel_scale(0.85))
+CharacterModelFrameRotateRightButton:SetPoint("RIGHT", PaperDollFrame, "RIGHT", pixel_scale(-112.5), 0)
 
 local ShowCloak, ShowHelm = ShowCloak, ShowHelm
 _G.ShowCloak = function () end
@@ -25,7 +25,7 @@ for k, v in next, {InterfaceOptionsDisplayPanelShowCloak, InterfaceOptionsDispla
 end
 
 helm = CreateFrame("CheckButton", nil, PaperDollFrame, "OptionsCheckButtonTemplate")
-helm:SetPoint("LEFT", CharacterHeadSlot, "RIGHT", pixelScale(7), pixelScale(6))
+helm:SetPoint("LEFT", CharacterHeadSlot, "RIGHT", pixel_scale(7), pixel_scale(6))
 helm:SetChecked(ShowingHelm())
 helm:SetToplevel()
 helm:RegisterEvent("PLAYER_FLAGS_CHANGED")
@@ -42,7 +42,7 @@ end)
 helm:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
 cloak = CreateFrame("CheckButton", nil, PaperDollFrame, "OptionsCheckButtonTemplate")
-cloak:SetPoint("LEFT", CharacterHeadSlot, "RIGHT", pixelScale(7), pixelScale(-15))
+cloak:SetPoint("LEFT", CharacterHeadSlot, "RIGHT", pixel_scale(7), pixel_scale(-15))
 cloak:SetChecked(ShowingCloak())
 cloak:SetToplevel()
 cloak:RegisterEvent("PLAYER_FLAGS_CHANGED")
@@ -60,8 +60,8 @@ cloak:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
 undress = CreateFrame("Button", nil, DressUpFrame, "UIPanelButtonTemplate")
 undress:SetPoint("RIGHT", DressUpFrameResetButton, "LEFT")
-undress:SetHeight(pixelScale(22))
-undress:SetWidth(pixelScale(80))
+undress:SetHeight(pixel_scale(22))
+undress:SetWidth(pixel_scale(80))
 undress:SetText("Undress")
 undress:SetScript("OnClick", function() DressUpModel:Undress() end)
 

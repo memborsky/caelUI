@@ -4,8 +4,6 @@
 
 local autoinvite = caelCore.createModule("AutoInvite")
 
-local media = caelUI.media
-
 local AcceptFriends = false
 local AcceptGuild = true
 
@@ -83,7 +81,7 @@ autoinvite:SetScript("OnEvent", function(self, event, ...)
             SendWho(string.join("", "n-\"", name, "\""))
         end
     elseif event == "CHAT_MSG_WHISPER" then
-        PlaySoundFile(media.files.soundWhisper)
+        PlaySoundFile(caelUI.media.files.sound_whisper)
 
         arg1, arg2 = ...
 

@@ -4,7 +4,7 @@ _G["caelBags"] = caelBags
 
 -- Used to for moving to the new caelUI system.
 local media = caelUI.media
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
 -- Constants
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS         -- Amount of bag slots.
@@ -23,14 +23,14 @@ updateContainerFrameAnchors = function() end
 -- Sizing
 local numBagColumns = 10
 local numBankColumns = 20
-local buttonSize = pixelScale(28)
-local buttonSpacing = pixelScale(-2)
+local buttonSize = pixel_scale(28)
+local buttonSpacing = pixel_scale(-2)
 
 -- Margins
-local bottomButtonMargin = pixelScale(30)
-local bottomMargin = pixelScale(5)
-local sideMargin   = pixelScale(5)
-local topMargin    = pixelScale(5)
+local bottomButtonMargin = pixel_scale(30)
+local bottomMargin = pixel_scale(5)
+local sideMargin   = pixel_scale(5)
+local topMargin    = pixel_scale(5)
 
 -- Methods we will use for the containers.
 local Container = CreateFrame("Button")
@@ -88,7 +88,7 @@ function Container:New(name, maxColumns)
 --  local c = CreateFrame("Button", nil, UIParent)
     local c = CreateFrame("Button", format("caelBags%s", name), UIParent)
     c:SetFrameStrata("HIGH")
-    c:SetBackdrop(media.backdropTable)
+    c:SetBackdrop(media.backdrop_table)
     c:Hide()
 
     c.col, c.row = 0, 0
@@ -125,7 +125,7 @@ end
 
 -- Create the frames for each type of container: bag, bank and ammo.
 local bags = Container:New("bag", numBagColumns)
-bags:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", pixelScale(-30), pixelScale(-168))
+bags:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", pixel_scale(-30), pixel_scale(-168))
 bags:SetBackdropColor(0, 0, 0, 0.7)
 bags:SetBackdropBorderColor(0, 0, 0)
 bags.preventCloseAll = true
@@ -171,9 +171,9 @@ local function ApplyButtonLayout(button)
     questTexture.Show = questTexture.Hide
 
     -- Replace textures.
-    button:SetNormalTexture(media.files.buttonNormal)
-    button:SetPushedTexture(media.files.buttonPushed)
-    button:SetHighlightTexture(media.files.buttonHighlight)
+    button:SetNormalTexture(media.files.button_normal)
+    button:SetPushedTexture(media.files.button_pushed)
+    button:SetHighlightTexture(media.files.button_highlight)
 
     -- Set size.
     button:SetWidth(buttonSize)
@@ -186,8 +186,8 @@ local function ApplyButtonLayout(button)
     iconTexture:SetTexCoord(.08, .92, .08, .92)
     -- Position icon using SetPoint relative to the button.
     iconTexture:ClearAllPoints()
-    iconTexture:SetPoint("TOPLEFT", button, pixelScale(4), pixelScale(-3))
-    iconTexture:SetPoint("BOTTOMRIGHT", button, pixelScale(-3), pixelScale(4))
+    iconTexture:SetPoint("TOPLEFT", button, pixel_scale(4), pixel_scale(-3))
+    iconTexture:SetPoint("BOTTOMRIGHT", button, pixel_scale(-3), pixel_scale(4))
 
     -- Size and position the NormalTexture (the "bagFrame" around the button)
     normalTexture:SetHeight(buttonSize)
@@ -198,8 +198,8 @@ local function ApplyButtonLayout(button)
 
     -- Move item count text into a readable position.
     itemCount:ClearAllPoints()
-    itemCount:SetPoint("BOTTOMRIGHT", button, pixelScale(-3), pixelScale(3))
-    itemCount:SetFont(media.fonts.CHAT_FONT, 10, "OUTLINE")
+    itemCount:SetPoint("BOTTOMRIGHT", button, pixel_scale(-3), pixel_scale(3))
+    itemCount:SetFont(media.fonts.chat, 10, "OUTLINE")
 end
 
 -- Override Blizzard's GenerateFrame function with our own.

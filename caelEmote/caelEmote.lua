@@ -27,7 +27,7 @@ caelEmote.eventFrame:HookScript("OnEvent", function(self, event, timestamp, sube
             if targets[destName] then
                 if sourceName == playerName then
                     --DoEmote("GLOAT", destName)
-                    PlaySoundFile(caelUI.media.files.soundGodlike)
+                    PlaySoundFile(caelUI.media.files.sound_godlike)
                 end
                 targets[destName] = nil
             end

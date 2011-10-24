@@ -171,7 +171,7 @@ caelThreat.eventFrame:HookScript("OnEvent", function(self, event, unit)
                     if (lastWarning ~= 85) then
 
                         if warningSounds then
-                            PlaySoundFile(media.files.soundWarning, "SFX")
+                            PlaySoundFile(media.files.sound_warning, "SFX")
                         end
 
                         raidNoticeMessage = "|cffFF9900".."WARNING THREAT: "..tostring(threatPercent).."%|r" -- Orange |cffB46E46
@@ -184,7 +184,7 @@ caelThreat.eventFrame:HookScript("OnEvent", function(self, event, unit)
             elseif (status and status > 2 and unit == "player") then
 
                 if warningSounds then
-                    PlaySoundFile(media.files.soundAggro, "SFX")
+                    PlaySoundFile(media.files.sound_aggro, "SFX")
                 end
 
                 raidNoticeMessage = "|cffAF5050AGGRO|r" -- Red

@@ -1,48 +1,48 @@
 ﻿local private = unpack(select(2, ...))
 
-local originalFonts
+local original_fonts
 
 local media = private.database.get("media")
 
 do
-    local function customFont(font, altFont)
-        if media.customFonts and media.customFonts[font] then
-            return media.customFonts[font]
+    local function custom_font(font, alternate_font)
+        if media.custom_fonts and media.custom_fonts[font] then
+            return media.custom_fonts[font]
         end
 
-        return altFont
+        return alternate_font
     end
 
-    local fontPath = [=[Interface\Addons\caelUI\media\fonts\]=]
+    local font_path = media.directory .. [=[fonts\]=]
 
-    local baseFonts = {
-        NORMAL     = customFont("NORMAL",        fontPath .. [=[neuropol x cd rg.ttf]=]),
-        BOLD       = customFont("BOLD",          fontPath .. [=[neuropol x cd bd.ttf]=]),
-        ITALIC     = customFont("ITALIC",        fontPath .. [=[neuropol x cd rg it.ttf]=]),
-        BOLDITALIC = customFont("BOLDITALIC",    fontPath .. [=[neuropol x cd bd it.ttf]=]),
+    local base_fonts = {
+        normal      = custom_font("normal",      font_path .. [=[neuropol x cd rg.ttf]=]),
+        bold        = custom_font("bold",        font_path .. [=[neuropol x cd bd.ttf]=]),
+        italic      = custom_font("italic",      font_path .. [=[neuropol x cd rg it.ttf]=]),
+        bold_italic = custom_font("bold_italic", font_path .. [=[neuropol x cd bd it.ttf]=]),
     }
 
-    originalFonts = {
-        NORMAL              = baseFonts.NORMAL,
-        BOLD                = baseFonts.BOLD,
-        BOLDITALIC          = baseFonts.BOLDITALIC,
-        ITALIC              = baseFonts.ITALIC,
-        NUMBER              = baseFonts.BOLD,
+    original_fonts = {
+        normal      = base_fonts.normal,
+        bold        = base_fonts.bold,
+        bold_italic = base_fonts.bold_italic,
+        italic      = base_fonts.italic,
+        number      = base_fonts.bold,
 
-        UNIT_NAME_FONT      = customFont("UNIT_NAME_FONT",       baseFonts.NORMAL),
-        NAMEPLATE_FONT      = customFont("NAMEPLATE_FONT",       baseFonts.BOLD),
-        DAMAGE_TEXT_FONT    = customFont("DAMAGE_TEXT_FONT",     baseFonts.BOLD),
-        STANDARD_TEXT_FONT  = customFont("STANDARD_TEXT_FONT",   baseFonts.NORMAL),
-        CHAT_FONT           = customFont("CHAT_FONT",            fontPath .. [=[xenara rg.ttf]=]),
+        unit_name     = custom_font("unit_name",     base_fonts.normal),
+        nameplate     = custom_font("nameplate",     base_fonts.bold),
+        damage_text   = custom_font("damage_text",   base_fonts.bold),
+        standard_text = custom_font("standard_text", base_fonts.normal),
+        chat          = custom_font("chat",          font_path .. [=[xenara rg.ttf]=]),
 
-        -- Addon related stuff.
-        CUSTOM_NUMBERFONT   = customFont("CUSTOM_NUMBERFONT",    fontPath .. [=[russel square lt.ttf]=]),
-        SCROLLFRAME_NORMAL  = customFont("SCROLLFRAME_NORMAL",   baseFonts.NORMAL),
-        SCROLLFRAME_BOLD    = customFont("SCROLLFRAME_BOLD",     baseFonts.BOLD),
-        CAELNAMEPLATE_FONT  = customFont("CAELNAMEPLATE_FONT",   fontPath .. [=[xenara rg.ttf]=]),
+        -- addon related stuff.
+        custom_number       = custom_font("custom_numberfont",   font_path .. [=[russel square lt.ttf]=]),
+        scroll_frame_normal = custom_font("scroll_frame_normal", base_fonts.normal),
+        scroll_frame_bold   = custom_font("scroll_frame_bold",   base_fonts.bold),
+        nameplate           = custom_font("nameplate",           font_path .. [=[xenara rg.ttf]=]),
     }
 end
 
-media.fonts = originalFonts
+media.fonts = original_fonts
 
 private.database.save(media)

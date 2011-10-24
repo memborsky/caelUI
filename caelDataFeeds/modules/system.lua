@@ -2,9 +2,9 @@ local _, caelDataFeeds = ...
 
 local system = caelDataFeeds.createModule("System")
 
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
-system.text:SetPoint("LEFT", caelPanel_DataFeed, "LEFT", pixelScale(10), 0)
+system.text:SetPoint("LEFT", caelPanel_DataFeed, "LEFT", pixel_scale(10), 0)
 
 local Addons = {}
 
@@ -86,7 +86,7 @@ end)
 
 system:SetScript("OnEnter", function(self)
     if IsShiftKeyDown() then
-        GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixelScale(4))
+        GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixel_scale(4))
 
         local SortingTable = {}
         for name in pairs(Addons) do

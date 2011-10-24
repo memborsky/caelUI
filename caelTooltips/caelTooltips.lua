@@ -5,7 +5,7 @@ caelTooltips = CreateFrame("Frame", nil, UIParent)
 local _G = getfenv(0)
 local orig1, orig2 = {}, {}
 local height
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 local media = caelUI.media
 
 -- Used to allow the tooltips to be enabled on the cursor
@@ -15,9 +15,9 @@ local GameTooltip, GameTooltipStatusBar = _G["GameTooltip"], _G["GameTooltipStat
 
 local gsub, find, format = string.gsub, string.find, string.format
 
-_G["GameTooltipHeaderText"]:SetFont(media.fonts.NORMAL, 10)
-_G["GameTooltipText"]:SetFont(media.fonts.NORMAL, 10)
-_G["GameTooltipTextSmall"]:SetFont(media.fonts.NORMAL, 9)
+_G["GameTooltipHeaderText"]:SetFont(media.fonts.normal, 10)
+_G["GameTooltipText"]:SetFont(media.fonts.normal, 10)
+_G["GameTooltipTextSmall"]:SetFont(media.fonts.normal, 9)
 
 local Tooltips = {GameTooltip, ItemRefTooltip, ShoppingTooltip1, ShoppingTooltip2, ShoppingTooltip3, WorldMapTooltip}
 
@@ -34,7 +34,7 @@ local OnHyperlinkEnter = function(frame, link, ...)
     local linkType = link:match("^([^:]+)")
     if linkType and linkTypes[linkType] then
         GameTooltip:SetOwner(frame, "ANCHOR_NONE")
-        GameTooltip:SetPoint("BOTTOM", caelPanel_EditBox, "TOP", 0, pixelScale(10))
+        GameTooltip:SetPoint("BOTTOM", caelPanel_EditBox, "TOP", 0, pixel_scale(10))
         GameTooltip:SetHyperlink(link)
         GameTooltip:Show()
     end
@@ -74,7 +74,7 @@ GameTooltip_SetDefaultAnchor = function(self, parent)
     if cursor == true then
         if IsAddOnLoaded("oUF_Caellian_Heal") and parent ~= UIParent then 
             self:SetOwner(parent, "ANCHOR_NONE")
-            self:SetPoint("BOTTOMRIGHT", caelPanel_EditBox, "TOPRIGHT", 0, pixelScale(10))
+            self:SetPoint("BOTTOMRIGHT", caelPanel_EditBox, "TOPRIGHT", 0, pixel_scale(10))
         else
             self:SetOwner(parent, "ANCHOR_CURSOR")
         end
@@ -85,7 +85,7 @@ GameTooltip_SetDefaultAnchor = function(self, parent)
             self:SetOwner(parent, "ANCHOR_TOP")
         else
             self:SetOwner(parent, "ANCHOR_NONE")
-            self:SetPoint("BOTTOM", caelPanel_ActionBar1, "TOP", 0, pixelScale(5))
+            self:SetPoint("BOTTOM", caelPanel_ActionBar1, "TOP", 0, pixel_scale(5))
         end
     end
 
@@ -222,31 +222,31 @@ end)
 
 --[[
 local gradientTop = caelTooltips:CreateTexture(nil, "BORDER")
-gradientTop:SetTexture(media.files.bgFile)
+gradientTop:SetTexture(media.files.background)
 gradientTop:SetGradientAlpha("VERTICAL", 0, 0, 0, 0, 0.84, 0.75, 0.65, 0.5)
 
 local gradientBottom = caelTooltips:CreateTexture(nil, "BORDER")
-gradientBottom:SetTexture(media.files.bgFile)
+gradientBottom:SetTexture(media.files.background)
 gradientBottom:SetGradientAlpha("VERTICAL", 0, 0, 0, 0.75, 0, 0, 0, 0)
 --]]
 
 local healthBar = GameTooltipStatusBar
 healthBar:ClearAllPoints()
-healthBar:SetHeight(pixelScale(6))
-healthBar:SetPoint("BOTTOMLEFT", healthBar:GetParent(), "TOPLEFT", pixelScale(3), pixelScale(2))
-healthBar:SetPoint("BOTTOMRIGHT", healthBar:GetParent(), "TOPRIGHT", pixelScale(-3), pixelScale(2))
-healthBar:SetStatusBarTexture(media.files.statusBarC)
+healthBar:SetHeight(pixel_scale(6))
+healthBar:SetPoint("BOTTOMLEFT", healthBar:GetParent(), "TOPLEFT", pixel_scale(3), pixel_scale(2))
+healthBar:SetPoint("BOTTOMRIGHT", healthBar:GetParent(), "TOPRIGHT", pixel_scale(-3), pixel_scale(2))
+healthBar:SetStatusBarTexture(media.files.statusbar_c)
 
 healthBar.border = CreateFrame("Frame", nil, healthBar)
-healthBar.border:SetPoint("TOPLEFT", pixelScale(-3), pixelScale(3))
-healthBar.border:SetPoint("BOTTOMRIGHT", pixelScale(3), pixelScale(-3))
+healthBar.border:SetPoint("TOPLEFT", pixel_scale(-3), pixel_scale(3))
+healthBar.border:SetPoint("BOTTOMRIGHT", pixel_scale(3), pixel_scale(-3))
 healthBar.border:SetFrameStrata("BACKGROUND")
-healthBar.border:SetBackdrop(media.backdropTable)
+healthBar.border:SetBackdrop(media.backdrop_table)
 healthBar.border:SetBackdropColor(0.25, 0.25, 0.25, 0)
 
 healthBar.bg = healthBar:CreateTexture(nil, "BORDER")
 healthBar.bg:SetAllPoints()
-healthBar.bg:SetTexture(media.files.statusBarC)
+healthBar.bg:SetTexture(media.files.statusbar_c)
 
 local BorderColor = function(self)
     local _, unit = self:GetUnit()
@@ -272,24 +272,24 @@ local BorderColor = function(self)
 end
 
 local SetStyle = function(self)
-    self:SetSize(pixelScale(self:GetWidth()), pixelScale(self:GetHeight()))
+    self:SetSize(pixel_scale(self:GetWidth()), pixel_scale(self:GetHeight()))
 
     local r, g, b = healthBar:GetStatusBarColor()
     healthBar.bg:SetVertexColor(r * 0.33, g * 0.33, b * 0.33, 0.85)
 
     BorderColor(self)
 
-    height = pixelScale(self:GetHeight() / 5)
+    height = pixel_scale(self:GetHeight() / 5)
 
     --[[
     gradientTop:SetParent(self)
-    gradientTop:SetPoint("TOPLEFT", pixelScale(3), pixelScale(-3))
-    gradientTop:SetPoint("TOPRIGHT", pixelScale(-3), pixelScale(-3))
+    gradientTop:SetPoint("TOPLEFT", pixel_scale(3), pixel_scale(-3))
+    gradientTop:SetPoint("TOPRIGHT", pixel_scale(-3), pixel_scale(-3))
     gradientTop:SetHeight(height)
 
     gradientBottom:SetParent(self)
-    gradientBottom:SetPoint("BOTTOMLEFT", pixelScale(3), pixelScale(3))
-    gradientBottom:SetPoint("BOTTOMRIGHT", pixelScale(-3), pixelScale(3))
+    gradientBottom:SetPoint("BOTTOMLEFT", pixel_scale(3), pixel_scale(3))
+    gradientBottom:SetPoint("BOTTOMRIGHT", pixel_scale(-3), pixel_scale(3))
     gradientBottom:SetHeight(height)
     --]]
 end
@@ -300,7 +300,7 @@ caelTooltips:SetScript("OnEvent", function(self)
         v:HookScript("OnShow", SetStyle)
         v:SetScale(0.9)
 
-        v:SetBackdrop(media.backdropTable)
+        v:SetBackdrop(media.backdrop_table)
     end
 
     self:UnregisterEvent("PLAYER_ENTERING_WORLD")

@@ -16,7 +16,7 @@ mail:SetScript("OnEvent", function(self, event)
 end)
 
 mail:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, caelUI.config.pixelScale(4))
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, caelUI.config.pixel_scale(4))
 
     local sender1, sender2, sender3 = GetLatestThreeSenders()
     if sender1 then GameTooltip:AddLine("|cffD7BEA51. |r"..sender1) end

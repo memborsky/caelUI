@@ -12,7 +12,7 @@ local need_reset = true
 local in_raid, in_party, warning_played, i_am_tank, target_okay
 local top_threat, overtake_threat, my_threat = 0, -1, -1
 local HIDDEN, TANKING, BLANK = "* %s", ">>> %s <<<", " "
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 local media = caelUI.media
 --local 10   = 10 -- This is set in MakeDisplay() to its true number.
 
@@ -133,7 +133,7 @@ local function UpdateUnitThreat(unit_id)
                         if not(raid_threat[i].tanking) and warning_played then
 
                             -- If we were not tanking before, and we were warned, then play aggro sound.
-                            PlaySoundFile(media.files.soundAggro, "SFX")
+                            PlaySoundFile(media.files.sound_aggro, "SFX")
                         end
 
                         -- Flag this unit as tanking, for special formatting on the bars.
@@ -182,7 +182,7 @@ local function UpdateDisplay()
     -- Whether to sound a warning for the user or not, and resets our warning played
     -- flag if the user slips back under 80% threat.
     if not(i_am_tank) and my_threat >= (top_threat * 0.8) and not(warning_played) then
-        PlaySoundFile(media.files.soundWarning, "SFX")
+        PlaySoundFile(media.files.sound_warning, "SFX")
         warning_played = true
     elseif my_threat < (top_threat * 0.8) then
         warning_played = false
@@ -269,11 +269,11 @@ end
 
 local function MakeDisplay()
     local f = display_frame
-    f:SetWidth(pixelScale(200))
-    f:SetHeight(pixelScale(170))
+    f:SetWidth(pixel_scale(200))
+    f:SetHeight(pixel_scale(170))
 
     caelPanels.SetupAddonPanel(caelPanel_ThreatMeter, f)
-    --f:SetPoint("BOTTOM", UIParent, "BOTTOM", pixelScale(647), pixelScale(23))
+    --f:SetPoint("BOTTOM", UIParent, "BOTTOM", pixel_scale(647), pixel_scale(23))
 
     f.texture = f:CreateTexture()
     f.texture:SetAllPoints()
@@ -281,30 +281,30 @@ local function MakeDisplay()
     f.texture:SetDrawLayer("BACKGROUND")
 
     f.titletext = f:CreateFontString(nil, "ARTWORK")
-    f.titletext:SetFont(media.fonts.NORMAL, 9)
+    f.titletext:SetFont(media.fonts.normal, 9)
     f.titletext:SetText("Threat")
     f.titletext:SetPoint("TOP", f, "TOP", 0, 0)
 
     -- Add some bars!
     f.bars = Recycler()
-    local bar_nums = pixelScale(floor((f:GetHeight()-40)/10))
+    local bar_nums = pixel_scale(floor((f:GetHeight()-40)/10))
     for i = 1, bar_nums do
         f.bars[i] = CreateFrame("StatusBar", nil, f)
-        f.bars[i]:SetWidth(pixelScale(159))
+        f.bars[i]:SetWidth(pixel_scale(159))
         f.bars[i]:SetHeight(12.35)
         f.bars[i]:SetMinMaxValues(0, 1)
         f.bars[i]:SetOrientation("HORIZONTAL")
         f.bars[i]:SetStatusBarColor(1, 1, 1, 0.8)
-        f.bars[i]:SetStatusBarTexture(media.files.statusBarC)
-        f.bars[i]:SetPoint("TOPLEFT", i == 1 and f or f.bars[i-1], i == 1 and "TOPLEFT" or "BOTTOMLEFT", pixelScale(i == 1 and 2 or 0), pixelScale(i == 1 and -10 or -1))
-        f.bars[i]:SetPoint("TOPRIGHT", i == 1 and f or f.bars[i-1], i == 1 and "TOPRIGHT" or "BOTTOMRIGHT", pixelScale(i == 1 and -2 or 0), pixelScale(i == 1 and -10 or -1))
+        f.bars[i]:SetStatusBarTexture(media.files.statusbar_c)
+        f.bars[i]:SetPoint("TOPLEFT", i == 1 and f or f.bars[i-1], i == 1 and "TOPLEFT" or "BOTTOMLEFT", pixel_scale(i == 1 and 2 or 0), pixel_scale(i == 1 and -10 or -1))
+        f.bars[i]:SetPoint("TOPRIGHT", i == 1 and f or f.bars[i-1], i == 1 and "TOPRIGHT" or "BOTTOMRIGHT", pixel_scale(i == 1 and -2 or 0), pixel_scale(i == 1 and -10 or -1))
         f.bars[i].lefttext = f.bars[i]:CreateFontString(nil, "ARTWORK")
-        f.bars[i].lefttext:SetFont(media.fonts.NORMAL, 9)
-        f.bars[i].lefttext:SetPoint("LEFT", f.bars[i], "LEFT", 0, pixelScale(2))
+        f.bars[i].lefttext:SetFont(media.fonts.normal, 9)
+        f.bars[i].lefttext:SetPoint("LEFT", f.bars[i], "LEFT", 0, pixel_scale(2))
         f.bars[i].lefttext:Show()
         f.bars[i].righttext = f.bars[i]:CreateFontString(nil, "ARTWORK")
-        f.bars[i].righttext:SetFont(media.fonts.NORMAL, 9)
-        f.bars[i].righttext:SetPoint("RIGHT", f.bars[i], "RIGHT", 0, pixelScale(2))
+        f.bars[i].righttext:SetFont(media.fonts.normal, 9)
+        f.bars[i].righttext:SetPoint("RIGHT", f.bars[i], "RIGHT", 0, pixel_scale(2))
         SetBarValues(i)
     end
 

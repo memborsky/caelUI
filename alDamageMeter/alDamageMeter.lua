@@ -1,21 +1,21 @@
 -- Config start
 
 local media = caelUI.media
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
 local anchor = "BOTTOM"
-local x, y = pixelScale(-647), pixelScale(23)
+local x, y = pixel_scale(-647), pixel_scale(23)
 local barheight = 12.35
-local spacing = pixelScale(1)
+local spacing = pixel_scale(1)
 local maxbars = 10
-local width, height = pixelScale(159), pixelScale(maxbars * (barheight + spacing) - spacing)
+local width, height = pixel_scale(159), pixel_scale(maxbars * (barheight + spacing) - spacing)
 local maxfights = 5
 local reportstrings = 5
-local texture = media.files.statusBarC
+local texture = media.files.statusbar_c
 local backdrop_color = {0, 0, 0, 0}
 local border_color = {0, 0, 0, 0}
-local border_size = pixelScale(2)
-local font = media.fonts.NORMAL
+local border_size = pixel_scale(2)
+local font = media.fonts.normal
 local font_style = ""
 local font_size = 9
 local hidetitle = false

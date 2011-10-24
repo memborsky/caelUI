@@ -1,6 +1,5 @@
 local caelMinimap = CreateFrame("Frame", nil, Minimap)
-local pixelScale = caelUI.config.pixelScale
-local media = caelUI.media
+local pixel_scale = caelUI.config.pixel_scale
 
 for _, object in pairs({
     GameTimeFrame,
@@ -40,10 +39,10 @@ Minimap:SetScript("OnEvent", function(self, event, ...)
     self:SetParent(caelPanel_Minimap)
     self:SetFrameLevel(caelPanel_Minimap:GetFrameLevel() + 1)
     self:SetPoint("CENTER")
-    self:SetSize(caelPanel_Minimap:GetWidth() - pixelScale(5), caelPanel_Minimap:GetHeight() - pixelScale(5))
+    self:SetSize(caelPanel_Minimap:GetWidth() - pixel_scale(5), caelPanel_Minimap:GetHeight() - pixel_scale(5))
 
-    self:SetMaskTexture(media.files.bgFile)
-    --self:SetBlipTexture([=[Interface\Addons\media\miscellaneous\charmed.tga]=])
+    self:SetMaskTexture(caelUI.media.files.background)
+    --self:SetBlipTexture([=[Interface\Addons\caelUI\media\miscellaneous\charmed.tga]=])
 
     MinimapCluster:EnableMouse(false)
 
@@ -62,12 +61,12 @@ Minimap:SetScript("OnEvent", function(self, event, ...)
 
     MiniMapInstanceDifficulty:ClearAllPoints()
     MiniMapInstanceDifficulty:SetParent(Minimap)
-    MiniMapInstanceDifficulty:SetPoint("TOPRIGHT", pixelScale(-5), 0)
+    MiniMapInstanceDifficulty:SetPoint("TOPRIGHT", pixel_scale(-5), 0)
     MiniMapInstanceDifficulty:SetScale(0.75)
 
     GuildInstanceDifficulty:ClearAllPoints()
     GuildInstanceDifficulty:SetParent(Minimap)
-    GuildInstanceDifficulty:SetPoint("TOPRIGHT", pixelScale(-5), 0)
+    GuildInstanceDifficulty:SetPoint("TOPRIGHT", pixel_scale(-5), 0)
     GuildInstanceDifficulty:SetScale(0.75)
 
     DurabilityFrame:UnregisterAllEvents()
@@ -80,23 +79,23 @@ local farm = false
 function SlashCmdList.FARMMODE(msg, editbox)
     if farm == false then
         caelPanel_Minimap:SetSize(250, 250)
-        Minimap:SetSize(caelPanel_Minimap:GetWidth() - pixelScale(5), caelPanel_Minimap:GetHeight() - pixelScale(5))
+        Minimap:SetSize(caelPanel_Minimap:GetWidth() - pixel_scale(5), caelPanel_Minimap:GetHeight() - pixel_scale(5))
         caelPanel_Minimap:ClearAllPoints()
-        caelPanel_Minimap:SetPoint("CENTER", UIParent, "CENTER", 0, pixelScale(-225))
+        caelPanel_Minimap:SetPoint("CENTER", UIParent, "CENTER", 0, pixel_scale(-225))
         farm = true
     else
         caelPanel_Minimap:SetSize(caelPanel_DataFeedMinimap:GetWidth(), caelPanel_DataFeedMinimap:GetWidth())
-        Minimap:SetSize(caelPanel_Minimap:GetWidth() - pixelScale(5), caelPanel_Minimap:GetHeight() - pixelScale(5))
+        Minimap:SetSize(caelPanel_Minimap:GetWidth() - pixel_scale(5), caelPanel_Minimap:GetHeight() - pixel_scale(5))
         caelPanel_Minimap:ClearAllPoints()
-        caelPanel_Minimap:SetPoint("BOTTOMLEFT", caelPanel_DataFeedMinimap, "TOPLEFT", 0, pixelScale(1))
+        caelPanel_Minimap:SetPoint("BOTTOMLEFT", caelPanel_DataFeedMinimap, "TOPLEFT", 0, pixel_scale(1))
         farm = false
     end
 
     if msg == "reset" then
         caelPanel_Minimap:SetSize(caelPanel_DataFeedMinimap:GetWidth(), caelPanel_DataFeedMinimap:GetWidth())
-        Minimap:SetSize(caelPanel_Minimap:GetWidth() - pixelScale(5), caelPanel_Minimap:GetHeight() - pixelScale(5))
+        Minimap:SetSize(caelPanel_Minimap:GetWidth() - pixel_scale(5), caelPanel_Minimap:GetHeight() - pixel_scale(5))
         caelPanel_Minimap:ClearAllPoints()
-        caelPanel_Minimap:SetPoint("BOTTOMLEFT", caelPanel_DataFeedMinimap, "TOPLEFT", 0, pixelScale(1))
+        caelPanel_Minimap:SetPoint("BOTTOMLEFT", caelPanel_DataFeedMinimap, "TOPLEFT", 0, pixel_scale(1))
         farm = false
     end
 end

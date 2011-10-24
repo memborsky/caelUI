@@ -1,6 +1,6 @@
 local movable = false;
 
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 local media = caelUI.media
 
 --- Options ---
@@ -46,8 +46,8 @@ local function CreateShadow(f, t)
     shadow:SetPoint("TOPRIGHT", 3, 3)
     shadow:SetPoint("BOTTOMRIGHT", 3, -3)
     shadow:SetBackdrop( { 
-        edgeFile = media.files.edgeFile, edgeSize = pixelScale(3),
-        insets = {left = pixelScale(5), right = pixelScale(5), top = pixelScale(5), bottom = pixelScale(5)},
+        edgeFile = media.files.edge, edgeSize = pixel_scale(3),
+        insets = {left = pixel_scale(5), right = pixel_scale(5), top = pixel_scale(5), bottom = pixel_scale(5)},
     })
     shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
     shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.8)
@@ -55,8 +55,8 @@ local function CreateShadow(f, t)
 end
 
 -- Anchorframe
-TukuiComboAnchor = caelPanels.createPanel("TukuiComboAnchor", {pixelScale(150), pixelScale(13)}, {"CENTER", UIParent, "CENTER", pixelScale(0), pixelScale(100)})
-TukuiComboAnchor.text = SetFontString(TukuiComboAnchor, media.fonts.NORMAL, 11, "MONOCHROMEOUTLINE");
+TukuiComboAnchor = caelPanels.createPanel("TukuiComboAnchor", {pixel_scale(150), pixel_scale(13)}, {"CENTER", UIParent, "CENTER", pixel_scale(0), pixel_scale(100)})
+TukuiComboAnchor.text = SetFontString(TukuiComboAnchor, media.fonts.normal, 11, "MONOCHROMEOUTLINE");
 TukuiComboAnchor.text:SetText("COMBO POINTS");
 TukuiComboAnchor.text:SetPoint("CENTER", 0, 1);
 TukuiComboAnchor:SetMovable(true);
@@ -73,7 +73,7 @@ TukuiComboAnchor:Hide();
 local function CreateComboButton()
     local button = CreateFrame("Frame", nil, UIParent);
     button:SetSize(WIDTH, HEIGHT);
-    button:SetBackdrop(media.backdropTable)
+    button:SetBackdrop(media.backdrop_table)
     button:SetBackdropColor(0, 0, 0)
     button.overlay = button:CreateTexture(nil, "OVERLAY")
     --button:CreateOverlay();

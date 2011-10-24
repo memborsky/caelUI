@@ -1,25 +1,25 @@
 ﻿local nextline = 1
 
 local media = caelUI.media
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
 WatchFrame:ClearAllPoints()
-WatchFrame:SetHeight(pixelScale(600))
-WatchFrame:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", pixelScale(-15), pixelScale(-15))
+WatchFrame:SetHeight(pixel_scale(600))
+WatchFrame:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", pixel_scale(-15), pixel_scale(-15))
 --WatchFrameCollapseExpandButton:Hide()
 
 WatchFrame.ClearAllPoints = function () end
 WatchFrame.SetPoint = function () end
 --WatchFrameCollapseExpandButton.Show = function () end
 
-WatchFrameTitle:SetFont(media.fonts.NORMAL, 11)
+WatchFrameTitle:SetFont(media.fonts.normal, 11)
 
 hooksecurefunc("WatchFrame_Update", function()
     for i = nextline, 50 do
         line = _G["WatchFrameLine"..i]
         if line then
-            line.text:SetFont(media.fonts.NORMAL, 9)
-            line.dash:SetFont(media.fonts.NORMAL, 9)
+            line.text:SetFont(media.fonts.normal, 9)
+            line.dash:SetFont(media.fonts.normal, 9)
             line.text:SetSpacing(2)
         else
             nextline = i

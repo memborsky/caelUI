@@ -5,16 +5,16 @@ caelMap.eventFrame = CreateFrame"Frame"
 local kill = caelLib.kill
 
 local media = caelUI.media
-local pixelScale = caelUI.config.pixelScale
+local pixel_scale = caelUI.config.pixel_scale
 
 local Player = WorldMapButton:CreateFontString(nil, "ARTWORK")
 Player:SetPoint("TOPLEFT", WorldMapButton, 0, 40)
-Player:SetFont(media.fonts.NORMAL, 12)
+Player:SetFont(media.fonts.normal, 12)
 Player:SetTextColor(0.84, 0.75, 0.65)
 
 local Cursor = WorldMapButton:CreateFontString(nil, "ARTWORK")
 Cursor:SetPoint("TOPLEFT", WorldMapButton, 0, 20)
-Cursor:SetFont(media.fonts.NORMAL, 12)
+Cursor:SetFont(media.fonts.normal, 12)
 Cursor:SetTextColor(0.84, 0.75, 0.65)
 
 local function setupMap(self)
@@ -113,8 +113,8 @@ local function setupMap(self)
     WorldMapDetailFrame.bg:SetPoint("TOPLEFT", -10, 50)
     WorldMapDetailFrame.bg:SetPoint("BOTTOMRIGHT", 10, -10)
     WorldMapDetailFrame.bg:SetBackdrop({
-        bgFile = media.files.bgFile,
-        edgeFile = media.files.edgeFile, edgeSize = 4,
+        bgFile = media.files.background,
+        edgeFile = media.files.edge, edgeSize = 4,
         insets = {left = 3, right = 3, top = 3, bottom = 3}
     })
     WorldMapDetailFrame.bg:SetFrameStrata("BACKGROUND")
@@ -123,7 +123,7 @@ local function setupMap(self)
 
     WorldMapButton.cursor_coordinates = WorldMapButton:CreateFontString(nil, "ARTWORK")
     WorldMapButton.cursor_coordinates:SetPoint("BOTTOMLEFT", WorldMapButton, "BOTTOMLEFT", 5, 5)
-    WorldMapButton.cursor_coordinates:SetFont(media.fonts.NORMAL, 12)
+    WorldMapButton.cursor_coordinates:SetFont(media.fonts.normal, 12)
     WorldMapButton.cursor_coordinates:SetTextColor(0.84, 0.75, 0.65)
     WorldMapButton.timer = 0.1
 
@@ -169,15 +169,15 @@ caelMap.eventFrame:SetScript("OnEvent", function(self, event, ...)
 
         -- Scale the player icons on the map to be a little bigger then default width and height
         for index = 1, 4 do
-            fixMapIcon(format("WorldMapParty%d", index), pixelScale(24))
+            fixMapIcon(format("WorldMapParty%d", index), pixel_scale(24))
             if BattlefieldMinimap then
-                fixMapIcon(format("BattlefieldMinimapParty%d", index), pixelScale(24))
+                fixMapIcon(format("BattlefieldMinimapParty%d", index), pixel_scale(24))
             end
         end
         for index = 1, 40 do
-            fixMapIcon(format("WorldMapRaid%d", index), pixelScale(24))
+            fixMapIcon(format("WorldMapRaid%d", index), pixel_scale(24))
             if BattlefieldMinimap then
-                fixMapIcon(format("BattlefieldMinimapRaid%d", index), pixelScale(24))
+                fixMapIcon(format("BattlefieldMinimapRaid%d", index), pixel_scale(24))
             end
         end
     elseif event == "PLAYER_REGEN_DISABLED" then

@@ -1,10 +1,10 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- The main media file. -->
+    <script file="media.lua" />
+
     <!-- Our end users custom fonts file. -->
-    <script file="customFonts.lua" />
+    <script file="custom_fonts.lua" />
 
     <!-- The default fonts. -->
     <script file="fonts.lua" />
-
-    <!-- The main media file. -->
-    <script file="media.lua" />
 </Ui>
