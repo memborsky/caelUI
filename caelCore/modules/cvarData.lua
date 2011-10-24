@@ -180,32 +180,17 @@ function cvardata:init()
     if not self.db.cvarValues then
         self.db.cvarValues = {}
     end
-    
-    setmetatable(self.db.cvarValues, {__index = defaultCVarValues})
-    
-    local screenWidth, screenHeight = caelLib.screenWidth, caelLib.screenHeight
-    if caelLib.scales and caelLib.scales[screenWidth] and caelLib.scales[screenWidth][screenHeight] then
-        SetCVar("useUiScale", 1)
-        SetCVar("uiScale", caelLib.scales[screenWidth][screenHeight])
 
-        WorldFrame:SetUserPlaced(false)
-        WorldFrame:ClearAllPoints()
-        WorldFrame:SetHeight(GetScreenHeight() * caelLib.scales[screenWidth][screenHeight])
-        WorldFrame:SetWidth(GetScreenWidth() * caelLib.scales[screenWidth][screenHeight])
-        WorldFrame:SetPoint("BOTTOM", UIParent)
-    else
-        SetCVar("useUiScale", 0)
-        print("Your resolution is not supported, UI Scale has been disabled.")
-    end
-    
+    setmetatable(self.db.cvarValues, {__index = defaultCVarValues})
+
     for cvar in next, defaultCVarValues do
         SetCVar(cvar, self.db.cvarValues[cvar])
     end
-    
+
     ConsoleExec("pitchlimit 89") -- 89, 449. 449 allows doing flips, 89 will not
     ConsoleExec("characterAmbient -0.1") -- -0.1-1 use ambient lighting for character. <0 == off
     if (tonumber(GetCVar("ScreenshotQuality")) < 10) then SetCVar("ScreenshotQuality", 10) end
-    
+
     hooksecurefunc("SetCVar", function(cvar, value, event)
         if event then
             cvardata.db.cvarValues[cvar] = value

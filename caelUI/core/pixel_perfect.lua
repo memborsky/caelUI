@@ -13,7 +13,7 @@ local screen_width    = string.match((({GetScreenResolutions()})[GetCurrentResol
 local screen_height   = string.match((({GetScreenResolutions()})[GetCurrentResolution()] or ""), "(%d+)x+%d")
 
 -- This is our scales database. We only need this inside this file because we only reference it here.
-config.pixel_perfect.scales = {
+local scales = {
     ["720"]     = { ["576"]  = 0.65  },
     ["800"]     = { ["600"]  = 0.70  },
     ["960"]     = { ["600"]  = 0.84  },
@@ -32,8 +32,6 @@ config.pixel_perfect.scales = {
     ["2560"]    = { ["1440"] = 0.93, ["1600"] = 0.84},
 }
 
-local scales = config.pixel_perfect.scales
-
 -- Our scale offset to screen resolution.
 local scale_fix = 1
 
@@ -45,16 +43,29 @@ function private.set_scale (...)
     if ui_scale == 1 then
         ui_scale = ...
     elseif ui_scale == 2 then
-        local screen_width = select(1, ...) or screen_width
-        local screen_height = select(2, ...) or screen_height
+        screen_width = select(1, ...) or screen_width
+        screen_height = select(2, ...) or screen_height
 
         if scales[screen_width] and scales[screen_width][screen_height] then
             ui_scale = scales[screen_width][screen_height]
         else
-            ui_scale = 1
+            SetCVar("useUiScale", 0)
+            print("your resolution is not supported, UI Scale has been disabled.")
+            ui_scale = -1
         end
     else
         ui_scale = 1
+    end
+
+    if ui_scale ~= -1 then
+        SetCVar("useUiScale", 1)
+        SetCVar("uiScale", ui_scale)
+
+        WorldFrame:SetUserPlaced(false)
+        WorldFrame:ClearAllPoints()
+        WorldFrame:SetHeight(GetScreenHeight() * ui_scale)
+        WorldFrame:SetWidth(GetScreenWidth() * ui_scale)
+        WorldFrame:SetPoint("BOTTOM", UIParent)
     end
 
     scale_fix = (768/tonumber(GetCVar("gxResolution"):match("%d+x(%d+)"))) / ui_scale

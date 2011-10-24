@@ -12,7 +12,7 @@ local private, modules, public = unpack(select(2, ...))
 
 local Event_Frame = CreateFrame("Frame")
 
-Event_Frame:RegisterEvent("ADDON_LOADED")
+Event_Frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 Event_Frame:RegisterEvent("PLAYER_LOGOUT")
 Event_Frame:RegisterEvent("UPDATE_FLOATING_CHAT_WINDOWS")
 Event_Frame:RegisterEvent("PLAYER_LEAVING_WORLD")
@@ -21,7 +21,7 @@ Event_Frame:SetScript("OnEvent", function(self, event, addon)
         return
     end
 
-    if event == "ADDON_LOADED" then
+    if event == "PLAYER_ENTERING_WORLD" then
         if not cael_user then
             cael_user = {}
         end
