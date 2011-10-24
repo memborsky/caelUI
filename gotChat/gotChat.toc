@@ -2,7 +2,7 @@
 ## Author: Gotai
 ## Title: |cffD7BEA5got|rChat
 ## Notes: Yet another chat mod.
-## RequiredDeps: caelLib
+## RequiredDeps: caelUI
 ## X-Revision: $Id$
 ## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
 ## X-Category: Communication

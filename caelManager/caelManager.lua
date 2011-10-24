@@ -51,7 +51,6 @@ local addons = {
         ["caelFactions"]        = true,
         ["caelInterrupt"]       = true,
         ["caelDataFeeds"]       = true,
-        ["caelLib"]             = true,
         ["caelPanels"]          = true,
         ["caelThreat"]          = true,
         ["caelTooltips"]        = true,
