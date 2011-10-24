@@ -15,7 +15,7 @@ local media = caelUI.media
 local pixel_scale = caelUI.config.pixel_scale
 local playerClass = caelUI.config.player.class
 
-local kill = caelLib.kill
+local kill = caelUI.kill
 
 CHAT_TELL_ALERT_TIME = 0 -- sound on every whisper
 DEFAULT_CHATFRAME_ALPHA = 0 -- remove mouseover background

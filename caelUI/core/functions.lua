@@ -118,3 +118,20 @@ function private.UTF8_substitution (string, index, dots)
         end
     end
 end
+
+-- Kill off everything attached to the frame object and basically render it useless.
+function private.kill (object)
+    local object_reference = object
+
+    if type(object) == "string" then
+        object_reference = _G[object]
+    else
+        object_reference = object
+    end
+    if not object_reference then return end
+    if type(object_reference) == "frame" then
+        object_reference:UnregisterAllEvents()
+    end
+    object_reference:Hide()
+    object_reference.Show = object_reference.Hide
+end

@@ -2,7 +2,7 @@
 
 caelMap.eventFrame = CreateFrame"Frame"
 
-local kill = caelLib.kill
+local kill = caelUI.kill
 
 local media = caelUI.media
 local pixel_scale = caelUI.config.pixel_scale

@@ -1,6 +1,6 @@
 ﻿-- At some point in the past, this was idChat.
 
-local kill = caelLib.kill
+local kill = caelUI.kill
 
 -- Stuff you can change without things blowing up.
 local SCROLLDOWNDELAY = 20    -- Time in seconds before the chatframe auto-scrolls down.
