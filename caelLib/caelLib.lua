@@ -8,8 +8,6 @@ EventFrame:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
-caelLib.zoneName = GetRealZoneText()
-
 -------------------------------------
 -- Check if we are in a guild group
 -------------------------------------
@@ -26,23 +24,6 @@ EventFrame.GUILD_PARTY_STATE_UPDATED = function(self, event, ...)
     end
 end
 EventFrame:RegisterEvent("GUILD_PARTY_STATE_UPDATED")
-
-------------------------------
--- Update our zone variable --
-------------------------------
-EventFrame.ZONE_CHANGED_NEW_AREA = function(self, event, ...)
-    if (caelLib.zoneName ~= GetRealZoneText()) then
-        caelLib.zoneName = GetRealZoneText()
-    end
-end
-EventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-
-EventFrame.PLAYER_ENTERING_WORLD = function(self, event, ...)
-    if (caelLib.zoneName ~= GetRealZoneText()) then
-        caelLib.zoneName = GetRealZoneText()
-    end
-end
-EventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 caelLib.kill = function(object)
     local objectReference = object
