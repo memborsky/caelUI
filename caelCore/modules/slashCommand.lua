@@ -61,7 +61,7 @@ SlashCmdList["RAIDASSIST"] = function (message, editbox)
 
             if name ~= playerName and guildRaider[name] then
                 PromoteToAssistant(name, true)
-                if (message == "true" or caelLib.isGuildGroup()) then
+                if (message == "true" or caelUI.is_guild_group()) then
                     SendChatMessage("Promoted " .. name .. " to Raid Assistant.", "OFFICER", "COMMON")
                 end
             end

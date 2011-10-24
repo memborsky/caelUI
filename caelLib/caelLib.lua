@@ -8,23 +8,6 @@ EventFrame:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
--------------------------------------
--- Check if we are in a guild group
--------------------------------------
-local IS_GUILD_GROUP = false
-
-caelLib.isGuildGroup = function()
-    return IS_GUILD_GROUP
-end
-
-EventFrame.GUILD_PARTY_STATE_UPDATED = function(self, event, ...)
-    local isGuildGroup = ...
-    if (isGuildGroup ~= IS_GUILD_GROUP) then
-        IS_GUILD_GROUP = isGuildGroup
-    end
-end
-EventFrame:RegisterEvent("GUILD_PARTY_STATE_UPDATED")
-
 caelLib.kill = function(object)
     local objectReference = object
     if type(object) == "string" then

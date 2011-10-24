@@ -10,6 +10,9 @@ public.config = private.database.get("config")
 public.UTF8_substitution = private.UTF8_substitution
 public.get_spell_name = private.get_spell_name
 
+-- XXX: This will go away when slashCommands comes into caelUI.
+public.is_guild_group = private.is_guild_group
+
 -- XXX: This will change once we build an external Addon interface to the UI. It will pass
 --      back a frame at creation doing everything that is in this function and more.
 public.create_backdrop = private.database.get("panels").create_backdrop
