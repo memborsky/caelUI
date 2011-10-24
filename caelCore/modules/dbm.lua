@@ -134,22 +134,16 @@ end
 
 hooksecurefunc(DBT, "CreateBar", SkinBars)
 
-DBM.InfoFrame:Show(5, "health", nil)
-DBM.InfoFrame:Hide()
-
-DBM.Frames.infoFrame:HookScript("OnShow", function(self)
+hooksecurefunc(DBM.InfoFrame, "Show", function(self)
     self:SetBackdrop(nil)
     caelUI.create_backdrop(self)
 end)
 
-DBM.RangeCheck:Show()
-DBM.RangeCheck:Hide()
---[[
-DBM.RangeCheck:HookScript("OnShow", function(self)
+hooksecurefunc(DBM.RangeCheck, "Show", function(self)
     self:SetBackdrop(nil)
     caelUI.create_backdrop(self)
 end)
---]]
+
 dbm:RegisterEvent("PLAYER_LOGIN")
 dbm:SetScript("OnEvent", function(self, event)
     SetupDBM()
