@@ -1,18 +1,21 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Loading our output functions. -->
+    <script file="output.lua" />
+
+    <!-- Loads our private functions used inside caelUI only. These are to _NOT_ be used by outside addons. -->
+    <script file="functions.lua" />
+
+    <!-- Load the events system. -->
+    <script file="events.lua" />
+
     <!-- Load the database manager. -->
     <script file="database.lua" />
 
     <!-- Handle loading the configuration database. -->
     <script file="config.lua" />
 
-    <!-- Loads our private functions used inside caelUI only. These are to _NOT_ be used by outside addons. -->
-    <script file="functions.lua" />
-
     <!-- Handles the pixel perfection for the UI to be perfectly spaced. -->
     <script file="pixel_perfect.lua" />
-
-    <!-- Loading our output functions. -->
-    <script file="output.lua" />
 
     <!-- Load function check for PTR. -->
     <script file="public_test_realm.lua" />

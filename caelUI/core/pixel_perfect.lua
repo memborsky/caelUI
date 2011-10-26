@@ -77,3 +77,21 @@ function config.pixel_scale (value)
 end
 
 private.database.save(config)
+
+local Event_Frame = CreateFrame("Frame")
+
+local function update_user_scale (self, event, ...)
+    if event == "PLAYER_ENTERING_WORLD" then
+        if cael_user.scale then
+            private.set_scale(cael_user.scale)
+        else
+            private.set_scale()
+        end
+    end
+
+    cael_user.scale = math.floor(GetCVar("uiScale") * 100 + 0.5) / 100
+end
+
+for _, event in pairs{"PLAYER_LEAVING_WORLD", "PLAYER_LOGOUT", "UPDATE_FLOATING_CHAT_WINDOWS"} do
+    private.events:RegisterEvent(event, update_user_scale)
+end

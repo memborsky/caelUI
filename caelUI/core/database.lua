@@ -4,14 +4,7 @@ local databases = {}
 local system_generated_count = 0
 private.database = {}
 
-function private.database.initialize ()
-    if cael_user and (cael_user.databases and cael_user.databases ~= {}) then
-        databases = cael_user.databases
-    else
-        cael_user.databases = {}
-    end
-end
-
+-- The following functions are for internal caelUI use only.
 function private.database.get (name)
     -- No matter what we pass in here, the name of the table will always be lower case.
     name = name:lower()
@@ -44,6 +37,21 @@ function private.database.save (self)
     end
 end
 
-function private.database.clear ()
-    databases = {}
+-- This will setup our database system upon the addon being loading.
+function initialize ()
+    if not cael_user then
+        cael_user = {}
+    end
+
+    if not cael_global then
+        cael_global = {}
+    end
+
+    if cael_user and (cael_user.databases and cael_user.databases ~= {}) then
+        databases = cael_user.databases
+    else
+        cael_user.databases = {}
+    end
 end
+
+private.events:RegisterEvent("ADDON_LOADED", initialize)
