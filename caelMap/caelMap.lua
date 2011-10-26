@@ -195,9 +195,11 @@ caelMap.eventFrame:SetScript("OnEvent", function(self, event, ...)
         WorldMapBlobFrame.Show = WorldMapBlobFrame:Show()
         WorldMapPOIFrame.Show = WorldMapPOIFrame:Show()
 
-        WorldMapArchaeologyDigSites:Show()
-        WorldMapBlobFrame:Show()
-        WorldMapPOIFrame:Show()
+        if not InCombatLockdown() then
+            WorldMapArchaeologyDigSites:Show()
+            WorldMapBlobFrame:Show()
+            WorldMapPOIFrame:Show()
+        end
 
         WatchFrame_Update()
     elseif event == "WORLD_MAP_UPDATE" then
