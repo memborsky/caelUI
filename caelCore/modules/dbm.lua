@@ -4,7 +4,6 @@ local _, caelCore = ...
 
 local dbm = caelCore.createModule("Deadly Boss Mods")
 
-local caelUI = caelUI
 local media = caelUI.media
 
 local SkinBars = function(self)
@@ -32,7 +31,7 @@ local SkinBars = function(self)
                 if not frame.styled then
                     frame:SetScale(1)
                     frame:SetHeight(15)
-                    frame.background = caelUI.create_backdrop(frame)
+                    frame.background = media.create_backdrop(frame)
                     frame.styled = true
                 end
 
@@ -52,7 +51,7 @@ local SkinBars = function(self)
                     icon1.frame = CreateFrame("Frame", nil, tbar)
                     icon1.frame:SetFrameStrata("BACKGROUND")
                     icon1.frame:SetAllPoints(icon1)
-                    icon1.frame.background = caelUI.create_backdrop(icon1.frame)
+                    icon1.frame.background = media.create_backdrop(icon1.frame)
                     icon1.styled = true
                 end
 
@@ -136,12 +135,12 @@ hooksecurefunc(DBT, "CreateBar", SkinBars)
 
 hooksecurefunc(DBM.InfoFrame, "Show", function(self)
     self:SetBackdrop(nil)
-    caelUI.create_backdrop(self)
+    media.create_backdrop(self)
 end)
 
 hooksecurefunc(DBM.RangeCheck, "Show", function(self)
     self:SetBackdrop(nil)
-    caelUI.create_backdrop(self)
+    media.create_backdrop(self)
 end)
 
 dbm:RegisterEvent("PLAYER_LOGIN")

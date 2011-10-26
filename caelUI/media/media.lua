@@ -60,7 +60,7 @@ media.border_table = {
     insets   = media.inset_table
 }
 
-private.database.get("panels").create_backdrop = function (parent)
+function media.create_backdrop (parent)
     local backdrop = CreateFrame("Frame", nil, parent)
     backdrop:SetPoint("TOPLEFT", parent, "TOPLEFT", pixel_scale(-2.5), pixel_scale(2.5))
     backdrop:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", pixel_scale(2.5), pixel_scale(-2.5))
