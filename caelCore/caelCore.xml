@@ -3,7 +3,6 @@
 
     <Script file="modules\afkspin.lua"/>
     <Script file="modules\autoInvite.lua"/>
-    <Script file="modules\altPowerBar.lua"/>
     <Script file="modules\battleground.lua"/>
     <Script file="modules\badBuffs.lua"/>
     <Script file="modules\characterPanel.lua"/>
@@ -17,7 +16,6 @@
     <Script file="modules\shadowEdge.lua"/>
     <Script file="modules\UIerrorsFrame.lua"/>
     <Script file="modules\vehicle.lua"/>
-    <Script file="modules\watchFrame.lua"/>
 
     <!-- Skinning for a living on all the default blizzard UI elements -->
     <Script file="modules\skin\blizzard.lua"/>

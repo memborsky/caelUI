@@ -1,4 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<!-- Man handle the default Blizzard stuff. -->
+	<include file="blizzard\initialize.xml" />
+
 	<!-- Addon Skins loader -->
 	<include file="addon_skins\initialize.xml" />
 </Ui>

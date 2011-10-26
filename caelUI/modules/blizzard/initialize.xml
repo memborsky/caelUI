@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- This lets us move the power bar around on the screen. -->
+    <script file="alt_power_bar.lua" />
+
+    <!-- The watch frame -->
+    <script file="watch_frame.lua" />
+</Ui>

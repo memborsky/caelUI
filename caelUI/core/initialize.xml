@@ -26,9 +26,6 @@
     <!-- This handles just setting our group as a guild group or not. -->
     <script file="is_guild_group.lua" />
 
-    <!-- This lets us move the power bar around on the screen. -->
-    <script file="alt_power_bar.lua" />
-
     <!--
         We are loading this as the very LAST file in the caelui.toc file.
         This is because we want to make sure everything is loaded in caelUI before we attempt to index it from external addons.
