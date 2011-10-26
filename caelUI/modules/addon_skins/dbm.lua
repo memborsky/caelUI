@@ -1,10 +1,9 @@
+local private = unpack(select(2, ...))
+
+-- Don't load the DBM skinning if DBM isn't loaded.
 if not IsAddOnLoaded("DBM-Core") then return end
 
-local _, caelCore = ...
-
-local dbm = caelCore.createModule("Deadly Boss Mods")
-
-local media = caelUI.media
+local media = private.database.get("media")
 
 local SkinBars = function(self)
     for bar in self:GetBarIterator() do
@@ -143,7 +142,4 @@ hooksecurefunc(DBM.RangeCheck, "Show", function(self)
     media.create_backdrop(self)
 end)
 
-dbm:RegisterEvent("PLAYER_LOGIN")
-dbm:SetScript("OnEvent", function(self, event)
-    SetupDBM()
-end)
+private.events:RegisterEvent("PLAYER_LOGIN", SetupDBM)

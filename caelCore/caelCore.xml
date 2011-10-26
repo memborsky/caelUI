@@ -18,7 +18,6 @@
     <Script file="modules\UIerrorsFrame.lua"/>
     <Script file="modules\vehicle.lua"/>
     <Script file="modules\watchFrame.lua"/>
-    <Script file="modules\dbm.lua"/>
 
     <!-- Skinning for a living on all the default blizzard UI elements -->
     <Script file="modules\skin\blizzard.lua"/>
