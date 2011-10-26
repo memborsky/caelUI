@@ -23,7 +23,7 @@ media.Custom_Fonts = {
 
 media.custom_fonts = {
     normal      = [=[Interface\Addons\caelUI\media\fonts\Continuum_Medium.ttf]=],
-    damage_text = [=[Interface\Addons\caelUI\media\fonts\tramyad.ttf]=],
+    damage_text = [=[Interface\Addons\caelUI\media\fonts\YanoneKaffeesatz-Bold.ttf]=],
 }
 
 private.database.save(media)
