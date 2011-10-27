@@ -4,4 +4,7 @@
 
     <!-- The watch frame -->
     <script file="watch_frame.lua" />
+
+    <!-- Auto cancel various buffs -->
+    <script file="bad_buffs.lua" />
 </Ui>
