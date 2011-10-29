@@ -70,7 +70,7 @@ end
 -- Auto accept invites that we recieve if they pass the acceptance check.
 private.events:RegisterEvent("PARTY_INVITE_REQUEST", function(_, _, name)
     if auto_accept(name) then
-        for index in 1, STATICPOPUP_NUMDIALOGS do
+        for index = 1, STATICPOPUP_NUMDIALOGS do
             local frame = _G["StaticPopup" .. index]
 
             if frame:IsVisible() and frame.which == "PARTY_INVITE" then
