@@ -1,7 +1,6 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
     <Script file="caelCore.lua"/>
 
-    <Script file="modules\autoInvite.lua"/>
     <Script file="modules\battleground.lua"/>
     <Script file="modules\characterPanel.lua"/>
     <Script file="modules\cvarData.lua"/>

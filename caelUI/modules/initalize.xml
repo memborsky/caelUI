@@ -6,5 +6,11 @@
     <include file="addon_skins\initialize.xml" />
 
     <!-- Additional modules (these are single files inside miscellaneous or their own folders) -->
+    <!-- _____________________________________________________________________________________ -->
+
+    <!-- Spin the screen and shade it when we go afk. -->
     <script file="miscellaneous\afk_spin.lua" />
+
+    <!-- Auto accept party/raid invites from those we set in our config -->
+    <script file="miscellaneous\auto_invite.lua" />
 </Ui>
