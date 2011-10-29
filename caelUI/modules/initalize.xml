@@ -14,6 +14,9 @@
     <!-- Auto accept party/raid invites from those we set in our config -->
     <script file="miscellaneous\auto_invite.lua" />
 
+    <!-- This script automatically will release our body to the graveyard in pvp. -->
+    <script file="miscellaneous\auto_release.lua" />
+
     <!-- Auto accept loot. -->
     <!-- TODO: Move this into the conversion of caelLoot to caelUI. -->
     <script file="miscellaneous\auto_loot.lua" />
