@@ -4,7 +4,6 @@
     <Script file="modules\characterPanel.lua"/>
     <Script file="modules\cvarData.lua"/>
     <Script file="modules\gameFonts.lua"/>
-    <Script file="modules\gmFrame.lua"/>
     <!-- Script file="modules\keyBinding.lua"/ -->
     <Script file="modules\merchant.lua"/>
     <Script file="modules\readyCheck.lua"/>

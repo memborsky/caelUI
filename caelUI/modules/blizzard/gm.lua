@@ -1,17 +1,19 @@
-﻿local _, caelCore = ...
+﻿local private = unpack(select(2, ...))
 
 --[[    GM chat frame enhancement    ]]
 
-local gmframe = caelCore.createModule("GMFrame")
-
-local pixel_scale = caelUI.config.pixel_scale
+local pixel_scale = private.database.get("config").pixel_scale
 
 TicketStatusFrame:ClearAllPoints()
 TicketStatusFrame:SetPoint("TOP", UIParent, 0, pixel_scale(-5))
 
-gmframe:RegisterEvent("ADDON_LOADED")
-gmframe:SetScript("OnEvent", function(self, event, name)
-    if (event ~= "ADDON_LOADED") or (name ~= "Blizzard_GMChatUI") then return end
+HelpOpenTicketButton:SetParent(Minimap)
+HelpOpenTicketButton:ClearAllPoints()
+HelpOpenTicketButton:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT")
+
+-- XXX: This needs to be moved to the blizzard/skins folder when that system gets created.
+local function skin_gmchat_frame (_, _, name)
+    if name ~= "Blizzard_GMChatUI" then return end
 
     GMChatFrame:EnableMouseWheel()
     GMChatFrame:SetScript("OnMouseWheel", ChatFrame1:GetScript("OnMouseWheel"))
@@ -29,5 +31,7 @@ gmframe:SetScript("OnEvent", function(self, event, name)
     GMChatFrameResizeButton:Hide()
     GMChatTab:Hide()
 
-    enhanceGMFrame = function () end
-end)
+    private.events:UnregisterEvent("ADDON_LOADED", skin_gmchat_frame)
+end
+
+private.events:RegisterEvent("ADDON_LOADED", skin_gmchat_frame)
