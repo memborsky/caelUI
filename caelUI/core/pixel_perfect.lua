@@ -91,6 +91,6 @@ local function update_user_scale (self, event, ...)
     cael_user.scale = math.floor(GetCVar("uiScale") * 100 + 0.5) / 100
 end
 
-for _, event in pairs{"PLAYER_LEAVING_WORLD", "PLAYER_LOGOUT", "UPDATE_FLOATING_CHAT_WINDOWS"} do
+for _, event in next, {"PLAYER_LEAVING_WORLD", "PLAYER_LOGOUT", "UPDATE_FLOATING_CHAT_WINDOWS"} do
     private.events:RegisterEvent(event, update_user_scale)
 end

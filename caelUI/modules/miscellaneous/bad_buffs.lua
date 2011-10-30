@@ -18,8 +18,8 @@ private.events:RegisterEvent("UNIT_AURA", function(_, _, unit)
         return
     end
 
-    for buff in pairs(badBuffsList) do
-        if UnitAura(unit, buff) then
+    for buff, enabled in next, badBuffsList do
+        if UnitAura(unit, buff) and enabled then
             CancelUnitBuff(unit, buff)
             private.print("BadBuff", " removed " .. buff)
         end

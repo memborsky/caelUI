@@ -38,7 +38,7 @@ do
 end
 
 --- Automatically collapse/expand the WatchFrame when in an arena match or during a boss fight.
-for _, event in pairs{"WORLD_MAP_UPDATE", "PLAYER_ENTERING_WORLD", "ZONE_CHANGED_NEW_AREA", "INSTANCE_ENCOUNTER_ENGAGE_UNIT"} do
+for _, event in next, {"WORLD_MAP_UPDATE", "PLAYER_ENTERING_WORLD", "ZONE_CHANGED_NEW_AREA", "INSTANCE_ENCOUNTER_ENGAGE_UNIT"} do
     private.events:RegisterEvent(event, function()
         local zone = GetRealZoneText()
 

@@ -2,7 +2,7 @@ local private = unpack(select(2, ...))
 
 function private.is_in (needle, haystack)
     if type(haystack) == "table" then
-        for key, value in pairs(haystack) do
+        for key, value in next, haystack do
             if key == needle then
                 return true
             elseif value == needle then
