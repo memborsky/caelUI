@@ -7,7 +7,7 @@ Check to see if the UI is loaded on the PTR server
 @return boolean True for PTR server
 --]]
 function private.ptr_check ()
-    local version = select(2, GetBuildInfo())
+    local _, version = GetBuildInfo()
 
     if tonumber(version) > 14732 then
         return true

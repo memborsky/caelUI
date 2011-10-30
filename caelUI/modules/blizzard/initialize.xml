@@ -10,4 +10,7 @@
 
     <!-- Moves the ticket window. Also temporarily skins the GM chat frame. -->
     <script file="gm.lua" />
+
+    <!-- Character panel customization -->
+    <script file="character_panel.lua" />
 </Ui>
