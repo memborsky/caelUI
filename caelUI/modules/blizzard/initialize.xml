@@ -13,4 +13,7 @@
 
     <!-- Character panel customization -->
     <script file="character_panel.lua" />
+
+    <!-- Replace the default fonts in the game with our own fonts. -->
+    <script file="fonts.lua" />
 </Ui>
