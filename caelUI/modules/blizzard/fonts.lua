@@ -4,7 +4,7 @@ local setup_font
 
 do
     --- This will do all the heavy lifting of setting our font to frame as well as all the options.
-    function set_font (frame, font, size, style, red, green, blue, shadow_red, shadow_green, shadow_blue, shadow_offset_x, shadow_offset_y)
+    local function set_font (frame, font, size, style, red, green, blue, shadow_red, shadow_green, shadow_blue, shadow_offset_x, shadow_offset_y)
         frame:SetFont(font, size, style)
 
         if shadow_red and shadow_green and shadow_blue then
