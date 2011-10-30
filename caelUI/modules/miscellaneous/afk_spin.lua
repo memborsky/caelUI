@@ -18,7 +18,7 @@ dimmer:SetScript("OnClick", function(self)
         -- Unsets the AFK status.
         SendChatMessage("", "AFK")
 
-        -- Hide the button so we can double click the button and reset ourselves as away.
+        -- Hide the button so we can NOT double click the button and reset ourselves as away.
         self:Hide()
     end
 end)
