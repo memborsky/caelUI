@@ -4,18 +4,24 @@ if GetCVar("AutoClearAFK") == 0 then
     SetCVar("AutoClearAFK", 1)
 end
 
-local dimmer = CreateFrame("Frame", nil, UIParent, "SecureHandlerStateTemplate")
+local dimmer = CreateFrame("Button", nil, UIParent, "SecureActionButtonTemplate")
+dimmer:SetHighlightTexture(nil)
+dimmer:SetPushedTexture(nil)
+dimmer:SetNormalTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+dimmer:RegisterForClicks("AnyUp")
 dimmer:SetAllPoints()
 RegisterStateDriver(dimmer, "visibility", "[combat] hide")
 
-dimmer.button = CreateFrame("Button", nil, dimmer, "SecureActionButtonTemplate")
-dimmer.button:SetHighlightTexture(nil)
-dimmer.button:SetPushedTexture(nil)
-dimmer.button:SetNormalTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
-dimmer.button:SetAttribute("type", "macro")
-dimmer.button:SetAttribute("macrotext", "/afk")
-dimmer.button:RegisterForClicks("AnyUp")
-dimmer.button:SetAllPoints()
+-- This is to prevent the frame from resetting the AFK status if we double click the giant button.
+dimmer:SetScript("OnClick", function(self)
+    if UnitIsAFK("player") then
+        -- Unsets the AFK status.
+        SendChatMessage("", "AFK")
+
+        -- Hide the button so we can double click the button and reset ourselves as away.
+        self:Hide()
+    end
+end)
 
 -- Hide the frame if it is visible on entering the world load.
 private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function()
@@ -23,9 +29,6 @@ private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function()
         dimmer:Hide()
     end
 end)
-
--- Everything below here makes the magic happen for the afk spinner.
-
 
 -- This works to start and stop the screen spinning and dimmer showing when we go afk and come back.
 private.events:RegisterEvent("PLAYER_FLAGS_CHANGED", function(_, _, unit)
