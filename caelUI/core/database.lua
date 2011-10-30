@@ -47,10 +47,10 @@ function initialize ()
         cael_global = {}
     end
 
-    if cael_user and (cael_user.databases and cael_user.databases ~= {}) then
-        databases = cael_user.databases
+    if cael_user and (cael_user["databases"] and cael_user["databases"] ~= {}) then
+        databases = cael_user["databases"]
     else
-        cael_user.databases = {}
+        cael_user["databases"] = {}
     end
 end
 

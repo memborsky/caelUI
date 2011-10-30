@@ -36,7 +36,6 @@ local scales = {
 local scale_fix = 1
 
 -- Used to set our scale when the ADDON_LOADED event is triggered.
--- XXX: This needs to be moved into the events interface when it gets built.
 function private.set_scale (...)
     local ui_scale = select("#", ...)
 
