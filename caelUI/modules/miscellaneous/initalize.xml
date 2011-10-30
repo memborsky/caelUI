@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Spin the screen and shade it when we go afk. -->
+    <script file="afk_spin.lua" />
+
+    <!-- Auto accept party/raid invites from those we set in our config -->
+    <script file="auto_invite.lua" />
+
+    <!-- This script automatically will release our body to the graveyard in pvp. -->
+    <script file="auto_release.lua" />
+
+    <!-- Auto accept loot. -->
+    <!-- TODO: Move this into the conversion of caelLoot to caelUI. -->
+    <script file="auto_loot.lua" />
+
+    <!-- Remove buffs we don't want placed on us. -->
+    <script file="bad_buffs.lua" />
+</Ui>

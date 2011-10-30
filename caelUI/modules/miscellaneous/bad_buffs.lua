@@ -13,11 +13,15 @@ local badBuffsList = {
     ["Pirate Costume"]      = true,
 }
 
-private.events:RegisterEvent("UNIT_AURA", function(self, event)
-    for k, v in pairs(badBuffsList) do
-        if UnitAura("player", k) then
-            CancelUnitBuff("player", k)
-            print("|cffD7BEA5cael|rCore: removed "..k)
+private.events:RegisterEvent("UNIT_AURA", function(_, _, unit)
+    if unit ~= "player" then
+        return
+    end
+
+    for buff in pairs(badBuffsList) do
+        if UnitAura(unit, buff) then
+            CancelUnitBuff(unit, buff)
+            private.print("BadBuff", " removed " .. buff)
         end
     end
 end)
