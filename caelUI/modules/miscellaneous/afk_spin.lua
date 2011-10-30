@@ -17,9 +17,11 @@ dimmer.button:SetAttribute("macrotext", "/afk")
 dimmer.button:RegisterForClicks("AnyUp")
 dimmer.button:SetAllPoints()
 
--- Hide the frame on load.
+-- Hide the frame if it is visible on entering the world load.
 private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function()
-    dimmer:Hide()
+    if dimmer:IsVisible() then
+        dimmer:Hide()
+    end
 end)
 
 -- Everything below here makes the magic happen for the afk spinner.

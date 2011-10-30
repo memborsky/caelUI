@@ -32,6 +32,7 @@ local function skin_gmchat_frame (_, _, name)
     GMChatTab:Hide()
 
     private.events:UnregisterEvent("ADDON_LOADED", skin_gmchat_frame)
+    skin_gmchat_frame = nil
 end
 
 private.events:RegisterEvent("ADDON_LOADED", skin_gmchat_frame)
