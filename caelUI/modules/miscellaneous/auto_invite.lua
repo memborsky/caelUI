@@ -98,7 +98,7 @@ end
 -- Auto send invites for those who message with the right keyword.
 private.events:RegisterEvent("CHAT_MSG_WHISPER", function(_, _, message, name)
     if can_invite() then
-        for _, word in invite_words do
+        for _, word in next, invite_words do
             if message:len() == word:len() and message:lower() == word:lower() then
                 InviteUnit(name)
             end
