@@ -1,6 +1,8 @@
-﻿--[[    Some new slash commands    ]]
+﻿local private = unpack(select(2, ...))
 
-local playerName = caelUI.config.player.name
+--[[    Some new slash commands    ]]
+
+local playerName = private.database.get("config")["player"]["name"]
 
 SlashCmdList["FRAMENAME"] = function() print(GetMouseFocus():GetName()) end
 SlashCmdList["PARENT"] = function() print(GetMouseFocus():GetParent():GetName()) end
@@ -61,7 +63,7 @@ SlashCmdList["RAIDASSIST"] = function (message, editbox)
 
             if name ~= playerName and guildRaider[name] then
                 PromoteToAssistant(name, true)
-                if (message == "true" or caelUI.is_guild_group()) then
+                if (message == "true" or private.is_guild_group()) then
                     SendChatMessage("Promoted " .. name .. " to Raid Assistant.", "OFFICER", "COMMON")
                 end
             end

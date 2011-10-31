@@ -10,6 +10,3 @@ public.config = private.database.get("config")
 public.UTF8_substitution = private.UTF8_substitution
 public.get_spell_name = private.get_spell_name
 public.kill = private.kill
-
--- XXX: This will go away when slashCommands comes into caelUI.
-public.is_guild_group = private.is_guild_group

@@ -14,4 +14,7 @@
 
     <!-- Remove buffs we don't want placed on us. -->
     <script file="bad_buffs.lua" />
+
+    <!-- Slash Commands list -->
+    <script file="commands.lua" />
 </Ui>
