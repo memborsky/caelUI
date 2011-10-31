@@ -1,10 +1,8 @@
-﻿local _, caelCore = ...
+﻿local private = unpack(select(2, ...))
 
 --[[    Blacklist some UIerrorFrame messages    ]]
 
-local errorFrame = caelCore.createModule("UIerrorFrame")
-
-local eventBlacklist = {
+local blacklist = {
     [ERR_NO_ATTACK_TARGET] = true,
     [ERR_OUT_OF_RAGE] = true,
     [ERR_OUT_OF_ENERGY] = true,
@@ -20,11 +18,9 @@ local eventBlacklist = {
 
 UIErrorsFrame:UnregisterEvent("UI_ERROR_MESSAGE")
 
-errorFrame:RegisterEvent("UI_ERROR_MESSAGE")
-
-errorFrame:SetScript("OnEvent", function(self, event, error)
-    if(not eventBlacklist[error]) then
-        --        UIerrorFrame:AddMessage(error, 0.69, 0.31, 0.31)
-        recScrollAreas:AddText("|cffAF5050"..error.."|r", false, "Error")
+private.events:RegisterEvent("UI_ERROR_MESSAGE", function(_, _, error)
+    if (not blacklist[error]) then
+        UIErrorsFrame:AddMessage(error, 0.69, 0.31, 0.31, 1)
+        --recScrollAreas:AddText("|cffAF5050" .. error .. "|r", false, "Error")
     end
 end)

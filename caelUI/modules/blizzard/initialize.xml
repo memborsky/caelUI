@@ -13,4 +13,7 @@
 
     <!-- Replace the default fonts in the game with our own fonts. -->
     <script file="fonts.lua" />
+
+    <!-- UI Errors done our way. -->
+    <script file="UIErrorsFrame.lua" />
 </Ui>
