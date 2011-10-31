@@ -1,12 +1,12 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <!-- This lets us move the power bar around on the screen. -->
-    <script file="alt_power_bar.lua" />
+    <script file="PlayerPowerBarAlt.lua" />
 
     <!-- The watch frame -->
-    <script file="watch_frame.lua" />
+    <script file="WatchFrame.lua" />
 
     <!-- Moves the ticket window. Also temporarily skins the GM chat frame. -->
-    <script file="gm.lua" />
+    <script file="GM.lua" />
 
     <!-- Character panel customization -->
     <script file="character_panel.lua" />
