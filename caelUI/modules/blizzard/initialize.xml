@@ -19,4 +19,7 @@
 
     <!-- This ready check sound is much better. -->
     <script file="ReadyCheckListenerFrame.lua" />
+
+    <!-- This will load our skinning engine for the blizzard frames. -->
+    <include file="skin\initialize.xml" />
 </Ui>

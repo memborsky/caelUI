@@ -6,8 +6,4 @@
     <Script file="modules\merchant.lua"/>
     <Script file="modules\shadowEdge.lua"/>
     <Script file="modules\vehicle.lua"/>
-
-    <!-- Skinning for a living on all the default blizzard UI elements -->
-    <Script file="modules\skin\blizzard.lua"/>
-    <Script file="modules\skin\timer_bars.lua"/>
 </Ui>

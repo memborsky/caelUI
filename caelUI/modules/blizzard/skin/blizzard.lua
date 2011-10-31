@@ -1,16 +1,17 @@
-﻿local addonName, caelCore = ...
+﻿local private = unpack(select(2, ...))
 
 --[[    Reskin Blizzard windows ]]
 
-local skin = caelCore.createModule("Skin")
+local pixel_scale = private.database.get("config")["pixel_scale"]
 
-local pixel_scale = caelUI.pixel_scale
-
+local backdrop = private.database.get("media")["backdrop_table"]
+--[[
 local backdrop = {
     bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
     edgeFile = [=[Interface\ChatFrame\ChatFrameBackground]=], edgeSize = 1,
     insets = {top = 0, left = 0, bottom = 0, right = 0},
 }
+--]]
 
 local function SetModifiedBackdrop(self)
     self:SetBackdropBorderColor(1, 1, 0, 1)
@@ -20,13 +21,13 @@ local function SetOriginalBackdrop(self)
     self:SetBackdropBorderColor(0, 0, 0, 1)
 end
 
-local SkinPanel = function(frame)
+local function SkinPanel (frame)
     frame:SetBackdrop(backdrop)
     frame:SetBackdropColor(0, 0, 0, 0.5)
     frame:SetBackdropBorderColor(0, 0, 0, 1) 
 end
 
-local function SkinButton(frame)
+local function SkinButton (frame)
     if frame:GetName() then
         local left = _G[frame:GetName().."Left"]
         local middle = _G[frame:GetName().."Middle"]
@@ -62,12 +63,18 @@ local function SkinButton(frame)
     frame:HookScript("OnLeave", SetOriginalBackdrop)
 end
 
-skin:RegisterEvent("ADDON_LOADED")
-skin:SetScript("OnEvent", function(self, event, addon)
-    if addon ~= "caelCore" then return end
+private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
+    if addon ~= "caelUI" then return end
+
+    -- Reskin popup buttons
+    for i = 1, 3 do
+        for j = 1, 3 do
+            SkinButton(_G["StaticPopup"..i.."Button"..j])
+        end
+    end
 
     -- Blizzard Frame reskin
-    local bgskins = {
+    for _, frame in pairs{
         "StaticPopup1",
         "StaticPopup2",
         "StaticPopup3",
@@ -95,9 +102,6 @@ skin:SetScript("OnEvent", function(self, event, addon)
         "GuildInviteFrame",
         "ChatConfigFrame",
         "RolePollPopup",
-    }
-    
-    local insetskins = {
         "InterfaceOptionsFramePanelContainer",
         "InterfaceOptionsFrameAddOns",
         "InterfaceOptionsFrameCategories",
@@ -120,23 +124,10 @@ skin:SetScript("OnEvent", function(self, event, addon)
         "ChatConfigBackgroundFrame",
         "ChatConfigChatSettingsClassColorLegend",
         "ChatConfigChatSettingsLeft",
-    }
-    
-    -- Reskin popup buttons
-    for i = 1, 3 do
-        for j = 1, 3 do
-            SkinButton(_G["StaticPopup"..i.."Button"..j])
-        end
+    } do
+        SkinPanel(_G[frame])
     end
 
-    for i = 1, getn(bgskins) do
-        SkinPanel(_G[bgskins[i]])
-    end
-    
-    for i = 1, getn(insetskins) do
-        SkinPanel(_G[insetskins[i]])
-    end
-    
     local ChatMenus = {
         "ChatMenu",
         "EmoteMenu",
@@ -209,7 +200,7 @@ skin:SetScript("OnEvent", function(self, event, addon)
     end
     
     -- Reskin all "normal" buttons
-    local BlizzardButtons = {
+    for _, button in pairs{
         "VideoOptionsFrameOkay",
         "VideoOptionsFrameCancel",
         "VideoOptionsFrameDefaults",
@@ -224,8 +215,6 @@ skin:SetScript("OnEvent", function(self, event, addon)
         "ReadyCheckFrameNoButton",
         "ColorPickerOkayButton",
         "ColorPickerCancelButton",
-        "BaudErrorFrameClearButton",
-        "BaudErrorFrameCloseButton",
         "GuildInviteFrameJoinButton",
         "GuildInviteFrameDeclineButton",
         "LFDDungeonReadyDialogLeaveQueueButton",
@@ -235,15 +224,10 @@ skin:SetScript("OnEvent", function(self, event, addon)
         "RolePollPopupAcceptButton",
         "LFDRoleCheckPopupDeclineButton",
         "LFDRoleCheckPopupAcceptButton",
-    }
-    
-    for i = 1, getn(BlizzardButtons) do
-        local UIButtons = _G[BlizzardButtons[i]]
-        if UIButtons then
-            SkinButton(UIButtons)
-        end
+    } do
+        SkinButton(_G[button])
     end
-    
+
     -- Button position or text
     _G["VideoOptionsFrameCancel"]:ClearAllPoints()
     _G["VideoOptionsFrameCancel"]:SetPoint("RIGHT", _G["VideoOptionsFrameApply"], "LEFT", -4, 0)     
@@ -309,5 +293,6 @@ skin:SetScript("OnEvent", function(self, event, addon)
     _G["InterfaceOptionsFrameTab2MiddleDisabled"]:SetAlpha(0)
     _G["InterfaceOptionsFrameTab2RightDisabled"]:SetAlpha(0)
     _G["InterfaceOptionsFrameTab2HighlightTexture"]:SetAlpha(0)
-end)
 
+    private.events:UnregisterEvent("ADDON_LOADED", self)
+end)

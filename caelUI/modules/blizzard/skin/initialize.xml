@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+   <!-- This is the core of the blizzard skinner. This will set up a default system for allowing all the parts of the
+        skinning to take place in a nice easy uniform mannor. -->
+    <!-- <script file="core.lua" /> -->
+
+    <!-- Everything below here are the pieces of the skins we are skinning in the core above. -->
+    <script file="timer_bars.lua" />
+
+    <!-- XXX: This to be broken out into each piece and part. -->
+    <script file="blizzard.lua" />
+</Ui>
