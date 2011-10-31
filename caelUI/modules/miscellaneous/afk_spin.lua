@@ -25,8 +25,12 @@ end)
 
 -- Hide the frame if it is visible on entering the world load.
 private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function()
-    if dimmer:IsVisible() then
+    if UnitIsAFK("player") then
+        dimmer:Show()
+        MoveViewRightStart(0.01)
+    else
         dimmer:Hide()
+        MoveViewRightStop()
     end
 end)
 
