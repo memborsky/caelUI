@@ -1,7 +1,7 @@
 -- Auto cancel various buffs
 local private = unpack(select(2, ...))
 
-local badBuffsList = {
+local blacklist = {
     ["Mohawked!"]			= true,
     ["Rabbit Costume"]		= true,
     ["Hand of Proection"]	= true,
@@ -18,7 +18,7 @@ private.events:RegisterEvent("UNIT_AURA", function(_, _, unit)
         return
     end
 
-    for buff, enabled in next, badBuffsList do
+    for buff, enabled in next, blacklist do
         if UnitAura(unit, buff) and enabled then
             CancelUnitBuff(unit, buff)
             private.print("BadBuff", " removed " .. buff)

@@ -16,7 +16,7 @@ local SkinBar
 
 do
     local media = private.database.get("media")
-    local pixel_scale = private.database.get("config")["pixel_scale"]
+    local pixel_scale = private.pixel_scale
 
     function SkinBar(bar)
         local name = bar:GetName()

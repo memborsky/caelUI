@@ -1,7 +1,7 @@
 local private = unpack(select(2, ...))
 
 -- localizing pixel_scale
-local pixel_scale = private.database.get("config").pixel_scale
+local pixel_scale = private.pixel_scale
 
 -- get our media database if it exists or create a new one.
 local media = private.database.get("media")

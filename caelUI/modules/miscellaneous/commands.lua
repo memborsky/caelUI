@@ -2,7 +2,7 @@
 
 --[[    Some new slash commands    ]]
 
-local playerName = private.database.get("config")["player"]["name"]
+local player_name = private.database.get("config")["player"]["name"]
 
 SlashCmdList["FRAMENAME"] = function() print(GetMouseFocus():GetName()) end
 SlashCmdList["PARENT"] = function() print(GetMouseFocus():GetParent():GetName()) end
@@ -17,7 +17,7 @@ SlashCmdList["GROUPDISBAND"] = function()
         SendChatMessage("Disbanding raid.", "RAID")
         for i = 1, GetNumRaidMembers() do
             local name, _, _, _, _, _, _, online = GetRaidRosterInfo(i)
-            if online and name ~= playerName then
+            if online and name ~= player_name then
                 UninviteUnit(name)
             end
         end
@@ -59,7 +59,7 @@ SlashCmdList["RAIDASSIST"] = function (message, editbox)
         for index = 1, GetNumRaidMembers() do
             local name = GetRaidRosterInfo(index)
 
-            if name ~= playerName and guildRaider[name] then
+            if name ~= player_name and guildRaider[name] then
                 PromoteToAssistant(name, true)
                 if (message == "true" or private.is_guild_group()) then
                     SendChatMessage("Promoted " .. name .. " to Raid Assistant.", "OFFICER", "COMMON")

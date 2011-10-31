@@ -2,7 +2,7 @@
 
 --[[    Reskin Blizzard windows ]]
 
-local pixel_scale = private.database.get("config")["pixel_scale"]
+local pixel_scale = private.pixel_scale
 
 local backdrop = private.database.get("media")["backdrop_table"]
 --[[

@@ -89,10 +89,8 @@ do
             frame:SetFont(fonts.chat, 11)
         end
 
-        private.events:UnregisterEvent("ADDON_LOADED", setup_font)
+        private.events:UnregisterEvent("ADDON_LOADED", self)
     end
 end
 
 private.events:RegisterEvent("ADDON_LOADED", setup_font)
-
-setup_font = nil

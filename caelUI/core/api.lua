@@ -6,6 +6,9 @@ public.media = private.database.get("media")
 -- Allow exteranl addons to have access to the config database.
 public.config = private.database.get("config")
 
+-- XXX: Hacking around the change we made internally for pixel_scale to make sure everything works inside first.
+public.config.pixel_scale = private.pixel_scale
+
 -- Allow the usage of specific functions from our private API interface.
 public.UTF8_substitution = private.UTF8_substitution
 public.get_spell_name = private.get_spell_name

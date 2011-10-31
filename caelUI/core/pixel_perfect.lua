@@ -1,8 +1,5 @@
 local private = unpack(select(2, ...))
 
-local config = private.database.get("config")
-config.pixel_perfect = {}
-
 --[[
 The following section handles all of our UI pixel perfection that we need to make sure everything scales
 like we want it when we build the UI for all user screen sizes.
@@ -71,26 +68,22 @@ function private.set_scale (...)
 end
 
 -- This will scale our given value to our scale offset.
-function config.pixel_scale (value)
+function private.pixel_scale (value)
     return scale_fix * math.floor(value / scale_fix + 0.5)
 end
 
-private.database.save(config)
 
-local Event_Frame = CreateFrame("Frame")
 
-local function update_user_scale (self, event, ...)
-    if event == "PLAYER_ENTERING_WORLD" then
-        if cael_user.scale then
-            private.set_scale(cael_user.scale)
-        else
-            private.set_scale()
+for _, event in pairs{"PLAYER_LEAVING_WORLD", "PLAYER_LOGOUT", "UPDATE_FLOATING_CHAT_WINDOWS"} do
+    private.events:RegisterEvent(event, function(self, event, ...)
+        if event == "PLAYER_ENTERING_WORLD" then
+            if cael_user.scale then
+                private.set_scale(cael_user.scale)
+            else
+                private.set_scale()
+            end
         end
-    end
 
-    cael_user.scale = math.floor(GetCVar("uiScale") * 100 + 0.5) / 100
-end
-
-for _, event in next, {"PLAYER_LEAVING_WORLD", "PLAYER_LOGOUT", "UPDATE_FLOATING_CHAT_WINDOWS"} do
-    private.events:RegisterEvent(event, update_user_scale)
+        cael_user.scale = math.floor(GetCVar("uiScale") * 100 + 0.5) / 100
+    end)
 end

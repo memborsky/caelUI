@@ -1,7 +1,7 @@
 ﻿local private = unpack(select(2, ...))
 
 do
-    local pixel_scale = private.database.get("config").pixel_scale
+    local pixel_scale = private.pixel_scale
 
     -- Initialize the WatchFrame
     WatchFrame:ClearAllPoints()

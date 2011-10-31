@@ -1,6 +1,6 @@
 ﻿local private = unpack(select(2, ...))
 
-local pixel_scale = private.database.get("config")["pixel_scale"]
+local pixel_scale = private.pixel_scale
 local ShowCloak = ShowCloak
 local ShowHelm = ShowHelm
 
