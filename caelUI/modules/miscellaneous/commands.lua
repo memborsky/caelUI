@@ -37,9 +37,7 @@ SlashCmdList["RAIDASSIST"] = function (message, editbox)
         local guildRaider = {}
 
         -- Used so we can limit how many people we need to check against in the guild roster
-        if showOffline then
-            SetGuildRosterShowOffline(false)
-        end
+        SetGuildRosterShowOffline(false)
 
         -- Fire up the guild roster pull just in case
         GuildRoster()
@@ -70,9 +68,7 @@ SlashCmdList["RAIDASSIST"] = function (message, editbox)
         end
 
         -- Reset to what showOffline before we entered into this function.
-        if not showOffline then
-            SetGuildRosterShowOffline(showOffline)
-        end
+        SetGuildRosterShowOffline(showOffline)
     end
 end
 
