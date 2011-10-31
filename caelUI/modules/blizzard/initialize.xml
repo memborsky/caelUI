@@ -16,4 +16,7 @@
 
     <!-- UI Errors done our way. -->
     <script file="UIErrorsFrame.lua" />
+
+    <!-- This ready check sound is much better. -->
+    <script file="ReadyCheckListenerFrame.lua" />
 </Ui>
