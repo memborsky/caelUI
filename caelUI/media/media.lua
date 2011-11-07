@@ -36,7 +36,10 @@ media.files = {
     sound_skillup           = media.directory .. [=[sounds\skill up.mp3]=],
     sound_warning           = media.directory .. [=[sounds\warning.mp3]=],
     sound_aggro             = media.directory .. [=[sounds\aggro.mp3]=],
-    sound_whisper           = media.directory .. [=[sounds\whisper.mp3]=]
+    sound_whisper           = media.directory .. [=[sounds\whisper.mp3]=],
+
+    largeshadertex1         = media.directory .. [=[miscellaneous\largeshadertex1]=],
+    largeshadertex2         = media.directory .. [=[miscellaneous\largeshadertex2]=]
 }
 
 media.inset_table = {

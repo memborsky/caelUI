@@ -17,4 +17,7 @@
 
     <!-- Slash Commands list -->
     <script file="commands.lua" />
+
+    <!-- The shadow around the edge of the screen that flashes on lower health points. -->
+    <script file="ShadowEdge.lua" />
 </Ui>

@@ -1,15 +1,15 @@
-local _, caelCore = ...
+local private = unpack(select(2, ...))
 
 --[[    Put a shadow edge around the screen    ]]
 
-local shadowedge = caelCore.createModule("ShadowEdge")
+local shadowedge = CreateFrame("Frame", nil, UIParent)
 
 shadowedge:SetPoint("TOPLEFT")
 shadowedge:SetPoint("BOTTOMRIGHT")
 shadowedge:SetFrameLevel(0)
 shadowedge:SetFrameStrata("BACKGROUND")
 shadowedge.tex = shadowedge:CreateTexture()
-shadowedge.tex:SetTexture([=[Interface\Addons\caelUI\media\Miscellaneous\largeshadertex1]=])
+shadowedge.tex:SetTexture(private.database.get("media")["files"]["largeshadertex1"])
 
 shadowedge.tex:SetAllPoints()
 shadowedge.tex:SetVertexColor(0, 0, 0, 0.5)
@@ -46,11 +46,12 @@ local StopFlash = function(self)
     end
 end
 
-shadowedge:RegisterEvent("UNIT_HEALTH")
-shadowedge:SetScript("OnEvent", function(self, event, unit)
-    if (unit ~= "player") then return end
+private.events:RegisterEvent("UNIT_HEALTH", function(self, event, unit)
+    if (unit ~= "player") then
+        return
+    end
 
-    if UnitIsDeadOrGhost("player") then
+    if UnitIsDeadOrGhost(unit) then
         shadowedge.tex:SetVertexColor(0, 0, 0, 0.5)
         StopFlash(shadowedge.tex)
         return

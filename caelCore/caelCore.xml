@@ -4,5 +4,4 @@
     <Script file="modules\cvarData.lua"/>
     <!-- Script file="modules\keyBinding.lua"/ -->
     <Script file="modules\merchant.lua"/>
-    <Script file="modules\shadowEdge.lua"/>
 </Ui>
