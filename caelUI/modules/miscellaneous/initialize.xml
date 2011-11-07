@@ -23,4 +23,7 @@
 
     <!-- This handles our CVars. -->
     <script file="CVarData.lua" />
+
+    <!-- Does our auto selling and repair when we open the merchant window. -->
+    <script file="Merchant.lua" />
 </Ui>

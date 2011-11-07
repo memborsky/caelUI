@@ -2,5 +2,4 @@
     <Script file="caelCore.lua"/>
 
     <!-- Script file="modules\keyBinding.lua"/ -->
-    <Script file="modules\merchant.lua"/>
 </Ui>

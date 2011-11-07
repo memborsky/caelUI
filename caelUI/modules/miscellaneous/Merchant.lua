@@ -1,6 +1,6 @@
-﻿local _, caelCore = ...
+﻿local private = unpack(select(2, ...))
 
-local function debug(msg) DEFAULT_CHAT_FRAME:AddMessage(msg) end
+--[[    Auto sell junk & auto repair    ]]
 
 --[[
 This is where you will add your characters, their realm, and the stock levels
@@ -17,18 +17,14 @@ local reagents = {
     }
 }
 
---[[    Auto sell junk & auto repair    ]]
+local player = private.database.get("config")["player"]
 
-local merchant = caelCore.createModule("Merchant")
 
--- Internal settings
-local playerName            = caelUI.config.player.name
-local playerRealm           = caelUI.config.player.realm
 --[[
 Ensures that we have the player's name, their realm, and that a table actually exists for
 that particular character before scanning the vendor for purchases.
 --]]
-local my_reagents           = reagents[playerRealm] and reagents[playerRealm][playerName] and reagents[playerRealm][playerName] or nil
+local my_reagents           = reagents[player.realm] and reagents[player.realm][player.name] and reagents[player.realm][player.name] or nil
 local itemid_pattern        = "item:(%d+)"
 local itemCount, sellValue  = 0, 0                      -- Used to display selling count and total sell value of junk.
 
@@ -50,8 +46,10 @@ Returns the amount of checkid which would be needed to stock the item to the pre
 This does NOT return the amount of the item which will be purchased (due to possible
 overstock), rather the total amount which would be ideal.
 --]]
-local function HowMany(checkid)
-    if not my_reagents[checkid] then return 0 end
+local function HowMany (checkid)
+    if not my_reagents[checkid] then
+        return 0
+    end
 
     local total = 0
     local link, id, stack
@@ -82,7 +80,7 @@ Purchases the required amount of reagents to come as close as possible to the re
 stock level.  Does NOT overstock, so you may end up with less than the stock level you
 asked for.
 --]]
-local function BuyReagents()
+local function BuyReagents ()
     local link, id, stock, price, stack, quantity, fullstack
 
     for i = 1, GetMerchantNumItems() do
@@ -107,7 +105,7 @@ local function BuyReagents()
                 subtotal = price * (quantity/stack)
 
                 if subtotal > GetMoney() then
-                    print("|cffD7BEA5cael|rMerchant: Not enough money to purchase reagents.");
+                    private.print("Merchant", "Not enough money to purchase reagents.");
                     return
                 end
 
@@ -131,18 +129,17 @@ end
 
 local function formatMoney(value)
     if value >= 1e4 then
-        return format("|cffffd700%dg |r|cffc7c7cf%ds |r|cffeda55f%dc|r", value/1e4, strsub(value, -4) / 1e2, strsub(value, -2))
+        return "|cffffd700%dg |r|cffc7c7cf%ds |r|cffeda55f%dc|r", value/1e4, strsub(value, -4) / 1e2, strsub(value, -2)
     elseif value >= 1e2 then
-        return format("|cffc7c7cf%ds |r|cffeda55f%dc|r", strsub(value, -4) / 1e2, strsub(value, -2))
+        return "|cffc7c7cf%ds |r|cffeda55f%dc|r", strsub(value, -4) / 1e2, strsub(value, -2)
     else
-        return format("|cffeda55f%dc|r", strsub(value, -2))
+        return "|cffeda55f%dc|r", strsub(value, -2)
     end
 end
 
 -- The traffic cop to make all the magic happen when we talk to a merchant.
 
-merchant:RegisterEvent"MERCHANT_SHOW"
-merchant:SetScript("OnEvent", function(self, event)
+private.events:RegisterEvent("MERCHANT_SHOW", function(self, event)
     for bag = 0, 4 do
         for slot = 1, GetContainerNumSlots(bag) do
             local item = GetContainerItemLink(bag, slot)
@@ -161,22 +158,31 @@ merchant:SetScript("OnEvent", function(self, event)
     end
 
     if sellValue > 0 then
-        print(format("|cffd7bea5cael|rCore: Sold %d trash item%s for %s", itemCount, itemCount ~= 1 and "s" or "", formatMoney(sellValue)))
+        private.print("Merchance", "Sold %d trash item%s for %s", itemCount, itemCount ~= 1 and "s" or "", formatMoney(sellValue))
         itemCount, sellValue = 0, 0
     end
 
     if CanMerchantRepair() then
         local cost, needed = GetRepairAllCost()
         if needed then
-            local GuildWealth = CanGuildBankRepair() and GetGuildBankWithdrawMoney() > cost
-            if GuildWealth then
-                RepairAllItems(1)
-                print(format("|cffD7BEA5cael|rMerchant: Guild bank repaired for %s.", formatMoney(cost)))
+
+            if private.is_guild_group() and CanGuildBankRepair() then
+                -- Repair by the guild repair if we are in a guild group and have the ability to repair by guild repair.
+
+                local GuildWealth = GetGuildBankWithdrawMoney() > cost
+                if GuildWealth then
+                    RepairAllItems(1)
+                    private.print("Merchant", "Guild bank repaired for %s.", formatMoney(cost))
+                end
             elseif cost < GetMoney() then
+                -- Else try to repair by our own money.
+
                 RepairAllItems()
-                print(format("|cffD7BEA5cael|rMerchant: Repaired for %s.", formatMoney(cost)))
+                private.print("Merchant", "Repaired for %s.", formatMoney(cost))                    
             else
-                print("|cffD7BEA5cael|rMerchant: Repairs were unaffordable.")
+                -- Else we can't repair.
+
+                private.print("Merchant", "Repairs were unaffordable.")
             end
         end
     end
