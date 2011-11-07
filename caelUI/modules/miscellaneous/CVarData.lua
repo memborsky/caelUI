@@ -1,47 +1,28 @@
-local _, caelCore = ...
+local private = unpack(select(2, ...))
 
-local cvardata = caelCore.createModule("cvarData")
+do
+    local function ZoneChange (zone)
+            local _, instanceType = IsInInstance()
+            if zone == "Orgrimmar" or zone == "Stormwind" then
+                if caelUI.config.player.class == "HUNTER" then SetTracking(nil) end
+                SetCVar("chatBubbles", 0)
+            elseif instanceType == "raid" then
+                SetCVar("chatBubbles", 1)
+            else
+                SetCVar("chatBubbles", 0)
+            end
+    end
 
-cvardata.initOn = "PLAYER_ENTERING_WORLD"
+    for _, event in next, {"WORLD_MAP_UPDATE", "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD"} do
+        private.events:RegisterEvent(event, function()
+            local zone = GetRealZoneText()
 
-local ZoneChange = function(zone)
-        local _, instanceType = IsInInstance()
-        if zone == "Orgrimmar" or zone == "Stormwind" then
-            if caelUI.config.player.class == "HUNTER" then SetTracking(nil) end
-            SetCVar("chatBubbles", 0)
-        elseif instanceType == "raid" then
-            SetCVar("chatBubbles", 1)
-        else
-            SetCVar("chatBubbles", 0)
-        end
+            if zone and zone ~= "" then
+                ZoneChange(zone)
+            end
+        end)
+    end
 end
-
-
-cvardata:RegisterEvent("WORLD_MAP_UPDATE")
-cvardata:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-cvardata:RegisterEvent("PLAYER_ENTERING_WORLD")
-cvardata:SetScript("OnEvent", function(self, event)
-        local zone = GetRealZoneText()
-
-        if zone and zone ~= "" then
-                return ZoneChange(zone)
-        end
-end)
-
-
---[[
-Scales = {
-    ["800"] = { ["600"] = 0.69999998807907},
-    ["1024"] = { ["768"] = 0.69999998807907},
-    ["1152"] = { ["864"] = 0.69999998807907},
-    ["1280"] = { ["720"] = 0.93000000715256, ["768"] = 0.87000000476837, ["960"] = 0.69999998807907, ["1024"] = 0.64999997615814},
-    ["1366"] = { ["768"] = 0.93000000715256},
-    ["1600"] = { ["900"] = 0.93000000715256, ["1200"] = 0.69999998807907},
-    ["1680"] = { ["1050"] = 0.83999997377396},
-    ["1768"] = { ["992"] = 0.93000000715256},
-    ["1920"] = { ["1200"] = 0.83999997377396, ["1080"] = 0.93000000715256},
-}
---]]
 
 local defaultCVarValues = {
     ["reducedLagTolerance"] = 1,
@@ -173,27 +154,35 @@ local defaultCVarValues = {
     --["spreadnameplates"] = 1, -- 0 makes nameplates overlap.
     ["bloattest"] = 0, -- 1 might make nameplates larger but it fixes the disappearing ones.
     ["bloatnameplates"] = 0, -- 1 makes nameplates larger depending on threat percentage.
-    ["bloatthreat"] = 0, -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat table.
+    ["bloatthreat"] = 0, -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat CVars.
 }
 
-function cvardata:init()
-    if not self.db.cvarValues then
-        self.db.cvarValues = {}
-    end
+private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function(self, event)
+    local CVars = private.database.get("cvars")
 
-    setmetatable(self.db.cvarValues, {__index = defaultCVarValues})
+    setmetatable(CVars, {__index = defaultCVarValues})
 
     for cvar in next, defaultCVarValues do
-        SetCVar(cvar, self.db.cvarValues[cvar])
+        SetCVar(cvar, CVars[cvar])
     end
 
-    ConsoleExec("pitchlimit 89") -- 89, 449. 449 allows doing flips, 89 will not
-    ConsoleExec("characterAmbient -0.1") -- -0.1-1 use ambient lighting for character. <0 == off
-    if (tonumber(GetCVar("ScreenshotQuality")) < 10) then SetCVar("ScreenshotQuality", 10) end
+    -- 89, 449. 449 allows doing flips, 89 will not
+    ConsoleExec("pitchlimit 89")
+
+    -- -0.1-1 use ambient lighting for character. <0 == off
+    ConsoleExec("characterAmbient -0.1")
+
+    if (tonumber(GetCVar("ScreenshotQuality")) < 10) then
+        SetCVar("ScreenshotQuality", 10)
+    end
 
     hooksecurefunc("SetCVar", function(cvar, value, event)
         if event then
-            cvardata.db.cvarValues[cvar] = value
+            CVars[cvar] = value
         end
     end)
-end
+
+    CVars = nil
+    defaultCVarValues = nil
+    self:UnregisterEvent(event)
+end)
