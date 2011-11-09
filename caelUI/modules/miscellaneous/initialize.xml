@@ -1,7 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <!-- Spin the screen and shade it when we go afk. -->
-    <script file="afk_spin.lua" />
-
     <!-- Auto accept party/raid invites from those we set in our config -->
     <script file="auto_invite.lua" />
 
