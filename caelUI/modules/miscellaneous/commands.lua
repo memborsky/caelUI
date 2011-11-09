@@ -61,7 +61,7 @@ SlashCmdList["RAIDASSIST"] = function (message, editbox)
 
             if name ~= player_name and guildRaider[name] then
                 PromoteToAssistant(name, true)
-                if (message == "true" or private.is_guild_group()) then
+                if (message == "true" or private.IsGuildGroup()) then
                     SendChatMessage("Promoted " .. name .. " to Raid Assistant.", "OFFICER", "COMMON")
                 end
             end

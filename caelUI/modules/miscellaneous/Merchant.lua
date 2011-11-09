@@ -129,11 +129,11 @@ end
 
 local function formatMoney(value)
     if value >= 1e4 then
-        return "|cffffd700%dg |r|cffc7c7cf%ds |r|cffeda55f%dc|r", value/1e4, strsub(value, -4) / 1e2, strsub(value, -2)
+        return format("|cffffd700%dg |r|cffc7c7cf%ds |r|cffeda55f%dc|r", value/1e4, strsub(value, -4) / 1e2, strsub(value, -2))
     elseif value >= 1e2 then
-        return "|cffc7c7cf%ds |r|cffeda55f%dc|r", strsub(value, -4) / 1e2, strsub(value, -2)
+        return format("|cffc7c7cf%ds |r|cffeda55f%dc|r", strsub(value, -4) / 1e2, strsub(value, -2))
     else
-        return "|cffeda55f%dc|r", strsub(value, -2)
+        return format("|cffeda55f%dc|r", strsub(value, -2))
     end
 end
 
@@ -158,7 +158,7 @@ private.events:RegisterEvent("MERCHANT_SHOW", function(self, event)
     end
 
     if sellValue > 0 then
-        private.print("Merchance", "Sold %d trash item%s for %s", itemCount, itemCount ~= 1 and "s" or "", formatMoney(sellValue))
+        private.print("Merchance", format("Sold %d trash item%s for %s", itemCount, itemCount ~= 1 and "s" or "", formatMoney(sellValue)))
         itemCount, sellValue = 0, 0
     end
 
@@ -166,19 +166,19 @@ private.events:RegisterEvent("MERCHANT_SHOW", function(self, event)
         local cost, needed = GetRepairAllCost()
         if needed then
 
-            if private.is_guild_group() and CanGuildBankRepair() then
+            if private.IsGuildGroup() and CanGuildBankRepair() then
                 -- Repair by the guild repair if we are in a guild group and have the ability to repair by guild repair.
 
                 local GuildWealth = GetGuildBankWithdrawMoney() > cost
                 if GuildWealth then
                     RepairAllItems(1)
-                    private.print("Merchant", "Guild bank repaired for %s.", formatMoney(cost))
+                    private.print("Merchant", format("Guild bank repaired for %s.", formatMoney(cost)))
                 end
             elseif cost < GetMoney() then
                 -- Else try to repair by our own money.
 
                 RepairAllItems()
-                private.print("Merchant", "Repaired for %s.", formatMoney(cost))                    
+                private.print("Merchant", format("Repaired for %s.", formatMoney(cost)))
             else
                 -- Else we can't repair.
 

@@ -11,6 +11,6 @@ end)
 
 
 -- This will return our guild group boolean flag check.
-function private.is_guild_group ()
+function private.IsGuildGroup ()
     return IS_GUILD_GROUP
 end
