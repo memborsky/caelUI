@@ -157,13 +157,17 @@ local defaultCVarValues = {
     ["bloatthreat"] = 0, -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat CVars.
 }
 
-private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function(self, event)
+private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function(_, event)
     local CVars = private.database.get("cvars")
 
-    setmetatable(CVars, {__index = defaultCVarValues})
+    if not CVars then
+        for cvar, value in next, defaultCVarValues do
+            SetCVar(cvar, CVars[cvar])
+        end
 
-    for cvar in next, defaultCVarValues do
-        SetCVar(cvar, CVars[cvar])
+        setmetatable(CVars, {__index = defaultCVarValues})
+
+        defaultCVarValues = nil
     end
 
     -- 89, 449. 449 allows doing flips, 89 will not
@@ -182,7 +186,5 @@ private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function(self, event)
         end
     end)
 
-    CVars = nil
-    defaultCVarValues = nil
-    self:UnregisterEvent(event)
+    private.events:UnregisterEvent(event)
 end)

@@ -26,6 +26,9 @@
     <!-- This handles just setting our group as a guild group or not. -->
     <script file="is_guild_group.lua" />
 
+    <!-- This handles the loading of our CVar values and allowing us to modifiy them when we are live. -->
+    <script flie="CVars.lua" />
+
     <!--
         We are loading this as the very LAST file in the caelui.toc file.
         This is because we want to make sure everything is loaded in caelUI before we attempt to index it from external addons.
