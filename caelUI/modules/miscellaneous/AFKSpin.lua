@@ -23,7 +23,7 @@ RegisterStateDriver(dimmer, "visibility", "[combat] hide")
 --   GoAFK(dimmer)
 --
 -- Returns nothing.
-local function dimmer.GoAFK (self)
+function dimmer.GoAFK (self)
     MoveViewRightStart(0.01)
     self:Show()
 end
@@ -37,7 +37,7 @@ end
 --   ReturnFromBeingAFK(dimmer)
 --
 -- Returns nothing.
-local function dimmer.ReturnFromBeingAFK (frame)
+function dimmer.ReturnFromBeingAFK (self)
     MoveViewRightStop()
     self:Hide()
 end
