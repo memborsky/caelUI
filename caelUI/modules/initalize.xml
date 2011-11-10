@@ -7,4 +7,7 @@
 
     <!-- Additional miscellaneous modules -->
     <include file="miscellaneous\initialize.xml" />
+
+    <!-- This is a module to do nothing but manage our merchant automation. -->
+    <include file="merchant\initalize.xml" />
 </Ui>
