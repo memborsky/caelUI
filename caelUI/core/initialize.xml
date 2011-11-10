@@ -30,7 +30,7 @@
     <script flie="CVars.lua" />
 
     <!-- Spin the screen and shade it when we go afk. -->
-    <script file="afk_spin.lua" />
+    <script file="AFKSpin.lua" />
 
     <!--
         We are loading this as the very LAST file in the caelui.toc file.
