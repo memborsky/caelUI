@@ -24,8 +24,13 @@ RegisterStateDriver(dimmer, "visibility", "[combat] hide")
 --
 -- Returns nothing.
 function dimmer.GoAFK (self)
-    MoveViewRightStart(0.01)
-    self:Show()
+
+    -- We want to make sure that we are not in combat before we attempt to
+    -- show the frame or start the camera moving.
+    if not InCombatLockdown() then
+        MoveViewRightStart(0.01)
+        self:Show()
+    end
 end
 
 -- Internal: Stops the dimmer and camera moving when the player returns from Away.
@@ -39,7 +44,12 @@ end
 -- Returns nothing.
 function dimmer.ReturnFromBeingAFK (self)
     MoveViewRightStop()
-    self:Hide()
+
+    -- We want to make sure that we are not in combat before we attempt to
+    -- hide the frame.
+    if not InCombatLockdown() then
+        self:Hide()
+    end
 end
 
 -- Internal: Make sure that when we click the dimmer frame it hides and clears
@@ -60,27 +70,16 @@ end)
 
 -- Internal: This function will toggle our AFK state for us.
 --
--- override - Overrides our check for being in combat.
---
 -- Examples
 --
 --  ToggleAFKState()
 --
 -- Returns nothing.
-local function ToggleAFKState (override)
-    -- We want to make sure that we are not in combat before we attempt to
-    -- start/stop our AFK spinning state. This is due to frame tainting while
-    -- in combat.
-    -- If the override flag is true, we skip checking for not being in combat.
-    if override or not InCombatLockdown() then
-
-        -- Start and stop the player's AFK state.
-        if UnitIsAFK("player") then
-            dimmer:GoAFK()
-        else
-            dimmer:ReturnFromBeingAFK()
-        end
-
+local function ToggleAFKState ()
+    if UnitIsAFK("player") then
+        dimmer:GoAFK()
+    else
+        dimmer:ReturnFromBeingAFK()
     end
 end
 
@@ -112,11 +111,13 @@ for _, event in next, {"PLAYER_ENTERING_WORLD", "PLAYER_FLAGS_CHANGED", "PLAYER_
                 return
             end
         elseif event == "PLAYER_REGEN_DISABLED" then
-            ToggleAFKState(true)
+            if dimmer:IsVisible() then
+                MoveViewRightStop()
+            end
+
             return
         end
 
         ToggleAFKState()
     end)
 end
-
