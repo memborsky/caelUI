@@ -51,7 +51,7 @@ local OnEvent = function(retVal, self, event, ...)
         xpString = format("|cffD7BEA5xp|r "..(restedXp and "|cff5073a0%.1f%%|r " or "|cffffffff%.1f%%|r ").."|cffD7BEA5pet|r %.0f%%", ((xp/maxXp)*100), ((petXp/petMaxXp)*100))
     end
 
-    experience.text:SetFont(caelUI.media.fonts.NORMAL, 10, "OUTLINE")
+    experience.text:SetFont(caelUI.media.fonts.normal, 10, "OUTLINE")
     experience.text:SetText(xpString)
 
     if retVal then
