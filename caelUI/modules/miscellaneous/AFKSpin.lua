@@ -117,6 +117,6 @@ for _, event in next, {"PLAYER_ENTERING_WORLD", "PLAYER_FLAGS_CHANGED", "PLAYER_
         end
 
         ToggleAFKState()
-    end
+    end)
 end
 
