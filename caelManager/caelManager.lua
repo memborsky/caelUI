@@ -68,6 +68,7 @@ local addons = {
         ["oUF_CombatFeedback"]  = true,
         ["recScrollAreas"]      = true,
         ["Snoopy"]              = true,
+        ["caelGroupCD"]         = true,
     },
 
     --[[

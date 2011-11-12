@@ -1,0 +1,9 @@
+## Interface: 40300
+## Author: Caellian, Jankly
+## Title: |cffD7BEA5cael|rGroupCD
+## Notes: Group cooldown tracker
+## RequiredDeps: caelUI
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Group/Raid
+
+caelGroupCD.lua
