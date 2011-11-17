@@ -1,8 +1,11 @@
+--[[    $Id:$   ]]
+
 local _, caelGroupCD = ...
 
 caelGroupCD.eventFrame = CreateFrame("Frame", nil, UIParent)
 
 local pixelScale = caelUI.config.pixel_scale
+local media = caelUI.media
 
 local show = {
     raid = true,
@@ -11,11 +14,11 @@ local show = {
 }
 
 local spells = {
-    [740]   = 480,  -- Tranquility
+    [740]       = 480,  -- Tranquility
     [2825]  = 300,  -- Bloodlust
     [6203]  = 900,  -- Soulstone
     [6346]  = 180,  -- Fear Ward
-    [20484] = 600,  -- Rebirth
+    [20484]     = 600,  -- Rebirth
     [29166] = 180,  -- Innervate
     [32182] = 300,  -- Heroism
     [61999] = 600,  -- Raise Ally
@@ -23,16 +26,20 @@ local spells = {
     [80353] = 300,  -- Time Warp
     [90355] = 300,  -- Ancient Hysteria
     [95750] = 900,  -- Soulstone res
+
+    [45438] = 300, -- Ice Block
+    [13750] = 180, -- Adrenaline Rush
+    [57330] = 20, -- Horn of Winter
 }
 
 local filter = COMBATLOG_OBJECT_AFFILIATION_RAID + COMBATLOG_OBJECT_AFFILIATION_PARTY + COMBATLOG_OBJECT_AFFILIATION_MINE
-local floor, format = math.floor, string.format
+local floor, format, gsub = math.floor, string.format, string.gsub
 
 local bars = {}
 local timer = 0
 
 local anchorframe = CreateFrame("Frame", nil, UIParent)
-anchorframe:SetSize(145, 12)
+anchorframe:SetSize(145, 14)
 anchorframe:SetPoint("RIGHT", pixelScale(-5), 0)
 if UIMovableFrames then tinsert(UIMovableFrames, anchorframe) end
 
@@ -64,20 +71,20 @@ end
 
 local CreateBar = function()
     local bar = CreateFrame("Statusbar", nil, UIParent)
-    bar:SetSize(pixelScale(145), pixelScale(12))
-    bar:SetStatusBarTexture(caelUI.media.files.statusBarC)
+    bar:SetSize(pixelScale(145), pixelScale(14))
+    bar:SetStatusBarTexture(media.files.statusbar_c)
     bar:SetMinMaxValues(0, 100)
-    bar.bg = caelUI.media.createBackdrop(bar)
-    bar.left = SetFontString(bar, caelUI.media.fonts.NORMAL, 8, "")
+    bar.bg = media.create_backdrop(bar)
+    bar.left = SetFontString(bar, media.fonts.normal, 9, "")
     bar.left:SetPoint("LEFT", pixelScale(2), pixelScale(1))
     bar.left:SetJustifyH("LEFT")
-    bar.right = SetFontString(bar, caelUI.media.fonts.CUSTOM_NUMBERFONT, 8, "")
+    bar.right = SetFontString(bar, media.fonts.custom_number, 9, "")
     bar.right:SetPoint("RIGHT", pixelScale(-2), pixelScale(1))
     bar.right:SetJustifyH("RIGHT")
     bar.icon = CreateFrame("button", nil, bar)
-    bar.icon:SetSize(pixelScale(12), pixelScale(12))
+    bar.icon:SetSize(pixelScale(14), pixelScale(14))
     bar.icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", pixelScale(-5), 0)
-    bar.icon.bg = caelUI.media.createBackdrop(bar.icon)
+    bar.icon.bg = media.create_backdrop(bar.icon)
 
     return bar
 end
@@ -105,9 +112,11 @@ end
 local StartTimer = function(unit, spellId)
     local bar = CreateBar()
     local spell, rank, icon = GetSpellInfo(spellId)
+
     bar.endTime = GetTime() + spells[spellId]
     bar.startTime = GetTime()
-    bar.left:SetText(unit)
+
+    bar.left:SetText(gsub(unit, "%s*%-.*", " (*)"))
     bar.right:SetText(FormatTime(spells[spellId]))
 
     if icon then
@@ -162,7 +171,7 @@ end
 caelGroupCD.eventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 caelGroupCD.eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 caelGroupCD.eventFrame:SetScript("OnEvent", function(_, event, _, subEvent, _, _, sourceName, sourceFlags, _, _, _, _, _, spellId)
-    local _, instanceType = IsInInstance()
+    local inInstance, instanceType = IsInInstance()
 
     if event == "COMBAT_LOG_EVENT_UNFILTERED" then
         if bit.band(sourceFlags, filter) == 0 then return end
@@ -172,7 +181,7 @@ caelGroupCD.eventFrame:SetScript("OnEvent", function(_, event, _, subEvent, _, _
                 StartTimer(sourceName, spellId)
             end
         end
-    elseif event == "ZONE_CHANGED_NEW_AREA" and instanceType == "arena" then
+    elseif event == "ZONE_CHANGED_NEW_AREA" and (not inInstance or instanceType == "arena") then
         for k, v in pairs(bars) do
             StopTimer(v)
         end
