@@ -11,6 +11,7 @@ local blacklist = {
     ["Wisp Costume"]        = true,
     ["Ghost Costume"]       = true,
     ["Pirate Costume"]      = true,
+    ["Turkey Feathers"]     = true,
 }
 
 private.events:RegisterEvent("UNIT_AURA", function(_, _, unit)
