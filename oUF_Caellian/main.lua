@@ -505,7 +505,7 @@ local HideAura = function(self)
     if self.unit == "player" then
         if config.noPlayerAuras then
             self.Buffs:Hide()
-            self.Debuffs:Hide()
+            -- self.Debuffs:Hide()
         else
             local BuffFrame = _G["BuffFrame"]
             BuffFrame:UnregisterEvent"UNIT_AURA"
@@ -559,7 +559,7 @@ local PostCreateAura = function(auras, button)
 end
 
 local CreateEnchantTimer = function(self, icons)
-    for i = 1, 2 do
+    for i = 1, 3 do
         local icon = icons[i]
         if icon.expTime then
             icon.timeLeft = icon.expTime - GetTime()
@@ -814,7 +814,7 @@ local SetStyle = function(self, unit)
         if IsAddOnLoaded("oUF_WeaponEnchant") then
             self.Enchant = CreateFrame("Frame", nil, self)
             self.Enchant.size = auraSize
-            self.Enchant:SetWidth(pixel_scale((self.Enchant.size * 2) + 6))
+            self.Enchant:SetWidth(pixel_scale((self.Enchant.size * 3) + 9))
             self.Enchant:SetHeight(self.Enchant.size)
             self.Enchant:SetPoint("TOPLEFT", self, "TOPRIGHT", pixel_scale(9), pixel_scale(-1))
             self.Enchant.spacing = 6

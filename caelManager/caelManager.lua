@@ -43,6 +43,7 @@ local addons = {
         ["caelBags"]            = true,
         ["caelBars"]            = true,
         ["caelBuffet"]          = true,
+        ["caelBuffs"]           = true,
         ["caelCCBreak"]         = true,
         ["caelChat"]            = true,
         ["caelCombatLog"]       = true,

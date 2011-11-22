@@ -3,7 +3,7 @@ local _, oUF_Caellian = ...
 oUF_Caellian.config = {{}}
 
 local config = {
-    noPlayerAuras   = false, -- true to disable oUF buffs/debuffs on the player frame and enable default
+    noPlayerAuras   = true,  -- true to disable oUF buffs/debuffs on the player frame and enable default
     noPetAuras      = false, -- true to disable oUF buffs/debuffs on the pet frame
     noTargetAuras   = false, -- true to disable oUF buffs/debuffs on the target frame
     noToTAuras      = false, -- true to disable oUF buffs/debuffs on the ToT frame

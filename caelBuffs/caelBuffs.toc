@@ -1,0 +1,10 @@
+## Interface: 40300
+## Author: Caellian
+## Title: |cffD7BEA5cael|rBuffs
+## Notes: Reskin the default player auras
+## RequiredDeps: caelUI
+## X-Revision: $Id: caelBuffs.toc 2214 2011-11-19 16:17:05Z sdkyron@gmail.com $
+## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
+## X-Category: Buffs
+
+caelBuffs.lua
