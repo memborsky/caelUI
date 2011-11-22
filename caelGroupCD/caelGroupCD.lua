@@ -14,11 +14,11 @@ local show = {
 }
 
 local spells = {
-    [740]       = 480,  -- Tranquility
+    [740]   = 480,  -- Tranquility
     [2825]  = 300,  -- Bloodlust
     [6203]  = 900,  -- Soulstone
     [6346]  = 180,  -- Fear Ward
-    [20484]     = 600,  -- Rebirth
+    [20484] = 600,  -- Rebirth
     [29166] = 180,  -- Innervate
     [32182] = 300,  -- Heroism
     [61999] = 600,  -- Raise Ally
@@ -26,10 +26,7 @@ local spells = {
     [80353] = 300,  -- Time Warp
     [90355] = 300,  -- Ancient Hysteria
     [95750] = 900,  -- Soulstone res
-
-    [45438] = 300, -- Ice Block
-    [13750] = 180, -- Adrenaline Rush
-    [57330] = 20, -- Horn of Winter
+    [27740] = 1800, -- Reincarnation
 }
 
 local filter = COMBATLOG_OBJECT_AFFILIATION_RAID + COMBATLOG_OBJECT_AFFILIATION_PARTY + COMBATLOG_OBJECT_AFFILIATION_MINE
@@ -39,8 +36,8 @@ local bars = {}
 local timer = 0
 
 local anchorframe = CreateFrame("Frame", nil, UIParent)
-anchorframe:SetSize(145, 14)
-anchorframe:SetPoint("RIGHT", pixelScale(-5), 0)
+anchorframe:SetSize(160, 25)
+anchorframe:SetPoint("RIGHT", UIParent, "RIGHT", pixelScale(-5), 0)
 if UIMovableFrames then tinsert(UIMovableFrames, anchorframe) end
 
 local FormatTime = function(t)
@@ -71,7 +68,7 @@ end
 
 local CreateBar = function()
     local bar = CreateFrame("Statusbar", nil, UIParent)
-    bar:SetSize(pixelScale(145), pixelScale(14))
+    bar:SetSize(pixelScale(150), pixelScale(25))
     bar:SetStatusBarTexture(media.files.statusbar_c)
     bar:SetMinMaxValues(0, 100)
     bar.bg = media.create_backdrop(bar)
@@ -82,7 +79,7 @@ local CreateBar = function()
     bar.right:SetPoint("RIGHT", pixelScale(-2), pixelScale(1))
     bar.right:SetJustifyH("RIGHT")
     bar.icon = CreateFrame("button", nil, bar)
-    bar.icon:SetSize(pixelScale(14), pixelScale(14))
+    bar.icon:SetSize(pixelScale(25), pixelScale(25))
     bar.icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", pixelScale(-5), 0)
     bar.icon.bg = media.create_backdrop(bar.icon)
 
@@ -129,7 +126,11 @@ local StartTimer = function(unit, spellId)
 
     local color = RAID_CLASS_COLORS[select(2, UnitClass(unit))]
 
-    bar:SetStatusBarColor(color.r, color.g, color.b)
+    if color then
+        bar:SetStatusBarColor(color.r, color.g, color.b)
+    else
+        bar:SetStatusBarColor(0, 0, 0)
+    end
 
     bar:SetScript("OnUpdate", function(self, elapsed)
         local curTime = GetTime()
