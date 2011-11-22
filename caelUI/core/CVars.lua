@@ -1,30 +1,7 @@
 local private = unpack(select(2, ...))
 
-do
-    local function ZoneChange (zone)
-            local _, instanceType = IsInInstance()
-            if zone == "Orgrimmar" or zone == "Stormwind" then
-                if caelUI.config.player.class == "HUNTER" then SetTracking(nil) end
-                SetCVar("chatBubbles", 0)
-            elseif instanceType == "raid" then
-                SetCVar("chatBubbles", 1)
-            else
-                SetCVar("chatBubbles", 0)
-            end
-    end
-
-    for _, event in next, {"WORLD_MAP_UPDATE", "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD"} do
-        private.events:RegisterEvent(event, function()
-            local zone = GetRealZoneText()
-
-            if zone and zone ~= "" then
-                ZoneChange(zone)
-            end
-        end)
-    end
-end
-
 local defaultCVarValues = {
+    ["chatBubbles"] = 1
     ["reducedLagTolerance"] = 1,
     ["scriptProfile"] = 0, -- Disables CPU profiling
     ["showToolsUI"] = 0, -- Disables the Launcher
@@ -48,7 +25,7 @@ local defaultCVarValues = {
     ["autoQuestProgress"] = 1,
     ["mapQuestDifficulty"] = 1,
     ["profanityFilter"] = 0,
-    ["chatBubblesParty"] = 0,
+    ["chatBubblesParty"] = 1,
     ["spamFilter"] = 0,
     ["guildMemberNotify"] = 1,
     ["chatMouseScroll"] = 1,
