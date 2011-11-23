@@ -72,37 +72,47 @@ local events_metatable = {
 }
 
 function events_metatable.__index:RegisterEvent (event, func)
-    argument_check(event, 2, "string")
+    argument_check(event, 2, "string", "table")
+
+    local function RegistersTheEvent (event, func)
+        local current_event = self[event]
+        local kind = type(current_event)
+
+        if (current_event and func) then
+            if (kind == "function" and current_event ~= func) then
+                self[event] = setmetatable({current_event, func}, events_metatable)
+            elseif (kind == "table") then
+                for _, infunc in next, current_event do
+                    if (infunc == func) then
+                        return
+                    end
+                end
+
+                table.insert(current_event, func)
+            end
+        elseif (IsEventRegistered(self, event)) then
+            return
+        else
+            if (type(func) == "function") then
+                self[event] = func
+            elseif (not self[event]) then
+                return error("Trying to register event [%s] on frame [%s] that doesn't exist.", event, self.name or "unknown")
+            end
+
+            RegisterEvent(self, event)
+        end
+    end
 
     if (type(func) == "string" and type(self[func]) == "function") then
         func = self[func]
     end
 
-    local current_event = self[event]
-    local kind = type(current_event)
-
-    if (current_event and func) then
-        if (kind == "function" and current_event ~= func) then
-            self[event] = setmetatable({current_event, func}, events_metatable)
-        elseif (kind == "table") then
-            for _, infunc in next, current_event do
-                if (infunc == func) then
-                    return
-                end
-            end
-
-            table.insert(current_event, func)
+    if type(event) == "string" then
+        RegistersTheEvent(event, func)
+    elseif type(event) == "table" then
+        for _, current_event in next, event do
+            RegistersTheEvent(current_event, func)
         end
-    elseif (IsEventRegistered(self, event)) then
-        return
-    else
-        if (type(func) == "function") then
-            self[event] = func
-        elseif (not self[event]) then
-            return error("Trying to register event [%s] on frame [%s] that doesn't exist.", event, self.name or "unknown")
-        end
-
-        RegisterEvent(self, event)
     end
 end
 
