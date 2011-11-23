@@ -42,19 +42,19 @@ do
             end
         end
 
-        bar.backdrop = CreateFrame("Frame", nil, bar)
-        bar.backdrop:SetFrameLevel(0)
-        bar.backdrop:SetPoint("TOPLEFT", bar, "TOPLEFT", pixel_scale(-2), pixel_scale(2))
-        bar.backdrop:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", pixel_scale(2), pixel_scale(-2))
-
         if barType == "tracker" then
             bar:SetStatusBarTexture(media.files.statusbar_e)
+            bar:SetStatusBarColor(bar:GetStatusBarColor())
         elseif barType == "mirror" then
             local statusbar = _G[name .. "StatusBar"]
             statusbar:SetStatusBarTexture(media.files.statusbar_e)
             statusbar:SetAllPoints(bar)
         end
 
+        bar.backdrop = CreateFrame("Frame", nil, bar)
+        bar.backdrop:SetFrameLevel(bar:GetFrameLevel() - 1)
+        bar.backdrop:SetPoint("TOPLEFT", bar, "TOPLEFT", pixel_scale(-2), pixel_scale(2))
+        bar.backdrop:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", pixel_scale(2), pixel_scale(-2))
         bar.backdrop:SetBackdrop(media.backdrop_table)
         bar.backdrop:SetBackdropBorderColor(0, 0, 0)
         bar.backdrop:SetBackdropColor(0, 0, 0, 0.4)
