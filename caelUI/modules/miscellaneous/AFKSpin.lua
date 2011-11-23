@@ -103,21 +103,18 @@ end
 -- event = "PLAYER_REGEN_DISABLED"
 --   This means the player has entered combat and we need to stop our player's
 --   camera and dimmer frame from being shown.
-for _, event in next, {"PLAYER_ENTERING_WORLD", "PLAYER_FLAGS_CHANGED", "PLAYER_REGEN_ENABLED", "PLAYER_REGEN_DISABLED"} do
-    private.events:RegisterEvent(event, function(_, event, ...)
-        if event == "PLAYER_FLAGS_CHANGED" then
-            local unit = ...
-            if unit ~= "player" then
-                return
-            end
-        elseif event == "PLAYER_REGEN_DISABLED" then
-            if dimmer:IsVisible() then
-                MoveViewRightStop()
-            end
+private.events:RegisterEvent({"PLAYER_ENTERING_WORLD", "PLAYER_REGEN_ENABLED"}, ToggleAFKState)
+private.events:RegisterEvent("PLAYER_FLAGS_CHANGED", function(_, _, unit)
+    if unit ~= "player" then
+        return
+    end
 
-            return
-        end
-
-        ToggleAFKState()
-    end)
-end
+    ToggleAFKState()
+end)
+private.events:RegisterEvent("PLAYER_REGEN_DISABLED", function()
+    if dimmer:IsVisible() then
+        MoveViewRightStop()
+        return
+    end
+    ToggleAFKState()
+end)
