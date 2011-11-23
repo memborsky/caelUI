@@ -134,7 +134,7 @@ local defaultCVarValues = {
     ["bloatthreat"] = 0, -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat CVars.
 }
 
-private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function(_, event)
+local function initialize (_, event)
     local CVars = private.database.get("cvars")
 
     if not CVars then
@@ -163,5 +163,7 @@ private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function(_, event)
         end
     end)
 
-    private.events:UnregisterEvent(event)
-end)
+    private.events:UnregisterEvent(event, initialize)
+end
+
+private.events:RegisterEvent("PLAYER_ENTERING_WORLD", initialize())
