@@ -5,7 +5,7 @@ private.events:RegisterEvent("MERCHANT_SHOW", function()
         local cost, needed = GetRepairAllCost()
         if needed then
 
-            if private.IsGuildGroup() and CanGuildBankRepair() then
+            if CanGuildBankRepair() then
                 -- Repair by the guild repair if we are in a guild group and have the ability to repair by guild repair.
 
                 local GuildWealth = GetGuildBankWithdrawMoney() > cost
