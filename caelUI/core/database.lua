@@ -23,7 +23,7 @@ function private.database.save (self)
         if type(self) == "table" then
             self.name = "system_" .. system_generated_count
             databases[self.name] = self
-            System_Generated_Count = system_generated_count + 1
+            system_generated_count = system_generated_count + 1
         end
     end
 
@@ -38,7 +38,7 @@ function private.database.save (self)
 end
 
 -- This will setup our database system upon the addon being loading.
-function initialize ()
+local function initialize (_, event)
     if not cael_user then
         cael_user = {}
     end
@@ -52,6 +52,8 @@ function initialize ()
     else
         cael_user["databases"] = {}
     end
+
+    private.events:UnregisterEvent(event, initialize)
 end
 
 private.events:RegisterEvent("ADDON_LOADED", initialize)
