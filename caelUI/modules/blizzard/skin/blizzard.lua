@@ -84,23 +84,23 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
         "InterfaceOptionsFrame",
         "VideoOptionsFrame",
         "AudioOptionsFrame",
-        "LFDDungeonReadyStatus",
+        "LFGDungeonReadyStatus",
         "BNToastFrame",
         "TicketStatusFrameButton",
         "DropDownList1MenuBackdrop",
         "DropDownList2MenuBackdrop",
         "DropDownList1Backdrop",
         "DropDownList2Backdrop",
-        "LFDSearchStatus",
+        "LFGSearchStatus",
         "AutoCompleteBox",
         "ReadyCheckFrame",
         "ColorPickerFrame",
         "ConsolidatedBuffsTooltip",
-        "LFDRoleCheckPopup",
+        "LFGDungeonReadyPopup",
         "VoiceChatTalkers",
-        "ChannelPulloutBackground",         
+        "ChannelPulloutBackground",
         "FriendsTooltip",
-        "LFDDungeonReadyDialog",
+        "LFGDungeonReadyDialog",
         "GuildInviteFrame",
         "ChatConfigFrame",
         "RolePollPopup",
@@ -110,9 +110,8 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
         "InterfaceOptionsFrameTab1",
         "InterfaceOptionsFrameTab2",
         "VideoOptionsFrameCategoryFrame",
-        "VideoOptionsFramePanelContainer",          
+        "VideoOptionsFramePanelContainer",
         "AudioOptionsFrameCategoryFrame",
-        --"AudioOptionsFramePanelContainer",            
         "AudioOptionsSoundPanel",
         "AudioOptionsSoundPanelPlayback",
         "AudioOptionsSoundPanelHardware",
@@ -219,13 +218,13 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
         "ColorPickerCancelButton",
         "GuildInviteFrameJoinButton",
         "GuildInviteFrameDeclineButton",
-        "LFDDungeonReadyDialogLeaveQueueButton",
-        "LFDDungeonReadyDialogEnterDungeonButton",
+        "LFGDungeonReadyDialogLeaveQueueButton",
+        "LFGDungeonReadyDialogEnterDungeonButton",
         "ChatConfigFrameDefaultButton",
         "ChatConfigFrameOkayButton",
         "RolePollPopupAcceptButton",
-        "LFDRoleCheckPopupDeclineButton",
-        "LFDRoleCheckPopupAcceptButton",
+        --"LFGDungeonReadyPopupDeclineButton",
+        --"LFGDungeonReadyPopupAcceptButton",
     } do
         SkinButton(_G[button])
     end
@@ -274,12 +273,12 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
     SkinButton(_G["StackSplitCancelButton"])
     _G["StackSplitFrame"]:GetRegions():Hide()
     
-    _G["LFDRoleCheckPopupAcceptButtonLeft"]:SetAlpha(0)
-    _G["LFDRoleCheckPopupAcceptButtonMiddle"]:SetAlpha(0)
-    _G["LFDRoleCheckPopupAcceptButtonRight"]:SetAlpha(0)
-    _G["LFDRoleCheckPopupDeclineButtonLeft"]:SetAlpha(0)
-    _G["LFDRoleCheckPopupDeclineButtonMiddle"]:SetAlpha(0)
-    _G["LFDRoleCheckPopupDeclineButtonRight"]:SetAlpha(0)
+    -- _G["LFGRoleCheckPopupAcceptButtonLeft"]:SetAlpha(0)
+    -- _G["LFGRoleCheckPopupAcceptButtonMiddle"]:SetAlpha(0)
+    -- _G["LFGRoleCheckPopupAcceptButtonRight"]:SetAlpha(0)
+    -- _G["LFGRoleCheckPopupDeclineButtonLeft"]:SetAlpha(0)
+    -- _G["LFGRoleCheckPopupDeclineButtonMiddle"]:SetAlpha(0)
+    -- _G["LFGRoleCheckPopupDeclineButtonRight"]:SetAlpha(0)
     
     _G["InterfaceOptionsFrameTab1Left"]:SetAlpha(0)
     _G["InterfaceOptionsFrameTab1Middle"]:SetAlpha(0)

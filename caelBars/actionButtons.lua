@@ -27,9 +27,11 @@ local function StyleButton(name, action)
     button:SetCheckedTexture(media.files.button_checked)
     button:SetHighlightTexture(media.files.button_highlight)
 
-    border:SetPoint("TOPLEFT", button, pixel_scale(-1), pixel_scale(1))
-    border:SetPoint("BOTTOMRIGHT", button, pixel_scale(1), pixel_scale(-1))
-    border:SetTexture(media.files.button_normal)
+    if border then
+        border:SetPoint("TOPLEFT", button, pixel_scale(-1), pixel_scale(1))
+        border:SetPoint("BOTTOMRIGHT", button, pixel_scale(1), pixel_scale(-1))
+        border:SetTexture(media.files.button_normal)
+    end
 
     icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     icon:SetPoint("TOPLEFT", button, pixel_scale(4.5), pixel_scale(-4.5))
@@ -39,8 +41,10 @@ local function StyleButton(name, action)
 
     cooldown:SetAllPoints(icon)
 
-    texture:SetAllPoints()
-    texture:SetVertexColor(0.5, 0.5, 0.5, 1)
+    if texture then
+        texture:SetAllPoints()
+        texture:SetVertexColor(0.5, 0.5, 0.5, 1)
+    end
 
     if not button.backdrop then
         button.backdrop = CreateFrame("Frame", nil, button)
@@ -78,7 +82,9 @@ local function StyleButton(name, action)
             hotkey.Show = hotkey.Hide
         end
 
-        name:Hide()
+        if name then
+            name:Hide()
+        end
 --[[
         if not button.glow then
             button.glow = button:CreateTexture(nil, "OVERLAY")

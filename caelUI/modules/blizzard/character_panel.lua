@@ -4,20 +4,6 @@ local pixel_scale = private.pixel_scale
 local ShowCloak = ShowCloak
 local ShowHelm = ShowHelm
 
---- XXX: This is killed in 4.3
---- These are removed on the PTR and are replaced with a built in UI element on the
---- character model frame that does the same thing plus (un)zoom the character model.
---- This will display a rotate left and right button for the character model frame. 
-if not private.ptr_check() then
-    CharacterModelFrameRotateLeftButton:ClearAllPoints()
-    CharacterModelFrameRotateLeftButton:SetScale(pixel_scale(0.85))
-    CharacterModelFrameRotateLeftButton:SetPoint("BOTTOMRIGHT", CharacterModelFrame, "BOTTOM", pixel_scale(1), pixel_scale(20))
-
-    CharacterModelFrameRotateRightButton:ClearAllPoints()
-    CharacterModelFrameRotateRightButton:SetScale(pixel_scale(0.85))
-    CharacterModelFrameRotateRightButton:SetPoint("BOTTOMLEFT", CharacterModelFrame, "BOTTOM", pixel_scale(-1), pixel_scale(20))
-end
-
 ---
 --- Add a checkbox to the character model frame (Default Hotkey "c") to show/hide the helm.
 ---
