@@ -1,9 +1,8 @@
 ﻿local _, caelMap = ...
 
-caelMap.eventFrame = CreateFrame("Frame")
+caelMap = CreateFrame("Frame")
 
 local kill = caelUI.kill
-local dummy = function() return end
 local pixelScale = caelUI.config.pixel_scale
 local media = caelUI.media
 
@@ -25,13 +24,6 @@ if ForceSmallMap == nil then
 end
 
 local SetupMap = function(self)
-    WorldMapFrame.oArrow = PositionWorldMapArrowFrame
-    PositionWorldMapArrowFrame = function(point, frame, anchor, x, y)
-        local playerX, playerY = GetPlayerMapPosition("player")
-        playerX = playerX * WorldMapDetailFrame:GetWidth()
-        playerY = -playerY * WorldMapDetailFrame:GetHeight()
-        WorldMapFrame.oArrow(point, frame, anchor, playerX * WORLDMAP_WINDOWED_SIZE, playerY * WORLDMAP_WINDOWED_SIZE)
-    end
 
     SetCVar("questPOI", 1)
     WatchFrame.showObjectives = true
@@ -45,18 +37,22 @@ local SetupMap = function(self)
     kill(WorldMapFrameMiniBorderRight)
     kill(WorldMapFrameSizeDownButton)
     kill(WorldMapFrameSizeUpButton)
+    kill(WorldMapLevelDropDown)
     kill(WorldMapPositioningGuide)
     kill(WorldMapQuestShowObjectives)
-    kill(WorldMapShowDigSites)
     kill(WorldMapTitleButton)
     kill(WorldMapTrackQuest)
 
     WorldMapFrame:SetAlpha(0.75)
-    WorldMapFrame.SetAlpha = dummy
+
+    WorldMapShowDigSites:ClearAllPoints()
+
+    WorldMapBlobFrame.Show = WorldMapBlobFrame.Hide
 
     WorldMapDetailFrame:ClearAllPoints()
     WorldMapDetailFrame:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixelScale(75))
     WorldMapDetailFrame:SetFrameStrata("MEDIUM")
+    --WorldMapFrame:SetScale(pixelScale(1 / WORLDMAP_WINDOWED_SIZE))
 
     WorldMapFrameTitle:ClearAllPoints()
     WorldMapFrameTitle:SetParent(WorldMapDetailFrame)
@@ -70,12 +66,12 @@ local SetupMap = function(self)
 
     WorldMapDetailFrame.bg = CreateFrame("Frame", nil, WorldMapDetailFrame)
     WorldMapDetailFrame.bg:SetScale(1 / WORLDMAP_WINDOWED_SIZE)
-    WorldMapDetailFrame.bg:SetPoint("TOPLEFT", -10, 50)
-    WorldMapDetailFrame.bg:SetPoint("BOTTOMRIGHT", 10, -10)
+    WorldMapDetailFrame.bg:SetPoint("TOPLEFT", pixelScale(-10), pixelScale(50))
+    WorldMapDetailFrame.bg:SetPoint("BOTTOMRIGHT", pixelScale(10), pixelScale(-10))
     WorldMapDetailFrame.bg:SetBackdrop({
         bgFile = media.files.background,
-        edgeFile = media.files.edge, edgeSize = 4,
-        insets = {left = 3, right = 3, top = 3, bottom = 3}
+        edgeFile = media.files.edge, edgeSize = pixelScale(4),
+        insets = {left = pixelScale(3), right = pixelScale(3), top = pixelScale(3), bottom = pixelScale(3)}
     })
     WorldMapDetailFrame.bg:SetFrameStrata("MEDIUM")
     WorldMapDetailFrame.bg:SetBackdropColor(0.15, 0.15, 0.15, 1)
@@ -97,10 +93,14 @@ local SetupMap = function(self)
         local PlayerX, PlayerY = GetPlayerMapPosition("player")
         Player:SetFormattedText("Player X, Y • %.1f, %.1f", PlayerX * 100, PlayerY * 100)
 
-        local CenterX, CenterY = WorldMapDetailFrame:GetCenter()
+        local Scale = WorldMapDetailFrame:GetEffectiveScale()
+        local Width, Height = WorldMapDetailFrame:GetWidth(), WorldMapDetailFrame:GetHeight()
+
         local CursorX, CursorY = GetCursorPosition()
-        CursorX = ((CursorX / WORLDMAP_WINDOWED_SIZE) - (CenterX - (WorldMapDetailFrame:GetWidth() / 2))) / 10
-        CursorY = (((CenterY + (WorldMapDetailFrame:GetHeight() / 2)) - (CursorY / WORLDMAP_WINDOWED_SIZE)) / WorldMapDetailFrame:GetHeight()) * 100
+        local CenterX, CenterY = WorldMapDetailFrame:GetCenter()
+
+        CursorX = (CursorX / Scale - (CenterX - (Width / 2))) / Width * 100
+        CursorY = (CenterY + (Height / 2) - CursorY / Scale) / Height * 100
 
         if CursorX >= 100 or CursorY >= 100 or CursorX <= 0 or CursorY <= 0 then
             Cursor:SetText("Cursor X, Y • |cffAF5050Out of bounds.|r")
@@ -111,34 +111,38 @@ local SetupMap = function(self)
     self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-local function fixMapIcon(unit, size)
+local function FixMapIcon(unit, size)
     local frame = _G[unit]
-    if not frame then return end
+
+    if not frame then
+        return
+    end
 
     frame:SetWidth(size)
     frame:SetHeight(size)
 end
 
-caelMap.eventFrame:SetScript("OnEvent", function(self, event)
+caelMap:SetScript("OnEvent", function(self, event)
     if event == "PLAYER_ENTERING_WORLD" then
         SetupMap(self)
-        setupMap = nil
+        SetupMap = nil
 
         for index = 1, 4 do
-            fixMapIcon(format("WorldMapParty%d", index), pixelScale(24))
+            FixMapIcon(format("WorldMapParty%d", index), pixelScale(24))
             if BattlefieldMinimap then
-                fixMapIcon(format("BattlefieldMinimapParty%d", index), pixelScale(24))
+                FixMapIcon(format("BattlefieldMinimapParty%d", index), pixelScale(24))
             end
         end
         for index = 1, 40 do
-            fixMapIcon(format("WorldMapRaid%d", index), pixelScale(24))
+            FixMapIcon(format("WorldMapRaid%d", index), pixelScale(24))
             if BattlefieldMinimap then
-                fixMapIcon(format("BattlefieldMinimapRaid%d", index), pixelScale(24))
+                FixMapIcon(format("BattlefieldMinimapRaid%d", index), pixelScale(24))
             end
         end
-
-        WorldMapBlobFrame.Show = dummy
-        WorldMapBlobFrame.Hide = dummy
+    elseif event == "WORLD_MAP_UPDATE" then
+        if WorldMapFrameTitle:GetText() ~= GetRealZoneText() then
+            WorldMapFrameTitle:SetText(GetRealZoneText())
+        end
     elseif event == "PLAYER_REGEN_DISABLED" then
         WorldMapBlobFrame:DrawBlob(WORLDMAP_SETTINGS.selectedQuestId, false)
         WorldMapBlobFrame:DrawBlob(WORLDMAP_SETTINGS.selectedQuestId, true)
@@ -152,7 +156,8 @@ end)
 for _, event in next, {
     "PLAYER_ENTERING_WORLD",
     "PLAYER_REGEN_DISABLED",
-    "PLAYER_REGEN_ENABLED"
+    "PLAYER_REGEN_ENABLED",
+    "WORLD_MAP_UPDATE"
 } do
-    caelMap.eventFrame:RegisterEvent(event)
+    caelMap:RegisterEvent(event)
 end
