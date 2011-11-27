@@ -8,10 +8,12 @@ function private.print (addon, ...)
     print(strings.cael:format(addon), ...)
 end
 
+local print = private.print
+
 function private.error (...)
-    print("Error", string.format(...))
+    print("Error", ...)
 end
 
 function private.debug (...)
-    print("Debug", string.format(...))
+    print("Debug", ...)
 end
