@@ -124,12 +124,18 @@ local function caelButtons_ActionUsable(self)
     local texture  = _G[format("%sNormalTexture", name)]
 
     if IsEquippedAction(action) then
-        texture:SetVertexColor(0.33, 0.59, 0.33, 1)
+        if texture then
+            texture:SetVertexColor(0.33, 0.59, 0.33, 1)
+        end
+
         if self.gloss then
             self.gloss:SetBackdropColor(0.33, 0.59, 0.33, 0.5)
         end
     else
-        texture:SetVertexColor(0.5, 0.5, 0.5, 1)
+        if texture then
+            texture:SetVertexColor(0.5, 0.5, 0.5, 1)
+        end
+
         if self.gloss then
             self.gloss:SetBackdropColor(0.25, 0.25, 0.25, 0.5)
         end
