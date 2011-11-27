@@ -1,6 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <!-- This lets us move the power bar around on the screen. -->
+    <!-- This lets us move the PlayerPowerBarAlt around on the screen. -->
     <script file="PlayerPowerBarAlt.lua" />
+
+    <!-- This lets us move the new ExtraActionBarFrame around. -->
+    <script file="ExtraActionBarFrame.lua" />
 
     <!-- The watch frame -->
     <script file="WatchFrame.lua" />
