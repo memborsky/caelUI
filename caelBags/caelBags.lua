@@ -5,6 +5,7 @@ _G["caelBags"] = caelBags
 -- Used to for moving to the new caelUI system.
 local media = caelUI.media
 local pixel_scale = caelUI.config.pixel_scale
+local kill = caelUI.kill
 
 -- Constants
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS         -- Amount of bag slots.
@@ -84,10 +85,9 @@ function Container:RemoveButton(remButton)
 end
 
 -- Return a new container.
-function Container:New(name, maxColumns)
---  local c = CreateFrame("Button", nil, UIParent)
+function Container:New(name, maxColumns, search)
     local c = CreateFrame("Button", format("caelBags%s", name), UIParent)
-    c:SetFrameStrata("HIGH")
+    c:SetFrameStrata("MEDIUM") -- Moved from high to low for the new search bar.
     c:SetBackdrop(media.backdrop_table)
     c:Hide()
 
@@ -97,6 +97,27 @@ function Container:New(name, maxColumns)
 
     self.containers[name] = c
     setmetatable(c, ContainerMT)
+
+    -- The below section will handle setting up the new search bars to be tied into the bag frames.
+    c.search = search
+
+    -- Kill the default search box textures that are true to the 1990 era ugly they have always been.
+    kill(search .. "Left")
+    kill(search .. "Right")
+    kill(search .. "Middle")
+
+    -- Manipulate the search frame into the position and size we want it.
+    local search_frame = _G[search]
+    search_frame:SetBackdrop(media.backdrop_table)
+    search_frame:SetBackdropColor(0, 0, 0, 1)
+    search_frame:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5)
+    search_frame:SetParent(c)
+    search_frame:ClearAllPoints()
+    search_frame:SetPoint("BOTTOM", c, "BOTTOM", 0, pixel_scale(5))
+    search_frame:SetHeight(pixel_scale(18))
+
+    -- Fix the position of the search icon.
+    _G[search .. "SearchIcon"]:SetPoint("LEFT", search_frame, "LEFT", pixel_scale(3), pixel_scale(-1.5))
 
     return c
 end
@@ -124,7 +145,7 @@ function Container:Close()
 end
 
 -- Create the frames for each type of container: bag, bank and ammo.
-local bags = Container:New("bag", numBagColumns)
+local bags = Container:New("bag", numBagColumns, "BagItemSearchBox")
 bags:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", pixel_scale(-30), pixel_scale(-168))
 bags:SetBackdropColor(0, 0, 0, 0.7)
 bags:SetBackdropBorderColor(0, 0, 0)
@@ -132,7 +153,7 @@ bags.preventCloseAll = true
 bags.hasButtons = true
 caelBags.bags = bags
 
-local bank = Container:New("bank", numBankColumns)
+local bank = Container:New("bank", numBankColumns, "BankItemSearchBox")
 bank:SetPoint("BOTTOMRIGHT", bags, "BOTTOMLEFT", 0, 0)
 bank:SetBackdropColor(0, 0, 0, 0.7)
 bank:SetBackdropBorderColor(0, 0, 0)
@@ -309,11 +330,10 @@ local function ContainerFrameOnHide(self)
         end
     end
 
-    --[[
-    if not container.preventCloseAll then
-        CloseAllBags()
+    -- Make sure to show the bags search bar.
+    if self == BankFrame then
+        _G[caelBags.bags.search]:Show()
     end
-    --]]
 
     container:Refresh()
 end
@@ -367,6 +387,8 @@ BankFrame:HookScript("OnShow", function()
     end
 
     caelBags.bank:UpdateSize()
+
+    _G[caelBags.bags.search]:Hide()
 end)
 
 BankFrame:HookScript("OnHide", ContainerFrameOnHide)
