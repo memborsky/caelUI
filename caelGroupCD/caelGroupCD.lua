@@ -60,7 +60,7 @@ end
 local SetFontString = function(parent, fontName, fontHeight, fontStyle)
     local fs = parent:CreateFontString(nil, "OVERLAY")
     fs:SetFont(fontName, fontHeight, fontStyle)
-    fs:SetShadowColor(0, 0, 0)
+    fs:SetShadowColor(0, 0, 0, 0)
     fs:SetShadowOffset(0.75, -0.75)
 
     return fs
@@ -109,7 +109,7 @@ local CreateBar = function(id)
     bar.name:ClearAllPoints()
     bar.name:SetPoint("BOTTOMLEFT", bar.statusbar, "TOPLEFT", pixel_scale(1), pixel_scale(3))
     bar.name:SetJustifyH("LEFT")
-    bar.name:SetWidth(pixel_scale(165))
+    bar.name:SetWidth(pixel_scale(155))
     bar.name:SetHeight(pixel_scale(10))
 
     bar.duration = SetFontString(bar, media.fonts.custom_number, 11, "")
