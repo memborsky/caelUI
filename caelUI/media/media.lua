@@ -63,15 +63,50 @@ media.border_table = {
     insets   = media.inset_table
 }
 
-function media.create_backdrop (parent)
-    local backdrop = CreateFrame("Frame", nil, parent)
+function media.create_backdrop (parent, name)
+    local backdrop = CreateFrame("Frame", name and name or nil, parent)
     backdrop:SetPoint("TOPLEFT", parent, "TOPLEFT", pixel_scale(-2.5), pixel_scale(2.5))
     backdrop:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", pixel_scale(2.5), pixel_scale(-2.5))
     backdrop:SetFrameLevel(parent:GetFrameLevel() - 1 > 0 and parent:GetFrameLevel() - 1 or 0)
     backdrop:SetBackdrop(media.backdrop_table)
     backdrop:SetBackdropColor(0, 0, 0, 0.5)
     backdrop:SetBackdropBorderColor(0, 0, 0, 1)
+    backdrop:SetFrameStrata("BACKGROUND")
     return backdrop
+end
+
+function media.create_blank_backdrop (parent, name)
+    local overlay = CreateFrame("Frame", name and name or nil, parent)
+    overlay:SetFrameLevel(parent:GetFrameLevel() - 1 > 0 and parent:GetFrameLevel() - 1 or 1)
+    overlay:SetFrameStrata("BACKGROUND")
+    overlay:SetPoint("TOPLEFT", parent, "TOPLEFT", pixel_scale(-2.5), pixel_scale(2.5))
+    overlay:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", pixel_scale(2.5), pixel_scale(-2.5))
+    overlay:SetBackdrop({
+        bgFile = [[Interface\Addons\caelUI\media\borders\blank]],
+        edgeFile = [[Interface\Addons\caelUI\media\borders\blank]],
+        tile = false, tileSize = 0, edgeSize = pixel_scale(1),
+        insets = {left = -pixel_scale(1), right = -pixel_scale(1), top = -pixel_scale(1), bottom = -pixel_scale(1)}
+    })
+    overlay:SetBackdropColor(0, 0, 0, 0.5)
+    overlay:SetBackdropBorderColor(0, 0, 0, 1)
+    return overlay
+end
+
+function media.create_shadow (parent, name)
+    local shadow = CreateFrame("Frame", name and name or nil, parent)
+    shadow:SetFrameLevel(parent:GetFrameLevel() - 1 > 0 and parent:GetFrameLevel() - 1 or 1)
+    shadow:SetFrameStrata("BACKGROUND")
+    shadow:SetPoint("TOPLEFT", -pixel_scale(3), pixel_scale(3))
+    shadow:SetPoint("BOTTOMLEFT", -pixel_scale(3), -pixel_scale(3))
+    shadow:SetPoint("TOPRIGHT", pixel_scale(3), pixel_scale(3))
+    shadow:SetPoint("BOTTOMRIGHT", pixel_scale(3), -pixel_scale(3))
+    shadow:SetBackdrop({
+        edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = pixel_scale(3),
+        insets = {left = pixel_scale(5), right = pixel_scale(5), top = pixel_scale(5), bottom = pixel_scale(5)},
+    })
+    shadow:SetBackdropColor(0, 0, 0, 0)
+    shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
+    return shadow
 end
 
 -- We do this just to make sure that everything is getting saved to the users variables.
