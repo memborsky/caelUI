@@ -3,29 +3,32 @@ local _, caelNameplates = ...
 caelNameplates.eventFrame = CreateFrame("Frame", nil, UIParent)
 
 if not IsAddOnLoaded("caelCore") then
-    -- 1 might make nameplates larger but it fixes the disappearing ones.
-    SetCVar("bloattest", 0)
-
-    -- 1 makes nameplates larger depending on threat percentage.
-    SetCVar("bloatnameplates", 0)
-
-    -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat table.
-    SetCVar("bloatthreat", 0)
+    SetCVar("bloattest", 0) -- 1 might make nameplates larger but it fixes the disappearing ones.
+    SetCVar("bloatnameplates", 0) -- 1 makes nameplates larger depending on threat percentage.
+    SetCVar("bloatthreat", 0) -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat table.
 end
-
--- Not sure (testing)
-SetCVar("threatWarning", 3)
-SetCVar("nameplateMotion", "0")
---InterfaceOptionsNamesPanelUnitNameplatesMotionDropDown:Kill()
 
 local media = caelUI.media
 local barTexture = media.files.statusbar_c
 local iconTexture = media.files.button_normal
 local raidIcons = media.files.raid_icons
 local overlayTexture = [=[Interface\Tooltips\Nameplate-Border]=]
-local font, fontSize, fontOutline = media.fonts.nameplate, 9, 8
-local pixel_scale = caelUI.config.pixel_scale
+local font, fontSize, fontOutline = media.fonts.nameplate, 8
 
+local select = select
+
+local pixelScale = caelUI.config.pixel_scale
+--[[
+local IsValidFrame = function(frame)
+    if frame:GetName() then
+        return
+    end
+
+    overlayRegion = select(2, frame:GetRegions())
+
+    return overlayRegion and overlayRegion:GetObjectType() == "Texture" and overlayRegion:GetTexture() == overlayTexture
+end
+--]]
 local UpdateTime = function(self, curValue)
     local minValue, maxValue = self:GetMinMaxValues()
     if self.channeling then
@@ -56,45 +59,43 @@ local ThreatUpdate = function(self, elapsed)
 end
 
 local UpdatePlate = function(self)
-    -- Reset text color just in case
-    self.name:SetTextColor(0.84, 0.75, 0.65)
-
     local r, g, b = self.healthBar:GetStatusBarColor()
     local newr, newg, newb
     if g + b == 0 then
         -- Hostile unit
         newr, newg, newb = 0.69, 0.31, 0.31
+        self.healthBar:SetStatusBarColor(0.69, 0.31, 0.31)
     elseif r + b == 0 then
         -- Friendly unit
         newr, newg, newb = 0.33, 0.59, 0.33
+        self.healthBar:SetStatusBarColor(0.33, 0.59, 0.33)
     elseif r + g == 0 then
         -- Friendly player
         newr, newg, newb = 0.31, 0.45, 0.63
+        self.healthBar:SetStatusBarColor(0.31, 0.45, 0.63)
     elseif 2 - (r + g) < 0.05 and b == 0 then
         -- Neutral unit
         newr, newg, newb = 0.65, 0.63, 0.35
+        self.healthBar:SetStatusBarColor(0.65, 0.63, 0.35)
     else
         -- Hostile player - class colored.
         newr, newg, newb = r, g, b
-        self.name:SetTextColor(r, g, b)
     end
-
-    self.healthBar:SetStatusBarColor(newr, newg, newb)
 
     self.r, self.g, self.b = newr, newg, newb
 
     self.healthBar:ClearAllPoints()
-    self.healthBar:SetPoint("BOTTOM", self.healthBar:GetParent(), "BOTTOM")
-    self.healthBar:SetHeight(pixel_scale(8))
-    self.healthBar:SetWidth(pixel_scale(100))
+    self.healthBar:SetPoint("CENTER", self.healthBar:GetParent())
+    self.healthBar:SetHeight(pixelScale(8))
+    self.healthBar:SetWidth(pixelScale(100))
 
     self.healthBar.hpBackground:SetVertexColor(self.r * 0.33, self.g * 0.33, self.b * 0.33, 0.75)
     self.castBar.IconOverlay:SetVertexColor(self.r, self.g, self.b)
 
     self.castBar:ClearAllPoints()
-    self.castBar:SetPoint("TOP", self.healthBar, "BOTTOM", 0, pixel_scale(-4))
-    self.castBar:SetHeight(pixel_scale(5))
-    self.castBar:SetWidth(pixel_scale(100))
+    self.castBar:SetPoint("TOP", self.healthBar, "BOTTOM", 0, pixelScale(-4))
+    self.castBar:SetHeight(pixelScale(5))
+    self.castBar:SetWidth(pixelScale(100))
 
     self.highlight:ClearAllPoints()
     self.highlight:SetAllPoints(self.healthBar)
@@ -106,12 +107,12 @@ local UpdatePlate = function(self)
 
     local level, elite, mylevel = tonumber(self.level:GetText()), self.elite:IsShown(), UnitLevel("player")
     self.level:ClearAllPoints()
-    self.level:SetPoint("RIGHT", self.healthBar, "LEFT", pixel_scale(-2), 0)
+    self.level:SetPoint("RIGHT", self.healthBar, "LEFT", pixelScale(-2), 0)
     if self.boss:IsShown() then
         self.level:SetText("B")
         self.level:SetTextColor(0.8, 0.05, 0)
         self.level:Show()
-    elseif not elite and (mylevel == MAX_PLAYER_LEVEL and level == mylevel) then
+    elseif not elite and level == mylevel then
         self.level:Hide()
     else
         self.level:SetText(level..(elite and "+" or ""))
@@ -121,9 +122,9 @@ end
 local FixCastbar = function(self)
     self.castbarOverlay:Hide()
 
-    self:SetHeight(pixel_scale(5))
+    self:SetHeight(pixelScale(5))
     self:ClearAllPoints()
-    self:SetPoint("TOP", self.healthBar, "BOTTOM", 0, pixel_scale(-4))
+    self:SetPoint("TOP", self.healthBar, "BOTTOM", 0, pixelScale(-4))
 end
 
 local ColorCastBar = function(self, shielded)
@@ -135,23 +136,31 @@ local ColorCastBar = function(self, shielded)
     end
 end
 
-local OnSizeChanged = function(self)
-    self.needFix = true
-end
-
-local OnValueChanged = function(self, curValue)
-    UpdateTime(self, curValue)
-    if self.needFix then
-        FixCastbar(self)
-        self.needFix = nil
+local OnSizeChanged = function(self, width, height)
+    if floor(height) ~= 5 then
+        self.needFix = true
     end
 end
 
 local OnShow = function(self)
     self.channeling  = UnitChannelInfo("target")
-    FixCastbar(self)
+
+    if self.needFix then
+        FixCastbar(self)
+        self.needFix = nil
+    end
+
     ColorCastBar(self, self.shieldedRegion:IsShown())
     self.IconOverlay:Show()
+end
+
+local OnValueChanged = function(self, curValue)
+    UpdateTime(self, curValue)
+
+    if self.needFix then
+        FixCastbar(self)
+        self.needFix = nil
+    end
 end
 
 local OnHide = function(self)
@@ -175,27 +184,26 @@ local CreatePlate = function(frame)
     frame.nameplate = true
 
     frame.healthBar, frame.castBar = frame:GetChildren()
+
     local healthBar, castBar = frame.healthBar, frame.castBar
-    
     local glowRegion, overlayRegion, highlightRegion, nameTextRegion, levelTextRegion, bossIconRegion, raidIconRegion, stateIconRegion = frame:GetRegions()
     local _, castbarOverlay, shieldedRegion, spellIconRegion = castBar:GetRegions()
 
     frame.oldname = nameTextRegion
     nameTextRegion:Hide()
 
-    frame.name = frame:CreateFontString()
-    frame.name:SetPoint("BOTTOM", healthBar, "TOP", 0, pixel_scale(2))
-    frame.name:SetFont(font, fontSize, fontOutline)
-    frame.name:SetTextColor(0.84, 0.75, 0.65)
-    frame.name:SetShadowOffset(1.25, -1.25)
+    local newNameRegion = frame:CreateFontString()
+    newNameRegion:SetPoint("BOTTOMLEFT", healthBar, "TOPLEFT", 0, pixelScale(-2))
+    newNameRegion:SetFont(font, fontSize, fontOutline)
+    newNameRegion:SetTextColor(0.84, 0.75, 0.65)
+    newNameRegion:SetShadowOffset(1.25, -1.25)
+    frame.name = newNameRegion
 
     frame.level = levelTextRegion
     levelTextRegion:SetFont(font, fontSize, fontOutline)
     levelTextRegion:SetShadowOffset(1.25, -1.25)
 
     healthBar:SetStatusBarTexture(barTexture)
-    healthBar:SetFrameLevel(frame.healthBar:GetFrameLevel())
-    healthBar:SetFrameStrata(frame.healthBar:GetFrameStrata())
 
     healthBar.hpBackground = healthBar:CreateTexture(nil, "BACKGROUND")
     healthBar.hpBackground:SetAllPoints()
@@ -203,8 +211,8 @@ local CreatePlate = function(frame)
 
     healthBar.hpGlow = CreateFrame("Frame", nil, healthBar)
     healthBar.hpGlow:SetFrameLevel(healthBar:GetFrameLevel() -1 > 0 and healthBar:GetFrameLevel() -1 or 0)
-    healthBar.hpGlow:SetPoint("TOPLEFT", healthBar, "TOPLEFT", pixel_scale(-2), pixel_scale(2))
-    healthBar.hpGlow:SetPoint("BOTTOMRIGHT", healthBar, "BOTTOMRIGHT", pixel_scale(2), pixel_scale(-2))
+    healthBar.hpGlow:SetPoint("TOPLEFT", healthBar, "TOPLEFT", pixelScale(-2), pixelScale(2))
+    healthBar.hpGlow:SetPoint("BOTTOMRIGHT", healthBar, "BOTTOMRIGHT", pixelScale(2), pixelScale(-2))
     healthBar.hpGlow:SetBackdrop(media.backdrop_table)
     healthBar.hpGlow:SetBackdropColor(0, 0, 0, 0)
     healthBar.hpGlow:SetBackdropBorderColor(0, 0, 0)
@@ -222,7 +230,7 @@ local CreatePlate = function(frame)
     castBar:RegisterEvent("UNIT_SPELLCAST_NOT_INTERRUPTIBLE")
 
     castBar.time = castBar:CreateFontString(nil, "ARTWORK")
-    castBar.time:SetPoint("RIGHT", castBar, "LEFT", pixel_scale(-2), 0)
+    castBar.time:SetPoint("RIGHT", castBar, "LEFT", pixelScale(-2), 0)
     castBar.time:SetFont(font, fontSize, fontOutline)
     castBar.time:SetTextColor(0.84, 0.75, 0.65)
     castBar.time:SetShadowOffset(1.25, -1.25)
@@ -234,8 +242,8 @@ local CreatePlate = function(frame)
 
     castBar.cbGlow = CreateFrame("Frame", nil, castBar)
     castBar.cbGlow:SetFrameLevel(castBar:GetFrameLevel() -1 > 0 and castBar:GetFrameLevel() -1 or 0)
-    castBar.cbGlow:SetPoint("TOPLEFT", castBar, pixel_scale(-2), pixel_scale(2))
-    castBar.cbGlow:SetPoint("BOTTOMRIGHT", castBar, pixel_scale(2), pixel_scale(-2))
+    castBar.cbGlow:SetPoint("TOPLEFT", castBar, pixelScale(-2), pixelScale(2))
+    castBar.cbGlow:SetPoint("BOTTOMRIGHT", castBar, pixelScale(2), pixelScale(-2))
     castBar.cbGlow:SetBackdrop(media.backdrop_table)
     castBar.cbGlow:SetBackdropColor(0, 0, 0, 0)
     castBar.cbGlow:SetBackdropBorderColor(0, 0, 0)
@@ -246,16 +254,16 @@ local CreatePlate = function(frame)
 
     spellIconRegion:ClearAllPoints()
     spellIconRegion:SetParent(castBar.HolderA)
-    spellIconRegion:SetPoint("LEFT", castBar, pixel_scale(8), 0)
-    spellIconRegion:SetSize(pixel_scale(15), pixel_scale(15))
+    spellIconRegion:SetPoint("LEFT", castBar, pixelScale(8), 0)
+    spellIconRegion:SetSize(pixelScale(15), pixelScale(15))
 
     castBar.HolderB = CreateFrame("Frame", nil, castBar)
     castBar.HolderB:SetFrameLevel(castBar.HolderA:GetFrameLevel() + 2)
     castBar.HolderB:SetAllPoints()
 
     castBar.IconOverlay = castBar.HolderB:CreateTexture(nil, "OVERLAY")
-    castBar.IconOverlay:SetPoint("TOPLEFT", spellIconRegion, pixel_scale(-1.5), pixel_scale(1.5))
-    castBar.IconOverlay:SetPoint("BOTTOMRIGHT", spellIconRegion, pixel_scale(1.5), pixel_scale(-1.5))
+    castBar.IconOverlay:SetPoint("TOPLEFT", spellIconRegion, pixelScale(-1.5), pixelScale(1.5))
+    castBar.IconOverlay:SetPoint("BOTTOMRIGHT", spellIconRegion, pixelScale(1.5), pixelScale(-1.5))
     castBar.IconOverlay:SetTexture(iconTexture)
 
     highlightRegion:SetTexture(barTexture)
@@ -263,9 +271,9 @@ local CreatePlate = function(frame)
     frame.highlight = highlightRegion
 
     raidIconRegion:ClearAllPoints()
-    raidIconRegion:SetPoint("RIGHT", healthBar, pixel_scale(-8), 0)
-    raidIconRegion:SetSize(pixel_scale(15), pixel_scale(15))
-    raidIconRegion:SetTexture(raidIcons)
+    raidIconRegion:SetPoint("RIGHT", healthBar, pixelScale(-8), 0)
+    raidIconRegion:SetSize(pixelScale(15), pixelScale(15))
+    raidIconRegion:SetTexture(raidIcons)    
 
     frame.oldglow = glowRegion
     frame.elite = stateIconRegion
@@ -301,6 +309,7 @@ caelNameplates.eventFrame:SetScript("OnUpdate", function(self, elapsed)
             for i = numKids + 1, newNumKids do
                 local frame = select(i, WorldFrame:GetChildren())
 
+--              if IsValidFrame(frame) then
                 if (frame:GetName() and frame:GetName():find("NamePlate%d")) then
                     CreatePlate(frame)
                 end
