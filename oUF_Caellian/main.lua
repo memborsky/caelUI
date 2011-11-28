@@ -38,8 +38,7 @@ local execThreshold = {
 
 local healingSpecs = {
     ["PALADIN"] = 1,
-    -- We check priest against the opposite due to shadow being the only dps spec for priest.
-    ["PRIEST"]  = 3,
+    ["PRIEST"]  = 3, -- We check priest against the opposite due to shadow being the only dps spec for priest.
     ["SHAMAN"]  = 3,
     ["DRUID"]   = 3,
 }
@@ -407,14 +406,13 @@ local PostCastStart = function(castbar, unit, name, rank, castid)
         local latency = GetTime() - (castbar.castSent or 0)
         latency = latency > castbar.max and castbar.max or latency
 
-        if castbar.Latency then
+        if latency then
             castbar.Latency:SetText(("%d ms"):format(latency * 1e3))
+            castbar.SafeZone:SetWidth(pixel_scale(castbar:GetWidth() * latency / castbar.max))
+            castbar.SafeZone:ClearAllPoints()
+            castbar.SafeZone:SetPoint("TOPRIGHT")
+            castbar.SafeZone:SetPoint("BOTTOMRIGHT")
         end
-
-        castbar.SafeZone:SetWidth(pixel_scale(castbar:GetWidth() * latency / castbar.max))
-        castbar.SafeZone:ClearAllPoints()
-        castbar.SafeZone:SetPoint("TOPRIGHT")
-        castbar.SafeZone:SetPoint("BOTTOMRIGHT")
     end
 
     if castbar.interrupt and UnitCanAttack("player", unit) then
