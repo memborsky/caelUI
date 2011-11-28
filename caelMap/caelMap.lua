@@ -49,6 +49,9 @@ local SetupMap = function(self)
 
     WorldMapBlobFrame.Show = WorldMapBlobFrame.Hide
 
+    -- Hack to get around :Hide() not being called while in combat.
+    WorldMapBlobFrame.Hide = function() return end
+
     WorldMapDetailFrame:ClearAllPoints()
     WorldMapDetailFrame:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixelScale(75))
     WorldMapDetailFrame:SetFrameStrata("MEDIUM")
