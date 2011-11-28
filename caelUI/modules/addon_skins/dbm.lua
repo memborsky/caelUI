@@ -207,8 +207,8 @@ local function SkinBars(self)
             if not name.styled then
                 name:ClearAllPoints()
                 name:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, pixel_scale(4))
-                name:SetWidth(165)
-                name:SetHeight(8)
+                name:SetWidth(pixel_scale(155))
+                name:SetHeight(pixel_scale(8))
                 name:SetFont(media.fonts.normal, 12, "OUTLINE")
                 name:SetJustifyH("LEFT")
                 name:SetShadowColor(0, 0, 0, 0)
@@ -429,7 +429,7 @@ local function SetupDBM()
     DBT_SavedOptions["DBM"].FontSize = 10
     DBT_SavedOptions["DBM"].Width = 170
     DBT_SavedOptions["DBM"].HugeWidth = 170
-    DBT_SavedOptions["DBM"].TimerX = 110
+    DBT_SavedOptions["DBM"].TimerX = 115
     DBT_SavedOptions["DBM"].TimerY = 0
     DBT_SavedOptions["DBM"].TimerPoint = "LEFT"
     DBT_SavedOptions["DBM"].HugeTimerX = 0
