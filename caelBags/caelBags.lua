@@ -379,12 +379,11 @@ tinsert(UISpecialFrames, caelBags.bags)
 
 local closeBags = function()
     caelBags.bank:Hide()
-    caelBags.bags:Hide()
+    CloseBankFrame()
 
     for i = 0, 11 do
         CloseBag(i)
     end
-    CloseBag(-2)
 end
 
 local openBags = function()
@@ -402,11 +401,12 @@ local toggleBags = function()
     end
 end
 
-hooksecurefunc(BankFrame, "Show", openBags)
+hooksecurefunc(BankFrame, "Show", function()
+    openBags()
+end)
 hooksecurefunc(BankFrame, "Hide", closeBags)
 
 ToggleBackpack = toggleBags
-OpenAllBags = toggleBags
+OpenAllBags = openBags
 OpenBackpack = openBags
-CloseBackpack = closeBags
 CloseAllBags = closeBags
