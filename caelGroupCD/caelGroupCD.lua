@@ -32,7 +32,7 @@ local spells = {
 local filter = COMBATLOG_OBJECT_AFFILIATION_RAID + COMBATLOG_OBJECT_AFFILIATION_PARTY + COMBATLOG_OBJECT_AFFILIATION_MINE
 local floor, format, gsub = math.floor, string.format, string.gsub
 
-bars = {}
+local bars = {}
 local timer = 0
 
 local anchorframe = CreateFrame("Frame", nil, UIParent)
