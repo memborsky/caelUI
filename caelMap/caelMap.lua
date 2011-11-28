@@ -6,7 +6,7 @@ local kill = caelUI.kill
 local pixelScale = caelUI.config.pixel_scale
 local media = caelUI.media
 
-WORLDMAP_WINDOWED_SIZE = 1
+WORLDMAP_WINDOWED_SIZE = 0.99
 
 local Player = WorldMapButton:CreateFontString(nil, "ARTWORK")
 Player:SetPoint("TOPLEFT", WorldMapButton, 0, 40)
@@ -55,7 +55,7 @@ local SetupMap = function(self)
     WorldMapDetailFrame:ClearAllPoints()
     WorldMapDetailFrame:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixelScale(75))
     WorldMapDetailFrame:SetFrameStrata("MEDIUM")
-    --WorldMapFrame:SetScale(pixelScale(1 / WORLDMAP_WINDOWED_SIZE))
+    WorldMapDetailFrame:SetScale(pixelScale(1 / WORLDMAP_WINDOWED_SIZE))
 
     WorldMapFrameTitle:ClearAllPoints()
     WorldMapFrameTitle:SetParent(WorldMapDetailFrame)
