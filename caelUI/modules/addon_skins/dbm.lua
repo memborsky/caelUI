@@ -149,7 +149,7 @@ local function SkinBars(self)
                 frame:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
                 frame:SetBackdropBorderColor(0.6, 0.6, 0.6)
 
-                if Draw_Shadows and not frame.overlay.shadow then
+                if Draw_Shadows and not frame.shadow then
                     local shadow = CreateFrame("Frame", nil, frame.overlay)
                     shadow:SetFrameLevel(1)
                     shadow:SetFrameStrata("BACKGROUND")
@@ -163,7 +163,7 @@ local function SkinBars(self)
                     })
                     shadow:SetBackdropColor(0, 0, 0, 0)
                     shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
-                    frame.overlay.shadow = shadow
+                    frame.shadow = shadow
                 end
 
                 frame.styled = true
@@ -294,7 +294,7 @@ local SkinBoss=function()
             bar:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
             bar:SetBackdropBorderColor(0.6, 0.6, 0.6)
 
-            if Draw_Shadows and not bar.overlay.shadow then
+            if Draw_Shadows and not bar.shadow then
                 local shadow = CreateFrame("Frame", nil, bar.overlay)
                 shadow:SetFrameLevel(1)
                 shadow:SetFrameStrata("BACKGROUND")
@@ -308,7 +308,7 @@ local SkinBoss=function()
                 })
                 shadow:SetBackdropColor(0, 0, 0, 0)
                 shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
-                bar.overlay.shadow = shadow
+                bar.shadow = shadow
             end
 
             background:SetNormalTexture(nil)
@@ -364,7 +364,7 @@ DBMRangeCheck:HookScript("OnShow", function(self)
     self:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
     self:SetBackdropBorderColor(0.6, 0.6, 0.6)
 
-    if Draw_Shadows and not self.overlay.shadow then
+    if Draw_Shadows and not self.shadow then
         local shadow = CreateFrame("Frame", nil, self.overlay)
         shadow:SetFrameLevel(1)
         shadow:SetFrameStrata("BACKGROUND")
@@ -378,7 +378,7 @@ DBMRangeCheck:HookScript("OnShow", function(self)
         })
         shadow:SetBackdropColor(0, 0, 0, 0)
         shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
-        self.overlay.shadow = shadow
+        self.shadow = shadow
     end
 end)
 if (Crop_RaidWarning_Icons) then
