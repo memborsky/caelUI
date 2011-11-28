@@ -4,7 +4,7 @@ local _, caelGroupCD = ...
 
 caelGroupCD.eventFrame = CreateFrame("Frame", nil, UIParent)
 
-local pixelScale = caelUI.config.pixel_scale
+local pixel_scale = caelUI.config.pixel_scale
 local media = caelUI.media
 
 local show = {
@@ -32,12 +32,12 @@ local spells = {
 local filter = COMBATLOG_OBJECT_AFFILIATION_RAID + COMBATLOG_OBJECT_AFFILIATION_PARTY + COMBATLOG_OBJECT_AFFILIATION_MINE
 local floor, format, gsub = math.floor, string.format, string.gsub
 
-local bars = {}
+bars = {}
 local timer = 0
 
 local anchorframe = CreateFrame("Frame", nil, UIParent)
 anchorframe:SetSize(160, 25)
-anchorframe:SetPoint("RIGHT", UIParent, "RIGHT", pixelScale(-5), 0)
+anchorframe:SetPoint("RIGHT", UIParent, "RIGHT", pixel_scale(-5), 0)
 if UIMovableFrames then tinsert(UIMovableFrames, anchorframe) end
 
 local FormatTime = function(t)
@@ -66,22 +66,58 @@ local SetFontString = function(parent, fontName, fontHeight, fontStyle)
     return fs
 end
 
-local CreateBar = function()
-    local bar = CreateFrame("Statusbar", nil, UIParent)
-    bar:SetSize(pixelScale(150), pixelScale(25))
-    bar:SetStatusBarTexture(media.files.statusbar_c)
-    bar:SetMinMaxValues(0, 100)
-    bar.bg = media.create_backdrop(bar)
-    bar.left = SetFontString(bar, media.fonts.normal, 9, "")
-    bar.left:SetPoint("LEFT", pixelScale(2), pixelScale(1))
-    bar.left:SetJustifyH("LEFT")
-    bar.right = SetFontString(bar, media.fonts.custom_number, 9, "")
-    bar.right:SetPoint("RIGHT", pixelScale(-2), pixelScale(1))
-    bar.right:SetJustifyH("RIGHT")
-    bar.icon = CreateFrame("button", nil, bar)
-    bar.icon:SetSize(pixelScale(25), pixelScale(25))
-    bar.icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", pixelScale(-5), 0)
-    bar.icon.bg = media.create_backdrop(bar.icon)
+local CreateBar = function(id)
+    local bar = CreateFrame("Frame", nil, UIParent)
+    bar:SetSize(pixel_scale(150), pixel_scale(25))
+
+    bar.icon = media.create_blank_backdrop(bar)
+    bar.icon:SetSize(pixel_scale(30), pixel_scale(30))
+    bar.icon:ClearAllPoints()
+    bar.icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -pixel_scale(7.5), -pixel_scale(2))
+    bar.icon:SetFrameLevel(1)
+    bar.icon:SetBackdropColor(0.1, 0.1, 0.1, 1)
+    bar.icon:SetBackdropBorderColor(0.6, 0.6, 0.6)
+
+    -- Shadow for the icon
+    bar.icon.shadow = media.create_shadow(bar.icon)
+
+    -- The actual spell icon texture.
+    bar.icon.texture = bar.icon:CreateTexture(nil, "BORDER")
+    bar.icon.texture:SetTexture([=[Interface\Icons\Spell_Nature_WispSplode]=])
+    bar.icon.texture:SetPoint("TOPLEFT", bar.icon, "TOPLEFT", pixel_scale(2), -pixel_scale(2))
+    bar.icon.texture:SetPoint("BOTTOMRIGHT", bar.icon, "BOTTOMRIGHT", -pixel_scale(2), pixel_scale(2))
+    bar.icon.texture:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+
+    bar.statusbar = media.create_blank_backdrop(bar)
+    bar.statusbar:SetHeight(pixel_scale(15))
+    bar.statusbar:SetWidth(pixel_scale(150))
+    bar.statusbar:ClearAllPoints()
+    bar.statusbar:SetPoint("BOTTOMLEFT", bar.icon, "BOTTOMRIGHT", pixel_scale(5), 0)
+    bar.statusbar:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
+    bar.statusbar:SetBackdropBorderColor(0.6, 0.6, 0.6)
+
+    bar.statusbar.bar = CreateFrame("Statusbar", nil, bar.statusbar)
+    bar.statusbar.bar:SetStatusBarTexture(media.files.statusbar_c)
+    bar.statusbar.bar:SetMinMaxValues(0, 100)
+    bar.statusbar.bar:SetPoint("TOPLEFT", bar.statusbar, "TOPLEFT", pixel_scale(2), -pixel_scale(2))
+    bar.statusbar.bar:SetPoint("BOTTOMRIGHT", bar.statusbar, "BOTTOMRIGHT", -pixel_scale(2), pixel_scale(2))
+
+    -- Shadow it up.
+    bar.statusbar.shadow = media.create_shadow(bar.statusbar)
+
+    bar.name = SetFontString(bar, media.fonts.normal, 11, "")
+    bar.name:ClearAllPoints()
+    bar.name:SetPoint("BOTTOMLEFT", bar.statusbar, "TOPLEFT", pixel_scale(1), pixel_scale(3))
+    bar.name:SetJustifyH("LEFT")
+    bar.name:SetWidth(pixel_scale(165))
+    bar.name:SetHeight(pixel_scale(10))
+
+    bar.duration = SetFontString(bar, media.fonts.custom_number, 11, "")
+    bar.duration:ClearAllPoints()
+    bar.duration:SetPoint("BOTTOMRIGHT", bar.statusbar, "TOPRIGHT", -pixel_scale(1), pixel_scale(3))
+    bar.duration:SetJustifyH("RIGHT")
+    bar.duration:SetWidth(pixel_scale(165))
+    bar.duration:SetHeight(pixel_scale(10))
 
     return bar
 end
@@ -92,7 +128,7 @@ local UpdateBar = function()
         if i == 1 then
             bars[i]:SetPoint("TOPLEFT", anchorframe, 0, 0)
         else
-            bars[i]:SetPoint("TOPLEFT", bars[i-1], "BOTTOMLEFT", 0, pixelScale(-5))
+            bars[i]:SetPoint("TOPLEFT", bars[i-1], "BOTTOMLEFT", 0, -pixel_scale(10))
         end
         bars[i].id = i
     end
@@ -113,12 +149,12 @@ local StartTimer = function(unit, spellId)
     bar.endTime = GetTime() + spells[spellId]
     bar.startTime = GetTime()
 
-    bar.left:SetText(gsub(unit, "%s*%-.*", " (*)"))
-    bar.right:SetText(FormatTime(spells[spellId]))
+    bar.name:SetText(gsub(unit, "%s*%-.*", " (*)"))
+    bar.duration:SetText(FormatTime(spells[spellId]))
 
     if icon then
-        bar.icon:SetNormalTexture(icon)
-        bar.icon:GetNormalTexture():SetTexCoord(0.07, 0.93, 0.07, 0.93)
+        bar.icon.texture:SetTexture(icon)
+        bar.icon.texture:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     end
 
     bar.spell = spell
@@ -127,9 +163,9 @@ local StartTimer = function(unit, spellId)
     local color = RAID_CLASS_COLORS[select(2, UnitClass(unit))]
 
     if color then
-        bar:SetStatusBarColor(color.r, color.g, color.b)
+        bar.statusbar.bar:SetStatusBarColor(color.r, color.g, color.b)
     else
-        bar:SetStatusBarColor(0, 0, 0)
+        bar.statusbar.bar:SetStatusBarColor(0, 0, 0)
     end
 
     bar:SetScript("OnUpdate", function(self, elapsed)
@@ -140,15 +176,15 @@ local StartTimer = function(unit, spellId)
             return
         end
 
-        self:SetValue(100 - (curTime - self.startTime) / (self.endTime - self.startTime) * 100)
-        self.right:SetText(FormatTime(self.endTime - curTime))
+        self.statusbar.bar:SetValue(100 - (curTime - self.startTime) / (self.endTime - self.startTime) * 100)
+        self.duration:SetText(FormatTime(self.endTime - curTime))
     end)
 
     bar:EnableMouse(true)
 
     bar:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_NONE")
-        GameTooltip:SetPoint("RIGHT", self, "LEFT", pixelScale(-23), 0)
+        GameTooltip:SetPoint("RIGHT", self, "LEFT", pixel_scale(-23), 0)
         GameTooltip:SetHyperlink(GetSpellLink(spellId))
         GameTooltip:Show()
     end)
@@ -159,7 +195,7 @@ local StartTimer = function(unit, spellId)
 
     bar:SetScript("OnMouseDown", function(self, button)
         if button == "LeftButton" then
-            SendChatMessage(format("Cooldown %s %s: %s", self.left:GetText(), self.spell, self.right:GetText()), "RAID")
+            SendChatMessage(format("Cooldown %s %s: %s", self.name:GetText(), self.spell, self.duration:GetText()), "RAID")
         elseif button == "RightButton" then
             StopTimer(self)
         end
