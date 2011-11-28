@@ -110,10 +110,10 @@ function Container:New(name, maxColumns, search)
     local search_frame = _G[search]
     search_frame:SetBackdrop(media.backdrop_table)
     search_frame:SetBackdropColor(0, 0, 0, 1)
-    search_frame:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5)
+    search_frame:SetBackdropBorderColor(0, 0, 0, 1)
     search_frame:SetParent(c)
     search_frame:ClearAllPoints()
-    search_frame:SetPoint("BOTTOM", c, "BOTTOM", 0, pixel_scale(5))
+    search_frame:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", pixel_scale(5), pixel_scale(5))
     search_frame:SetHeight(pixel_scale(18))
 
     -- Fix the position of the search icon.
