@@ -1,4 +1,4 @@
-## Interface: 40200
+## Interface: 40300
 ## Author: Gotai
 ## Title: |cffD7BEA5got|rChat
 ## Notes: Yet another chat mod.

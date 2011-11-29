@@ -1,4 +1,4 @@
-## Interface: 40200
+## Interface: 40300
 ## Author: Belliofria, Caellian
 ## Title: |cffD7BEA5cael|rUI
 ## Notes: caelUI is a very light, all-inclusive UI for all specs and classes.

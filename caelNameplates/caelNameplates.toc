@@ -1,4 +1,4 @@
-## Interface: 40200
+## Interface: 40300
 ## Author: Caellian
 ## Title: |cffD7BEA5cael|rNameplates
 ## Notes: Custom minimalistic nameplates

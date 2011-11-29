@@ -1,4 +1,4 @@
-## Interface: 40200
+## Interface: 40300
 ## Author: Caellian, Recluse
 ## Title: |cffD7BEA5cael|rTimers
 ## Notes: Custom timer bars

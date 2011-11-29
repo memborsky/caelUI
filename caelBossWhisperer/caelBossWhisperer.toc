@@ -1,4 +1,4 @@
-## Interface: 40200
+## Interface: 40300
 ## Author: Caellian, Rabbit
 ## Title: |cffD7BEA5cael|rBossWhisperer
 ## Notes: Sets you to DND when you fight a boss, and some other crap.

@@ -1,4 +1,4 @@
-## Interface: 40200
+## Interface: 40300
 ## Author: Caellian, Gotai, Recluse
 ## Title: |cffD7BEA5oUF|r|cffAF5050_|r|cffFFFFFFCaellian|r
 ## Notes: Caellian's oUF layout
