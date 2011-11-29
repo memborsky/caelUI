@@ -12,9 +12,11 @@ local backdrop = {
     insets = {top = 0, left = 0, bottom = 0, right = 0},
 }
 --]]
+local color = RAID_CLASS_COLORS[private.database.get("config").player.class]
 
-local function SetModifiedBackdrop(self)
-    self:SetBackdropBorderColor(1, 1, 0, 1)
+local function SetModifiedBackdrop (self)
+    self:SetBackdropColor(color.r * 0.25, color.g * 0.25, color.b * 0.25, 0.5)
+    self:SetBackdropBorderColor(color.r, color.g, color.b)
 end
 
 local function SetOriginalBackdrop(self)
