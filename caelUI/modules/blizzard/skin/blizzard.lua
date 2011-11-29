@@ -20,6 +20,7 @@ local function SetModifiedBackdrop (self)
 end
 
 local function SetOriginalBackdrop(self)
+    self:SetBackdropColor(0, 0, 0, 0.5)
     self:SetBackdropBorderColor(0, 0, 0, 1)
 end
 
