@@ -82,7 +82,7 @@ bar1:SetScript("OnEvent", function(self, event, ...)
             button:SetAlpha(0.45)
 
             if i == 1 then
-                button:SetPoint("TOPLEFT", caelPanel_ActionBar1, pixel_scale(2), pixel_scale(-2))
+                button:SetPoint("TOPLEFT", caelPanel_ActionBar1, pixel_scale(5), pixel_scale(-2))
             elseif i == 7 then
                 button:SetPoint("TOPLEFT", _G["ActionButton1"], "BOTTOMLEFT", 0, pixel_scale(-2))
             else
