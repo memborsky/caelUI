@@ -87,7 +87,7 @@ end
 -- Return a new container.
 function Container:New(name, maxColumns, search)
     local c = CreateFrame("Button", format("caelBags%s", name), UIParent)
-    c:SetFrameStrata("MEDIUM") -- Moved from high to low for the new search bar.
+    c:SetFrameStrata("HIGH")
     c:SetBackdrop(media.backdrop_table)
     c:Hide()
 
@@ -412,6 +412,8 @@ local openBags = function()
     for b = 0, 11 do
         OpenBag(b)
     end
+
+    _G[caelBags.bags.search]:SetFrameStrata("HIGH")
 end
 
 local toggleBags = function()
