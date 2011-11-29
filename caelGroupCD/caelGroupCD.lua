@@ -134,6 +134,19 @@ local UpdateBar = function()
     end
 end
 
+local CheckTimer = function(unit, spellId)
+    -- Make sure we don't double post the same spell from the same person.
+    if bars then
+        for index = 1, #bars do
+            if bars[index].name:GetText() == gsub(unit, "%s*%-.*", " (*)") and bars[index].spell == GetSpellInfo(spellId) then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
 local StopTimer = function(bar)
     bar:SetScript("OnUpdate", nil)
     bar:Hide()
@@ -214,7 +227,7 @@ caelGroupCD.eventFrame:SetScript("OnEvent", function(_, event, _, subEvent, _, _
         if bit.band(sourceFlags, filter) == 0 then return end
 
         if subEvent == "SPELL_RESURRECT" or subEvent == "SPELL_CAST_SUCCESS" then
-            if spells[spellId] then -- and show[instanceType] then
+            if spells[spellId] and not CheckTimer(sourceName, spellId) then -- and show[instanceType] then
                 StartTimer(sourceName, spellId)
             end
         end
