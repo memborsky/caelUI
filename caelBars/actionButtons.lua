@@ -162,11 +162,13 @@ local function caelButtons_FixGrid(self)
     local name = self:GetName()
     local action = self.action
     local texture  = _G[format("%sNormalTexture", name)]
-    if IsEquippedAction(action) then
-        texture:SetVertexColor(0.33, 0.59, 0.33, 1)
-    else
-        texture:SetVertexColor(0.5, 0.5, 0.5, 1)
-    end  
+    if texture then
+        if IsEquippedAction(action) then
+            texture:SetVertexColor(0.33, 0.59, 0.33, 1)
+        else
+            texture:SetVertexColor(0.5, 0.5, 0.5, 1)
+        end
+    end
 end
 
 local function caelButtons_OnUpdate(self, elapsed)
