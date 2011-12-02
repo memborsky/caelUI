@@ -53,7 +53,6 @@ local powerStrings = {
     [SPELL_POWER_RAGE] = RAGE, -- 1
     [SPELL_POWER_FOCUS] = FOCUS, -- 2
     [SPELL_POWER_ENERGY] = ENERGY, -- 3
-    --[SPELL_POWER_HAPPINESS] = HAPPINESS, -- 4
     [SPELL_POWER_RUNES] = RUNES, -- 5
     [SPELL_POWER_RUNIC_POWER] = RUNIC_POWER, -- 6
     [SPELL_POWER_SOUL_SHARDS] = SOUL_SHARDS, -- 7
@@ -158,7 +157,7 @@ end)
 local FormatMissType = function(event, missType, amountMissed)
     local resultStr
     if (missType == "RESIST" or missType == "BLOCK" or missType == "ABSORB") then
-        if amountMissed == 0 then
+        if amountMissed == 0 or not amountMissed then
             resultStr = ""
         else
             resultStr = format(_G["TEXT_MODE_A_STRING_RESULT_"..missType], amountMissed)
