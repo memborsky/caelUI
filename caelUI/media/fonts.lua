@@ -33,7 +33,7 @@ do
         nameplate     = custom_font("nameplate",     base_fonts.bold),
         damage_text   = custom_font("damage_text",   base_fonts.bold),
         standard_text = custom_font("standard_text", base_fonts.normal),
-        chat          = custom_font("chat",          font_path .. [=[xenara rg.ttf]=]),
+        chat          = custom_font("chat",          base_fonts.normal),
 
         -- addon related stuff.
         custom_number       = custom_font("custom_numberfont",   font_path .. [=[russel square lt.ttf]=]),

@@ -22,7 +22,7 @@ media.Custom_Fonts = {
 ]=]
 
 media.custom_fonts = {
-    normal      = [=[Interface\Addons\caelUI\media\fonts\Continuum_Medium.ttf]=],
+    normal      = [=[Interface\Addons\caelUI\media\fonts\Inconsolata.otf]=],
     damage_text = [=[Interface\Addons\caelUI\media\fonts\YanoneKaffeesatz-Bold.ttf]=],
 }
 
