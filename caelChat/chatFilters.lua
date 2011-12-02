@@ -105,7 +105,7 @@ local hooks = {}
 hooks["RaidNotice_AddMessage"] = RaidNotice_AddMessage
 
 RaidNotice_AddMessage = function(noticeFrame, textString, colorInfo, ...)
-    if noticeFrame then
+    if noticeFrame and noticeFrame:GetName() ~= "CinematicFrameRaidBossEmoteFrame" then
         if MikScrollingBattleText then
             MikSBT.DisplayMessage(textString, MikSBT.DISPLAYTYPE_NOTIFICATION, true, 140, 145, 155, 16, "neuropol x cd bd", 2)
         elseif recScrollAreas then
