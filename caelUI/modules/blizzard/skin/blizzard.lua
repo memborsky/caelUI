@@ -13,14 +13,15 @@ local backdrop = {
 }
 --]]
 local color = RAID_CLASS_COLORS[private.database.get("config").player.class]
+local media = private.database.get("media")
 
 local function SetModifiedBackdrop (self)
-    self:SetBackdropColor(color.r * 0.25, color.g * 0.25, color.b * 0.25, 0.5)
+    self:SetBackdropColor(color.r * 0.25, color.g * 0.25, color.b * 0.25, 0.7)
     self:SetBackdropBorderColor(color.r, color.g, color.b)
 end
 
 local function SetOriginalBackdrop(self)
-    self:SetBackdropColor(0, 0, 0, 0.5)
+    self:SetBackdropColor(0, 0, 0, 0.7)
     self:SetBackdropBorderColor(0, 0, 0, 1)
 end
 
@@ -32,38 +33,39 @@ end
 
 local function SkinButton (frame)
     if frame:GetName() then
-        local left = _G[frame:GetName().."Left"]
-        local middle = _G[frame:GetName().."Middle"]
-        local right = _G[frame:GetName().."Right"]
+        for _, region in next, {"Left", "Middle", "Right", "LeftDisabled", "RightDisabled", "MiddleDisabled", "TabSpacer", "TabSpacer1", "TabSpacer2"} do
+            local texture = _G[frame:GetName() .. region]
 
-
-        if left then left:SetAlpha(0) end
-        if middle then middle:SetAlpha(0) end
-        if right then right:SetAlpha(0) end
+            if texture then
+                texture:SetAlpha(0)
+            end
+        end
     end
 
     if frame.SetNormalTexture then
-        frame:SetNormalTexture("")
+        frame:SetNormalTexture(nil)
     end
 
     if frame.SetHighlightTexture then
-        frame:SetHighlightTexture("")
+        frame:SetHighlightTexture(nil)
     end
 
     if frame.SetPushedTexture then
-        frame:SetPushedTexture("")
+        frame:SetPushedTexture(nil)
     end
 
     if frame.SetDisabledTexture then
-        frame:SetDisabledTexture("")
+        frame:SetDisabledTexture(nil)
     end
     
     frame:SetBackdrop(backdrop)
-    frame:SetBackdropColor(0, 0, 0, 1)
+    frame:SetBackdropColor(0, 0, 0, 0.7)
     frame:SetBackdropBorderColor(0, 0, 0)
 
-    frame:HookScript("OnEnter", SetModifiedBackdrop)
-    frame:HookScript("OnLeave", SetOriginalBackdrop)
+    if frame:GetName() ~= "InterfaceOptionsFrameTab1" or frame:GetName() ~= "InterfaceOptionsFrameTab2" then
+        frame:HookScript("OnEnter", SetModifiedBackdrop)
+        frame:HookScript("OnLeave", SetOriginalBackdrop)
+    end
 end
 
 private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
@@ -128,6 +130,16 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
         "ChatConfigChatSettingsLeft",
     } do
         SkinPanel(_G[frame])
+
+        if frame == "InterfaceOptionsFrameTab1" or frame == "InterfaceOptionsFrameTab2" then
+            SkinButton(_G[frame])
+            _G[frame]:SetScript("OnEnter", SetModifiedBackdrop)
+            _G[frame]:SetScript("OnLeave", SetOriginalBackdrop)
+            _G[frame]:SetScript("OnShow", nil)
+            _G[frame .. "Text"]:ClearAllPoints()
+            _G[frame .. "Text"]:SetPoint("CENTER", _G[frame], "CENTER")
+            _G[frame .. "Text"].SetPoint = function() return end
+        end
     end
 
     local ChatMenus = {
@@ -164,13 +176,15 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
         "SettingsGUI",
     }
     
-    for i = 1, getn(BlizzardMenuButtons) do
-        local UIMenuButtons = _G["GameMenuButton"..BlizzardMenuButtons[i]]
+    for _, button in next, BlizzardMenuButtons do
+        local UIMenuButtons = _G["GameMenuButton" .. button]
+
         if UIMenuButtons then
             SkinButton(UIMenuButtons)
-            _G["GameMenuButton"..BlizzardMenuButtons[i].."Left"]:SetAlpha(0)
-            _G["GameMenuButton"..BlizzardMenuButtons[i].."Middle"]:SetAlpha(0)
-            _G["GameMenuButton"..BlizzardMenuButtons[i].."Right"]:SetAlpha(0)
+
+            for _, region in next, {"Left", "Right", "Middle"} do
+                _G["GameMenuButton" .. button .. region]:SetTexture(nil)
+            end
         end
     end
 
@@ -184,11 +198,13 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
         "ChatConfigFrame",
     }
     
-    for i = 1, getn(BlizzardHeader) do
-        local title = _G[BlizzardHeader[i].."Header"]           
+    for _, frame in next, BlizzardHeader do
+        local title = _G[frame .. "Header"]
+
         if title then
             title:SetTexture("")
             title:ClearAllPoints()
+
             if title == _G["GameMenuFrameHeader"] then
                 title:SetPoint("TOP", GameMenuFrame, 0, 7)
             elseif title == _G["ColorPickerFrameHeader"] then
@@ -196,13 +212,13 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
             elseif title == _G["ChatConfigFrameHeader"] then
                 title:SetPoint("TOP", ChatConfigFrame, 0, 7)
             else
-                title:SetPoint("TOP", BlizzardHeader[i], 0, 0)
+                title:SetPoint("TOP", frame, 0, 0)
             end
         end
     end
     
     -- Reskin all "normal" buttons
-    for _, button in pairs{
+    for _, button in next, {
         "VideoOptionsFrameOkay",
         "VideoOptionsFrameCancel",
         "VideoOptionsFrameDefaults",
@@ -224,8 +240,8 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
         "ChatConfigFrameDefaultButton",
         "ChatConfigFrameOkayButton",
         "RolePollPopupAcceptButton",
-        --"LFGDungeonReadyPopupDeclineButton",
-        --"LFGDungeonReadyPopupAcceptButton",
+        "LFDRoleCheckPopupAcceptButton",
+        "LFDRoleCheckPopupDeclineButton"
     } do
         SkinButton(_G[button])
     end
@@ -251,9 +267,11 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
     _G["ReadyCheckFrameText"]:ClearAllPoints()
     _G["ReadyCheckFrameText"]:SetPoint("TOP", 0, -12)
     _G["InterfaceOptionsFrameTab1"]:ClearAllPoints()
-    _G["InterfaceOptionsFrameTab1"]:SetPoint("TOPLEFT", _G["InterfaceOptionsFrameCategories"], "TOPLEFT", 10, 27)
+    _G["InterfaceOptionsFrameTab1"]:SetPoint("TOPLEFT", _G["InterfaceOptionsFrameCategories"], "TOPLEFT", 0, 25)
+    _G["InterfaceOptionsFrameTab1"]:SetWidth(80)
     _G["InterfaceOptionsFrameTab2"]:ClearAllPoints()
-    _G["InterfaceOptionsFrameTab2"]:SetPoint("TOPLEFT", _G["InterfaceOptionsFrameTab1"], "TOPRIGHT", 6, 0)
+    _G["InterfaceOptionsFrameTab2"]:SetPoint("TOPRIGHT", _G["InterfaceOptionsFrameCategories"], "TOPRIGHT", 0, 25)
+    _G["InterfaceOptionsFrameTab2"]:SetWidth(80)
     _G["ChatConfigFrameDefaultButton"]:SetWidth(125)
     _G["ChatConfigFrameDefaultButton"]:ClearAllPoints()
     _G["ChatConfigFrameDefaultButton"]:SetPoint("TOP", _G["ChatConfigCategoryFrame"], "BOTTOM", 0, -4)
@@ -273,28 +291,17 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
     SkinButton(_G["StackSplitOkayButton"])
     SkinButton(_G["StackSplitCancelButton"])
     _G["StackSplitFrame"]:GetRegions():Hide()
-    
-    -- _G["LFGRoleCheckPopupAcceptButtonLeft"]:SetAlpha(0)
-    -- _G["LFGRoleCheckPopupAcceptButtonMiddle"]:SetAlpha(0)
-    -- _G["LFGRoleCheckPopupAcceptButtonRight"]:SetAlpha(0)
-    -- _G["LFGRoleCheckPopupDeclineButtonLeft"]:SetAlpha(0)
-    -- _G["LFGRoleCheckPopupDeclineButtonMiddle"]:SetAlpha(0)
-    -- _G["LFGRoleCheckPopupDeclineButtonRight"]:SetAlpha(0)
-    
-    _G["InterfaceOptionsFrameTab1Left"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab1Middle"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab1Right"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab1LeftDisabled"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab1MiddleDisabled"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab1RightDisabled"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab1HighlightTexture"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab2Left"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab2Middle"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab2Right"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab2LeftDisabled"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab2MiddleDisabled"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab2RightDisabled"]:SetAlpha(0)
-    _G["InterfaceOptionsFrameTab2HighlightTexture"]:SetAlpha(0)
+
+    -- Kill off all the frame textures related to the interface options left side pane.
+    for _, frame in next, {"InterfaceOptionsFrameAddOns", "InterfaceOptionsFrameCategories"} do
+        for _, region in next, {"Top", "Bottom", "BottomRight", "BottomLeft", "TopRight", "TopLeft", "Right", "Left"} do
+            local texture = _G[frame .. region]
+
+            if texture then
+                texture:SetTexture(nil)
+            end
+        end
+    end
 
     private.events:UnregisterEvent("ADDON_LOADED", self)
 end)
