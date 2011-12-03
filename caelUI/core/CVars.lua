@@ -167,3 +167,8 @@ local function initialize (_, event)
 end
 
 private.events:RegisterEvent("PLAYER_ENTERING_WORLD", initialize())
+
+-- XXX: Hack to get the profanity filter working like we want it correctly.
+private.events:RegisterEvent("CVAR_UPDATE", function()
+    SetCVar("profanityFilter", 0)
+end)
