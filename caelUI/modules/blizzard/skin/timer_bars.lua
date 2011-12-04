@@ -42,7 +42,7 @@ do
             end
         end
 
-        if barType == "tracker" then
+        if barType == "timer" then
             bar:SetStatusBarTexture(media.files.statusbar_e)
             bar:SetStatusBarColor(bar:GetStatusBarColor())
         elseif barType == "mirror" then
