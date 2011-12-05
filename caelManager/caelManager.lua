@@ -46,7 +46,6 @@ local addons = {
         ["caelMinimap"]         = true,
         ["caelLoot"]            = true,
         ["caelNameplates"]      = true,
-        ["caelCooldowns"]       = true,
         ["caelQuests"]          = true,
         ["gotChat"]             = true,
         ["gotMacros"]           = true,

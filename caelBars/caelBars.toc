@@ -7,10 +7,13 @@
 ## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
 ## X-Category: ActionBars
 
-actionBarsOther.lua
-actionBars1.lua
-actionBars2.lua
-actionBars3.lua
-actionBars4.lua
-actionBars5.lua
-actionButtons.lua
+settings.lua
+bar1.lua
+bar2.lua
+bar3.lua
+bar4.lua
+bar5.lua
+others.lua
+styling.lua
+cooldown.lua
+pulse.lua

@@ -2,42 +2,18 @@ local _, caelBars = ...
 
 local pixel_scale = caelUI.config.pixel_scale
 
----------------------------------------------
--- Local variable settings for action bars.
----------------------------------------------
-
-caelBars.actionBar = {
-    ["settings"] = {
-        ["showGrid"] = true,
-
-        ["showPetGrid"] = false,
-        ["mouseOverPetBar"] = true,
-
-        ["mouseOverShapeshiftBar"] = false,
-
-        ["showBar5"] = false,
-        ["mouseOverBar5"] = false,
-    },
-}
-
--- Global variable
-local _G = _G
-
 -----------------------------------------------
 -- Hide default Blizzard frames we don't need
 -----------------------------------------------
 
 do
-    -- Frame List
-    local elements = {
+    for _, element in next, {
         MainMenuBar,
         MainMenuBarArtFrame,
         BonusActionBarFrame,
         VehicleMenuBar,
         PossessBarFrame,
-    }
-
-    for _, element in pairs(elements) do
+    } do
         if element:GetObjectType() == "Frame" then
             element:UnregisterAllEvents()
         end
@@ -52,22 +28,15 @@ do
 
     end
 
-    elements = nil
-
     -- UI Parent Manager frame nil'ing
-
-    -- Frame List
-    local uiManagedFrames = {
+    for _, frame in next, {
         "MultiBarLeft", "MultiBarRight", "MultiBarBottomLeft", "MultiBarBottomRight",
         "ShapeshiftBarFrame",
         "PossessBarFrame", "PETACTIONBAR_YPOS",
         "MultiCastActionBarFrame", "MULTICASTACTIONBAR_YPOS",
-    }
-
-    for _, frame in pairs(uiManagedFrames) do
+    } do
         UIPARENT_MANAGED_FRAME_POSITIONS[frame] = nil
     end
-    uiManagedFrames = nil
 end
 
 
@@ -95,40 +64,40 @@ end
 -- Setup button grid
 ----------------------
 
-local buttonGrid = CreateFrame("Frame")
-buttonGrid:RegisterEvent("PLAYER_ENTERING_WORLD")
-buttonGrid:SetScript("OnEvent", function(self, event)
-    self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-    SetActionBarToggles(1, 1, 1, 1)
+-- local buttonGrid = CreateFrame("Frame")
+-- buttonGrid:RegisterEvent("PLAYER_ENTERING_WORLD")
+-- buttonGrid:SetScript("OnEvent", function(self, event)
+--     self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+--     SetActionBarToggles(1, 1, 1, 1)
 
-    if caelBars.actionBar["settings"].showGrid == true then
-        for index = 1, 12 do
-            local button = _G[format("ActionButton%d", index)]
-            button:SetAttribute("showgrid", 1)
-            ActionButton_ShowGrid(button)
+--     if caelBars.actionBar["settings"].showGrid == true then
+--         for index = 1, 12 do
+--             local button = _G[format("ActionButton%d", index)]
+--             button:SetAttribute("showgrid", 1)
+--             ActionButton_ShowGrid(button)
 
-            button = _G[format("BonusActionButton%d", index)]
-            button:SetAttribute("showgrid", 1)
-            ActionButton_ShowGrid(button)
+--             button = _G[format("BonusActionButton%d", index)]
+--             button:SetAttribute("showgrid", 1)
+--             ActionButton_ShowGrid(button)
 
-            button = _G[format("MultiBarRightButton%d", index)]
-            button:SetAttribute("showgrid", 1)
-            ActionButton_ShowGrid(button)
+--             button = _G[format("MultiBarRightButton%d", index)]
+--             button:SetAttribute("showgrid", 1)
+--             ActionButton_ShowGrid(button)
 
-            button = _G[format("MultiBarBottomRightButton%d", index)]
-            button:SetAttribute("showgrid", 1)
-            ActionButton_ShowGrid(button)
+--             button = _G[format("MultiBarBottomRightButton%d", index)]
+--             button:SetAttribute("showgrid", 1)
+--             ActionButton_ShowGrid(button)
 
-            button = _G[format("MultiBarLeftButton%d", index)]
-            button:SetAttribute("showgrid", 1)
-            ActionButton_ShowGrid(button)
+--             button = _G[format("MultiBarLeftButton%d", index)]
+--             button:SetAttribute("showgrid", 1)
+--             ActionButton_ShowGrid(button)
 
-            button = _G[format("MultiBarBottomLeftButton%d", index)]
-            button:SetAttribute("showgrid", 1)
-            ActionButton_ShowGrid(button)
-        end
-    end
-end)
+--             button = _G[format("MultiBarBottomLeftButton%d", index)]
+--             button:SetAttribute("showgrid", 1)
+--             ActionButton_ShowGrid(button)
+--         end
+--     end
+-- end)
 
 -------------------
 -- SHAPESHIFT BAR
@@ -141,6 +110,7 @@ barShift:SetWidth(29)
 barShift:SetHeight(58)
 
 -- Place buttons in the bar frame and set the barShift as the parent frame
+-- ShapeshiftBarFrame:GetParent():Hide()
 ShapeshiftBarFrame:SetParent(barShift)
 --ShapeshiftBarFrame:SetWidth(0.00001)
 for index = 1, NUM_SHAPESHIFT_SLOTS do
