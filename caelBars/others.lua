@@ -64,40 +64,40 @@ end
 -- Setup button grid
 ----------------------
 
--- local buttonGrid = CreateFrame("Frame")
--- buttonGrid:RegisterEvent("PLAYER_ENTERING_WORLD")
--- buttonGrid:SetScript("OnEvent", function(self, event)
---     self:UnregisterEvent("PLAYER_ENTERING_WORLD")
---     SetActionBarToggles(1, 1, 1, 1)
+local buttonGrid = CreateFrame("Frame")
+buttonGrid:RegisterEvent("PLAYER_ENTERING_WORLD")
+buttonGrid:SetScript("OnEvent", function(self, event)
+    self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+    SetActionBarToggles(1, 1, 1, 1)
 
---     if caelBars.actionBar["settings"].showGrid == true then
---         for index = 1, 12 do
---             local button = _G[format("ActionButton%d", index)]
---             button:SetAttribute("showgrid", 1)
---             ActionButton_ShowGrid(button)
+    if caelBars.actionBar["settings"].showGrid == true then
+        for index = 1, 12 do
+            local button = _G[format("ActionButton%d", index)]
+            button:SetAttribute("showgrid", 1)
+            ActionButton_ShowGrid(button)
 
---             button = _G[format("BonusActionButton%d", index)]
---             button:SetAttribute("showgrid", 1)
---             ActionButton_ShowGrid(button)
+            button = _G[format("BonusActionButton%d", index)]
+            button:SetAttribute("showgrid", 1)
+            ActionButton_ShowGrid(button)
 
---             button = _G[format("MultiBarRightButton%d", index)]
---             button:SetAttribute("showgrid", 1)
---             ActionButton_ShowGrid(button)
+            button = _G[format("MultiBarRightButton%d", index)]
+            button:SetAttribute("showgrid", 1)
+            ActionButton_ShowGrid(button)
 
---             button = _G[format("MultiBarBottomRightButton%d", index)]
---             button:SetAttribute("showgrid", 1)
---             ActionButton_ShowGrid(button)
+            button = _G[format("MultiBarBottomRightButton%d", index)]
+            button:SetAttribute("showgrid", 1)
+            ActionButton_ShowGrid(button)
 
---             button = _G[format("MultiBarLeftButton%d", index)]
---             button:SetAttribute("showgrid", 1)
---             ActionButton_ShowGrid(button)
+            button = _G[format("MultiBarLeftButton%d", index)]
+            button:SetAttribute("showgrid", 1)
+            ActionButton_ShowGrid(button)
 
---             button = _G[format("MultiBarBottomLeftButton%d", index)]
---             button:SetAttribute("showgrid", 1)
---             ActionButton_ShowGrid(button)
---         end
---     end
--- end)
+            button = _G[format("MultiBarBottomLeftButton%d", index)]
+            button:SetAttribute("showgrid", 1)
+            ActionButton_ShowGrid(button)
+        end
+    end
+end)
 
 -------------------
 -- SHAPESHIFT BAR
