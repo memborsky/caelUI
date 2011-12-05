@@ -2,7 +2,6 @@
 
 caelTooltips = CreateFrame("Frame", nil, UIParent)
 
-local _G = getfenv(0)
 local orig1, orig2 = {}, {}
 local height
 local pixel_scale = caelUI.config.pixel_scale
@@ -70,27 +69,22 @@ local FormatMoney = function(money)
     end
 end
 
-GameTooltip_SetDefaultAnchor = function(self, parent)
+hooksecurefunc("GameTooltip_SetDefaultAnchor", function(self, parent)
     if cursor == true then
-        if IsAddOnLoaded("oUF_Caellian_Heal") and parent ~= UIParent then 
-            self:SetOwner(parent, "ANCHOR_NONE")
-            self:SetPoint("BOTTOMRIGHT", caelPanel_EditBox, "TOPRIGHT", 0, pixel_scale(10))
+        local frame = GetMouseFocus():GetName()
+
+        if frame and frame ~= "WorldFrame" then
+            self:SetOwner(parent, "ANCHOR_RIGHT")
         else
             self:SetOwner(parent, "ANCHOR_CURSOR")
         end
     else
-        local frame = GetMouseFocus():GetName()
-
-        if frame and frame:match("Button%d") then
-            self:SetOwner(parent, "ANCHOR_TOP")
-        else
-            self:SetOwner(parent, "ANCHOR_NONE")
-            self:SetPoint("BOTTOM", caelPanel_ActionBar1, "TOP", 0, pixel_scale(5))
-        end
+        self:SetOwner(parent, "ANCHOR_NONE")
+        self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixel_scale(5))
     end
 
     self.default = 1
-end
+end)
 
 GameTooltip_UnitColor = function(unit)
     local r, g, b
