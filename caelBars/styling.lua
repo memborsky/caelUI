@@ -1,6 +1,7 @@
 ﻿local media = caelUI.media
 local pixel_scale = caelUI.config.pixel_scale
 local player_class = caelUI.config.player.class
+local class_color = RAID_CLASS_COLORS[player_class]
 
 local hideHotkeys = false
 
@@ -20,7 +21,7 @@ local function StyleButton(name, action)
 
     -- Mouse over button color change.
     local hover = button:CreateTexture("Frame", nil, self)
-    hover:SetTexture(250 / 255, 105 / 255, 0, 0.5)
+    hover:SetTexture(class_color.r, class_color.g, class_color.b, 0.75)
     hover:SetHeight(button:GetHeight())
     hover:SetWidth(button:GetWidth())
     hover:SetPoint("TOPLEFT", button, pixel_scale(3), -pixel_scale(3))
