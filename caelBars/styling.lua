@@ -124,24 +124,11 @@ local function caelButtons_Shapeshift()
 end
 
 local function caelButtons_ActionUsable(self)
-    local name    = self:GetName()
-    local action  = self.action
-    local icon    = _G[name .. "Icon"]
-    local texture = _G[name .. "NormalTexture"]
+    local icon = _G[self:GetName() .. "Icon"]
 
-    -- if IsEquippedAction(action) then
-    --     if texture then
-    --         texture:SetVertexColor(0, 0, 0, 1)
-    --     end
-    -- else
-    --     if texture then
-    --         texture:SetVertexColor(0, 0, 0, 1)
-    --     end
-    -- end
+    local isUsable, notEnoughPower = IsUsableAction(self.action)
 
-    local isUsable, notEnoughPower = IsUsableAction(action)
-
-    if ActionHasRange(action) and IsActionInRange(action) == 0 then
+    if ActionHasRange(self.action) and IsActionInRange(self.action) == 0 then
         icon:SetVertexColor(196 / 255, 77 / 255, 88 / 255, 1)
         return
     elseif notEnoughPower then
@@ -157,11 +144,10 @@ local function caelButtons_ActionUsable(self)
 end
 
 local function caelButtons_FixGrid(button)
-    local action = button.action
-    local texture  = _G[button:GetName() .. "NormalTexture"]
+    local texture = _G[button:GetName() .. "NormalTexture"]
 
     if texture then
-        if IsEquippedAction(action) then
+        if IsEquippedAction(button.action) then
             texture:SetVertexColor(0.33, 0.59, 0.33, 1)
         else
             texture:SetVertexColor(0.5, 0.5, 0.5, 1)
@@ -170,19 +156,22 @@ local function caelButtons_FixGrid(button)
 end
 
 local function caelButtons_OnUpdate(self, elapsed)
-    local t = self.cAB_range
-    if (not t) then
+    local time = self.cAB_range
+
+    if (not time) then
         self.cAB_range = 0
         return
     end
-    t = t + elapsed
-    if (t < TOOLTIP_UPDATE_TIME + 0.1) then
-        self.cAB_range = t
+
+    if (time < TOOLTIP_UPDATE_TIME + 0.1) then
+        self.cAB_range = time
         return
     else
         self.cAB_range = 0
         caelButtons_ActionUsable(self)
     end
+
+    time = time + elapsed
 end
 
 ActionButton_OnUpdate = caelButtons_OnUpdate
