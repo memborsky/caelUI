@@ -186,13 +186,12 @@ end)
 LootFrame:HookScript("OnShow", function(self)
     self:ClearAllPoints()
     self:SetPoint("LEFT", UIParent, pixel_scale(5), 0)
-
 end)
 
 local newOnShow = function(self, ...)
     self:ClearAllPoints()
     if self:GetName() == "GroupLootFrame1" then
-        self:SetPoint("BOTTOM", caelPanel_ActionBar1, "TOP", 0, pixel_scale(30))
+        self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixel_scale(30))
     else
         local _, _, num = self:GetName():find("GroupLootFrame(%d)")
         self:SetPoint("BOTTOM", _G[format("GroupLootFrame%d", num-1)], "TOP", 0, pixel_scale(10))
