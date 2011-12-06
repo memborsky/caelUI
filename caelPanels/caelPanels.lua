@@ -195,7 +195,7 @@ caelPanels.eventFrame:SetScript("OnEvent", function(self, event, ...)
 
             -- Damage Meter
             if IsAddOnLoaded("alDamageMeter") then
-                caelPanels.createPanel("caelPanel_DamageMeter", {pixel_scale(165), pixel_scale(162)}, damagePoint)
+                createPanel("caelPanel_DamageMeter", {pixel_scale(165), pixel_scale(162)}, damagePoint)
             end
 
             -- Threat Meter
