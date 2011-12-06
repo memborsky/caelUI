@@ -145,13 +145,13 @@ local function caelButtons_ActionUsable(self)
         icon:SetVertexColor(196 / 255, 77 / 255, 88 / 255, 1)
         return
     elseif notEnoughPower then
-        icon:SetVertexColor(0, 0, 0, 0.25)
+        icon:SetVertexColor(0, 0, 0, 1)
         return
     elseif isUsable then
         icon:SetVertexColor(1, 1, 1, 1)
         return
     else
-        icon:SetVertexColor(0, 0, 0, 0.75)
+        icon:SetVertexColor(16 / 255, 127 / 255, 201 / 255, 1)
         return
     end
 end
