@@ -411,10 +411,12 @@ local PostCastStart = function(castbar, unit, name, rank, castid)
                 castbar.Latency:SetText(("%d ms"):format(latency * 1e3))
             end
 
-            castbar.SafeZone:SetWidth(pixel_scale(castbar:GetWidth() * latency / castbar.max))
-            castbar.SafeZone:ClearAllPoints()
-            castbar.SafeZone:SetPoint("TOPRIGHT")
-            castbar.SafeZone:SetPoint("BOTTOMRIGHT")
+            if castbar.SafeZone then
+                castbar.SafeZone:SetWidth(pixel_scale(castbar:GetWidth() * latency / castbar.max))
+                castbar.SafeZone:ClearAllPoints()
+                castbar.SafeZone:SetPoint("TOPRIGHT")
+                castbar.SafeZone:SetPoint("BOTTOMRIGHT")
+            end
         end
     end
 
