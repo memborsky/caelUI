@@ -2,9 +2,11 @@ local _, caelTimers = ...
 
 caelTimers.eventFrame = CreateFrame("Frame", nil, UIParent)
 
+local caeltimers = caelTimers.eventFrame
+
 local floor, format, mod, pairs = math.floor, string.format, mod, pairs
 local UnitBuff, UnitDebuff = UnitBuff, UnitDebuff
-local pixel_scale = caelUI.config.pixel_scale
+local pixelScale = caelUI.config.pixel_scale
 local media = caelUI.media
 
 --[[
@@ -17,32 +19,23 @@ local aura_colors  = {
 }
 --]]
 
--- CONFIG VARIABLES
-local BAR_HEIGHT            = 10
-local BAR_SPACING           = 1
-local ICON_POSITION         = "left"
-local ICON_COLOR            = {0, 0, 0, 0}
-local SPARK                 = true
-local CAST_SEPARATOR        = true
-local CAST_SEPARATOR_COLOR  = {0, 0, 0, 0.5}
-
 local bars = {}
 
-local FormatTime = function(s)
+local FormatTime = function(t)
     local day, hour, minute = 86400, 3600, 60
-    if s >= day then
-        return format("%dd", floor(s/day + 0.5)), s % day
-    elseif s >= hour then
-        return format("%dh", floor(s/hour + 0.5)), s % hour
-    elseif s >= minute then
-        if s <= minute * 5 then
-            return format("%d:%02d", floor(s/60), s % minute), s - floor(s)
+    if t >= day then
+        return format("%dd", floor(t/day + 0.5)), t % day
+    elseif t >= hour then
+        return format("%dh", floor(t/hour + 0.5)), t % hour
+    elseif t >= minute then
+        if t <= minute * 5 then
+            return format("%d:%02d", floor(t/60), t % minute), t - floor(t)
         end
-        return format("%dm", floor(s/minute + 0.5)), s % minute
-    elseif s >= minute / 12 then
-        return floor(s + 0.5), (s * 100 - floor(s * 100))/100
+        return format("%dm", floor(t/minute + 0.5)), t % minute
+    elseif t >= minute / 12 then
+        return floor(t + 0.5), (t * 100 - floor(t * 100))/100
     end
-    return format("%.1f", s), (s * 100 - floor(s * 100))/100
+    return format("%.1f", t), (t * 100 - floor(t * 100))/100
 end
 
 local OnUpdate = function(self, elapsed)
@@ -77,18 +70,12 @@ local PlaceBar = function(bar)
     bar:SetPoint(bar.position[spec].attach_point, bar.position[spec].parentFrame, bar.position[spec].relative_point, bar.position[spec].xOffset, bar.position[spec].yOffset)
 end
 
-function caelTimers.CreateNewBar (spellList)
-    local newId = (#bars or 0) + 1
-
-end
-
-
-function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width, height, attach_point1, parentFrame1, relative_point1, xOffset1, yOffset1, attach_point2, parentFrame2, relative_point2, xOffset2, yOffset2, hide_name)
+caelTimers.Create = function(spellName, unit, buffType, selfOnly, r, g, b, width, height, attach_point1, parentFrame1, relative_point1, xOffset1, yOffset1, attach_point2, parentFrame2, relative_point2, xOffset2, yOffset2, hide_name)
     local newId = (#bars or 0) + 1
     bars[newId] = CreateFrame("StatusBar", format("caelTimers_Bar_%d", newId), parentFrame)
     caelTimers.SmoothBar(bars[newId])
-    bars[newId]:SetHeight(pixel_scale(height))
-    bars[newId]:SetWidth(pixel_scale(width))
+    bars[newId]:SetHeight(pixelScale(height))
+    bars[newId]:SetWidth(pixelScale(width))
     bars[newId].spellName = spellName
     bars[newId].unit = unit
     bars[newId].buffType = buffType
@@ -107,16 +94,16 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
             attach_point   = attach_point1,
             parentFrame   = parentFrame1,
             relative_point = relative_point1,
-            xOffset       = pixel_scale(xOffset1),
-            yOffset       = pixel_scale(yOffset1)
+            xOffset       = pixelScale(xOffset1),
+            yOffset       = pixelScale(yOffset1)
         },
         -- Talent spec 2 references - default to spec 1 values if user did not provide them.
         [2] = {
             attach_point   = attach_point2   or attach_point1,
             parentFrame   = parentFrame2   or parentFrame1,
             relative_point = relative_point2 or relative_point1,
-            xOffset       = pixel_scale(xOffset2 and xOffset2 or xOffset1),
-            yOffset       = pixel_scale(yOffset2 and yOffset2 or yOffset1)
+            xOffset       = pixelScale(xOffset2 and xOffset2 or xOffset1),
+            yOffset       = pixelScale(yOffset2 and yOffset2 or yOffset1)
         }
     }
     
@@ -131,53 +118,25 @@ function caelTimers.Create (spellName, unit, buffType, selfOnly, r, g, b, width,
     end
     bars[newId]:SetStatusBarTexture(bars[newId].tx)
 
-    bars[newId].soft_edge = CreateFrame("Frame", nil, bars[newId])
-    bars[newId].soft_edge:SetPoint("TOPLEFT", pixel_scale(-3.5), pixel_scale(3.5))
-    bars[newId].soft_edge:SetPoint("BOTTOMRIGHT", pixel_scale(3.5), pixel_scale(-3.5))
-    bars[newId].soft_edge:SetBackdrop({
-        bgFile = media.files.background,
-        edgeFile = media.files.edge, edgeSize = pixel_scale(3),
-        insets = {left = pixel_scale(3), right = pixel_scale(3), top = pixel_scale(3), bottom = pixel_scale(3)}
-    })
-    bars[newId].soft_edge:SetFrameStrata("BACKGROUND")
-    bars[newId].soft_edge:SetBackdropColor(0.25, 0.25, 0.25)
-    bars[newId].soft_edge:SetBackdropBorderColor(0, 0, 0)
+    bars[newId].bg = media.create_backdrop(bars[newId])
 
-    bars[newId].bg = bars[newId]:CreateTexture(nil, "BORDER")
-    bars[newId].bg:SetPoint("TOPLEFT")
-    bars[newId].bg:SetPoint("BOTTOMRIGHT")
-    bars[newId].bg:SetTexture(media.files.statusbar_c)
-    bars[newId].bg:SetVertexColor(0.25, 0.25, 0.25, 1)
-
-    bars[newId].icon = bars[newId]:CreateTexture(nil, "BORDER")
-    bars[newId].icon:SetHeight(height)
-    bars[newId].icon:SetWidth(height)
-    bars[newId].icon:SetPoint("TOPRIGHT", bars[newId], "TOPLEFT", 0, 0)
+    bars[newId].icon = bars[newId]:CreateTexture(nil, "BACKGROUND")
+    bars[newId].icon:SetHeight(pixelScale(height))
+    bars[newId].icon:SetWidth(pixelScale(height))
+    bars[newId].icon:SetPoint("RIGHT", bars[newId], "LEFT", pixelScale(-5), 0)
     bars[newId].icon:SetTexture(nil)
+
+    bars[newId].iconbg = CreateFrame("Frame", nil, bars[newId])
+    bars[newId].iconbg:SetPoint("TOPLEFT", bars[newId].icon, "TOPLEFT", pixelScale(-2.5), pixelScale(2.5))
+    bars[newId].iconbg:SetPoint("BOTTOMRIGHT", bars[newId].icon, "BOTTOMRIGHT", pixelScale(2.5), pixelScale(-2.5))
+    bars[newId].iconbg:SetBackdrop(media.backdrop_table)
+    bars[newId].iconbg:SetBackdropColor(0, 0, 0, 0)
+    bars[newId].iconbg:SetBackdropBorderColor(0, 0, 0, 1)
     
     bars[newId].text = bars[newId]:CreateFontString(format("caelTimers_Bartext_%d", newId), "OVERLAY")
-    bars[newId].text:SetFont(media.fonts.normal, 8)
-    bars[newId].text:SetPoint("CENTER", bars[newId], "CENTER", 0, pixel_scale(1))
+    bars[newId].text:SetFont(media.fonts.normal, 9)
+    bars[newId].text:SetPoint("CENTER", bars[newId], "CENTER", 0, pixelScale(1))
     
-    if ( SPARK ) then
-        local spark = bars[newId]:CreateTexture(nil, "OVERLAY", nil);
-        spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-        spark:SetWidth(12);
-        spark:SetHeight(height);
-        spark:SetBlendMode("ADD");
-        spark:Show();
-        bars[newId].spark = spark;
-    end
-
-    if ( CAST_SEPARATOR ) then
-        local castSeparator = bars[newId]:CreateTexture( nil, "OVERLAY", nil );
-        castSeparator:SetTexture( unpack( CAST_SEPARATOR_COLOR ) );
-        castSeparator:SetWidth( 1 );
-        castSeparator:SetHeight( height );
-        castSeparator:Show();
-        bars[newId].castSeparator = castSeparator;
-    end
-
     PlaceBar(bars[newId])
     
     bars[newId]:Hide()
@@ -194,12 +153,13 @@ local CheckBuffs = function()
         end
         
         if icon and (not(bar.selfOnly) or (bar.selfOnly and (caster == "player"))) then
-            --bar.icon:SetTexture(icon)
+            bar.icon:SetTexture(icon)
+            bar.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
             bar.count = count
             bar.active = true
             bar.expires = expiration
             bar.duration = duration
-            
+
             if duration and duration > 0 then
                 bar:SetScript("OnUpdate", OnUpdate)
             else
@@ -218,14 +178,13 @@ local CheckBuffs = function()
     end
 end
 
-local OnCleu = function(...)
-    local _, event, sourceGuid, _, _, destGuid, _, _, spellId, spellName = ...
-    if spellId then
-    
-            if event == "SPELL_AURA_REMOVED" then
+caeltimers:SetScript("OnEvent", function(_, event, _, subEvent, _, sourceGUID, _, _, _, destGUID, _, _, _, spellId, spellName, ...)
+    if event == "COMBAT_LOG_EVENT_UNFILTERED" then
+        if spellId then
+            if subEvent == "SPELL_AURA_REMOVED" then
                 for _, bar in pairs(bars) do
-                    if destGuid == UnitGUID(bar.unit) and spellName == bar.spellName then
-                        if not(bar.selfOnly) or (bar.selfOnly and (sourceGuid == UnitGUID("player"))) then
+                    if destGUID == UnitGUID(bar.unit) and spellName == bar.spellName then
+                        if not(bar.selfOnly) or (bar.selfOnly and (sourceGUID == UnitGUID("player"))) then
                             bar.count = 0
                             bar.active = false
                             bar.expires = 0
@@ -234,25 +193,15 @@ local OnCleu = function(...)
                     end
                 end
             end
-        
-        return CheckBuffs()
-    end
-end
-
-caelTimers.eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
-caelTimers.eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-caelTimers.eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-caelTimers.eventFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
-caelTimers.eventFrame:SetScript("OnEvent", function(self, event, ...)
-    if event == "PLAYER_TARGET_CHANGED" then
+            return CheckBuffs()
+        end
+    elseif event == "PLAYER_TARGET_CHANGED" then
         for _, bar in pairs(bars) do
             if bar.unit == "target" then
                 bar:Hide()
             end
         end
         CheckBuffs()
-    elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
-        OnCleu(...)
     elseif event == "PLAYER_ENTERING_WORLD" then
         CheckBuffs()
     elseif event == "PLAYER_TALENT_UPDATE" then
@@ -261,3 +210,12 @@ caelTimers.eventFrame:SetScript("OnEvent", function(self, event, ...)
         end
     end
 end)
+
+for _, event in next, {
+    "PLAYER_TALENT_UPDATE",
+    "PLAYER_TARGET_CHANGED",
+    "PLAYER_ENTERING_WORLD",
+    "COMBAT_LOG_EVENT_UNFILTERED"
+} do
+    caeltimers:RegisterEvent(event)
+end
