@@ -57,7 +57,7 @@ local function StyleButton(name, action)
     icon:SetPoint("TOPLEFT", button, pixel_scale(4), -pixel_scale(4))
     icon:SetPoint("BOTTOMRIGHT", button, -pixel_scale(4), pixel_scale(4))
 
-    -- flash:SetTexture(media.files.button_flash)
+    flash:SetTexture(0, 1, 0, 1)
 
     cooldown:SetParent(button)
     cooldown:ClearAllPoints()
@@ -72,8 +72,6 @@ local function StyleButton(name, action)
         button.backdrop = CreateFrame("Frame", nil, button)
         button.backdrop:SetSize(button:GetSize())
         button.backdrop:SetAllPoints(button)
-        -- button.backdrop:SetPoint("TOPLEFT", pixel_scale(-1), pixel_scale(1))
-        -- button.backdrop:SetPoint("BOTTOMRIGHT", pixel_scale(1), pixel_scale(-1))
         button.backdrop:SetBackdrop(media.border_table)
         button.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
     end
@@ -181,36 +179,36 @@ hooksecurefunc("ActionButton_UpdateUsable", caelButtons_ActionUsable)
 hooksecurefunc("ShapeshiftBar_Update", caelButtons_Shapeshift)
 hooksecurefunc("ShapeshiftBar_UpdateState", caelButtons_Shapeshift)
 hooksecurefunc("PetActionBar_Update", caelButtons_Pet)
--- hooksecurefunc("ActionButton_ShowGrid", caelButtons_FixGrid)
+hooksecurefunc("ActionButton_ShowGrid", caelButtons_FixGrid)
 
 --[[    Enable glowing overlays on macros.    ]]
 
--- local overlayedSpells = {}
+local overlayedSpells = {}
 
--- hooksecurefunc("ActionButton_HideOverlayGlow", function(button)
---     if button.__LAB_Version then return end
+hooksecurefunc("ActionButton_HideOverlayGlow", function(button)
+    if button.__LAB_Version then return end
 
---     local actionType, id = GetActionInfo(button.action)
+    local actionType, id = GetActionInfo(button.action)
 
---     if actionType == "macro" and overlayedSpells[GetMacroSpell(id) or false] then
---         return ActionButton_ShowOverlayedGlow(button)
---     end
--- end)
+    if actionType == "macro" and overlayedSpells[GetMacroSpell(id) or false] then
+        return ActionButton_ShowOverlayedGlow(button)
+    end
+end)
 
--- hooksecurefunc("ActionButton_OnEvent", function(button, event, spellId)
---     if event == "SPELL_ACTIVATION_OVERLAY_GLOW_SHOW" or event == "SPELL_ACTIVATION_OVERLAY_GLOW_HIDE" then
---         local spellName = GetSpellInfo(spellId)
---         local actionType, id = GetActionInfo(button.action)
---         local glowVisible = event == "SPELL_ACTIVATION_OVERLAY_GLOW_SHOW"
+hooksecurefunc("ActionButton_OnEvent", function(button, event, spellId)
+    if event == "SPELL_ACTIVATION_OVERLAY_GLOW_SHOW" or event == "SPELL_ACTIVATION_OVERLAY_GLOW_HIDE" then
+        local spellName = GetSpellInfo(spellId)
+        local actionType, id = GetActionInfo(button.action)
+        local glowVisible = event == "SPELL_ACTIVATION_OVERLAY_GLOW_SHOW"
 
---         overlayedSpells[spellName] = glowVisisble
+        overlayedSpells[spellName] = glowVisisble
 
---         if actionType == "macro" and GetMacroSpell(id) == spellName then
---             if glowVisible then
---                 return ActionButton_ShowOverlayGlow(button)
---             else
---                 return ActionButton_HideOverlayGlow(button)
---             end
---         end
---     end
--- end)
+        if actionType == "macro" and GetMacroSpell(id) == spellName then
+            if glowVisible then
+                return ActionButton_ShowOverlayGlow(button)
+            else
+                return ActionButton_HideOverlayGlow(button)
+            end
+        end
+    end
+end)
