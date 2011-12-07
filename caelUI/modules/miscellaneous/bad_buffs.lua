@@ -12,6 +12,7 @@ local blacklist = {
     ["Ghost Costume"]       = true,
     ["Pirate Costume"]      = true,
     ["Turkey Feathers"]     = true,
+    -- ["Hand of Protection"]  = true,
 }
 
 private.events:RegisterEvent("UNIT_AURA", function(_, _, unit)
@@ -20,7 +21,7 @@ private.events:RegisterEvent("UNIT_AURA", function(_, _, unit)
     end
 
     for buff, enabled in next, blacklist do
-        if UnitAura(unit, buff) and enabled then
+        if UnitAura(unit, buff) and enabled and not InCombatLockdown() then
             CancelUnitBuff(unit, buff)
             private.print("BadBuff", " removed " .. buff)
         end

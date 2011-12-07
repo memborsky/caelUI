@@ -89,7 +89,6 @@ local addons = {
 
         ["Snoopy"]              = false,
         ["caelQuests"]          = false,
-        ["oUF_Bell"]            = false,
     },
 
     ["party"] = {
