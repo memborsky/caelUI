@@ -13,7 +13,7 @@ local defaultPanel = {
     ["EnableMouse"] = false,
     ["SetFrameStrata"] = "BACKGROUND",
     ["SetBackdrop"] = media.backdrop_table,
-    ["SetBackdropColor"] = {0, 0, 0, 0.8},
+    ["SetBackdropColor"] = {0, 0, 0, 0.5},
     ["SetBackdropBorderColor"] = {0, 0, 0, 1},
 }
 
