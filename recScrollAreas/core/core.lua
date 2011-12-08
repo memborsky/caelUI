@@ -155,7 +155,9 @@ end
 
 function recScrollAreas:AddText(text, sticky, scrollarea, blink)
     if not text or not scrollarea then return end
+
     local destination_area
+
     if not sticky then
         destination_area = recScrollAreas.anim_strings[scrollarea]
     else
@@ -221,10 +223,11 @@ function recScrollAreas:AddText(text, sticky, scrollarea, blink)
     last_use = 0
 end
 
-local function OnUpdate(s,e)
-    Move(s, e)
+recScrollAreas.event_frame = CreateFrame("Frame")
+recScrollAreas.event_frame:SetScript("OnUpdate", function(self, elapsed)
+    Move(self, elapsed)
     -- Keep footprint down by releasing stored tables and strings after we've been idle for a bit.
-    last_use = last_use + e
+    last_use = last_use + elapsed
     if last_use > 30 then
         if #recScrollAreas.empty_tables and #recScrollAreas.empty_tables > 0 then
             recScrollAreas.empty_tables = {}
@@ -234,6 +237,4 @@ local function OnUpdate(s,e)
         end
         last_use = 0
     end
-end
-recScrollAreas.event_frame = CreateFrame("Frame")
-recScrollAreas.event_frame:SetScript("OnUpdate", OnUpdate)
+end)
