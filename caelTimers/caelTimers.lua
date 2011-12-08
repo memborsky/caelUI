@@ -92,18 +92,18 @@ caelTimers.Create = function(spellName, unit, buffType, selfOnly, r, g, b, width
         -- Talent spec 1 references
         [1] = {
             attach_point   = attach_point1,
-            parentFrame   = parentFrame1,
+            parentFrame    = parentFrame1,
             relative_point = relative_point1,
-            xOffset       = pixelScale(xOffset1),
-            yOffset       = pixelScale(yOffset1)
+            xOffset        = pixelScale(xOffset1),
+            yOffset        = pixelScale(yOffset1)
         },
         -- Talent spec 2 references - default to spec 1 values if user did not provide them.
         [2] = {
             attach_point   = attach_point2   or attach_point1,
-            parentFrame   = parentFrame2   or parentFrame1,
+            parentFrame    = parentFrame2   or parentFrame1,
             relative_point = relative_point2 or relative_point1,
-            xOffset       = pixelScale(xOffset2 and xOffset2 or xOffset1),
-            yOffset       = pixelScale(yOffset2 and yOffset2 or yOffset1)
+            xOffset        = pixelScale(xOffset2 and xOffset2 or xOffset1),
+            yOffset        = pixelScale(yOffset2 and yOffset2 or yOffset1)
         }
     }
     
