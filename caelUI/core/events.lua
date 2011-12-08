@@ -3,8 +3,8 @@
 -- This is a modified version of that system for usage in caelUI only.
 -- His original version can be found at https://github.com/haste/oUF
 --
--- This is our internal events system. This allows us to overload the same event for multiple frames
--- without having to handle the event management in the actual code.
+-- This is our internal events system. This allows us to overload the same frame for multiple events
+-- without having to handle the event management on a bunch of different frames.
 --]]
 local private = unpack(select(2, ...))
 
@@ -12,8 +12,7 @@ local argument_check = private.argument_check
 local error = private.error
 
 --[[
--- This is where all the magic happens for our events interface. We will register, unregister, and check to see if the event
--- is registered here. We also process the OnEvents as well.
+The registry for our all of our events. We can allow multiple functions to be registered to the same event this way.
 --]]
 local RegisterEvent, UnregisterEvent, IsEventRegistered
 
@@ -59,8 +58,6 @@ do
     end
 end
 
-
--- This is the public interface to the above event registry system.
 local events_metatable = {
     __index = CreateFrame("Frame"),
 
@@ -71,6 +68,18 @@ local events_metatable = {
     end
 }
 
+--[[
+Public: Handles the registration of the function to the event.
+
+self - The frame we are operating on.
+event - The event we are registering for.
+func - The function we are registering to the event.
+
+Examples
+
+    private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function() private.print("Hello World!") end)
+    # => 'Hello World!' is displayed in the players default chat window.
+--]]
 function events_metatable.__index:RegisterEvent (event, func)
     argument_check(event, 2, "string", "table")
 
@@ -116,6 +125,17 @@ function events_metatable.__index:RegisterEvent (event, func)
     end
 end
 
+--[[
+Public: Handles the un-registration of the event and possible function to the event.
+
+self - The frame we are operating on.
+event - The event we are unregistering for.
+func - The function we are unregistering to the event.
+
+Examples
+
+    private.events:UnregisterEvent("PLAYER_ENTERING_WORLD", function() private.print("Hello World!") end)
+--]]
 function events_metatable.__index:UnregisterEvent(event, func)
     argument_check(event, 2, "string")
 
@@ -142,6 +162,18 @@ function events_metatable.__index:UnregisterEvent(event, func)
     end
 end
 
+--[[
+Public: Checks to see if the event is registered.
+
+self - The frame we are operating on.
+event - The event we are unregistering for.
+
+Examples
+
+    private.events:IsEventRegistered("PLAYER_ENTERING_WORLD")
+
+Returns boolean value.
+--]]
 function events_metatable.__index:IsEventRegistered(event)
     return IsEventRegistered(self, event)
 end
