@@ -4,7 +4,7 @@
 
 local pixel_scale = private.pixel_scale
 
-local backdrop = private.database.get("media")["backdrop_table"]
+local backdrop = private.GetDatabase("media")["backdrop_table"]
 --[[
 local backdrop = {
     bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
@@ -12,8 +12,8 @@ local backdrop = {
     insets = {top = 0, left = 0, bottom = 0, right = 0},
 }
 --]]
-local color = RAID_CLASS_COLORS[private.database.get("config").player.class]
-local media = private.database.get("media")
+local color = RAID_CLASS_COLORS[private.GetDatabase("config").player.class]
+local media = private.GetDatabase("media")
 
 local function SetModifiedBackdrop (self)
     self:SetBackdropColor(color.r * 0.25, color.g * 0.25, color.b * 0.25, 0.7)

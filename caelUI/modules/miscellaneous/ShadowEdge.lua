@@ -9,7 +9,7 @@ shadowedge:SetPoint("BOTTOMRIGHT")
 shadowedge:SetFrameLevel(0)
 shadowedge:SetFrameStrata("BACKGROUND")
 shadowedge.tex = shadowedge:CreateTexture()
-shadowedge.tex:SetTexture(private.database.get("media")["files"]["largeshadertex1"])
+shadowedge.tex:SetTexture(private.GetDatabase("media")["files"]["largeshadertex1"])
 
 shadowedge.tex:SetAllPoints()
 shadowedge.tex:SetVertexColor(0, 0, 0, 0.5)

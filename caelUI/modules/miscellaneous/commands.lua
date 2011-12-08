@@ -2,7 +2,7 @@
 
 --[[    Some new slash commands    ]]
 
-local player_name = private.database.get("config")["player"]["name"]
+local player_name = private.GetDatabase("config")["player"]["name"]
 
 SlashCmdList["FRAMENAME"] = function() print(GetMouseFocus():GetName()) end
 SlashCmdList["PARENT"] = function() print(GetMouseFocus():GetParent():GetName()) end

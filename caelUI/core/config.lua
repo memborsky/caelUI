@@ -1,6 +1,6 @@
 local private = unpack(select(2, ...))
 
-local config = private.database.get("config")
+local config = private.GetDatabase("config")
 
 config.player = {
     ["name"]        = UnitName("player"),
@@ -18,4 +18,4 @@ end)
 config.locale = GetLocale()
 
 -- Save our database including functions.
-private.database.save(config)
+config:Save()

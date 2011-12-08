@@ -1,6 +1,6 @@
 local private = unpack(select(2, ...))
 
-local media = private.database.get("media")
+local media = private.GetDatabase("media")
 
 --[=[
 
@@ -26,4 +26,4 @@ media.custom_fonts = {
     damage_text = [=[Interface\Addons\caelUI\media\fonts\YanoneKaffeesatz-Bold.ttf]=],
 }
 
-private.database.save(media)
+media:Save()

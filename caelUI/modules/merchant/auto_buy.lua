@@ -106,7 +106,7 @@ local function BuyReagents (reagents)
     end
 end
 
-local player = private.database.get("config")["player"]
+local player = private.GetDatabase("config")["player"]
 
 if reagents[player.realm] and reagents[player.realm][player.name] then
     private.events:RegisterEvent("MERCHANT_SHOW", function()

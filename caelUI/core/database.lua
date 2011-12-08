@@ -2,10 +2,9 @@ local private = unpack(select(2, ...))
 
 local databases = {}
 local system_generated_count = 0
-private.database = {}
 
 -- The following functions are for internal caelUI use only.
-function private.database.get (name)
+function private.GetDatabase (name)
     -- No matter what we pass in here, the name of the table will always be lower case.
     name = name:lower()
 
@@ -13,32 +12,33 @@ function private.database.get (name)
         return databases[name]
     end
 
-    return {name = name}
-end
+    return {
+        name = name,
+        Save = function(self)
+            if self.name then
+                databases[self.name] = self
+            else
+                if type(self) == "table" then
+                    self.name = "system_" .. system_generated_count
+                    databases[self.name] = self
+                    system_generated_count = system_generated_count + 1
+                end
+            end
 
-function private.database.save (self)
-    if self.name then
-        databases[self.name] = self
-    else
-        if type(self) == "table" then
-            self.name = "system_" .. system_generated_count
-            databases[self.name] = self
-            system_generated_count = system_generated_count + 1
+            -- XXX: This should not be needed with the addon declaring this variable on load.
+            if cael_user then
+                cael_user["databases"] = databases
+            else
+                cael_user = {}
+                cael_user["databases"] = {}
+                cael_user["databases"][self.name] = self
+            end
         end
-    end
-
-    -- XXX: This should not be needed with the addon declaring this variable on load.
-    if cael_user then
-        cael_user["databases"] = databases
-    else
-        cael_user = {}
-        cael_user["databases"] = {}
-        cael_user["databases"][self.name] = self
-    end
+    }
 end
 
 -- This will setup our database system upon the addon being loading.
-local function initialize (_, event)
+private.events:RegisterEvent("ADDON_LOADED", function (_, event)
     if not cael_user then
         cael_user = {}
     end
@@ -53,7 +53,5 @@ local function initialize (_, event)
         cael_user["databases"] = {}
     end
 
-    private.events:UnregisterEvent(event, initialize)
-end
-
-private.events:RegisterEvent("ADDON_LOADED", initialize)
+    private.events:UnregisterEvent(event, self)
+end)

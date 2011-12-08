@@ -15,7 +15,7 @@ MirrorTimerColors = {
 local SkinBar
 
 do
-    local media = private.database.get("media")
+    local media = private.GetDatabase("media")
     local pixel_scale = private.pixel_scale
 
     function SkinBar(bar)

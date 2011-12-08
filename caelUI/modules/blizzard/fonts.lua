@@ -23,7 +23,7 @@ do
     end
 
     --- Localize our fonts table so we don't have to make external calls all the time.
-    local fonts = private.database.get("media")["fonts"]
+    local fonts = private.GetDatabase("media")["fonts"]
 
     --- This function gets called from the ADDON_LOADED event handler.
     function setup_font(self, _, addon)

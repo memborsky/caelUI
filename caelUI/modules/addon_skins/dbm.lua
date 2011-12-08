@@ -17,8 +17,8 @@ local Draw_Shadows = false          -- draw Tukui shadows around frames.
 local RaidWarning_Icon_Size = 18    -- RaidWarning icon size, because 12 is small for me. Works only if Crop_RaidWarning_Icons=true
 
 -- Localizations of globals
-local media = private.database.get("media")
-local config = private.database.get("config")
+local media = private.GetDatabase("media")
+local config = private.GetDatabase("config")
 
 local pixel_scale = private.pixel_scale
 -- local pixel_scale(1) = private.pixel_scale(1)()

@@ -2,7 +2,7 @@
 
 local original_fonts
 
-local media = private.database.get("media")
+local media = private.GetDatabase("media")
 
 do
     local function custom_font(font, alternate_font)
@@ -45,4 +45,4 @@ end
 
 media.fonts = original_fonts
 
-private.database.save(media)
+media:Save()

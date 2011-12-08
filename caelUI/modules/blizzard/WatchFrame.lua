@@ -14,7 +14,7 @@ do
     -- Change the font for the watch frame.
     do
         --- This is a carry over from above that needs the usage of the media table.
-        local media = private.database.get("media")
+        local media = private.GetDatabase("media")
         WatchFrameTitle:SetFont(media.fonts.normal, 11)
 
 

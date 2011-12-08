@@ -135,7 +135,7 @@ local defaultCVarValues = {
 }
 
 local function initialize (_, event)
-    local CVars = private.database.get("cvars")
+    local CVars = private.GetDatabase("cvars")
 
     if not CVars then
         for cvar, value in next, defaultCVarValues do
