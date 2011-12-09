@@ -48,7 +48,7 @@ private.events:RegisterEvent("ADDON_LOADED", function (_, event)
     end
 
     if cael_user and (cael_user["databases"] and cael_user["databases"] ~= {}) then
-        databases = cael_user["databases"]
+        private.databases = cael_user["databases"]
     else
         cael_user["databases"] = {}
     end

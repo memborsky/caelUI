@@ -1,10 +1,9 @@
-local private = unpack(select(2, ...))
-
+local AutoSell = CreateModule("AutoSell")
 
 local Item_Count = 0
 local Sell_Value = 0
 
-private.events:RegisterEvent("MERCHANT_SHOW", function()
+AutoSell:RegisterEvent("MERCHANT_SHOW", function(self)
     for bag = 0, 4 do
         for slot = 1, GetContainerNumSlots(bag) do
             local item = GetContainerItemLink(bag, slot)
@@ -23,7 +22,7 @@ private.events:RegisterEvent("MERCHANT_SHOW", function()
     end
 
     if Sell_Value > 0 then
-        private.print("Merchant", format("Sold %d trash item%s for %s", Item_Count, Item_Count > 1 and "s" or "", private.FormatMoney(Sell_Value)))
+        self:Print("Merchant", format("Sold %d trash item%s for %s", Item_Count, Item_Count > 1 and "s" or "", self:FormatMoney(Sell_Value)))
         Item_Count, Sell_Value = 0, 0
     end
 end)

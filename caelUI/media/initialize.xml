@@ -1,4 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Pixel Perfect UI -->
+    <script file="pixel_perfect.lua" />
+
     <!-- The main media file. -->
     <script file="media.lua" />
 

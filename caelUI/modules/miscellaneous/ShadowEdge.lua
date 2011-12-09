@@ -1,20 +1,17 @@
 local private = unpack(select(2, ...))
-
---[[    Put a shadow edge around the screen    ]]
-
-local shadowedge = CreateFrame("Frame", nil, UIParent)
+local shadowedge = CreateModule("ShadowEdge", true)
 
 shadowedge:SetPoint("TOPLEFT")
 shadowedge:SetPoint("BOTTOMRIGHT")
 shadowedge:SetFrameLevel(0)
 shadowedge:SetFrameStrata("BACKGROUND")
 shadowedge.tex = shadowedge:CreateTexture()
-shadowedge.tex:SetTexture(private.GetDatabase("media")["files"]["largeshadertex1"])
+shadowedge.tex:SetTexture(private.media.files.largeshadertex1)
 
 shadowedge.tex:SetAllPoints()
 shadowedge.tex:SetVertexColor(0, 0, 0, 0.5)
 
-local SetUpAnimGroup = function(self)
+local function SetUpAnimGroup (self)
     self.anim = self:CreateAnimationGroup("Flash")
 
     self.anim.fadeout = self.anim:CreateAnimation("ALPHA", "FadeOut")
@@ -28,7 +25,7 @@ local SetUpAnimGroup = function(self)
     self.anim:SetLooping("BOUNCE")
 end
 
-local Flash = function(self, duration)
+local function Flash (self, duration)
     if not self.anim then
         SetUpAnimGroup(self)
     end
@@ -46,7 +43,7 @@ local StopFlash = function(self)
     end
 end
 
-private.events:RegisterEvent("UNIT_HEALTH", function(self, event, unit)
+shadowedge:RegisterEvent("UNIT_HEALTH", function(self, event, unit)
     if (unit ~= "player") then
         return
     end

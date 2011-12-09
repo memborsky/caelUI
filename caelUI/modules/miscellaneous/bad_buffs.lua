@@ -1,5 +1,5 @@
 -- Auto cancel various buffs
-local private = unpack(select(2, ...))
+local BadBuffs = CreateModule("BadBuffs")
 
 local blacklist = {
     ["Mohawked!"]			= true,
@@ -15,7 +15,7 @@ local blacklist = {
     -- ["Hand of Protection"]  = true,
 }
 
-private.events:RegisterEvent("UNIT_AURA", function(_, _, unit)
+BadBuffs:RegisterEvent("UNIT_AURA", function(self, _, unit)
     if unit ~= "player" then
         return
     end
@@ -23,7 +23,7 @@ private.events:RegisterEvent("UNIT_AURA", function(_, _, unit)
     for buff, enabled in next, blacklist do
         if UnitAura(unit, buff) and enabled and not InCombatLockdown() then
             CancelUnitBuff(unit, buff)
-            private.print("BadBuff", " removed " .. buff)
+            self:Print("removed " .. buff)
         end
     end
 end)

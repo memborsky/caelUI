@@ -3,8 +3,10 @@ local private = unpack(select(2, ...))
 -- localizing pixel_scale
 local pixel_scale = private.pixel_scale
 
--- get our media database if it exists or create a new one.
-local media = private.GetDatabase("media")
+-- Create the media table.
+private.media = {}
+
+local media = private.media
 
 media.directory = [=[Interface\Addons\caelUI\media\]=]
 
@@ -108,6 +110,3 @@ function media.create_shadow (parent, name)
     shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
     return shadow
 end
-
--- We do this just to make sure that everything is getting saved to the users variables.
-media:Save()

@@ -1,8 +1,8 @@
-local private = unpack(select(2, ...))
-
 --[[    Auto release in battleground or pvp zones.    ]]
 
-private.events:RegisterEvent("PLAYER_DEAD", function()
+local AutoRelease = CreateModule("AutoRelease")
+
+AutoRelease:RegisterEvent("PLAYER_DEAD", function()
 	local _, instance_type = IsInInstance()
 	local zone = GetRealZoneText()
 

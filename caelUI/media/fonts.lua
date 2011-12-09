@@ -2,7 +2,7 @@
 
 local original_fonts
 
-local media = private.GetDatabase("media")
+local media = private.media
 
 do
     local function custom_font(font, alternate_font)
@@ -44,5 +44,3 @@ do
 end
 
 media.fonts = original_fonts
-
-media:Save()

@@ -1,8 +1,7 @@
-﻿local private = unpack(select(2, ...))
+﻿local SkinGMChat = CreateModule("SkinGMChat")
+local pixel_scale = SkinGMChat.pixel_scale
 
 --[[    GM chat frame enhancement    ]]
-
-local pixel_scale = private.pixel_scale
 
 TicketStatusFrame:ClearAllPoints()
 TicketStatusFrame:SetPoint("TOP", UIParent, 0, pixel_scale(-5))
@@ -12,7 +11,7 @@ HelpOpenTicketButton:ClearAllPoints()
 HelpOpenTicketButton:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT")
 
 -- XXX: This needs to be moved to the blizzard/skins folder when that system gets created.
-local function skin_gmchat_frame (_, _, name)
+local function SkinGMChatFrame (self, _, name)
     if name ~= "Blizzard_GMChatUI" then return end
 
     GMChatFrame:EnableMouseWheel()
@@ -31,8 +30,7 @@ local function skin_gmchat_frame (_, _, name)
     GMChatFrameResizeButton:Hide()
     GMChatTab:Hide()
 
-    private.events:UnregisterEvent("ADDON_LOADED", skin_gmchat_frame)
-    skin_gmchat_frame = nil
+    self:UnregisterEvent("ADDON_LOADED", SkinGMChatFrame)
 end
 
-private.events:RegisterEvent("ADDON_LOADED", skin_gmchat_frame)
+SkinGMChat:RegisterEvent("ADDON_LOADED", SkinGMChatFrame)

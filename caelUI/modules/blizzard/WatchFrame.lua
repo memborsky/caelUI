@@ -1,7 +1,7 @@
-﻿local private = unpack(select(2, ...))
+﻿local Watch = CreateModule("WatchFrame")
 
 do
-    local pixel_scale = private.pixel_scale
+    local pixel_scale = Watch.pixel_scale
 
     -- Initialize the WatchFrame
     WatchFrame:ClearAllPoints()
@@ -14,9 +14,8 @@ do
     -- Change the font for the watch frame.
     do
         --- This is a carry over from above that needs the usage of the media table.
-        local media = private.GetDatabase("media")
-        WatchFrameTitle:SetFont(media.fonts.normal, 11)
-
+        local normal_font = Watch:GetMedia()["fonts"]["normal"]
+        WatchFrameTitle:SetFont(normal_font, 12)
 
         local nextline = 1
 
@@ -25,8 +24,8 @@ do
                 line = _G["WatchFrameLine" .. index]
 
                 if line then
-                    line.text:SetFont(media.fonts.normal, 9)
-                    line.dash:SetFont(media.fonts.normal, 9)
+                    line.text:SetFont(normal_font, 10)
+                    line.dash:SetFont(normal_font, 10)
                     line.text:SetSpacing(2)
                 else
                     nextline = index
@@ -39,7 +38,7 @@ end
 
 --- Automatically collapse/expand the WatchFrame when in an arena match or during a boss fight.
 for _, event in next, {"WORLD_MAP_UPDATE", "PLAYER_ENTERING_WORLD", "ZONE_CHANGED_NEW_AREA", "INSTANCE_ENCOUNTER_ENGAGE_UNIT"} do
-    private.events:RegisterEvent(event, function()
+    Watch:RegisterEvent(event, function()
         local zone = GetRealZoneText()
 
         if zone and zone ~= "" then

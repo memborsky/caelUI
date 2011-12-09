@@ -1,4 +1,4 @@
-local private = unpack(select(2, ...))
+local AFKSpin = CreateModule("AFKSpin")
 
 -- Make sure we are auto clearing our AFK status when we return from being away.
 if GetCVar("AutoClearAFK") == 0 then
@@ -103,15 +103,15 @@ end
 -- event = "PLAYER_REGEN_DISABLED"
 --   This means the player has entered combat and we need to stop our player's
 --   camera and dimmer frame from being shown.
-private.events:RegisterEvent({"PLAYER_ENTERING_WORLD", "PLAYER_REGEN_ENABLED"}, ToggleAFKState)
-private.events:RegisterEvent("PLAYER_FLAGS_CHANGED", function(_, _, unit)
+AFKSpin:RegisterEvent({"PLAYER_ENTERING_WORLD", "PLAYER_REGEN_ENABLED"}, ToggleAFKState)
+AFKSpin:RegisterEvent("PLAYER_FLAGS_CHANGED", function(_, _, unit)
     if unit ~= "player" then
         return
     end
 
     ToggleAFKState()
 end)
-private.events:RegisterEvent("PLAYER_REGEN_DISABLED", function()
+AFKSpin:RegisterEvent("PLAYER_REGEN_DISABLED", function()
     if dimmer:IsVisible() then
         MoveViewRightStop()
         return

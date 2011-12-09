@@ -1,4 +1,5 @@
 local private = unpack(select(2, ...))
+local AutoBuy = CreateModule("AutoBuy")
 
 -- Our reagents list.
 reagents = {
@@ -84,7 +85,7 @@ local function BuyReagents (reagents)
                 subtotal = price * (quantity/stack)
 
                 if subtotal > GetMoney() then
-                    private.print("Merchant", "Not enough money to purchase reagents.");
+                    AutoBuy:Print("Merchant", "Not enough money to purchase reagents.");
                     return
                 end
 
@@ -109,7 +110,7 @@ end
 local player = private.GetDatabase("config")["player"]
 
 if reagents[player.realm] and reagents[player.realm][player.name] then
-    private.events:RegisterEvent("MERCHANT_SHOW", function()
+    AutoBuy:RegisterEvent("MERCHANT_SHOW", function()
         BuyReagents(reagents[player.realm][player.name])
     end)
 end

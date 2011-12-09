@@ -14,9 +14,6 @@
     <!-- Handle loading the configuration database. -->
     <script file="config.lua" />
 
-    <!-- Handles the pixel perfection for the UI to be perfectly spaced. -->
-    <script file="pixel_perfect.lua" />
-
     <!-- Load function check for PTR. -->
     <script file="public_test_realm.lua" />
 

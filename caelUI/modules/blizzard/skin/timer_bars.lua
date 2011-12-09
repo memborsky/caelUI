@@ -2,7 +2,7 @@
 
 -- Dummy Bar: /run TimerTracker_OnLoad(TimerTracker); TimerTracker_OnEvent(TimerTracker, "START_TIMER", 1, 30, 30)
 
-local private = unpack(select(2, ...))
+local TimerBars = CreateModule("TimerBars")
 
 -- Redefin the MirrorTimerColors
 MirrorTimerColors = {
@@ -15,8 +15,8 @@ MirrorTimerColors = {
 local SkinBar
 
 do
-    local media = private.GetDatabase("media")
-    local pixel_scale = private.pixel_scale
+    local media = TimerBars:GetMedia()
+    local pixel_scale = TimerBars.pixel_scale
 
     function SkinBar(bar)
         local name = bar:GetName()
@@ -64,7 +64,7 @@ do
 end
 
 -- The two below blocks will make the entire skinning happen.
-private.events:RegisterEvent("START_TIMER", function()
+TimerBars:RegisterEvent("START_TIMER", function()
     for _, timer in next, TimerTracker.timerList do
         local bar = timer["bar"]
 
@@ -75,7 +75,7 @@ private.events:RegisterEvent("START_TIMER", function()
 end)
 
 -- {EXHAUSTION, BREATH, DEATH, FEIGNDEATH}
-private.events:RegisterEvent("MIRROR_TIMER_START", function()
+TimerBars:RegisterEvent("MIRROR_TIMER_START", function()
     for index = 1, MIRRORTIMER_NUMTIMERS do
         local bar = _G["MirrorTimer" .. index]
         if not bar.skinned then

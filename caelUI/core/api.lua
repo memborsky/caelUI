@@ -1,7 +1,7 @@
-local private, moedules, public = unpack(select(2, ...))
+local private, public = unpack(select(2, ...))
 
 -- Allow external addons to have access to the media database.
-public.media = private.GetDatabase("media")
+public.media = private.media
 
 -- Allow exteranl addons to have access to the config database.
 public.config = private.GetDatabase("config")

@@ -1,6 +1,6 @@
 local private = unpack(select(2, ...))
 
-local media = private.GetDatabase("media")
+local media = private.media
 
 --[=[
 
@@ -25,5 +25,3 @@ media.custom_fonts = {
     normal      = [=[Interface\Addons\caelUI\media\fonts\Inconsolata.otf]=],
     damage_text = [=[Interface\Addons\caelUI\media\fonts\YanoneKaffeesatz-Bold.ttf]=],
 }
-
-media:Save()

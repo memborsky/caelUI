@@ -72,16 +72,17 @@ function private.pixel_scale (value)
     return scale_fix * math.floor(value / scale_fix + 0.5)
 end
 
-for _, event in pairs{"PLAYER_LEAVING_WORLD", "PLAYER_LOGOUT", "UPDATE_FLOATING_CHAT_WINDOWS"} do
-    private.events:RegisterEvent(event, function(self, event, ...)
-        if event == "PLAYER_ENTERING_WORLD" then
-            if cael_user.scale then
-                private.set_scale(cael_user.scale)
-            else
-                private.set_scale()
-            end
-        end
 
-        cael_user.scale = math.floor(GetCVar("uiScale") * 100 + 0.5) / 100
-    end)
-end
+-- for _, event in pairs{"PLAYER_LEAVING_WORLD", "PLAYER_LOGOUT", "UPDATE_FLOATING_CHAT_WINDOWS"} do
+--     private.events:RegisterEvent(event, function(self, event, ...)
+--         if event == "PLAYER_ENTERING_WORLD" then
+--             if cael_user.scale then
+--                 private.set_scale(cael_user.scale)
+--             else
+--                 private.set_scale()
+--             end
+--         end
+
+--         cael_user.scale = math.floor(GetCVar("uiScale") * 100 + 0.5) / 100
+--     end)
+-- end

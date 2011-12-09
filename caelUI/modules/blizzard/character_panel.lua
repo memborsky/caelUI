@@ -1,8 +1,6 @@
 ﻿local private = unpack(select(2, ...))
 
 local pixel_scale = private.pixel_scale
-local ShowCloak = ShowCloak
-local ShowHelm = ShowHelm
 
 ---
 --- Add a checkbox to the character model frame (Default Hotkey "c") to show/hide the helm.

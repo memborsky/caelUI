@@ -1,6 +1,6 @@
-﻿local private = unpack(select(2, ...))
+﻿UIErrorsFrame:UnregisterEvent("UI_ERROR_MESSAGE")
 
---[[    Blacklist some UIerrorFrame messages    ]]
+local UIErrors = CreateModule("UIErrors")
 
 local blacklist = {
     [ERR_NO_ATTACK_TARGET] = true,
@@ -16,11 +16,9 @@ local blacklist = {
     [SPELL_FAILED_AURA_BOUNCED] = true,
 }
 
-UIErrorsFrame:UnregisterEvent("UI_ERROR_MESSAGE")
-
-private.events:RegisterEvent("UI_ERROR_MESSAGE", function(_, _, error)
+UIErrors:RegisterEvent("UI_ERROR_MESSAGE", function(_, _, error)
     if (not blacklist[error]) then
-        UIErrorsFrame:AddMessage(error, 0.69, 0.31, 0.31, 1)
-        --recScrollAreas:AddText("|cffAF5050" .. error .. "|r", false, "Error")
+        -- UIErrors:AddMessage(error, 0.69, 0.31, 0.31, 1)
+        recScrollAreas:AddText("|cffAF5050" .. error .. "|r", false, "Error")
     end
 end)

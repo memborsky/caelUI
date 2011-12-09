@@ -1,14 +1,14 @@
-local private = unpack(select(2, ...))
+local alDMS = CreateModule("alDamageMeterSkin")
 
 if not IsAddOnLoaded("alDamageMeter") then return end
 
-local pixel_scale = private.pixel_scale
+local pixel_scale = alDMS.pixel_scale
 
 local function SkinBar (self)
 
 end
 
-private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function()
+alDMS:RegisterEvent("PLAYER_ENTERING_WORLD", function()
     -- Clear the backdrop as we manage that with our own panel creation system.
     alDamageMeterFrame.bg:SetBackdropColor(0, 0, 0, 0)
     alDamageMeterFrame.bg:SetBackdropBorderColor(0, 0, 0, 0)

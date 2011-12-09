@@ -1,19 +1,12 @@
-﻿local private = unpack(select(2, ...))
+﻿local SkinBlizzard = CreateModule("SkinBlizzardFrames")
+local private = unpack(select(2, ...))
 
 --[[    Reskin Blizzard windows ]]
 
-local pixel_scale = private.pixel_scale
-
-local backdrop = private.GetDatabase("media")["backdrop_table"]
---[[
-local backdrop = {
-    bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
-    edgeFile = [=[Interface\ChatFrame\ChatFrameBackground]=], edgeSize = 1,
-    insets = {top = 0, left = 0, bottom = 0, right = 0},
-}
---]]
-local color = RAID_CLASS_COLORS[private.GetDatabase("config").player.class]
-local media = private.GetDatabase("media")
+local pixel_scale = SkinBlizzard.pixel_scale
+local media      = SkinBlizzard:GetMedia()
+local backdrop   = media.backdrop_table
+local color      = RAID_CLASS_COLORS[private.GetDatabase("config").player.class]
 
 local function SetModifiedBackdrop (self)
     self:SetBackdropColor(color.r * 0.25, color.g * 0.25, color.b * 0.25, 0.7)
@@ -68,7 +61,7 @@ local function SkinButton (frame)
     end
 end
 
-private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
+SkinBlizzard:RegisterEvent("ADDON_LOADED", function(self, _, addon)
     if addon ~= "caelUI" then return end
 
     -- Reskin popup buttons
@@ -302,6 +295,4 @@ private.events:RegisterEvent("ADDON_LOADED", function(self, _, addon)
             end
         end
     end
-
-    private.events:UnregisterEvent("ADDON_LOADED", self)
 end)

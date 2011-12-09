@@ -8,6 +8,7 @@ Modified for caelUI by Belliofria.
 
 ]]--
 local private = unpack(select(2, ...))
+local DBMSkin = CreateModule("DBMSkin")
 
 if not IsAddOnLoaded("DBM-Core") then return end
 
@@ -17,11 +18,10 @@ local Draw_Shadows = false          -- draw Tukui shadows around frames.
 local RaidWarning_Icon_Size = 18    -- RaidWarning icon size, because 12 is small for me. Works only if Crop_RaidWarning_Icons=true
 
 -- Localizations of globals
-local media = private.GetDatabase("media")
+local media = DBMSkin:GetMedia()
 local config = private.GetDatabase("config")
 
-local pixel_scale = private.pixel_scale
--- local pixel_scale(1) = private.pixel_scale(1)()
+local pixel_scale = DBMSkin.pixel_scale
 
 -- Internal config values.
 local My_Class_Color = RAID_CLASS_COLORS[config.player.class]
@@ -443,7 +443,7 @@ local function SetupDBM()
     DBT_SavedOptions["DBM"].HugeBarsEnabled = true
 end
 
-private.events:RegisterEvent("PLAYER_LOGIN", SetupDBM)
+DBMSkin:RegisterEvent("PLAYER_LOGIN", SetupDBM)
 
 local function rt(i) return function() return i end end
 
@@ -462,7 +462,7 @@ SlashCmdList["DBMSKIN"] = function(msg)
     elseif(msg=="bh")then
         healthdemo()
     else
-        private.print("Use |cffFF0000/dbmskin test|r to launch DBM testmode.")
-        private.print("Use |cffFF0000/dbmskin bh|r to show test BossHealth frame.")
+        DBMSkin:Print("Use |cffFF0000/dbmskin test|r to launch DBM testmode.")
+        DBMSkin:Print("Use |cffFF0000/dbmskin bh|r to show test BossHealth frame.")
     end
 end

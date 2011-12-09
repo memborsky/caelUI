@@ -1,4 +1,4 @@
-﻿local private = unpack(select(2, ...))
+﻿local AutoInvite = CreateModule("AutoInvite")
 
 --[[    Auto accept some invites    ]]
 
@@ -68,7 +68,7 @@ local function auto_accept (name)
 end
 
 -- Auto accept invites that we recieve if they pass the acceptance check.
-private.events:RegisterEvent("PARTY_INVITE_REQUEST", function(_, _, name)
+AutoInvite:RegisterEvent("PARTY_INVITE_REQUEST", function(_, _, name)
     if auto_accept(name) then
         for index = 1, STATICPOPUP_NUMDIALOGS do
             local frame = _G["StaticPopup" .. index]
@@ -96,7 +96,7 @@ local function can_invite ()
 end
 
 -- Auto send invites for those who message with the right keyword.
-private.events:RegisterEvent("CHAT_MSG_WHISPER", function(_, _, message, name)
+AutoInvite:RegisterEvent("CHAT_MSG_WHISPER", function(_, _, message, name)
     if can_invite() then
         for _, word in next, invite_words do
             if message:len() == word:len() and message:lower() == word:lower() then

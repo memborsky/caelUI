@@ -1,4 +1,4 @@
-local private = unpack(select(2, ...))
+local Fonts = CreateModule("GameFonts")
 
 local setup_font
 
@@ -23,7 +23,7 @@ do
     end
 
     --- Localize our fonts table so we don't have to make external calls all the time.
-    local fonts = private.GetDatabase("media")["fonts"]
+    local fonts = Fonts:GetMedia()["fonts"]
 
     --- This function gets called from the ADDON_LOADED event handler.
     function setup_font(self, _, addon)
@@ -88,9 +88,7 @@ do
             local frame =_G[format("ChatFrame%s", chat_frame_index)]
             frame:SetFont(fonts.chat, 11)
         end
-
-        private.events:UnregisterEvent("ADDON_LOADED", self)
     end
 end
 
-private.events:RegisterEvent("ADDON_LOADED", setup_font)
+Fonts:RegisterEvent("ADDON_LOADED", setup_font)
