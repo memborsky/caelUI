@@ -2,7 +2,7 @@ local alDMS = CreateModule("alDamageMeterSkin")
 
 if not IsAddOnLoaded("alDamageMeter") then return end
 
-local pixel_scale = alDMS.pixel_scale
+local PixelScale = alDMS.PixelScale
 
 local function SkinBar (self)
 
@@ -18,6 +18,6 @@ alDMS:RegisterEvent("PLAYER_ENTERING_WORLD", function()
 
     -- Position and Size
     alDamageMeterFrame:SetSize(caelPanel_DamageMeter:GetSize())
-    alDamageMeterFrame:SetPoint("TOPLEFT", caelPanel_DamageMeter, "TOPLEFT", 0, -pixel_scale(10))
+    alDamageMeterFrame:SetPoint("TOPLEFT", caelPanel_DamageMeter, "TOPLEFT", 0, -PixelScale(10))
     alDamageMeterFrame:SetPoint("BOTTOMRIGHT", caelPanel_DamageMeter, "BOTTOMRIGHT")
 end)

@@ -1,6 +1,6 @@
 local movable = false;
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 local media = caelUI.media
 
 --- Options ---
@@ -46,8 +46,8 @@ local function CreateShadow(f, t)
     shadow:SetPoint("TOPRIGHT", 3, 3)
     shadow:SetPoint("BOTTOMRIGHT", 3, -3)
     shadow:SetBackdrop( { 
-        edgeFile = media.files.edge, edgeSize = pixel_scale(3),
-        insets = {left = pixel_scale(5), right = pixel_scale(5), top = pixel_scale(5), bottom = pixel_scale(5)},
+        edgeFile = media.files.edge, edgeSize = PixelScale(3),
+        insets = {left = PixelScale(5), right = PixelScale(5), top = PixelScale(5), bottom = PixelScale(5)},
     })
     shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
     shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.8)
@@ -55,7 +55,7 @@ local function CreateShadow(f, t)
 end
 
 -- Anchorframe
-TukuiComboAnchor = caelPanels.createPanel("TukuiComboAnchor", {pixel_scale(150), pixel_scale(13)}, {"CENTER", UIParent, "CENTER", pixel_scale(0), pixel_scale(100)})
+TukuiComboAnchor = caelPanels.createPanel("TukuiComboAnchor", {PixelScale(150), PixelScale(13)}, {"CENTER", UIParent, "CENTER", PixelScale(0), PixelScale(100)})
 TukuiComboAnchor.text = SetFontString(TukuiComboAnchor, media.fonts.normal, 11, "MONOCHROMEOUTLINE");
 TukuiComboAnchor.text:SetText("COMBO POINTS");
 TukuiComboAnchor.text:SetPoint("CENTER", 0, 1);

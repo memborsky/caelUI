@@ -1,6 +1,6 @@
 local _, caelBars = ...
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 
 -----------------------------------------------
 -- Hide default Blizzard frames we don't need
@@ -105,7 +105,7 @@ end)
 
 local barShift = CreateFrame("Frame", "barShift", UIParent)
 barShift:ClearAllPoints()
-barShift:SetPoint("BOTTOMLEFT", caelPanel_ActionBar1, "TOPLEFT",  pixel_scale(3), 0)
+barShift:SetPoint("BOTTOMLEFT", caelPanel_ActionBar1, "TOPLEFT",  PixelScale(3), 0)
 barShift:SetWidth(29)
 barShift:SetHeight(58)
 
@@ -119,15 +119,15 @@ for index = 1, NUM_SHAPESHIFT_SLOTS do
     button:ClearAllPoints()
     button:SetScale(0.68625)
     if index == 1 then
-        button:SetPoint("BOTTOMLEFT", barShift, 0, pixel_scale(2))
+        button:SetPoint("BOTTOMLEFT", barShift, 0, PixelScale(2))
     else
-        button:SetPoint("LEFT", buttonPrev, "RIGHT", pixel_scale(2), 0)
+        button:SetPoint("LEFT", buttonPrev, "RIGHT", PixelScale(2), 0)
     end
 end
 
 -- Hook the updating of the shapeshift bar
 local function MoveShapeshift()
-    ShapeshiftButton1:SetPoint("BOTTOMLEFT", barShift, 0, pixel_scale(2))
+    ShapeshiftButton1:SetPoint("BOTTOMLEFT", barShift, 0, PixelScale(2))
 end
 hooksecurefunc("ShapeshiftBar_Update", MoveShapeshift)
 
@@ -138,9 +138,9 @@ hooksecurefunc("ShapeshiftBar_Update", MoveShapeshift)
 -- Create pet bar frame and put it into place
 local barPet = CreateFrame("Frame", "barPet", UIParent, "SecureHandlerStateTemplate")
 barPet:ClearAllPoints()
-barPet:SetWidth(pixel_scale(120))
-barPet:SetHeight(pixel_scale(47))
-barPet:SetPoint("BOTTOM", UIParent, pixel_scale(-337), pixel_scale(359))
+barPet:SetWidth(PixelScale(120))
+barPet:SetHeight(PixelScale(47))
+barPet:SetPoint("BOTTOM", UIParent, PixelScale(-337), PixelScale(359))
 
 -- Setup Blizzard pet action bar.
 PetActionBarFrame:SetParent(barPet)
@@ -174,11 +174,11 @@ do
         button:SetScale(0.63) 
 
         if index == 1 then
-            button:SetPoint("TOPLEFT", barPet, pixel_scale(4.5), pixel_scale(-4.5))
+            button:SetPoint("TOPLEFT", barPet, PixelScale(4.5), PixelScale(-4.5))
         elseif index == ((NUM_PET_ACTION_SLOTS / 2) + 1) then -- Get our middle button + 1 to make the rows even
-            button:SetPoint("TOPLEFT", button1, "BOTTOMLEFT", 0, pixel_scale(-5))
+            button:SetPoint("TOPLEFT", button1, "BOTTOMLEFT", 0, PixelScale(-5))
         else
-            button:SetPoint("LEFT", buttonPrev, "RIGHT", pixel_scale(4.5), 0)
+            button:SetPoint("LEFT", buttonPrev, "RIGHT", PixelScale(4.5), 0)
         end
 
         -- Toggle buttons if mouse over is turned on.
@@ -208,7 +208,7 @@ if totemBar then
     totemBar:SetScript("OnHide", nil)
     totemBar:SetParent(caelPanel_ActionBar1)
     totemBar:ClearAllPoints()
-    totemBar:SetPoint("BOTTOMLEFT", caelPanel_ActionBar1, "TOPLEFT", 0, pixel_scale(2))
+    totemBar:SetPoint("BOTTOMLEFT", caelPanel_ActionBar1, "TOPLEFT", 0, PixelScale(2))
     totemBar:SetScale(0.75)
 
     hooksecurefunc("MultiCastActionButton_Update", function(self)
@@ -225,8 +225,8 @@ end
 -- Vehicle button
 local vehicleExitButton = CreateFrame("BUTTON", nil, UIParent, "SecureActionButtonTemplate")
 
-vehicleExitButton:SetSize(pixel_scale(33), pixel_scale(33))
-vehicleExitButton:SetPoint("BOTTOM", pixel_scale(-146), pixel_scale(263))
+vehicleExitButton:SetSize(PixelScale(33), PixelScale(33))
+vehicleExitButton:SetPoint("BOTTOM", PixelScale(-146), PixelScale(263))
 
 vehicleExitButton:RegisterForClicks("AnyUp")
 vehicleExitButton:SetScript("OnClick", function() VehicleExit() end)

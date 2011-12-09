@@ -4,7 +4,7 @@ _G["caelBags"] = caelBags
 
 -- Used to for moving to the new caelUI system.
 local media = caelUI.media
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 local kill = caelUI.kill
 
 -- Constants
@@ -24,14 +24,14 @@ updateContainerFrameAnchors = function() end
 -- Sizing
 local numBagColumns = 10
 local numBankColumns = 20
-local buttonSize = pixel_scale(28)
-local buttonSpacing = pixel_scale(-2)
+local buttonSize = PixelScale(28)
+local buttonSpacing = PixelScale(-2)
 
 -- Margins
-local bottomButtonMargin = pixel_scale(30)
-local bottomMargin = pixel_scale(5)
-local sideMargin   = pixel_scale(5)
-local topMargin    = pixel_scale(5)
+local bottomButtonMargin = PixelScale(30)
+local bottomMargin = PixelScale(5)
+local sideMargin   = PixelScale(5)
+local topMargin    = PixelScale(5)
 
 -- Methods we will use for the containers.
 local Container = CreateFrame("Button")
@@ -113,11 +113,11 @@ function Container:New(name, maxColumns, search)
     search_frame:SetBackdropBorderColor(0, 0, 0, 1)
     search_frame:SetParent(c)
     search_frame:ClearAllPoints()
-    search_frame:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", pixel_scale(5), pixel_scale(5))
-    search_frame:SetHeight(pixel_scale(18))
+    search_frame:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", PixelScale(5), PixelScale(5))
+    search_frame:SetHeight(PixelScale(18))
 
     -- Fix the position of the search icon.
-    _G[search .. "SearchIcon"]:SetPoint("LEFT", search_frame, "LEFT", pixel_scale(3), pixel_scale(-1.5))
+    _G[search .. "SearchIcon"]:SetPoint("LEFT", search_frame, "LEFT", PixelScale(3), PixelScale(-1.5))
 
     return c
 end
@@ -146,7 +146,7 @@ end
 
 -- Create the frames for each type of container: bag, bank and ammo.
 local bags = Container:New("bag", numBagColumns, "BagItemSearchBox")
-bags:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", pixel_scale(-30), pixel_scale(-168))
+bags:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", PixelScale(-30), PixelScale(-168))
 bags:SetBackdropColor(0, 0, 0, 0.7)
 bags:SetBackdropBorderColor(0, 0, 0)
 bags.preventCloseAll = true
@@ -207,8 +207,8 @@ local function ApplyButtonLayout(button)
     iconTexture:SetTexCoord(.08, .92, .08, .92)
     -- Position icon using SetPoint relative to the button.
     iconTexture:ClearAllPoints()
-    iconTexture:SetPoint("TOPLEFT", button, pixel_scale(4), pixel_scale(-3))
-    iconTexture:SetPoint("BOTTOMRIGHT", button, pixel_scale(-3), pixel_scale(4))
+    iconTexture:SetPoint("TOPLEFT", button, PixelScale(4), PixelScale(-3))
+    iconTexture:SetPoint("BOTTOMRIGHT", button, PixelScale(-3), PixelScale(4))
 
     -- Size and position the NormalTexture (the "bagFrame" around the button)
     normalTexture:SetHeight(buttonSize)
@@ -219,7 +219,7 @@ local function ApplyButtonLayout(button)
 
     -- Move item count text into a readable position.
     itemCount:ClearAllPoints()
-    itemCount:SetPoint("BOTTOMRIGHT", button, pixel_scale(-3), pixel_scale(3))
+    itemCount:SetPoint("BOTTOMRIGHT", button, PixelScale(-3), PixelScale(3))
     itemCount:SetFont(media.fonts.chat, 10, "OUTLINE")
 end
 

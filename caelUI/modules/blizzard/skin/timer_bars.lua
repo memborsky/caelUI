@@ -16,15 +16,15 @@ local SkinBar
 
 do
     local media = TimerBars:GetMedia()
-    local pixel_scale = TimerBars.pixel_scale
+    local PixelScale = TimerBars.PixelScale
 
     function SkinBar(bar)
         local name = bar:GetName()
         local barType = name:find("MirrorTimer%d") and "mirror" or "timer"
 
         -- Increase the size of the bars just ever so slightly.
-        bar:SetHeight(pixel_scale(22))
-        bar:SetWidth(pixel_scale(220))
+        bar:SetHeight(PixelScale(22))
+        bar:SetWidth(PixelScale(220))
 
         for index = 1, bar:GetNumRegions() do
             local region = select(index, bar:GetRegions())
@@ -53,8 +53,8 @@ do
 
         bar.backdrop = CreateFrame("Frame", nil, bar)
         bar.backdrop:SetFrameLevel(bar:GetFrameLevel() - 1)
-        bar.backdrop:SetPoint("TOPLEFT", bar, "TOPLEFT", pixel_scale(-2), pixel_scale(2))
-        bar.backdrop:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", pixel_scale(2), pixel_scale(-2))
+        bar.backdrop:SetPoint("TOPLEFT", bar, "TOPLEFT", PixelScale(-2), PixelScale(2))
+        bar.backdrop:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", PixelScale(2), PixelScale(-2))
         bar.backdrop:SetBackdrop(media.backdrop_table)
         bar.backdrop:SetBackdropBorderColor(0, 0, 0)
         bar.backdrop:SetBackdropColor(0, 0, 0, 0.4)

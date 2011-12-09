@@ -2,7 +2,7 @@ local _, caelBuffs = ...
 
 caelBuffs.eventFrame = CreateFrame("Frame", nil, UIParent)
 
-local pixelScale = caelUI.config.pixel_scale
+local pixelScale = caelUI.config.PixelScale
 local media = caelUI.media
 
 local BuffFrame               = _G["BuffFrame"]

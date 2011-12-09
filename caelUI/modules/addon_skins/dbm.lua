@@ -21,7 +21,7 @@ local RaidWarning_Icon_Size = 18    -- RaidWarning icon size, because 12 is smal
 local media = DBMSkin:GetMedia()
 local config = private.GetDatabase("config")
 
-local pixel_scale = DBMSkin.pixel_scale
+local PixelScale = DBMSkin.PixelScale
 
 -- Internal config values.
 local My_Class_Color = RAID_CLASS_COLORS[config.player.class]
@@ -42,15 +42,15 @@ local function SkinBars(self)
             if not icon1.overlay then
                 icon1.overlay = CreateFrame("Frame", "$parentIcon1Overlay", frame_bar)
                 icon1.overlay:SetFrameLevel(1)
-                icon1.overlay:SetHeight(pixel_scale(Button_Size))
-                icon1.overlay:SetWidth(pixel_scale(Button_Size))
+                icon1.overlay:SetHeight(PixelScale(Button_Size))
+                icon1.overlay:SetWidth(PixelScale(Button_Size))
                 icon1.overlay:SetFrameStrata("BACKGROUND")
-                icon1.overlay:SetPoint("BOTTOMRIGHT", frame_bar, "BOTTOMLEFT", -pixel_scale(Button_Size / 4), -pixel_scale(2))
+                icon1.overlay:SetPoint("BOTTOMRIGHT", frame_bar, "BOTTOMLEFT", -PixelScale(Button_Size / 4), -PixelScale(2))
                 icon1.overlay:SetBackdrop({
                     bgFile = [[Interface\Addons\caelUI\media\borders\blank]],
                     edgeFile = [[Interface\Addons\caelUI\media\borders\blank]],
-                    tile = false, tileSize = 0, edgeSize = pixel_scale(1),
-                    insets = {left = -pixel_scale(1), right = -pixel_scale(1), top = -pixel_scale(1), bottom = -pixel_scale(1)}
+                    tile = false, tileSize = 0, edgeSize = PixelScale(1),
+                    insets = {left = -PixelScale(1), right = -PixelScale(1), top = -PixelScale(1), bottom = -PixelScale(1)}
                 })
 
                 icon1.overlay:SetBackdropColor(0.1, 0.1, 0.1, 1)
@@ -60,13 +60,13 @@ local function SkinBars(self)
                     local shadow = CreateFrame("Frame", nil, icon1.overlay)
                     shadow:SetFrameLevel(1)
                     shadow:SetFrameStrata("BACKGROUND")
-                    shadow:SetPoint("TOPLEFT", -pixel_scale(3), pixel_scale(3))
-                    shadow:SetPoint("BOTTOMLEFT", -pixel_scale(3), -pixel_scale(3))
-                    shadow:SetPoint("TOPRIGHT", pixel_scale(3), pixel_scale(3))
-                    shadow:SetPoint("BOTTOMRIGHT", pixel_scale(3), -pixel_scale(3))
+                    shadow:SetPoint("TOPLEFT", -PixelScale(3), PixelScale(3))
+                    shadow:SetPoint("BOTTOMLEFT", -PixelScale(3), -PixelScale(3))
+                    shadow:SetPoint("TOPRIGHT", PixelScale(3), PixelScale(3))
+                    shadow:SetPoint("BOTTOMRIGHT", PixelScale(3), -PixelScale(3))
                     shadow:SetBackdrop( { 
-                        edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = pixel_scale(3),
-                        insets = {left = pixel_scale(5), right = pixel_scale(5), top = pixel_scale(5), bottom = pixel_scale(5)},
+                        edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = PixelScale(3),
+                        insets = {left = PixelScale(5), right = PixelScale(5), top = PixelScale(5), bottom = PixelScale(5)},
                     })
                     shadow:SetBackdropColor(0, 0, 0, 0)
                     shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
@@ -76,23 +76,23 @@ local function SkinBars(self)
                 local backdroptex = icon1.overlay:CreateTexture(nil, "BORDER")
 
                 backdroptex:SetTexture([=[Interface\Icons\Spell_Nature_WispSplode]=])
-                backdroptex:SetPoint("TOPLEFT", icon1.overlay, "TOPLEFT", pixel_scale(2), -pixel_scale(2))
-                backdroptex:SetPoint("BOTTOMRIGHT", icon1.overlay, "BOTTOMRIGHT", -pixel_scale(2), pixel_scale(2))
+                backdroptex:SetPoint("TOPLEFT", icon1.overlay, "TOPLEFT", PixelScale(2), -PixelScale(2))
+                backdroptex:SetPoint("BOTTOMRIGHT", icon1.overlay, "BOTTOMRIGHT", -PixelScale(2), PixelScale(2))
                 backdroptex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
             end
 
             if not icon2.overlay then
                 icon2.overlay = CreateFrame("Frame", "$parentIcon2Overlay", frame_bar)
                 icon2.overlay:SetFrameLevel(1)
-                icon2.overlay:SetHeight(pixel_scale(Button_Size))
-                icon2.overlay:SetWidth(pixel_scale(Button_Size))
+                icon2.overlay:SetHeight(PixelScale(Button_Size))
+                icon2.overlay:SetWidth(PixelScale(Button_Size))
                 icon2.overlay:SetFrameStrata("BACKGROUND")
-                icon2.overlay:SetPoint("BOTTOMLEFT", frame_bar, "BOTTOMRIGHT", pixel_scale(Button_Size / 4), -pixel_scale(2))
+                icon2.overlay:SetPoint("BOTTOMLEFT", frame_bar, "BOTTOMRIGHT", PixelScale(Button_Size / 4), -PixelScale(2))
                 icon2.overlay:SetBackdrop({
                     bgFile = [[Interface\Addons\caelUI\media\borders\blank]],
                     edgeFile = [[Interface\Addons\caelUI\media\borders\blank]],
-                    tile = false, tileSize = 0, edgeSize = pixel_scale(1),
-                    insets = {left = -pixel_scale(1), right = -pixel_scale(1), top = -pixel_scale(1), bottom = -pixel_scale(1)}
+                    tile = false, tileSize = 0, edgeSize = PixelScale(1),
+                    insets = {left = -PixelScale(1), right = -PixelScale(1), top = -PixelScale(1), bottom = -PixelScale(1)}
                 })
 
                 icon2.overlay:SetBackdropColor(0.1, 0.1, 0.1, 1)
@@ -102,13 +102,13 @@ local function SkinBars(self)
                     local shadow = CreateFrame("Frame", nil, icon2.overlay)
                     shadow:SetFrameLevel(1)
                     shadow:SetFrameStrata("BACKGROUND")
-                    shadow:SetPoint("TOPLEFT", -pixel_scale(3), pixel_scale(3))
-                    shadow:SetPoint("BOTTOMLEFT", -pixel_scale(3), -pixel_scale(3))
-                    shadow:SetPoint("TOPRIGHT", pixel_scale(3), pixel_scale(3))
-                    shadow:SetPoint("BOTTOMRIGHT", pixel_scale(3), -pixel_scale(3))
+                    shadow:SetPoint("TOPLEFT", -PixelScale(3), PixelScale(3))
+                    shadow:SetPoint("BOTTOMLEFT", -PixelScale(3), -PixelScale(3))
+                    shadow:SetPoint("TOPRIGHT", PixelScale(3), PixelScale(3))
+                    shadow:SetPoint("BOTTOMRIGHT", PixelScale(3), -PixelScale(3))
                     shadow:SetBackdrop( { 
-                        edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = pixel_scale(3),
-                        insets = {left = pixel_scale(5), right = pixel_scale(5), top = pixel_scale(5), bottom = pixel_scale(5)},
+                        edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = PixelScale(3),
+                        insets = {left = PixelScale(5), right = PixelScale(5), top = PixelScale(5), bottom = PixelScale(5)},
                     })
                     shadow:SetBackdropColor(0, 0, 0, 0)
                     shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
@@ -118,8 +118,8 @@ local function SkinBars(self)
                 local backdroptex = icon2.overlay:CreateTexture(nil, "BORDER")
 
                 backdroptex:SetTexture([=[Interface\Icons\Spell_Nature_WispSplode]=])
-                backdroptex:SetPoint("TOPLEFT", icon2.overlay, "TOPLEFT", pixel_scale(2), -pixel_scale(2))
-                backdroptex:SetPoint("BOTTOMRIGHT", icon2.overlay, "BOTTOMRIGHT", -pixel_scale(2), pixel_scale(2))
+                backdroptex:SetPoint("TOPLEFT", icon2.overlay, "TOPLEFT", PixelScale(2), -PixelScale(2))
+                backdroptex:SetPoint("BOTTOMRIGHT", icon2.overlay, "BOTTOMRIGHT", -PixelScale(2), PixelScale(2))
                 backdroptex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
             end
 
@@ -129,8 +129,8 @@ local function SkinBars(self)
                 frame_bar:SetStatusBarColor(bar.owner.options.StartColorR, bar.owner.options.StartColorG, bar.owner.options.StartColorB)
             end
 
-            if bar.enlarged then frame:SetWidth(pixel_scale(bar.owner.options.HugeWidth)) else frame:SetWidth(pixel_scale(bar.owner.options.Width)) end
-            if bar.enlarged then frame_bar:SetWidth(pixel_scale(bar.owner.options.HugeWidth)) else frame_bar:SetWidth(pixel_scale(bar.owner.options.Width)) end
+            if bar.enlarged then frame:SetWidth(PixelScale(bar.owner.options.HugeWidth)) else frame:SetWidth(PixelScale(bar.owner.options.Width)) end
+            if bar.enlarged then frame_bar:SetWidth(PixelScale(bar.owner.options.HugeWidth)) else frame_bar:SetWidth(PixelScale(bar.owner.options.Width)) end
 
             if not frame.styled then
                 --frame:SetScale(1)
@@ -138,13 +138,13 @@ local function SkinBars(self)
 
                 frame.SetScale = function() return end
 
-                frame:SetHeight(pixel_scale(Button_Size / 2))
+                frame:SetHeight(PixelScale(Button_Size / 2))
                 
                 frame:SetBackdrop({
                     bgFile = [[Interface\Addons\caelUI\media\borders\blank]],
                     edgeFile = [[Interface\Addons\caelUI\media\borders\blank]],
-                    tile = false, tileSize = 0, edgeSize = pixel_scale(1),
-                    insets = {left = -pixel_scale(1), right = -pixel_scale(1), top = -pixel_scale(1), bottom = -pixel_scale(1)}
+                    tile = false, tileSize = 0, edgeSize = PixelScale(1),
+                    insets = {left = -PixelScale(1), right = -PixelScale(1), top = -PixelScale(1), bottom = -PixelScale(1)}
                 })
                 frame:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
                 frame:SetBackdropBorderColor(0.6, 0.6, 0.6)
@@ -153,13 +153,13 @@ local function SkinBars(self)
                     local shadow = CreateFrame("Frame", nil, frame.overlay)
                     shadow:SetFrameLevel(1)
                     shadow:SetFrameStrata("BACKGROUND")
-                    shadow:SetPoint("TOPLEFT", -pixel_scale(3), pixel_scale(3))
-                    shadow:SetPoint("BOTTOMLEFT", -pixel_scale(3), -pixel_scale(3))
-                    shadow:SetPoint("TOPRIGHT", pixel_scale(3), pixel_scale(3))
-                    shadow:SetPoint("BOTTOMRIGHT", pixel_scale(3), -pixel_scale(3))
+                    shadow:SetPoint("TOPLEFT", -PixelScale(3), PixelScale(3))
+                    shadow:SetPoint("BOTTOMLEFT", -PixelScale(3), -PixelScale(3))
+                    shadow:SetPoint("TOPRIGHT", PixelScale(3), PixelScale(3))
+                    shadow:SetPoint("BOTTOMRIGHT", PixelScale(3), -PixelScale(3))
                     shadow:SetBackdrop( { 
-                        edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = pixel_scale(3),
-                        insets = {left = pixel_scale(5), right = pixel_scale(5), top = pixel_scale(5), bottom = pixel_scale(5)},
+                        edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = PixelScale(3),
+                        insets = {left = PixelScale(5), right = PixelScale(5), top = PixelScale(5), bottom = PixelScale(5)},
                     })
                     shadow:SetBackdropColor(0, 0, 0, 0)
                     shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
@@ -178,16 +178,16 @@ local function SkinBars(self)
             if not icon1.styled then
                 icon1:SetTexCoord(0.08, 0.92, 0.08, 0.92)
                 icon1:ClearAllPoints()
-                icon1:SetPoint("TOPLEFT", icon1.overlay, pixel_scale(2), -pixel_scale(2))
-                icon1:SetPoint("BOTTOMRIGHT", icon1.overlay, -pixel_scale(2), pixel_scale(2))
+                icon1:SetPoint("TOPLEFT", icon1.overlay, PixelScale(2), -PixelScale(2))
+                icon1:SetPoint("BOTTOMRIGHT", icon1.overlay, -PixelScale(2), PixelScale(2))
                 icon1.styled = true
             end
             
             if not icon2.styled then
                 icon2:SetTexCoord(0.08, 0.92, 0.08, 0.92)
                 icon2:ClearAllPoints()
-                icon2:SetPoint("TOPLEFT", icon2.overlay, pixel_scale(2), -pixel_scale(2))
-                icon2:SetPoint("BOTTOMRIGHT", icon2.overlay, -pixel_scale(2), pixel_scale(2))
+                icon2:SetPoint("TOPLEFT", icon2.overlay, PixelScale(2), -PixelScale(2))
+                icon2:SetPoint("BOTTOMRIGHT", icon2.overlay, -PixelScale(2), PixelScale(2))
                 icon2.styled = true
             end
 
@@ -198,17 +198,17 @@ local function SkinBars(self)
 
             frame_bar:SetStatusBarTexture(media.files.statusbar_c)
             if not frame_bar.styled then
-                frame_bar:SetPoint("TOPLEFT", frame, "TOPLEFT", pixel_scale(2), -pixel_scale(2))
-                frame_bar:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -pixel_scale(2), pixel_scale(2))
+                frame_bar:SetPoint("TOPLEFT", frame, "TOPLEFT", PixelScale(2), -PixelScale(2))
+                frame_bar:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -PixelScale(2), PixelScale(2))
                 
                 frame_bar.styled = true
             end
 
             if not name.styled then
                 name:ClearAllPoints()
-                name:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, pixel_scale(4))
-                name:SetWidth(pixel_scale(155))
-                name:SetHeight(pixel_scale(8))
+                name:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, PixelScale(4))
+                name:SetWidth(PixelScale(155))
+                name:SetHeight(PixelScale(8))
                 name:SetFont(media.fonts.normal, 12, "OUTLINE")
                 name:SetJustifyH("LEFT")
                 name:SetShadowColor(0, 0, 0, 0)
@@ -218,7 +218,7 @@ local function SkinBars(self)
             
             if not timer.styled then    
                 timer:ClearAllPoints()
-                timer:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT", -pixel_scale(1), pixel_scale(2))
+                timer:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT", -PixelScale(1), PixelScale(2))
                 timer:SetFont(media.fonts.normal, 12, "OUTLINE")
                 timer:SetJustifyH("RIGHT")
                 timer:SetShadowColor(0, 0, 0, 0)
@@ -268,27 +268,27 @@ local SkinBoss=function()
             local   _, anch, _ ,_, _ = bar:GetPoint()
             bar:ClearAllPoints()
             if DBM_SavedOptions.HealthFrameGrowUp then
-                bar:SetPoint("BOTTOM", anch, "TOP" , 0 , pixel_scale(12))
+                bar:SetPoint("BOTTOM", anch, "TOP" , 0 , PixelScale(12))
             else
-                bar:SetPoint("TOP", anch, "BOTTOM" , 0, -pixel_scale(Button_Size))
+                bar:SetPoint("TOP", anch, "BOTTOM" , 0, -PixelScale(Button_Size))
             end
         else
             bar:ClearAllPoints()
             if DBM_SavedOptions.HealthFrameGrowUp then
-                bar:SetPoint("TOPLEFT", prev, "TOPLEFT", 0, pixel_scale(Button_Size))
+                bar:SetPoint("TOPLEFT", prev, "TOPLEFT", 0, PixelScale(Button_Size))
             else
-                bar:SetPoint("TOPLEFT", prev, "TOPLEFT", 0, -pixel_scale(Button_Size))
+                bar:SetPoint("TOPLEFT", prev, "TOPLEFT", 0, -PixelScale(Button_Size))
             end
         end
 
         if not bar.styled then
-            bar:SetHeight(pixel_scale(Button_Size / 3))
+            bar:SetHeight(PixelScale(Button_Size / 3))
 
             bar:SetBackdrop({
                 bgFile = [[Interface\Addons\caelUI\media\borders\blank]],
                 edgeFile = [[Interface\Addons\caelUI\media\borders\blank]],
-                tile = false, tileSize = 0, edgeSize = pixel_scale(1),
-                insets = {left = -pixel_scale(1), right = -pixel_scale(1), top = -pixel_scale(1), bottom = -pixel_scale(1)}
+                tile = false, tileSize = 0, edgeSize = PixelScale(1),
+                insets = {left = -PixelScale(1), right = -PixelScale(1), top = -PixelScale(1), bottom = -PixelScale(1)}
             })
 
             bar:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
@@ -298,13 +298,13 @@ local SkinBoss=function()
                 local shadow = CreateFrame("Frame", nil, bar.overlay)
                 shadow:SetFrameLevel(1)
                 shadow:SetFrameStrata("BACKGROUND")
-                shadow:SetPoint("TOPLEFT", -pixel_scale(3), pixel_scale(3))
-                shadow:SetPoint("BOTTOMLEFT", -pixel_scale(3), -pixel_scale(3))
-                shadow:SetPoint("TOPRIGHT", pixel_scale(3), pixel_scale(3))
-                shadow:SetPoint("BOTTOMRIGHT", pixel_scale(3), -pixel_scale(3))
+                shadow:SetPoint("TOPLEFT", -PixelScale(3), PixelScale(3))
+                shadow:SetPoint("BOTTOMLEFT", -PixelScale(3), -PixelScale(3))
+                shadow:SetPoint("TOPRIGHT", PixelScale(3), PixelScale(3))
+                shadow:SetPoint("BOTTOMRIGHT", PixelScale(3), -PixelScale(3))
                 shadow:SetBackdrop( { 
-                    edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = pixel_scale(3),
-                    insets = {left = pixel_scale(5), right = pixel_scale(5), top = pixel_scale(5), bottom = pixel_scale(5)},
+                    edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = PixelScale(3),
+                    insets = {left = PixelScale(5), right = PixelScale(5), top = PixelScale(5), bottom = PixelScale(5)},
                 })
                 shadow:SetBackdropColor(0, 0, 0, 0)
                 shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
@@ -322,12 +322,12 @@ local SkinBoss=function()
         end
 
         progress:ClearAllPoints()
-        progress:SetPoint("TOPLEFT", bar, "TOPLEFT", pixel_scale(2), -pixel_scale(2))
-        progress:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", -pixel_scale(2), pixel_scale(2))
+        progress:SetPoint("TOPLEFT", bar, "TOPLEFT", PixelScale(2), -PixelScale(2))
+        progress:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", -PixelScale(2), PixelScale(2))
 
         if not name.styled then
             name:ClearAllPoints()
-            name:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", pixel_scale(1), pixel_scale(4))
+            name:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", PixelScale(1), PixelScale(4))
             name:SetFont(media.fonts.normal, 12, "OUTLINE")
             name:SetJustifyH("LEFT")
             name:SetShadowColor(0, 0, 0, 0)
@@ -336,7 +336,7 @@ local SkinBoss=function()
         
         if not timer.styled then
             timer:ClearAllPoints()
-            timer:SetPoint("BOTTOMRIGHT", bar, "TOPRIGHT", 0, pixel_scale(2))
+            timer:SetPoint("BOTTOMRIGHT", bar, "TOPRIGHT", 0, PixelScale(2))
             timer:SetFont(media.fonts.normal, 12, "OUTLINE")
             timer:SetJustifyH("RIGHT")
             timer:SetShadowColor(0, 0, 0, 0)
@@ -358,8 +358,8 @@ DBMRangeCheck:HookScript("OnShow", function(self)
     self:SetBackdrop({
         bgFile = [[Interface\Addons\caelUI\media\borders\blank]],
         edgeFile = [[Interface\Addons\caelUI\media\borders\blank]],
-        tile = false, tileSize = 0, edgeSize = pixel_scale(1),
-        insets = {left = -pixel_scale(1), right = -pixel_scale(1), top = -pixel_scale(1), bottom = -pixel_scale(1)}
+        tile = false, tileSize = 0, edgeSize = PixelScale(1),
+        insets = {left = -PixelScale(1), right = -PixelScale(1), top = -PixelScale(1), bottom = -PixelScale(1)}
     })
     self:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
     self:SetBackdropBorderColor(0.6, 0.6, 0.6)
@@ -368,13 +368,13 @@ DBMRangeCheck:HookScript("OnShow", function(self)
         local shadow = CreateFrame("Frame", nil, self.overlay)
         shadow:SetFrameLevel(1)
         shadow:SetFrameStrata("BACKGROUND")
-        shadow:SetPoint("TOPLEFT", -pixel_scale(3), pixel_scale(3))
-        shadow:SetPoint("BOTTOMLEFT", -pixel_scale(3), -pixel_scale(3))
-        shadow:SetPoint("TOPRIGHT", pixel_scale(3), pixel_scale(3))
-        shadow:SetPoint("BOTTOMRIGHT", pixel_scale(3), -pixel_scale(3))
+        shadow:SetPoint("TOPLEFT", -PixelScale(3), PixelScale(3))
+        shadow:SetPoint("BOTTOMLEFT", -PixelScale(3), -PixelScale(3))
+        shadow:SetPoint("TOPRIGHT", PixelScale(3), PixelScale(3))
+        shadow:SetPoint("BOTTOMRIGHT", PixelScale(3), -PixelScale(3))
         shadow:SetBackdrop( { 
-            edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = pixel_scale(3),
-            insets = {left = pixel_scale(5), right = pixel_scale(5), top = pixel_scale(5), bottom = pixel_scale(5)},
+            edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = PixelScale(3),
+            insets = {left = PixelScale(5), right = PixelScale(5), top = PixelScale(5), bottom = PixelScale(5)},
         })
         shadow:SetBackdropColor(0, 0, 0, 0)
         shadow:SetBackdropBorderColor(0, 0, 0, 0.8)

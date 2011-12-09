@@ -2,7 +2,7 @@ local _, caelCooldowns = ...
 
 local minScale = 0.5
 local minDuration = caelUI.config.player.class == "HUNTER" and 1 or 1.5
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 
 local format = string.format
 local floor = math.floor
@@ -62,7 +62,7 @@ local function TimerCreate (self)
         self.noOCC = true
     else
         local text = self:CreateFontString(nil, "OVERLAY")
-        text:SetPoint("CENTER", pixel_scale(2), 0)
+        text:SetPoint("CENTER", PixelScale(2), 0)
         text:SetJustifyH("CENTER")
         text:SetFont(caelUI.media.fonts.normal, 13 * scale, "THICKOUTLINE")
         text:SetTextColor(244 / 255, 250 / 255, 210 / 255)

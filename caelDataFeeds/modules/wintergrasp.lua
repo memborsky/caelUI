@@ -4,9 +4,9 @@ local _, caelDataFeeds = ...
 
 local wgtimer = caelDataFeeds.createModule("WintergraspTimer", Minimap)
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 
-wgtimer.text:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, pixel_scale(5))
+wgtimer.text:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, PixelScale(5))
 wgtimer.text:SetParent(Minimap)
 
 local delay = 0

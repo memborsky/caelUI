@@ -68,7 +68,7 @@ function private.set_scale (...)
 end
 
 -- This will scale our given value to our scale offset.
-function private.pixel_scale (value)
+function private.PixelScale (value)
     return scale_fix * math.floor(value / scale_fix + 0.5)
 end
 

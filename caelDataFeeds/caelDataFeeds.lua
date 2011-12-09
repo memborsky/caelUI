@@ -1,6 +1,6 @@
 local _, caelDataFeeds = ...
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 
 caelDataFeeds.createModule = function(name)
 

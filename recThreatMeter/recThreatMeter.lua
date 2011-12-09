@@ -12,7 +12,7 @@ local need_reset = true
 local in_raid, in_party, warning_played, i_am_tank, target_okay
 local top_threat, overtake_threat, my_threat = 0, -1, -1
 local HIDDEN, TANKING, BLANK = "* %s", ">>> %s <<<", " "
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 local media = caelUI.media
 --local 10   = 10 -- This is set in MakeDisplay() to its true number.
 
@@ -269,11 +269,11 @@ end
 
 local function MakeDisplay()
     local f = display_frame
-    f:SetWidth(pixel_scale(200))
-    f:SetHeight(pixel_scale(170))
+    f:SetWidth(PixelScale(200))
+    f:SetHeight(PixelScale(170))
 
     caelPanels.SetupAddonPanel(caelPanel_ThreatMeter, f)
-    --f:SetPoint("BOTTOM", UIParent, "BOTTOM", pixel_scale(647), pixel_scale(23))
+    --f:SetPoint("BOTTOM", UIParent, "BOTTOM", PixelScale(647), PixelScale(23))
 
     f.texture = f:CreateTexture()
     f.texture:SetAllPoints()
@@ -287,24 +287,24 @@ local function MakeDisplay()
 
     -- Add some bars!
     f.bars = Recycler()
-    local bar_nums = pixel_scale(floor((f:GetHeight()-40)/10))
+    local bar_nums = PixelScale(floor((f:GetHeight()-40)/10))
     for i = 1, bar_nums do
         f.bars[i] = CreateFrame("StatusBar", nil, f)
-        f.bars[i]:SetWidth(pixel_scale(159))
+        f.bars[i]:SetWidth(PixelScale(159))
         f.bars[i]:SetHeight(12.35)
         f.bars[i]:SetMinMaxValues(0, 1)
         f.bars[i]:SetOrientation("HORIZONTAL")
         f.bars[i]:SetStatusBarColor(1, 1, 1, 0.8)
         f.bars[i]:SetStatusBarTexture(media.files.statusbar_c)
-        f.bars[i]:SetPoint("TOPLEFT", i == 1 and f or f.bars[i-1], i == 1 and "TOPLEFT" or "BOTTOMLEFT", pixel_scale(i == 1 and 2 or 0), pixel_scale(i == 1 and -10 or -1))
-        f.bars[i]:SetPoint("TOPRIGHT", i == 1 and f or f.bars[i-1], i == 1 and "TOPRIGHT" or "BOTTOMRIGHT", pixel_scale(i == 1 and -2 or 0), pixel_scale(i == 1 and -10 or -1))
+        f.bars[i]:SetPoint("TOPLEFT", i == 1 and f or f.bars[i-1], i == 1 and "TOPLEFT" or "BOTTOMLEFT", PixelScale(i == 1 and 2 or 0), PixelScale(i == 1 and -10 or -1))
+        f.bars[i]:SetPoint("TOPRIGHT", i == 1 and f or f.bars[i-1], i == 1 and "TOPRIGHT" or "BOTTOMRIGHT", PixelScale(i == 1 and -2 or 0), PixelScale(i == 1 and -10 or -1))
         f.bars[i].lefttext = f.bars[i]:CreateFontString(nil, "ARTWORK")
         f.bars[i].lefttext:SetFont(media.fonts.normal, 9)
-        f.bars[i].lefttext:SetPoint("LEFT", f.bars[i], "LEFT", 0, pixel_scale(2))
+        f.bars[i].lefttext:SetPoint("LEFT", f.bars[i], "LEFT", 0, PixelScale(2))
         f.bars[i].lefttext:Show()
         f.bars[i].righttext = f.bars[i]:CreateFontString(nil, "ARTWORK")
         f.bars[i].righttext:SetFont(media.fonts.normal, 9)
-        f.bars[i].righttext:SetPoint("RIGHT", f.bars[i], "RIGHT", 0, pixel_scale(2))
+        f.bars[i].righttext:SetPoint("RIGHT", f.bars[i], "RIGHT", 0, PixelScale(2))
         SetBarValues(i)
     end
 

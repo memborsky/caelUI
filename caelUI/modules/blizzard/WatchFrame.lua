@@ -1,12 +1,12 @@
 ﻿local Watch = CreateModule("WatchFrame")
 
 do
-    local pixel_scale = Watch.pixel_scale
+    local PixelScale = Watch.PixelScale
 
     -- Initialize the WatchFrame
     WatchFrame:ClearAllPoints()
-    WatchFrame:SetHeight(pixel_scale(600))
-    WatchFrame:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", pixel_scale(-15), pixel_scale(-15))
+    WatchFrame:SetHeight(PixelScale(600))
+    WatchFrame:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", PixelScale(-15), PixelScale(-15))
 
     WatchFrame.ClearAllPoints = function () end
     WatchFrame.SetPoint = function () end

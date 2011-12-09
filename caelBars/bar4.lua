@@ -1,6 +1,6 @@
 local _, caelBars = ...
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 
 local bar4 = CreateFrame("Frame", "bar4", UIParent)
 
@@ -20,10 +20,10 @@ for index = 1, 12 do
     button:SetAlpha(0.45)
 
     if index == 1 then
-        button:SetPoint("TOPLEFT", caelPanel_ActionBar4, pixel_scale(5), pixel_scale(-2))
+        button:SetPoint("TOPLEFT", caelPanel_ActionBar4, PixelScale(5), PixelScale(-2))
     elseif index == 7 then
-        button:SetPoint("TOPLEFT", _G["MultiBarRightButton1"], "BOTTOMLEFT", 0, pixel_scale(-2))
+        button:SetPoint("TOPLEFT", _G["MultiBarRightButton1"], "BOTTOMLEFT", 0, PixelScale(-2))
     else
-        button:SetPoint("LEFT", buttonPrev, "RIGHT", pixel_scale(2), 0)
+        button:SetPoint("LEFT", buttonPrev, "RIGHT", PixelScale(2), 0)
     end
 end

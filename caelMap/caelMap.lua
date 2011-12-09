@@ -3,7 +3,7 @@
 caelMap = CreateFrame("Frame")
 
 local kill = caelUI.kill
-local pixelScale = caelUI.config.pixel_scale
+local pixelScale = caelUI.config.PixelScale
 local media = caelUI.media
 
 WORLDMAP_WINDOWED_SIZE = 0.99

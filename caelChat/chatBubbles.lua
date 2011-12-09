@@ -7,7 +7,7 @@ caelChat.bubbles = CreateFrame("Frame", nil, UIParent)
 
 bubbles = {}
 local media = caelUI.media
-local pixelScale = caelUI.config.pixel_scale
+local pixelScale = caelUI.config.PixelScale
 
 local SkinBubble = function(frame)
     for index = 1, frame:GetNumRegions() do

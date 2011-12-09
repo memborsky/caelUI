@@ -4,7 +4,7 @@ local _, caelGroupCD = ...
 
 caelGroupCD.eventFrame = CreateFrame("Frame", nil, UIParent)
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 local media = caelUI.media
 
 local show = {
@@ -37,7 +37,7 @@ local timer = 0
 
 local anchorframe = CreateFrame("Frame", nil, UIParent)
 anchorframe:SetSize(160, 25)
-anchorframe:SetPoint("RIGHT", UIParent, "RIGHT", pixel_scale(-5), 0)
+anchorframe:SetPoint("RIGHT", UIParent, "RIGHT", PixelScale(-5), 0)
 if UIMovableFrames then tinsert(UIMovableFrames, anchorframe) end
 
 local FormatTime = function(t)
@@ -68,12 +68,12 @@ end
 
 local CreateBar = function(id)
     local bar = CreateFrame("Frame", nil, UIParent)
-    bar:SetSize(pixel_scale(150), pixel_scale(25))
+    bar:SetSize(PixelScale(150), PixelScale(25))
 
     bar.icon = media.create_blank_backdrop(bar)
-    bar.icon:SetSize(pixel_scale(30), pixel_scale(30))
+    bar.icon:SetSize(PixelScale(30), PixelScale(30))
     bar.icon:ClearAllPoints()
-    bar.icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -pixel_scale(7.5), -pixel_scale(2))
+    bar.icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -PixelScale(7.5), -PixelScale(2))
     bar.icon:SetFrameLevel(1)
     bar.icon:SetBackdropColor(0.1, 0.1, 0.1, 1)
     bar.icon:SetBackdropBorderColor(0.6, 0.6, 0.6)
@@ -84,40 +84,40 @@ local CreateBar = function(id)
     -- The actual spell icon texture.
     bar.icon.texture = bar.icon:CreateTexture(nil, "BORDER")
     bar.icon.texture:SetTexture([=[Interface\Icons\Spell_Nature_WispSplode]=])
-    bar.icon.texture:SetPoint("TOPLEFT", bar.icon, "TOPLEFT", pixel_scale(2), -pixel_scale(2))
-    bar.icon.texture:SetPoint("BOTTOMRIGHT", bar.icon, "BOTTOMRIGHT", -pixel_scale(2), pixel_scale(2))
+    bar.icon.texture:SetPoint("TOPLEFT", bar.icon, "TOPLEFT", PixelScale(2), -PixelScale(2))
+    bar.icon.texture:SetPoint("BOTTOMRIGHT", bar.icon, "BOTTOMRIGHT", -PixelScale(2), PixelScale(2))
     bar.icon.texture:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 
     bar.statusbar = media.create_blank_backdrop(bar)
-    bar.statusbar:SetHeight(pixel_scale(15))
-    bar.statusbar:SetWidth(pixel_scale(150))
+    bar.statusbar:SetHeight(PixelScale(15))
+    bar.statusbar:SetWidth(PixelScale(150))
     bar.statusbar:ClearAllPoints()
-    bar.statusbar:SetPoint("BOTTOMLEFT", bar.icon, "BOTTOMRIGHT", pixel_scale(5), 0)
+    bar.statusbar:SetPoint("BOTTOMLEFT", bar.icon, "BOTTOMRIGHT", PixelScale(5), 0)
     bar.statusbar:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
     bar.statusbar:SetBackdropBorderColor(0.6, 0.6, 0.6)
 
     bar.statusbar.bar = CreateFrame("Statusbar", nil, bar.statusbar)
     bar.statusbar.bar:SetStatusBarTexture(media.files.statusbar_c)
     bar.statusbar.bar:SetMinMaxValues(0, 100)
-    bar.statusbar.bar:SetPoint("TOPLEFT", bar.statusbar, "TOPLEFT", pixel_scale(2), -pixel_scale(2))
-    bar.statusbar.bar:SetPoint("BOTTOMRIGHT", bar.statusbar, "BOTTOMRIGHT", -pixel_scale(2), pixel_scale(2))
+    bar.statusbar.bar:SetPoint("TOPLEFT", bar.statusbar, "TOPLEFT", PixelScale(2), -PixelScale(2))
+    bar.statusbar.bar:SetPoint("BOTTOMRIGHT", bar.statusbar, "BOTTOMRIGHT", -PixelScale(2), PixelScale(2))
 
     -- Shadow it up.
     bar.statusbar.shadow = media.create_shadow(bar.statusbar)
 
     bar.name = SetFontString(bar, media.fonts.normal, 11, "")
     bar.name:ClearAllPoints()
-    bar.name:SetPoint("BOTTOMLEFT", bar.statusbar, "TOPLEFT", pixel_scale(1), pixel_scale(3))
+    bar.name:SetPoint("BOTTOMLEFT", bar.statusbar, "TOPLEFT", PixelScale(1), PixelScale(3))
     bar.name:SetJustifyH("LEFT")
-    bar.name:SetWidth(pixel_scale(155))
-    bar.name:SetHeight(pixel_scale(10))
+    bar.name:SetWidth(PixelScale(155))
+    bar.name:SetHeight(PixelScale(10))
 
     bar.duration = SetFontString(bar, media.fonts.custom_number, 11, "")
     bar.duration:ClearAllPoints()
-    bar.duration:SetPoint("BOTTOMRIGHT", bar.statusbar, "TOPRIGHT", -pixel_scale(1), pixel_scale(3))
+    bar.duration:SetPoint("BOTTOMRIGHT", bar.statusbar, "TOPRIGHT", -PixelScale(1), PixelScale(3))
     bar.duration:SetJustifyH("RIGHT")
-    bar.duration:SetWidth(pixel_scale(165))
-    bar.duration:SetHeight(pixel_scale(10))
+    bar.duration:SetWidth(PixelScale(165))
+    bar.duration:SetHeight(PixelScale(10))
 
     return bar
 end
@@ -128,7 +128,7 @@ local UpdateBar = function()
         if i == 1 then
             bars[i]:SetPoint("TOPLEFT", anchorframe, 0, 0)
         else
-            bars[i]:SetPoint("TOPLEFT", bars[i-1], "BOTTOMLEFT", 0, -pixel_scale(10))
+            bars[i]:SetPoint("TOPLEFT", bars[i-1], "BOTTOMLEFT", 0, -PixelScale(10))
         end
         bars[i].id = i
     end
@@ -197,7 +197,7 @@ local StartTimer = function(unit, spellId)
 
     bar:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_NONE")
-        GameTooltip:SetPoint("RIGHT", self, "LEFT", pixel_scale(-23), 0)
+        GameTooltip:SetPoint("RIGHT", self, "LEFT", PixelScale(-23), 0)
         GameTooltip:SetHyperlink(GetSpellLink(spellId))
         GameTooltip:Show()
     end)

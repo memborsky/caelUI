@@ -1,5 +1,5 @@
 ﻿local media = caelUI.media
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 local player_class = caelUI.config.player.class
 local class_color = RAID_CLASS_COLORS[player_class]
 
@@ -24,8 +24,8 @@ local function StyleButton(name, action)
     hover:SetTexture(class_color.r, class_color.g, class_color.b, 0.75)
     hover:SetHeight(button:GetHeight())
     hover:SetWidth(button:GetWidth())
-    hover:SetPoint("TOPLEFT", button, pixel_scale(3), -pixel_scale(3))
-    hover:SetPoint("BOTTOMRIGHT", button, -pixel_scale(3), pixel_scale(3))
+    hover:SetPoint("TOPLEFT", button, PixelScale(3), -PixelScale(3))
+    hover:SetPoint("BOTTOMRIGHT", button, -PixelScale(3), PixelScale(3))
     button:SetHighlightTexture(hover)
 
     -- Button pushes color change.
@@ -33,8 +33,8 @@ local function StyleButton(name, action)
     pushed:SetTexture(85 / 255, 98 / 255, 112 / 255, 1)
     pushed:SetHeight(button:GetHeight())
     pushed:SetWidth(button:GetWidth())
-    pushed:SetPoint("TOPLEFT", button, pixel_scale(3), -pixel_scale(3))
-    pushed:SetPoint("BOTTOMRIGHT", button, -pixel_scale(3), pixel_scale(3))
+    pushed:SetPoint("TOPLEFT", button, PixelScale(3), -PixelScale(3))
+    pushed:SetPoint("BOTTOMRIGHT", button, -PixelScale(3), PixelScale(3))
     button:SetPushedTexture(pushed)
 
     -- Checked button color change.
@@ -42,8 +42,8 @@ local function StyleButton(name, action)
     checked:SetTexture(199 / 255, 244 / 255, 100 / 255, 0.4)
     checked:SetHeight(button:GetHeight())
     checked:SetWidth(button:GetWidth())
-    checked:SetPoint("TOPLEFT", button, pixel_scale(3), -pixel_scale(3))
-    checked:SetPoint("BOTTOMRIGHT", button, -pixel_scale(3), pixel_scale(3))
+    checked:SetPoint("TOPLEFT", button, PixelScale(3), -PixelScale(3))
+    checked:SetPoint("BOTTOMRIGHT", button, -PixelScale(3), PixelScale(3))
     button:SetCheckedTexture(checked)
 
     -- if border then
@@ -54,8 +54,8 @@ local function StyleButton(name, action)
 
     icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     icon:SetAllPoints(button)
-    icon:SetPoint("TOPLEFT", button, pixel_scale(4), -pixel_scale(4))
-    icon:SetPoint("BOTTOMRIGHT", button, -pixel_scale(4), pixel_scale(4))
+    icon:SetPoint("TOPLEFT", button, PixelScale(4), -PixelScale(4))
+    icon:SetPoint("BOTTOMRIGHT", button, -PixelScale(4), PixelScale(4))
 
     flash:SetTexture(0, 1, 0, 1)
 
@@ -85,7 +85,7 @@ local function StyleButton(name, action)
             count:SetParent(button)
 
             count:SetFont(media.fonts.normal, 12, "OUTLINEMONOCHROME")
-            count:SetPoint("BOTTOMRIGHT", pixel_scale(3), pixel_scale(-1))
+            count:SetPoint("BOTTOMRIGHT", PixelScale(3), PixelScale(-1))
         end
 
         if not hideHotkeys then

@@ -1,7 +1,7 @@
 local private = unpack(select(2, ...))
 
 -- Localized variables
-local pixel_scale = private.pixel_scale
+local PixelScale = private.PixelScale
 
 -- We use this to reference a blank frame for calling frame related functions when we modify them.
 local reference_frame = CreateFrame("Frame")
@@ -38,18 +38,18 @@ function module_metatable.__index:GetMedia()
     return private.media
 end
 
--- Rewrite the SetPoint on our frame so we can use pixel_scale here instead of in the actual module.
+-- Rewrite the SetPoint on our frame so we can use PixelScale here instead of in the actual module.
 function module_metatable.__index:SetPoint(...)
     local argument_count = #(...)
 
     if argument_count == 5 then
         local point, relative_frame, relative_point, offsetX, offsetY = ...
-        reference_frame.SetPoint(self, point, relative_frame, relative_point, pixel_scale(offsetX), pixel_scale(offsetY))
+        reference_frame.SetPoint(self, point, relative_frame, relative_point, PixelScale(offsetX), PixelScale(offsetY))
     else
         if argument_count == 3 and type(select(3, ...)) == "number" then
             local point, offsetX, offsetY = ...
 
-            reference_frame.SetPoint(self, point, pixel_scale(offsetX), pixel_scale(offsetY))
+            reference_frame.SetPoint(self, point, PixelScale(offsetX), PixelScale(offsetY))
         else
             reference_frame.SetPoint(self, ...)
         end
@@ -72,9 +72,9 @@ function CreateModule(name, create_frame)
     -- Make sure we know what the name of the object was if we reference it again.
     self.name = name
 
-    -- We pass the pixel_scale function with the table/frame we create because we occasionally still need
+    -- We pass the PixelScale function with the table/frame we create because we occasionally still need
     -- it on frame modifications that are not created with this function.
-    self.pixel_scale = private.pixel_scale
+    self.PixelScale = private.PixelScale
 
     -- Return the data.
     return self

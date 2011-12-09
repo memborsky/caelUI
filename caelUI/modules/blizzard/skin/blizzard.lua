@@ -3,7 +3,7 @@ local private = unpack(select(2, ...))
 
 --[[    Reskin Blizzard windows ]]
 
-local pixel_scale = SkinBlizzard.pixel_scale
+local PixelScale = SkinBlizzard.PixelScale
 local media      = SkinBlizzard:GetMedia()
 local backdrop   = media.backdrop_table
 local color      = RAID_CLASS_COLORS[private.GetDatabase("config").player.class]
@@ -277,7 +277,7 @@ SkinBlizzard:RegisterEvent("ADDON_LOADED", function(self, _, addon)
     _G["PlayerPowerBarAlt"]:HookScript("OnShow", function(self)
         self:ClearAllPoints()
         self.ClearAllPoints = function () end
-        self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixel_scale(25))
+        self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, PixelScale(25))
         self.SetPoint = function () end
     end)
     SkinPanel(_G["StackSplitFrame"])

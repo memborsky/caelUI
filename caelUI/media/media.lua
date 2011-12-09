@@ -1,7 +1,7 @@
 local private = unpack(select(2, ...))
 
--- localizing pixel_scale
-local pixel_scale = private.pixel_scale
+-- localizing PixelScale
+local PixelScale = private.PixelScale
 
 -- Create the media table.
 private.media = {}
@@ -45,30 +45,30 @@ media.files = {
 }
 
 media.inset_table = {
-    left    = pixel_scale(2),
-    right   = pixel_scale(2),
-    top     = pixel_scale(2),
-    bottom  = pixel_scale(2)
+    left    = PixelScale(2),
+    right   = PixelScale(2),
+    top     = PixelScale(2),
+    bottom  = PixelScale(2)
 }
 
 media.backdrop_table = {
     bgFile   = media.files.background,
     edgeFile = media.files.edge,
-    edgeSize = pixel_scale(2),
+    edgeSize = PixelScale(2),
     insets   = media.inset_table
 }
 
 media.border_table = {
     bgFile   = nil,
     edgeFile = media.files.edge,
-    edgeSize = pixel_scale(4),
+    edgeSize = PixelScale(4),
     insets   = media.inset_table
 }
 
 function media.create_backdrop (parent, name)
     local backdrop = CreateFrame("Frame", name and name or nil, parent)
-    backdrop:SetPoint("TOPLEFT", parent, "TOPLEFT", pixel_scale(-2.5), pixel_scale(2.5))
-    backdrop:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", pixel_scale(2.5), pixel_scale(-2.5))
+    backdrop:SetPoint("TOPLEFT", parent, "TOPLEFT", PixelScale(-2.5), PixelScale(2.5))
+    backdrop:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", PixelScale(2.5), PixelScale(-2.5))
     backdrop:SetFrameLevel(parent:GetFrameLevel() - 1 > 0 and parent:GetFrameLevel() - 1 or 0)
     backdrop:SetBackdrop(media.backdrop_table)
     backdrop:SetBackdropColor(0, 0, 0, 0.5)
@@ -81,13 +81,13 @@ function media.create_blank_backdrop (parent, name)
     local overlay = CreateFrame("Frame", name and name or nil, parent)
     overlay:SetFrameLevel(parent:GetFrameLevel() - 1 > 0 and parent:GetFrameLevel() - 1 or 1)
     overlay:SetFrameStrata("BACKGROUND")
-    overlay:SetPoint("TOPLEFT", parent, "TOPLEFT", pixel_scale(-2.5), pixel_scale(2.5))
-    overlay:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", pixel_scale(2.5), pixel_scale(-2.5))
+    overlay:SetPoint("TOPLEFT", parent, "TOPLEFT", PixelScale(-2.5), PixelScale(2.5))
+    overlay:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", PixelScale(2.5), PixelScale(-2.5))
     overlay:SetBackdrop({
         bgFile = [[Interface\Addons\caelUI\media\borders\blank]],
         edgeFile = [[Interface\Addons\caelUI\media\borders\blank]],
-        tile = false, tileSize = 0, edgeSize = pixel_scale(1),
-        insets = {left = -pixel_scale(1), right = -pixel_scale(1), top = -pixel_scale(1), bottom = -pixel_scale(1)}
+        tile = false, tileSize = 0, edgeSize = PixelScale(1),
+        insets = {left = -PixelScale(1), right = -PixelScale(1), top = -PixelScale(1), bottom = -PixelScale(1)}
     })
     overlay:SetBackdropColor(0, 0, 0, 0.5)
     overlay:SetBackdropBorderColor(0, 0, 0, 1)
@@ -98,13 +98,13 @@ function media.create_shadow (parent, name)
     local shadow = CreateFrame("Frame", name and name or nil, parent)
     shadow:SetFrameLevel(parent:GetFrameLevel() - 1 > 0 and parent:GetFrameLevel() - 1 or 1)
     shadow:SetFrameStrata("BACKGROUND")
-    shadow:SetPoint("TOPLEFT", -pixel_scale(3), pixel_scale(3))
-    shadow:SetPoint("BOTTOMLEFT", -pixel_scale(3), -pixel_scale(3))
-    shadow:SetPoint("TOPRIGHT", pixel_scale(3), pixel_scale(3))
-    shadow:SetPoint("BOTTOMRIGHT", pixel_scale(3), -pixel_scale(3))
+    shadow:SetPoint("TOPLEFT", -PixelScale(3), PixelScale(3))
+    shadow:SetPoint("BOTTOMLEFT", -PixelScale(3), -PixelScale(3))
+    shadow:SetPoint("TOPRIGHT", PixelScale(3), PixelScale(3))
+    shadow:SetPoint("BOTTOMRIGHT", PixelScale(3), -PixelScale(3))
     shadow:SetBackdrop({
-        edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = pixel_scale(3),
-        insets = {left = pixel_scale(5), right = pixel_scale(5), top = pixel_scale(5), bottom = pixel_scale(5)},
+        edgeFile = [[Interface\Addons\caelUI\media\borders\glowTex1]], edgeSize = PixelScale(3),
+        insets = {left = PixelScale(5), right = PixelScale(5), top = PixelScale(5), bottom = PixelScale(5)},
     })
     shadow:SetBackdropColor(0, 0, 0, 0)
     shadow:SetBackdropBorderColor(0, 0, 0, 0.8)

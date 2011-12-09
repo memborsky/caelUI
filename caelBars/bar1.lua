@@ -1,6 +1,6 @@
 local _, caelBars = ...
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 local playerClass = caelUI.config.player.class
 
 local bar1 = CreateFrame("Frame", "bar1", caelPanel_ActionBar1, "SecureHandlerStateTemplate")
@@ -82,11 +82,11 @@ bar1:SetScript("OnEvent", function(self, event, ...)
             button:SetAlpha(0.45)
 
             if i == 1 then
-                button:SetPoint("TOPLEFT", caelPanel_ActionBar1, pixel_scale(5), pixel_scale(-2))
+                button:SetPoint("TOPLEFT", caelPanel_ActionBar1, PixelScale(5), PixelScale(-2))
             elseif i == 7 then
-                button:SetPoint("TOPLEFT", _G["ActionButton1"], "BOTTOMLEFT", 0, pixel_scale(-2))
+                button:SetPoint("TOPLEFT", _G["ActionButton1"], "BOTTOMLEFT", 0, PixelScale(-2))
             else
-                button:SetPoint("LEFT", _G["ActionButton"..i-1], "RIGHT", pixel_scale(2), 0)
+                button:SetPoint("LEFT", _G["ActionButton"..i-1], "RIGHT", PixelScale(2), 0)
             end
         end
 

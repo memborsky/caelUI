@@ -2,9 +2,9 @@ local _, caelDataFeeds = ...
 
 local gold = caelDataFeeds.createModule("Gold")
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 
-gold.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", pixel_scale(-300), 0)
+gold.text:SetPoint("CENTER", caelPanel_DataFeed, "CENTER", PixelScale(-300), 0)
 
 gold:RegisterEvent("PLAYER_MONEY")
 gold:RegisterEvent("PLAYER_TRADE_MONEY")
@@ -54,7 +54,7 @@ gold:SetScript("OnMouseDown", function()
 end)
 
 gold:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixel_scale(4))
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, PixelScale(4))
 
     GameTooltip:AddDoubleLine("|cffD7BEA5Earned|r", formatMoney(Profit), 0.84, 0.75, 0.65, 1, 1, 1)
     GameTooltip:AddDoubleLine("|cffD7BEA5Spent|r", formatMoney(Spent), 0.84, 0.75, 0.65, 1, 1, 1)

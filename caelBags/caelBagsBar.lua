@@ -16,7 +16,7 @@ bagButtons[11] = "BankFrameBag7"
 
 -- Used to trasnfer media and pixel scale to caelUI instead of the old system.
 local media = caelUI.media
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 
 local bagBar, bagsButton
 local bankBagBar, bankBagsButton
@@ -33,7 +33,7 @@ local function CreateContainerFrame(name)
 end
 
 local function SkinButton(b)
-    b:SetSize(pixel_scale(54), pixel_scale(18))
+    b:SetSize(PixelScale(54), PixelScale(18))
     b:SetNormalFontObject(GameFontNormalSmall)
     --    b:SetNormalTexture(media.files.button_normal)
     --    b:SetPushedTexture(media.files.button_pushed)
@@ -58,12 +58,12 @@ end
 
 bagBar = CreateContainerFrame("bagBar")
 bagBar:SetPoint("TOPLEFT", caelBagsbag, "BOTTOMLEFT", 0, 0)
-bagBar:SetPoint("BOTTOMRIGHT", caelBagsbag, "BOTTOMRIGHT", 0, pixel_scale(-35))
+bagBar:SetPoint("BOTTOMRIGHT", caelBagsbag, "BOTTOMRIGHT", 0, PixelScale(-35))
 bagBar.buttons = {}
 
 bankBagBar = CreateContainerFrame("bankBagBar")
 bankBagBar:SetPoint("TOPLEFT", caelBagsbank, "BOTTOMLEFT", 0, 0)
-bankBagBar:SetPoint("BOTTOMRIGHT", caelBagsbank, "BOTTOMRIGHT", 0, pixel_scale(-35))
+bankBagBar:SetPoint("BOTTOMRIGHT", caelBagsbank, "BOTTOMRIGHT", 0, PixelScale(-35))
 bankBagBar.buttons = {}
 
 function bankBagBar:Update() 
@@ -134,17 +134,17 @@ local function CreateBagBar(bank)
         local name = bagButtons[bag]
         local b = _G[name]
 
-        b:SetSize(pixel_scale(22), pixel_scale(22))
+        b:SetSize(PixelScale(22), PixelScale(22))
 
         b:Show()
         b.Bar = bar
         b:SetParent(bar)
 
         b.Icon = _G[name.."IconTexture"]
-        b.Icon:SetSize(pixel_scale(28), pixel_scale(28))
+        b.Icon:SetSize(PixelScale(28), PixelScale(28))
 
         b.NormalTexture = _G[name.."NormalTexture"]
-        b.NormalTexture:SetSize(pixel_scale(28), pixel_scale(28))
+        b.NormalTexture:SetSize(PixelScale(28), PixelScale(28))
         --        b.NormalTexture:SetVertexColor(0.25, 0.25, 0.25)
         b:SetNormalTexture(media.files.button_normal)
         b:SetHighlightTexture(media.files.button_highlight)
@@ -156,7 +156,7 @@ local function CreateBagBar(bank)
         end
 
         b:ClearAllPoints()
-        b:SetPoint("RIGHT", bar, "RIGHT", pixel_scale(bag_index * -28 - 5 * 2 - 4 * bag_index) , 1.5)
+        b:SetPoint("RIGHT", bar, "RIGHT", PixelScale(bag_index * -28 - 5 * 2 - 4 * bag_index) , 1.5)
         tinsert(bar.buttons, b)
 
         bag_index = bag_index + 1
@@ -169,7 +169,7 @@ local function CreateBagBar(bank)
 end
 
 bagsButton = CreateToggleButton("bagsButton", "Bag Bar", caelBagsbag)
-bagsButton:SetPoint("BOTTOMRIGHT", caelBagsbag, "BOTTOMRIGHT", pixel_scale(-5), pixel_scale(5))
+bagsButton:SetPoint("BOTTOMRIGHT", caelBagsbag, "BOTTOMRIGHT", PixelScale(-5), PixelScale(5))
 bagsButton:SetScript("OnClick", function(self)
     if not self.ready then
         CreateBagBar()
@@ -184,7 +184,7 @@ bagsButton:SetScript("OnClick", function(self)
 end)
 
 bankBagsButton = CreateToggleButton("bankBagsButton", "Bag Bar", caelBagsbank)
-bankBagsButton:SetPoint("BOTTOMRIGHT", caelBagsbank, "BOTTOMRIGHT", pixel_scale(-5), pixel_scale(5))
+bankBagsButton:SetPoint("BOTTOMRIGHT", caelBagsbank, "BOTTOMRIGHT", PixelScale(-5), PixelScale(5))
 bankBagsButton:SetScript("OnClick", function(self)
     if not self.ready then
         CreateBagBar(true)

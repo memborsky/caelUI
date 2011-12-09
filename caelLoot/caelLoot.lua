@@ -2,7 +2,7 @@
 
 caelLoot.eventFrame = CreateFrame("Frame", nil, UIParent)
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 local playerName = caelUI.config.player.name
 local media = caelUI.media
 
@@ -40,20 +40,20 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
         LootFrame:SetBackdropColor(0, 0, 0, 0.33)
         LootFrame:SetBackdropBorderColor(0.1, 0.1, 0.1)
 
-        local width = pixel_scale(LootFrame:GetWidth() - 6)
-        local height = pixel_scale(LootFrame:GetHeight() / 5)
+        local width = PixelScale(LootFrame:GetWidth() - 6)
+        local height = PixelScale(LootFrame:GetHeight() / 5)
 
         --[[
         local gradientTop = LootFrame:CreateTexture(nil, "BORDER")
         gradientTop:SetTexture(media.files.background)
         gradientTop:SetSize(width, height)
-        gradientTop:SetPoint("TOPLEFT", pixel_scale(3), pixel_scale(-3))
+        gradientTop:SetPoint("TOPLEFT", PixelScale(3), PixelScale(-3))
         gradientTop:SetGradientAlpha("VERTICAL", 0, 0, 0, 0, 0.84, 0.75, 0.65, 0.5)
 
         local gradientBottom = LootFrame:CreateTexture(nil, "BORDER")
         gradientBottom:SetTexture(media.files.background)
         gradientBottom:SetSize(width, height)
-        gradientBottom:SetPoint("BOTTOMRIGHT", pixel_scale(-3), pixel_scale(3))
+        gradientBottom:SetPoint("BOTTOMRIGHT", PixelScale(-3), PixelScale(3))
         gradientBottom:SetGradientAlpha("VERTICAL", 0, 0, 0, 0.75, 0, 0, 0, 0)
         --]]
 
@@ -67,7 +67,7 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
 
         --LootFrame:Hide()
 
-        LootCloseButton:SetPoint("TOPRIGHT", pixel_scale(2), pixel_scale(2))
+        LootCloseButton:SetPoint("TOPRIGHT", PixelScale(2), PixelScale(2))
 
         for i = 1, LOOTFRAME_NUMBUTTONS do
             local lootButton = _G[format("LootButton%d", i)]
@@ -77,22 +77,22 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
             local background = _G[format("LootButton%d%s", i, "NameFrame")]
 
             lootButton:ClearAllPoints()
-            lootButton:SetHeight(pixel_scale(28))
-            lootButton:SetWidth(pixel_scale(28))
+            lootButton:SetHeight(PixelScale(28))
+            lootButton:SetWidth(PixelScale(28))
 
             if i == 1 then
-                lootButton:SetPoint("TOPLEFT", pixel_scale(10), pixel_scale(-25))
+                lootButton:SetPoint("TOPLEFT", PixelScale(10), PixelScale(-25))
             else
-                lootButton:SetPoint("TOP", _G[format("LootButton%d", i-1)], "BOTTOM", 0, pixel_scale(-10))
+                lootButton:SetPoint("TOP", _G[format("LootButton%d", i-1)], "BOTTOM", 0, PixelScale(-10))
             end
 
             lootButton:SetNormalTexture(media.files.button_normal)
-            lootButton:GetNormalTexture():SetPoint("TOPLEFT", pixel_scale(-5), pixel_scale(5))
-            lootButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", pixel_scale(5), pixel_scale(-5))
+            lootButton:GetNormalTexture():SetPoint("TOPLEFT", PixelScale(-5), PixelScale(5))
+            lootButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", PixelScale(5), PixelScale(-5))
 
             lootButton:SetHighlightTexture(media.files.button_highlight)
-            lootButton:GetHighlightTexture():SetPoint("TOPLEFT", pixel_scale(-5), pixel_scale(5))
-            lootButton:GetHighlightTexture():SetPoint("BOTTOMRIGHT", pixel_scale(5), pixel_scale(-5))
+            lootButton:GetHighlightTexture():SetPoint("TOPLEFT", PixelScale(-5), PixelScale(5))
+            lootButton:GetHighlightTexture():SetPoint("BOTTOMRIGHT", PixelScale(5), PixelScale(-5))
 
             lootButton:SetPushedTexture(nil)
             lootButton:SetDisabledTexture(nil)
@@ -100,7 +100,7 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
             if not lootButton.doneScript then
                 lootButton:HookScript("OnEnter", function(self)
                     GameTooltip:SetOwner(LootFrame, "ANCHOR_NONE")
-                    GameTooltip:SetPoint("TOPLEFT", LootFrame, "TOPRIGHT", pixel_scale(3), 0)
+                    GameTooltip:SetPoint("TOPLEFT", LootFrame, "TOPRIGHT", PixelScale(3), 0)
                     GameTooltip:SetLootItem(self.slot)
                 end)
                 lootButton.donescript = true
@@ -109,12 +109,12 @@ caelLoot.eventFrame:SetScript("OnEvent", function(self, event, id)
             icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
             quest:SetPoint("TOPLEFT")
-            quest:SetPoint("BOTTOMRIGHT", 0, pixel_scale(1))
+            quest:SetPoint("BOTTOMRIGHT", 0, PixelScale(1))
             quest:SetTexCoord(0.05, 0.95, 0.05, 0.95)
 
             text:SetHeight(lootButton:GetHeight())
-            text:SetPoint("TOPLEFT", lootButton, "TOPRIGHT" , pixel_scale(5), 0)
-            text:SetPoint("RIGHT", self, pixel_scale(-5), 0)
+            text:SetPoint("TOPLEFT", lootButton, "TOPRIGHT" , PixelScale(5), 0)
+            text:SetPoint("RIGHT", self, PixelScale(-5), 0)
 
             background:SetTexture(nil)
 
@@ -185,16 +185,16 @@ end)
 
 LootFrame:HookScript("OnShow", function(self)
     self:ClearAllPoints()
-    self:SetPoint("LEFT", UIParent, pixel_scale(5), 0)
+    self:SetPoint("LEFT", UIParent, PixelScale(5), 0)
 end)
 
 local newOnShow = function(self, ...)
     self:ClearAllPoints()
     if self:GetName() == "GroupLootFrame1" then
-        self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, pixel_scale(30))
+        self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, PixelScale(30))
     else
         local _, _, num = self:GetName():find("GroupLootFrame(%d)")
-        self:SetPoint("BOTTOM", _G[format("GroupLootFrame%d", num-1)], "TOP", 0, pixel_scale(10))
+        self:SetPoint("BOTTOM", _G[format("GroupLootFrame%d", num-1)], "TOP", 0, PixelScale(10))
     end
     self:SetScale(.75)
 

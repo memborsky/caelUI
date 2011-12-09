@@ -4,9 +4,9 @@ local _, caelDataFeeds = ...
 
 local experience = caelDataFeeds.createModule("Experience")
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 
-experience.text:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", pixel_scale(5), pixel_scale(5))
+experience.text:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", PixelScale(5), PixelScale(5))
 experience:SetFrameLevel(Minimap:GetFrameLevel() + 2)
 experience:SetFrameStrata("MEDIUM")
 experience.text:SetParent(Minimap)
@@ -40,7 +40,7 @@ end
 experience:SetScript("OnEvent", function(...) OnEvent(false, ...) end)
 
 experience:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, pixel_scale(4))
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, PixelScale(4))
     GameTooltip:AddLine(playerXp)
     GameTooltip:Show()
 end)

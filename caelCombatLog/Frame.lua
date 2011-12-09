@@ -2,18 +2,18 @@ local _, caelCombatLog = ...
 
 caelCombatLog.frame = CreateFrame("Frame", "caelCombatLogFrame", UIParent)
 
-local pixel_scale = caelUI.config.pixel_scale
+local PixelScale = caelUI.config.PixelScale
 
 caelCombatLog.frame:ClearAllPoints()
-caelCombatLog.frame:SetWidth(caelPanel_CombatLog:GetWidth() - pixel_scale(3))
-caelCombatLog.frame:SetHeight(caelPanel_CombatLog:GetHeight() - pixel_scale(10))
-caelCombatLog.frame:SetPoint("BOTTOMLEFT", caelPanel_CombatLog, "BOTTOMLEFT", pixel_scale(3), pixel_scale(20))
-caelCombatLog.frame:SetPoint("TOPRIGHT", caelPanel_CombatLog, "TOPRIGHT", pixel_scale(-3), pixel_scale(-3))
+caelCombatLog.frame:SetWidth(caelPanel_CombatLog:GetWidth() - PixelScale(3))
+caelCombatLog.frame:SetHeight(caelPanel_CombatLog:GetHeight() - PixelScale(10))
+caelCombatLog.frame:SetPoint("BOTTOMLEFT", caelPanel_CombatLog, "BOTTOMLEFT", PixelScale(3), PixelScale(20))
+caelCombatLog.frame:SetPoint("TOPRIGHT", caelPanel_CombatLog, "TOPRIGHT", PixelScale(-3), PixelScale(-3))
 
 --[[
-caelCombatLog.frame:SetWidth(pixel_scale(311.5))
-caelCombatLog.frame:SetHeight(pixel_scale(104.5))
-caelCombatLog.frame:SetPoint("BOTTOM", UIParent, "BOTTOM", pixel_scale(-401), pixel_scale(43))
+caelCombatLog.frame:SetWidth(PixelScale(311.5))
+caelCombatLog.frame:SetHeight(PixelScale(104.5))
+caelCombatLog.frame:SetPoint("BOTTOM", UIParent, "BOTTOM", PixelScale(-401), PixelScale(43))
 --]]
 
 local function ScrollFrame(self, delta)
@@ -112,22 +112,22 @@ caelCombatLog.frame.collumns[3]:SetJustifyH("RIGHT")
 local icon = [=[Interface\LFGFrame\UI-LFG-ICON-PORTRAITROLES]=]
 
 local tex1 = caelCombatLog.frame:CreateTexture(nil, "ARTWORK")
-tex1:SetSize(pixel_scale(14), pixel_scale(14))
+tex1:SetSize(PixelScale(14), PixelScale(14))
 tex1:SetTexture(icon)
 --tex1:SetTexCoord(1/2, 0, 1/2, 1, 3/4, 0, 3/4, 1)
 tex1:SetTexCoord(0, 19/64, 22/64, 41/64)
-tex1:SetPoint("TOPLEFT", caelCombatLog.frame, "BOTTOMLEFT", 0, pixel_scale(-2))
+tex1:SetPoint("TOPLEFT", caelCombatLog.frame, "BOTTOMLEFT", 0, PixelScale(-2))
 
 local tex2 = caelCombatLog.frame:CreateTexture(nil, "ARTWORK")
-tex2:SetSize(pixel_scale(14), pixel_scale(14))
+tex2:SetSize(PixelScale(14), PixelScale(14))
 tex2:SetTexture(icon)
 --tex2:SetTexCoord(3/4, 0, 3/4, 1, 1, 0, 1, 1)
 tex2:SetTexCoord(20/64, 39/64, 1/64, 20/64)
-tex2:SetPoint("TOP", caelCombatLog.frame, "BOTTOM", 0, pixel_scale(-2))
+tex2:SetPoint("TOP", caelCombatLog.frame, "BOTTOM", 0, PixelScale(-2))
 
 local tex3 = caelCombatLog.frame:CreateTexture(nil, "ARTWORK")
-tex3:SetSize(pixel_scale(14), pixel_scale(14))
+tex3:SetSize(PixelScale(14), PixelScale(14))
 tex3:SetTexture(icon)
 --tex3:SetTexCoord(1/4, 0, 1/4, 1, 1/2, 0, 1/2, 1)
 tex3:SetTexCoord(20/64, 39/64, 22/64, 41/64)
-tex3:SetPoint("TOPRIGHT", caelCombatLog.frame, "BOTTOMRIGHT", 0, pixel_scale(-2))
+tex3:SetPoint("TOPRIGHT", caelCombatLog.frame, "BOTTOMRIGHT", 0, PixelScale(-2))

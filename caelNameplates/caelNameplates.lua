@@ -17,7 +17,7 @@ local font, fontSize, fontOutline = media.fonts.nameplate, 8
 
 local select = select
 
-local pixelScale = caelUI.config.pixel_scale
+local pixelScale = caelUI.config.PixelScale
 --[[
 local IsValidFrame = function(frame)
     if frame:GetName() then

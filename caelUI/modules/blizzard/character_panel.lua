@@ -1,12 +1,12 @@
 ﻿local private = unpack(select(2, ...))
 
-local pixel_scale = private.pixel_scale
+local PixelScale = private.PixelScale
 
 ---
 --- Add a checkbox to the character model frame (Default Hotkey "c") to show/hide the helm.
 ---
 local helm = CreateFrame("CheckButton", nil, CharacterModelFrame, "OptionsCheckButtonTemplate")
-helm:SetPoint("LEFT", CharacterHeadSlot, "RIGHT", pixel_scale(7), pixel_scale(6))
+helm:SetPoint("LEFT", CharacterHeadSlot, "RIGHT", PixelScale(7), PixelScale(6))
 helm:SetChecked(ShowingHelm())
 helm:SetToplevel()
 helm:RegisterEvent("PLAYER_FLAGS_CHANGED")
@@ -26,7 +26,7 @@ helm:SetScript("OnLeave", function() GameTooltip:Hide() end)
 --- Add a checkbox to the character model frame (Default Hotkey "c") to show/hide the cloak.
 ---
 local cloak = CreateFrame("CheckButton", nil, CharacterModelFrame, "OptionsCheckButtonTemplate")
-cloak:SetPoint("LEFT", CharacterHeadSlot, "RIGHT", pixel_scale(7), pixel_scale(-15))
+cloak:SetPoint("LEFT", CharacterHeadSlot, "RIGHT", PixelScale(7), PixelScale(-15))
 cloak:SetChecked(ShowingCloak())
 cloak:SetToplevel()
 cloak:RegisterEvent("PLAYER_FLAGS_CHANGED")
@@ -47,8 +47,8 @@ cloak:SetScript("OnLeave", function() GameTooltip:Hide() end)
 ---
 local undress = CreateFrame("Button", nil, DressUpFrame, "UIPanelButtonTemplate")
 undress:SetPoint("RIGHT", DressUpFrameResetButton, "LEFT")
-undress:SetHeight(pixel_scale(22))
-undress:SetWidth(pixel_scale(80))
+undress:SetHeight(PixelScale(22))
+undress:SetWidth(PixelScale(80))
 undress:SetText("Undress")
 undress:SetScript("OnClick", function() DressUpModel:Undress() end)
 

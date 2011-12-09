@@ -6,7 +6,7 @@ local caeltimers = caelTimers.eventFrame
 
 local floor, format, mod, pairs = math.floor, string.format, mod, pairs
 local UnitBuff, UnitDebuff = UnitBuff, UnitDebuff
-local pixelScale = caelUI.config.pixel_scale
+local pixelScale = caelUI.config.PixelScale
 local media = caelUI.media
 
 --[[
