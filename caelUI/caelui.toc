@@ -4,7 +4,7 @@
 ## Notes: caelUI is a very light, all-inclusive UI for all specs and classes.
 ## SavedVariables: cael_global
 ## SavedVariablesPerCharacter: cael_user
-## OptionalDeps: DBM-Core, alDamageMeter, recScrollAreas
+## OptionalDeps: DBM-Core, alDamageMeter
 ## X-Revision: 0.1-alpha
 ## X-Website: http://www.wowinterface.com/downloads/info16426-caelUI.html
 ## X-Category: User Interface

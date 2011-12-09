@@ -18,7 +18,7 @@ local blacklist = {
 
 UIErrors:RegisterEvent("UI_ERROR_MESSAGE", function(_, _, error)
     if (not blacklist[error]) then
-        -- UIErrors:AddMessage(error, 0.69, 0.31, 0.31, 1)
-        recScrollAreas:AddText("|cffAF5050" .. error .. "|r", false, "Error")
+        UIErrors:AddMessage(error, 0.69, 0.31, 0.31, 1)
+        -- recScrollAreas:AddText("|cffAF5050" .. error .. "|r", false, "Error")
     end
 end)
