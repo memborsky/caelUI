@@ -51,13 +51,7 @@ do
             statusbar:SetAllPoints(bar)
         end
 
-        bar.backdrop = CreateFrame("Frame", nil, bar)
-        bar.backdrop:SetFrameLevel(bar:GetFrameLevel() - 1)
-        bar.backdrop:SetPoint("TOPLEFT", bar, "TOPLEFT", PixelScale(-2), PixelScale(2))
-        bar.backdrop:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", PixelScale(2), PixelScale(-2))
-        bar.backdrop:SetBackdrop(media.backdrop_table)
-        bar.backdrop:SetBackdropBorderColor(0, 0, 0)
-        bar.backdrop:SetBackdropColor(0, 0, 0, 0.4)
+        TimerBars.CreateBackdrop(bar)
 
         bar.skinned = true
     end
