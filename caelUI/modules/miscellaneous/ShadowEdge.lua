@@ -1,5 +1,5 @@
 local private = unpack(select(2, ...))
-local shadowedge = CreateModule("ShadowEdge", true)
+local shadowedge = private.CreateModule("ShadowEdge", true)
 
 shadowedge:SetPoint("TOPLEFT")
 shadowedge:SetPoint("BOTTOMRIGHT")

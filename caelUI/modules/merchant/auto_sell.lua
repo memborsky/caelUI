@@ -1,4 +1,4 @@
-local AutoSell = CreateModule("AutoSell")
+local AutoSell = unpack(select(2, ...)).CreateModule("AutoSell")
 
 local Item_Count = 0
 local Sell_Value = 0

@@ -1,4 +1,4 @@
-local AutoRepair = CreateModule("AutoRepair")
+local AutoRepair = unpack(select(2, ...)).CreateModule("AutoRepair")
 
 AutoRepair:RegisterEvent("MERCHANT_SHOW", function(self)
     if CanMerchantRepair() then

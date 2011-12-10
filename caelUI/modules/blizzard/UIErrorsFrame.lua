@@ -1,6 +1,4 @@
-﻿UIErrorsFrame:UnregisterEvent("UI_ERROR_MESSAGE")
-
-local UIErrors = CreateModule("UIErrors")
+﻿local UIErrors = unpack(select(2, ...)).CreateModule("UIErrors")
 
 local blacklist = {
     [ERR_NO_ATTACK_TARGET] = true,
@@ -15,6 +13,12 @@ local blacklist = {
     [SPELL_FAILED_CUSTOM_ERROR_32] = true,
     [SPELL_FAILED_AURA_BOUNCED] = true,
 }
+
+--[[
+Make sure that the errors frame doesn't print messages since we are wanting to
+filter the displaying of errors a little bit.
+--]]
+UIErrorsFrame:UnregisterEvent("UI_ERROR_MESSAGE")
 
 UIErrors:RegisterEvent("UI_ERROR_MESSAGE", function(_, _, error)
     if (not blacklist[error]) then

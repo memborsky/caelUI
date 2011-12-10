@@ -1,5 +1,5 @@
 local private = unpack(select(2, ...))
-local AutoBuy = CreateModule("AutoBuy")
+local AutoBuy = private.CreateModule("AutoBuy")
 
 -- Our reagents list.
 reagents = {

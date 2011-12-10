@@ -78,7 +78,7 @@ end
 -- have better global management of it.
 local system_count = 0
 
-function CreateModule(name, create_frame)
+function private.CreateModule(name, create_frame)
     -- Make a black table if we aren't to be create a frame
     local self = {}
 

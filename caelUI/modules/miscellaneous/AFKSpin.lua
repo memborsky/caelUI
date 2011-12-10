@@ -1,4 +1,4 @@
-local AFKSpin = CreateModule("AFKSpin")
+local AFKSpin = unpack(select(2, ...)).CreateModule("AFKSpin")
 
 -- Make sure we are auto clearing our AFK status when we return from being away.
 if GetCVar("AutoClearAFK") == 0 then

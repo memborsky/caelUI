@@ -1,4 +1,4 @@
-﻿local SkinGMChat = CreateModule("SkinGMChat")
+﻿local SkinGMChat = unpack(select(2, ...)).CreateModule("SkinGMChat")
 local PixelScale = SkinGMChat.PixelScale
 
 --[[    GM chat frame enhancement    ]]

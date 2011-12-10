@@ -1,5 +1,4 @@
--- Auto cancel various buffs
-local BadBuffs = CreateModule("BadBuffs")
+local BadBuffs = unpack(select(2, ...)).CreateModule("BadBuffs")
 
 local blacklist = {
     ["Mohawked!"]			= true,
@@ -12,9 +11,12 @@ local blacklist = {
     ["Ghost Costume"]       = true,
     ["Pirate Costume"]      = true,
     ["Turkey Feathers"]     = true,
-    -- ["Hand of Protection"]  = true,
+    ["Hand of Protection"]  = true,
 }
 
+--[[
+Auto cancel buffs while not in combat. CancelUnitBuff became protected in 4.3 (I believe).
+--]]
 BadBuffs:RegisterEvent("UNIT_AURA", function(self, _, unit)
     if unit ~= "player" then
         return

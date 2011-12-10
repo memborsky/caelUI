@@ -8,7 +8,7 @@ Modified for caelUI by Belliofria.
 
 ]]--
 local private = unpack(select(2, ...))
-local DBMSkin = CreateModule("DBMSkin")
+local DBMSkin = private.CreateModule("DBMSkin")
 
 if not IsAddOnLoaded("DBM-Core") then return end
 
