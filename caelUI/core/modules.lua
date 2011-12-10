@@ -51,8 +51,6 @@ function module_metatable.__index:SetPoint(...)
             reference_frame.SetPoint(self, ...)
         end
     end
-
-    self:Print("Hello from SetPoint.")
 end
 
 function module_metatable.__index:CreateBackdrop()
