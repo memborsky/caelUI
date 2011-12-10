@@ -19,7 +19,7 @@ local locale = caelUI.config.locale
 
 local hostile = COMBATLOG_OBJECT_REACTION_HOSTILE or 64 or 0x00000040
 
-local GetSpellName = caelUI.get_spell_name
+local GetSpellName = caelUI.GetSpellName
 
 -- Note: We are only considering crowd controls lasting at least 20 seconds.
 

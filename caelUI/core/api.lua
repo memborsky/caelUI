@@ -11,5 +11,5 @@ public.config.PixelScale = private.PixelScale
 
 -- Allow the usage of specific functions from our private API interface.
 public.UTF8_substitution = private.UTF8_substitution
-public.get_spell_name = private.get_spell_name
+public.GetSpellName = private.GetSpellName
 public.kill = private.kill

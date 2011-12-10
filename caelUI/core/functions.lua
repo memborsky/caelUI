@@ -78,7 +78,7 @@ function private.argument_check (value, number, ...)
 end
 
 -- Returns the name of the spell ID.
-function private.get_spell_name (spell_id)
+function private.GetSpellName (spell_id)
     return GetSpellInfo(spell_id)
 end
 
