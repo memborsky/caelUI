@@ -1,4 +1,4 @@
-﻿local Watch = unpack(select(2, ...)).CreateModule("WatchFrame")
+﻿local Watch = unpack(select(2, ...)).NewModule("WatchFrame")
 
 do
     local PixelScale = Watch.PixelScale

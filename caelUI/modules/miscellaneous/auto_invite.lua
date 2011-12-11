@@ -1,4 +1,4 @@
-﻿local AutoInvite = unpack(select(2, ...)).CreateModule("AutoInvite")
+﻿local AutoInvite = unpack(select(2, ...)).NewModule("AutoInvite")
 
 --[[    Auto accept some invites    ]]
 

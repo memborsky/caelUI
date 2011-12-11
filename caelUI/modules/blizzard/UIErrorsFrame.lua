@@ -1,4 +1,4 @@
-﻿local UIErrors = unpack(select(2, ...)).CreateModule("UIErrors")
+﻿local UIErrors = unpack(select(2, ...)).NewModule("UIErrors")
 
 local blacklist = {
     [ERR_NO_ATTACK_TARGET] = true,

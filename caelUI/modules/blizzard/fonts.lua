@@ -1,4 +1,4 @@
-local Fonts = unpack(select(2, ...)).CreateModule("GameFonts")
+local Fonts = unpack(select(2, ...)).NewModule("GameFonts")
 
 local setup_font
 

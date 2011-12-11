@@ -1,5 +1,5 @@
 ﻿local private = unpack(select(2, ...))
-local SkinBlizzard = private.CreateModule("SkinBlizzardFrames")
+local SkinBlizzard = private.NewModule("SkinBlizzardFrames")
 
 --[[    Reskin Blizzard windows ]]
 

@@ -1,4 +1,4 @@
-local BadBuffs = unpack(select(2, ...)).CreateModule("BadBuffs")
+local BadBuffs = unpack(select(2, ...)).NewModule("BadBuffs")
 
 local blacklist = {
     ["Mohawked!"]			= true,

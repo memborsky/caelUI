@@ -1,4 +1,4 @@
-local alDamageMeterSkin = unpack(select(2, ...)).CreateModule("alDamageMeterSkin")
+local alDamageMeterSkin = unpack(select(2, ...)).NewModule("alDamageMeterSkin")
 
 if not IsAddOnLoaded("alDamageMeter") then return end
 

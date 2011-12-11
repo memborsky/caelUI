@@ -1,4 +1,4 @@
-local AutoRelease = unpack(select(2, ...)).CreateModule("AutoRelease")
+local AutoRelease = unpack(select(2, ...)).NewModule("AutoRelease")
 
 --[[
 Allows us to auto release in pvp zones or inside of a battleground.

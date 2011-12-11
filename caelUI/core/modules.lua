@@ -53,6 +53,12 @@ function module_metatable.__index:SetPoint(...)
     end
 end
 
+--[[
+Public: Create a default frame backdrop.
+
+Examples:
+    <module>:CreateBackdrop()
+--]]
 function module_metatable.__index:CreateBackdrop()
     local name
 
@@ -74,23 +80,57 @@ function module_metatable.__index:CreateBackdrop()
     self.backdrop:SetFrameStrata("BACKGROUND")
 end
 
--- If the module doesn't pass in a name and we are creating a frame, we need to assign it a name so we can 
--- have better global management of it.
-local system_count = 0
+--[[
+Public: Module register and retrieval.
 
-function private.CreateModule(name, create_frame)
-    -- Make a black table if we aren't to be create a frame
+name - The name of the module we are wanting to register or retrieve.
+
+Examples:
+    <module>:RegisterModule()
+
+RegisterModule returns nothing.
+GetModule returns the actual module.
+--]]
+do
+    local registered_modules = {}
+
+    function module_metatable.__index:RegisterModule(name)
+        if self.name then
+            registered_modules[self.name] = self
+        elseif name then
+            registered_modules[name] = self
+        else
+            self.Print("Error", "Attempting to register a module with no name.")
+        end
+    end
+
+    function private.GetModule(name)
+        if self.name and registered_modules[self.name] then
+            return registered_modules[self.name]
+        elseif name and registered_modules[name] then
+            return registered_modules[name]
+        end
+
+        -- Create new module and return it with name.
+    end
+end
+
+--[[
+Private: Create a new module for the UI.
+
+name         - The name to be given to the module frame or how we can reference future naming.
+create_frame - Boolean flag to create the module as a frame instead of just using it as a table.
+
+Examples:
+    NewModule("HelloWorld")
+
+Returns either a WoW Frame or a Lua table.
+--]]
+function private.NewModule(name, create_frame)
     local self = {}
 
-    -- If we are creating this module as a frame, we need to create the frame and overwrite some of the
-    -- frame functions to be managed our way and to make the code a in the module look a lot cleaner.
     if create_frame then
-        self = CreateFrame("Frame", "caelUI_" .. name and name or "SystemGenerated" .. system_count, UIParent)
-
-        -- Increase the system counter if we had no named passed in.
-        if not name then
-            system_count = system_count + 1
-        end
+        self = CreateFrame("Frame", name and "caelUI_" .. name or nil, UIParent)
     end
 
     -- Set our modules metatable to our returned self.

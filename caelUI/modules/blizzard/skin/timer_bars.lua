@@ -2,7 +2,7 @@
 
 -- Dummy Bar: /run TimerTracker_OnLoad(TimerTracker); TimerTracker_OnEvent(TimerTracker, "START_TIMER", 1, 30, 30)
 
-local TimerBars = unpack(select(2, ...)).CreateModule("TimerBars")
+local TimerBars = unpack(select(2, ...)).NewModule("TimerBars")
 
 -- Redefin the MirrorTimerColors
 MirrorTimerColors = {
