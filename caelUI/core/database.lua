@@ -5,6 +5,11 @@ local system_generated_count = 0
 
 -- The following functions are for internal caelUI use only.
 function private.GetDatabase (name)
+    -- Used to return the entire database as one giant table of tables.
+    if not name then
+        return databases
+    end
+
     -- No matter what we pass in here, the name of the table will always be lower case.
     name = name:lower()
 
