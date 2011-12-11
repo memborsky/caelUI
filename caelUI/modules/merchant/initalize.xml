@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <!-- Main merchant file. -->
-    <script file="core.lua" />
+    <script file="setup.lua" />
 
     <!-- Auto Repair -->
     <script file="repair.lua" />
