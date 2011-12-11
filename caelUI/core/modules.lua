@@ -3,6 +3,7 @@ local private = unpack(select(2, ...))
 -- Localized variables
 local PixelScale = private.PixelScale
 local media = private.media
+local databases = private.GetDatabase()
 
 -- We use this to reference a blank frame for calling frame related functions when we modify them.
 local reference_frame = CreateFrame("Frame")
@@ -145,6 +146,9 @@ function private.NewModule(name, create_frame)
 
     -- Return the media table so we don't have to include private in our modules.
     self.GetMedia = function() return media end
+
+    -- Returns the players detailed information like realm, name, spec, etc.
+    self.GetPlayerDetails = function() return databases.config.player end
 
     -- Return the data.
     return self
