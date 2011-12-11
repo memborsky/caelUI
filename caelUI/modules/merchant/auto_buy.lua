@@ -12,6 +12,11 @@ reagents = {
         },
         ["Burlesque"] = {
             [58261] = 40, -- 58261 = Buttery Wheat Roll (Use: Restores 96000 health over 30 sec. Must remain seated while eating.)
+            [3775]  = 20, --  3775 = Crippling Poison
+            [10918] = 20, -- 10918 = Wound Poison
+            [5237]  = 20, --  5237 = Mind-Numbing Poison
+            [6947]  = 20, --  6947 = Instant Poison
+            [2892]  = 40, --  2892 = Deadly Poison
         },
     }
 }
