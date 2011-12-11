@@ -17,3 +17,4 @@ others.lua
 styling.lua
 cooldown.lua
 pulse.lua
+ExtraActionBarFrame.lua
