@@ -1,5 +1,4 @@
-local private = unpack(select(2, ...))
-local AutoBuy = private.NewModule("AutoBuy")
+local Merchant = unpack(select(2, ...)).GetModule("Merchant")
 
 -- Our reagents list.
 reagents = {
@@ -20,9 +19,6 @@ reagents = {
         },
     }
 }
-
--- String pattern for extracking our Item's ID.
-local ItemIDPattern = "item:(%d+)"
 
 -- Internal: Returns how many of the given item we are needing to buy.
 --
@@ -45,7 +41,7 @@ local function HowMany (CheckID, RequiredAmount)
 
             ItemLink = GetContainerItemLink(bag, slot)
 
-            if ItemLink and CheckID == tonumber(select(3, string.find(ItemLink, ItemIDPattern))) then
+            if ItemLink and CheckID == tonumber(select(3, string.find(ItemLink, "item:(%d+)"))) then
                 stack = select(2, GetContainerItemInfo(bag, slot))
                 total = total + stack
             end
@@ -73,7 +69,7 @@ local function BuyReagents (reagents)
         ItemLink = GetMerchantItemLink(MerchantIDIndex)
 
         if ItemLink then
-            ItemID = tonumber(select(3, string.find(ItemLink, ItemIDPattern)))
+            ItemID = tonumber(select(3, string.find(ItemLink, "item:(%d+)")))
         end
 
         if ItemID and reagents[ItemID] then
@@ -90,7 +86,7 @@ local function BuyReagents (reagents)
                 subtotal = price * (quantity/stack)
 
                 if subtotal > GetMoney() then
-                    AutoBuy:Print("Merchant", "Not enough money to purchase reagents.");
+                    Merchant:Print("Not enough money to purchase reagents.");
                     return
                 end
 
@@ -112,10 +108,12 @@ local function BuyReagents (reagents)
     end
 end
 
-local player = private.GetDatabase("config")["player"]
+do
+    local name, realm = Merchant:GetPlayer({"name", "realm"})
 
-if reagents[player.realm] and reagents[player.realm][player.name] then
-    AutoBuy:RegisterEvent("MERCHANT_SHOW", function()
-        BuyReagents(reagents[player.realm][player.name])
-    end)
+    if reagents[realm] and reagents[realm][name] then
+        Merchant:RegisterEvent("MERCHANT_SHOW", function()
+            BuyReagents(reagents[realm][name])
+        end)
+    end
 end

@@ -18,12 +18,19 @@ local module_metatable = {
     end
 }
 
+--[[
+Public: Print the text into the chatbox.
+
+... - The formatted text that we will print to the chatbox
+
+Examples:
+    <module>:Print("Hello World!")
+    # => 'Hello World!'
+
+Returns nothing
+--]]
 function module_metatable.__index:Print(...)
     local name = self.name or "UI"
-
-    if #(...) > 1 then
-        name = ...
-    end
 
     private.print(name, ...)
 end
@@ -35,6 +42,78 @@ module_metatable.__index.IsEventRegistered = private.events.IsEventRegistered
 
 -- Format money output
 module_metatable.__index.FormatMoney = private.format_money
+
+
+--[[
+Public: Pixel perfect scale our value.
+
+Examples:
+    <module>.PixelScale(3)
+    # => 3 (At a UIScale of 1)
+
+Returns a float of scaled value.
+--]]
+module_metatable.__index.PixelScale = PixelScale
+
+--[[
+Public: Get Media table
+
+Examples:
+    <module>:GetMedia()
+    # => <table of media>
+
+Returns Lua table of all our media files.
+--]]
+function module_metatable.__index:GetMedia()
+    return media
+end
+
+--[[
+Public: Get Player details defined by field.
+
+field - What part of the players information are we wanting.
+
+Examples:
+    <module>:GetPlayer("name")
+    # => "Belliofria"
+
+Returns string of data requested
+--]]
+-- Returns the players detailed information like realm, name, spec, etc.
+do
+    local details = {
+        ["name"]        = UnitName("player"),
+        ["realm"]       = GetRealmName(),
+        ["class"]       = select(2, UnitClass("player")),
+        ["level"]       = UnitLevel("player"),
+        ["item level"]  = math.floor(GetAverageItemLevel("player")),
+        ["zone"]        = GetRealZoneText() or "",
+    }
+
+    local function GetDetail(detail)
+        if not detail then
+            private.error(format("Attempting to access GetDetail(%s) on a non-string variable.", detail))
+            return nil
+        end
+        detail = detail:lower()
+
+        return details[detail] and details[detail] or nil
+    end
+
+    function module_metatable.__index:GetPlayer(details)
+        if type(details) == "string" then
+            return GetDetail(details)
+        elseif type(details) == "table" then
+            local result = {}
+
+            for _, detail in next, details do
+                table.insert(result, GetDetail(detail))
+            end
+
+            return unpack(result)
+        end
+    end
+end
 
 -- Rewrite the SetPoint on our frame so we can use PixelScale here instead of in the actual module.
 function module_metatable.__index:SetPoint(...)
@@ -82,41 +161,6 @@ function module_metatable.__index:CreateBackdrop()
 end
 
 --[[
-Public: Module register and retrieval.
-
-name - The name of the module we are wanting to register or retrieve.
-
-Examples:
-    <module>:RegisterModule()
-
-RegisterModule returns nothing.
-GetModule returns the actual module.
---]]
-do
-    local registered_modules = {}
-
-    function module_metatable.__index:RegisterModule(name)
-        if self.name then
-            registered_modules[self.name] = self
-        elseif name then
-            registered_modules[name] = self
-        else
-            self.Print("Error", "Attempting to register a module with no name.")
-        end
-    end
-
-    function private.GetModule(name)
-        if self.name and registered_modules[self.name] then
-            return registered_modules[self.name]
-        elseif name and registered_modules[name] then
-            return registered_modules[name]
-        end
-
-        -- Create new module and return it with name.
-    end
-end
-
---[[
 Private: Create a new module for the UI.
 
 name         - The name to be given to the module frame or how we can reference future naming.
@@ -140,16 +184,39 @@ function private.NewModule(name, create_frame)
     -- Make sure we know what the name of the object was if we reference it again.
     self.name = name
 
-    -- We pass the PixelScale function with the table/frame we create because we occasionally still need
-    -- it on frame modifications that are not created with this function.
-    self.PixelScale = PixelScale
-
-    -- Return the media table so we don't have to include private in our modules.
-    self.GetMedia = function() return media end
-
-    -- Returns the players detailed information like realm, name, spec, etc.
-    self.GetPlayerDetails = function() return databases.config.player end
-
     -- Return the data.
     return self
+end
+
+--[[
+Public: Module register and retrieval.
+
+name - The name of the module we are wanting to register or retrieve.
+
+Examples:
+    <module>:RegisterModule()
+
+RegisterModule returns nothing.
+GetModule returns the actual module.
+--]]
+do
+    local registered_modules = {}
+
+    function module_metatable.__index:RegisterModule(name)
+        if self.name then
+            registered_modules[self.name] = self
+        elseif name then
+            registered_modules[name] = self
+        else
+            self.Print("Error", "Attempting to register a module with no name.")
+        end
+    end
+
+    function private.GetModule(name, ...)
+        if name and registered_modules[name] then
+            return registered_modules[name]
+        end
+
+        return private.NewModule(name, ...)
+    end
 end

@@ -1,9 +1,9 @@
-local AutoSell = unpack(select(2, ...)).NewModule("AutoSell")
+local Merchant = unpack(select(2, ...)).GetModule("Merchant")
 
-local Item_Count = 0
-local Sell_Value = 0
+Merchant:RegisterEvent("MERCHANT_SHOW", function(self)
+    local Item_Count = 0
+    local Sell_Value = 0
 
-AutoSell:RegisterEvent("MERCHANT_SHOW", function(self)
     for bag = 0, 4 do
         for slot = 1, GetContainerNumSlots(bag) do
             local item = GetContainerItemLink(bag, slot)
@@ -22,7 +22,6 @@ AutoSell:RegisterEvent("MERCHANT_SHOW", function(self)
     end
 
     if Sell_Value > 0 then
-        self:Print("Merchant", format("Sold %d trash item%s for %s", Item_Count, Item_Count > 1 and "s" or "", self:FormatMoney(Sell_Value)))
-        Item_Count, Sell_Value = 0, 0
+        self:Print(format("Sold %d trash item%s for %s", Item_Count, Item_Count > 1 and "s" or "", self:FormatMoney(Sell_Value)))
     end
 end)
