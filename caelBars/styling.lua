@@ -161,6 +161,8 @@ local function caelButtons_OnUpdate(self, elapsed)
         return
     end
 
+    time = time + elapsed
+
     if (time < TOOLTIP_UPDATE_TIME + 0.1) then
         self.cAB_range = time
         return
@@ -168,8 +170,6 @@ local function caelButtons_OnUpdate(self, elapsed)
         self.cAB_range = 0
         caelButtons_ActionUsable(self)
     end
-
-    time = time + elapsed
 end
 
 ActionButton_OnUpdate = caelButtons_OnUpdate
