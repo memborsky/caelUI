@@ -96,115 +96,31 @@ caelPanels.eventFrame:SetScript("OnEvent", function(self, event, ...)
         local addon = ...
 
         if addon == "caelPanels" then
-            -- Setup all our movable points depending on which side of the screen our user wants their frames to be placed.
-            local chatPoint   = {}
-            local combatPoint = {}
-            local bar1Point   = {}
-            local bar2Point   = {}
-            local damagePoint = {}
-            local threatPoint = {}
-
             -- This variable lets us change the size of caelPanel_ActionBar<1-4> with ease.
-            local actionBarSize = {PixelScale(161), PixelScale(53)}
+            -- local actionBarSize = {PixelScale(161), PixelScale(53)}
+            local actionBarSize = {PixelScale(172), PixelScale(60)}
 
             local createPanel = caelPanels.createPanel
-
-            -- DataFeed bar
-            createPanel("caelPanel_DataFeed", {PixelScale(1120), PixelScale(20)}, {"BOTTOM", UIParent, "BOTTOM", 0, PixelScale(2)})
-
-            -- MiniMap
-            createPanel("caelPanel_Minimap", {PixelScale(140), PixelScale(140)}, {"BOTTOM", caelPanel_DataFeed, "TOP", 0, PixelScale(2)})
-
-
-            --  AB1 ON LEFT LAYOUT  --
-            -- BAR 1 -- MM -- BAR 2 --
-            -- BAR 3 -- MM -- BAR 4 --
-
-            --  DEFAULT BAR LAYOUT  --
-            -- BAR 2 -- MM -- BAR 1 --
-            -- BAR 3 -- MM -- BAR 4 --
-            if bar1OnLeft then
-                bar1Point = {"TOPRIGHT", caelPanel_Minimap, "TOPLEFT", PixelScale(-2), 0}
-                bar2Point = {"TOPLEFT", caelPanel_Minimap, "TOPRIGHT", PixelScale(2), 0}
-            else
-                bar1Point = {"TOPLEFT", caelPanel_Minimap, "TOPRIGHT", PixelScale(2), 0}
-                bar2Point = {"TOPRIGHT", caelPanel_Minimap, "TOPLEFT", PixelScale(-2), 0}
-            end
-
-            -- bar1
-            createPanel("caelPanel_ActionBar1", actionBarSize, bar1Point)
-
-            -- bar2
-            createPanel("caelPanel_ActionBar2", actionBarSize, bar2Point)
-
-            -- bar3
-            createPanel("caelPanel_ActionBar3", actionBarSize, {"BOTTOMRIGHT", caelPanel_Minimap, "BOTTOMLEFT", PixelScale(-2), 0})
-
-            -- bar4
-            createPanel("caelPanel_ActionBar4", actionBarSize, {"BOTTOMLEFT", caelPanel_Minimap, "BOTTOMRIGHT", PixelScale(2), 0})
-
-            -- bar5
-            createPanel("caelPanel_ActionBar5", {PixelScale(29), PixelScale(314)}, {"RIGHT", UIParent, "Right", PixelScale(-2), 0})
-
-
-            -- Chat Frame & Editbox / Combat Log
-            if bar1OnLeft == true then
-                if chatOnLeft == true then
-                    chatPoint = {"TOPRIGHT", caelPanel_ActionBar1, "TOPLEFT", PixelScale(-2), 0}
-                    combatPoint = {"TOPLEFT", caelPanel_ActionBar2, "TOPRIGHT", PixelScale(2), 0}
-                else
-                    chatPoint = {"TOPLEFT", caelPanel_ActionBar2, "TOPRIGHT", PixelScale(2), 0}
-                    combatPoint = {"TOPRIGHT", caelPanel_ActionBar1, "TOPLEFT", PixelScale(-2), 0}
-                end
-            else
-                if chatOnLeft == true then
-                    chatPoint = {"TOPRIGHT", caelPanel_ActionBar2, "TOPLEFT", PixelScale(-2), 0}
-                    combatPoint = {"TOPLEFT", caelPanel_ActionBar1, "TOPRIGHT", PixelScale(2), 0}
-                else
-                    chatPoint = {"TOPLEFT", caelPanel_ActionBar1, "TOPRIGHT", PixelScale(2), 0}
-                    combatPoint = {"TOPRIGHT", caelPanel_ActionBar2, "TOPLEFT", PixelScale(-2), 0}
-                end
-            end
-
-            -- Chat Frame
-            createPanel("caelPanel_ChatFrame", {PixelScale(324), PixelScale(140)}, chatPoint)
-
-            -- Editbox
-            createPanel("caelPanel_EditBox", {caelPanel_ChatFrame:GetWidth(), PixelScale(20)}, {"BOTTOMLEFT", caelPanel_ChatFrame, "TOPLEFT", PixelScale(-1), PixelScale(0)})
-
-            -- Combat Log
-            createPanel("caelPanel_CombatLog", {PixelScale(324), PixelScale(140)}, combatPoint)
-
-            if bar1OnLeft == true then
-                if chatOnLeft == true then
-                    damagePoint = {"TOPRIGHT", caelPanel_ChatFrame, "TOPLEFT", PixelScale(-2), 0}
-                    threatPoint = {"TOPLEFT", caelPanel_CombatLog, "TOPRIGHT", PixelScale(2), 0}
-                else
-                    damagePoint = {"TOPRIGHT", caelPanel_CombatLog, "TOPLEFT", PixelScale(-2), 0}
-                    threatPoint = {"TOPLEFT", caelPanel_ChatFrame, "TOPRIGHT", PixelScale(2), 0}
-                end
-            else
-                if chatOnLeft == true then
-                    damagePoint = {"TOPRIGHT", caelPanel_ChatFrame, "TOPLEFT", PixelScale(-2), 0}
-                    threatPoint = {"TOPLEFT", caelPanel_CombatLog, "TOPRIGHT", PixelScale(2), 0}
-                else
-                    damagePoint = {"TOPRIGHT", caelPanel_CombatLog, "TOPLEFT", PixelScale(-2), 0}
-                    threatPoint = {"TOPLEFT", caelPanel_ChatFrame, "TOPRIGHT", PixelScale(2), 0}
-                end
-            end
+            
+            createPanel("caelPanel_DataFeed", {PixelScale(1124), PixelScale(18)}, {"BOTTOM", UIParent, "BOTTOM", 0, PixelScale(2)})
+            createPanel("caelPanel_Minimap", {PixelScale(130), PixelScale(130)}, {"BOTTOM", UIParent, "BOTTOM", 0, PixelScale(20)}, {["SetFrameStrata"] = "MEDIUM"})
+            createPanel("caelPanel_ChatFrame", {PixelScale(321), PixelScale(130)}, {"BOTTOM", UIParent, "BOTTOM", PixelScale(401), PixelScale(20)})
+            createPanel("caelPanel_EditBox", {caelPanel_ChatFrame:GetWidth(), PixelScale(20)}, {"BOTTOMLEFT", caelPanel_ChatFrame, "TOPLEFT"})
+            createPanel("caelPanel_CombatLog", {PixelScale(321), PixelScale(130)}, {"BOTTOM", UIParent, "BOTTOM", -PixelScale(401), PixelScale(20)})
+            createPanel("caelPanel_ActionBar1", actionBarSize, {"BOTTOM", UIParent, "BOTTOM", PixelScale(153), PixelScale(90)})
+            createPanel("caelPanel_ActionBar2", actionBarSize, {"BOTTOM", UIParent, "BOTTOM", -PixelScale(153), PixelScale(90)})
+            createPanel("caelPanel_ActionBar3", actionBarSize, {"BOTTOM", UIParent, "BOTTOM", -PixelScale(153), PixelScale(20)})
+            createPanel("caelPanel_ActionBar4", actionBarSize, {"BOTTOM", UIParent, "BOTTOM", PixelScale(153), PixelScale(20)})
+            createPanel("caelPanel_ActionBar5", {PixelScale(31), PixelScale(336)}, {"RIGHT", UIParent, "RIGHT"})            
 
             -- Damage Meter
             if IsAddOnLoaded("alDamageMeter") then
-                createPanel("caelPanel_DamageMeter", {PixelScale(165), PixelScale(162)}, damagePoint)
+                createPanel("caelPanel_DamageMeter", {PixelScale(167), PixelScale(148)}, {"BOTTOM", UIParent, "BOTTOM", -PixelScale(647), PixelScale(2)})
             end
 
             -- Threat Meter
             -- XXX: hack_threat_01, recThreatMeter currently requires that we always make the panel and just hide it here if we aren't using it.
-            createPanel("caelPanel_ThreatMeter", {PixelScale(165), PixelScale(162)}, threatPoint):Hide()
-
-            for index = 1, 12 do
-                --caelPanels.gradientPanel(_G["caelPanel" .. index])
-            end
+            createPanel("caelPanel_ThreatMeter", {PixelScale(167), PixelScale(148)}, {"BOTTOM", UIParent, "BOTTOM", PixelScale(647), PixelScale(2)}):Hide()
         end
     end
 end)
@@ -223,21 +139,3 @@ end
 
 -- Push panels table into global scope.
 _G["caelPanels"] = caelPanels
-
---[[
-caelPanels.createPanel = function(name, x, y, width, height, point, rpoint, anchor, parent, strata)
-
-caelPanels.createPanel("caelPanel_ChatFrame", 401, 20, 321, 130, "BOTTOM", "BOTTOM", UIParent, UIParent, "BACKGROUND") -- Chatframes
-caelPanels.createPanel("caelPanel_EditBox", 401, 150, 321, 20, "BOTTOM", "BOTTOM", UIParent, UIParent, "BACKGROUND") -- ChatFrameEditBox
-caelPanels.createPanel("caelPanel_CombatLog", -401, 20, 321, 130, "BOTTOM", "BOTTOM", UIParent, UIParent, "BACKGROUND") -- CombatLog
-caelPanels.createPanel("caelPanel_Minimap", 0, 20, 130, 130, "BOTTOM", "BOTTOM", UIParent, UIParent, "BACKGROUND") -- Minimap
-caelPanels.createPanel("caelPanel_ActionBar1", -153, 90, 172, 60, "BOTTOM", "BOTTOM", UIParent, UIParent, "BACKGROUND") -- TopLeftBar
-caelPanels.createPanel("caelPanel_ActionBar2", 153, 90, 172, 60, "BOTTOM", "BOTTOM", UIParent, UIParent, "BACKGROUND") -- TopRightBar
-caelPanels.createPanel("caelPanel_ActionBar3", -153, 20, 172, 60, "BOTTOM", "BOTTOM", UIParent, UIParent, "BACKGROUND") -- BottomLeftBar
-caelPanels.createPanel("caelPanel_ActionBar4", 153, 20, 172, 60, "BOTTOM", "BOTTOM", UIParent, UIParent, "BACKGROUND") -- BottomRightBar
-caelPanels.createPanel("caelPanel_ActionBar5", -30, 0, 31, 336, "RIGHT", "RIGHT", UIParent, UIParent, "BACKGROUND") -- Side Action Bar
-caelPanels.createPanel("caelPanel_DataFeed", 0, 2, 1124, 18, "BOTTOM", "BOTTOM", UIParent, UIParent, "BACKGROUND") -- DataFeeds bar
-caelPanels.createPanel("caelPanel_DamageMeter", -647, 2, 167, 148, "BOTTOM", "BOTTOM", UIParent, alDamageMeterFrame, "BACKGROUND") -- MeterLeft
-caelPanels.createPanel("caelPanel_ThreatMeter", 647, 2, 167, 148, "BOTTOM", "BOTTOM", UIParent, recThreatMeter, "BACKGROUND") -- MeterRight
---]]
-
