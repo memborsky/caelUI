@@ -70,7 +70,7 @@ buttonGrid:SetScript("OnEvent", function(self, event)
     self:UnregisterEvent("PLAYER_ENTERING_WORLD")
     SetActionBarToggles(1, 1, 1, 1)
 
-    if caelBars.actionBar["settings"].showGrid == true then
+    if caelBars.settings.showGrid == true then
         for index = 1, 12 do
             local button = _G[format("ActionButton%d", index)]
             button:SetAttribute("showgrid", 1)
@@ -147,7 +147,7 @@ PetActionBarFrame:SetParent(barPet)
 PetActionBarFrame:SetWidth(0.01)
 
 -- Show grid for pet actionbar
-if caelBars.actionBar["settings"].showPetGrid == true then
+if caelBars.settings.showPetGrid == true then
     PetActionBar_ShowGrid()
 end
 
@@ -182,7 +182,7 @@ do
         end
 
         -- Toggle buttons if mouse over is turned on.
-        if caelBars.actionBar["settings"].mouseOverPetBar == true then
+        if caelBars.settings.mouseOverPetBar == true then
             button:SetAlpha(0)
             button:HookScript("OnEnter", function(self) togglePetBar(1) end)
             button:HookScript("OnLeave", function(self) togglePetBar(0) end)
@@ -191,7 +191,7 @@ do
 end
 
 -- Toggle pet bar if mouse over is turned on.
-if caelBars.actionBar["settings"].mouseOverPetBar == true then
+if caelBars.settings.mouseOverPetBar == true then
     barPet:EnableMouse(true)
     barPet:SetScript("OnEnter", function(self) togglePetBar(1) end)
     barPet:SetScript("OnLeave", function(self) togglePetBar(0) end)

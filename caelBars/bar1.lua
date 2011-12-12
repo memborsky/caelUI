@@ -79,14 +79,14 @@ bar1:SetScript("OnEvent", function(self, event, ...)
             button:SetScale(0.68625)
             button:ClearAllPoints()
             button:SetParent(bar1)
-            button:SetAlpha(0.45)
+            button:SetAlpha(caelBars.settings.buttonAlpha)
 
             if i == 1 then
-                button:SetPoint("TOPLEFT", caelPanel_ActionBar1, PixelScale(5), PixelScale(-2))
+                button:SetPoint("TOPLEFT", caelPanel_ActionBar1, PixelScale(5), PixelScale(-5))
             elseif i == 7 then
-                button:SetPoint("TOPLEFT", _G["ActionButton1"], "BOTTOMLEFT", 0, PixelScale(-2))
+                button:SetPoint("TOPLEFT", _G["ActionButton1"], "BOTTOMLEFT", 0, PixelScale(-6))
             else
-                button:SetPoint("LEFT", _G["ActionButton"..i-1], "RIGHT", PixelScale(2), 0)
+                button:SetPoint("LEFT", _G["ActionButton"..i-1], "RIGHT", PixelScale(5), 0)
             end
         end
 

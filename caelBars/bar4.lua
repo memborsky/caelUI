@@ -17,13 +17,13 @@ for index = 1, 12 do
 
     button:ClearAllPoints()
     button:SetScale(0.68625)
-    button:SetAlpha(0.45)
+    button:SetAlpha(caelBars.settings.buttonAlpha)
 
     if index == 1 then
-        button:SetPoint("TOPLEFT", caelPanel_ActionBar4, PixelScale(5), PixelScale(-2))
+        button:SetPoint("TOPLEFT", caelPanel_ActionBar4, PixelScale(5), PixelScale(-5))
     elseif index == 7 then
-        button:SetPoint("TOPLEFT", _G["MultiBarRightButton1"], "BOTTOMLEFT", 0, PixelScale(-2))
+        button:SetPoint("TOPLEFT", _G["MultiBarRightButton1"], "BOTTOMLEFT", 0, PixelScale(-6))
     else
-        button:SetPoint("LEFT", buttonPrev, "RIGHT", PixelScale(2), 0)
+        button:SetPoint("LEFT", buttonPrev, "RIGHT", PixelScale(5), 0)
     end
 end
