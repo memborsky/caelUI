@@ -167,7 +167,7 @@ local function initialize (_, event)
     CVars:Save()
 
     -- Unregister this function
-    events:UnregisterEvent(event, self)
+    -- events:UnregisterEvent(event, self)
 end
 
 events:RegisterEvent("PLAYER_ENTERING_WORLD", initialize())

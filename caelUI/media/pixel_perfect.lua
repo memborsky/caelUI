@@ -69,20 +69,32 @@ end
 
 -- This will scale our given value to our scale offset.
 function private.PixelScale (value)
-    return scale_fix * math.floor(value / scale_fix + 0.5)
+    if value then
+        return scale_fix * math.floor(value / scale_fix + 0.5)
+    else
+        return 1
+    end
 end
 
+--[[
+Because we load media before the events table, we need to 
+--]]
+do
+    local event_frame = CreateFrame("Frame")
 
--- for _, event in pairs{"PLAYER_LEAVING_WORLD", "PLAYER_LOGOUT", "UPDATE_FLOATING_CHAT_WINDOWS"} do
---     private.events:RegisterEvent(event, function(self, event, ...)
---         if event == "PLAYER_ENTERING_WORLD" then
---             if cael_user.scale then
---                 private.set_scale(cael_user.scale)
---             else
---                 private.set_scale()
---             end
---         end
+    event_frame:SetScript("OnEvent", function(self, event, ...)
+        if event == "PLAYER_ENTERING_WORLD" then
+            if cael_user.scale then
+                private.set_scale(cael_user.scale)
+            else
+                private.set_scale()
+            end
+        end
 
---         cael_user.scale = math.floor(GetCVar("uiScale") * 100 + 0.5) / 100
---     end)
--- end
+        cael_user.scale = math.floor(GetCVar("uiScale") * 100 + 0.5) / 100
+    end)
+
+    for _, event in next, {"PLAYER_LEAVING_WORLD", "PLAYER_LOGOUT", "UPDATE_FLOATING_CHAT_WINDOWS"} do
+        event_frame:RegisterEvent(event)
+    end
+end

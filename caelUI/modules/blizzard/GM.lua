@@ -30,7 +30,7 @@ local function SkinGMChatFrame (self, _, name)
     GMChatFrameResizeButton:Hide()
     GMChatTab:Hide()
 
-    self:UnregisterEvent("ADDON_LOADED", SkinGMChatFrame)
+    -- self:UnregisterEvent("ADDON_LOADED", SkinGMChatFrame)
 end
 
 SkinGMChat:RegisterEvent("ADDON_LOADED", SkinGMChatFrame)

@@ -4,12 +4,13 @@ local private = unpack(select(2, ...))
 local PixelScale = private.PixelScale
 local media = private.media
 local databases = private.GetDatabase()
+local argument_check = private.argument_check
 
 -- We use this to reference a blank frame for calling frame related functions when we modify them.
 local reference_frame = CreateFrame("Frame")
 
 local module_metatable = {
-    __index = CreateFrame("Frame"),
+    __index = {},
 
     __call = function(funcs, self, ...)
         for _, func in next, funcs do
@@ -43,6 +44,8 @@ module_metatable.__index.IsEventRegistered = private.events.IsEventRegistered
 -- Format money output
 module_metatable.__index.FormatMoney = private.format_money
 
+-- Kill off some frame crap
+module_metatable.__index.Kill = private.kill
 
 --[[
 Public: Pixel perfect scale our value.
@@ -58,12 +61,26 @@ module_metatable.__index.PixelScale = PixelScale
 --[[
 Public: Get Media table
 
+file - name of file to return
+
 Examples:
     <module>:GetMedia()
     # => <table of media>
 
 Returns Lua table of all our media files.
 --]]
+do
+    local function CheckTable(needle, haystack)
+        for key, value in pairs(haystack) do
+            if type(value) == "table" then
+                return CheckTable(needle, value)
+            elseif key:lower() == needle then
+                return value
+            end
+        end
+    end
+end
+
 function module_metatable.__index:GetMedia()
     return media
 end
@@ -115,22 +132,109 @@ do
     end
 end
 
+--[[
+Public: Set the frame width and height. If only one variable is passed, set it to both width and height.
+
+width - Frame width
+height - Frame height
+
+Examples:
+    <module>:SetSize(130)
+
+Returns nothing.
+--]]
+function module_metatable.__index:SetSize(width, height)
+    if not height then
+        height = width
+    end
+
+    -- If we have already created a backdrop on the frame, take into account for this when we set the frames size.
+    if self.backdrop and self ~= self.backdrop then
+        width = width - 4
+        height = height - 4
+    end
+
+    reference_frame.SetSize(self, PixelScale(width), PixelScale(height))
+end
+
+--[[
+Public: Set the frame width.
+
+width - Frame width
+
+Examples:
+    <module>:SetWidth(130)
+
+Returns nothing.
+--]]
+function module_metatable.__index:SetWidth(width)
+    argument_check(width, 2, "number")
+
+    -- If we have already created a backdrop on the frame, take into account for this when we set the frames width.
+    if self.backdrop then
+        width = width - 4
+    end
+
+    reference_frame.SetWidth(self, PixelScale(width))
+end
+
+--[[
+Public: Set the frame height.
+
+height - Frame height
+
+Examples:
+    <module>:SetWidth(130)
+
+Returns nothing.
+--]]
+function module_metatable.__index:SetHeight(height)
+    argument_check(height, 2, "number")
+
+    -- If we have already created a backdrop on the frame, take into account for this when we set the frames height.
+    if self.backdrop then
+        height = height + 4
+    end
+
+    reference_frame.SetHeight(self, PixelScale(height))
+end
+
 -- Rewrite the SetPoint on our frame so we can use PixelScale here instead of in the actual module.
 function module_metatable.__index:SetPoint(...)
-    local argument_count = #(...)
+    local points = {}
 
-    if argument_count == 5 then
-        local point, relative_frame, relative_point, offsetX, offsetY = ...
-        reference_frame.SetPoint(self, point, relative_frame, relative_point, PixelScale(offsetX), PixelScale(offsetY))
-    else
-        if argument_count == 3 and type(select(3, ...)) == "number" then
-            local point, offsetX, offsetY = ...
+    for index = 1, select("#", ...) do
+        local argument = select(index, ...)
 
-            reference_frame.SetPoint(self, point, PixelScale(offsetX), PixelScale(offsetY))
-        else
-            reference_frame.SetPoint(self, ...)
+        if type(argument) == "number" then
+            -- If we have a backdrop created on the frame, we need to bump it by 2px because of the border.
+            if self.backdrop and argument > 0 then
+                argument = argument + 2
+            end
+            
+            argument = PixelScale(argument)
         end
+        
+        points[index] = argument
     end
+
+    reference_frame.SetPoint(self, unpack(points))
+end
+
+--[[
+Public: Set the frame scale
+
+scale - Frame scale
+
+Examples:
+    <module>:SetScale(130)
+
+Returns nothing.
+--]]
+function module_metatable.__index:SetScale(scale)
+    argument_check(scale, 2, "number")
+
+    reference_frame.SetScale(self, PixelScale(scale))
 end
 
 --[[
@@ -150,6 +254,13 @@ function module_metatable.__index:CreateBackdrop()
         name = nil
     end
 
+    -- If we are creating a backdrop, we are creating a border on the frame so we need to shrink the actual frame just ever so slightly.
+    do
+        local width, height = self:GetSize()
+
+        self:SetSize(width - 4, height - 4)
+    end
+
     self.backdrop = CreateFrame("Frame", name, self)
     self.SetPoint(self.backdrop, "TOPLEFT", self, "TOPLEFT", -2, 2)
     self.SetPoint(self.backdrop, "BOTTOMRIGHT", self, "BOTTOMRIGHT", 2, -2)
@@ -158,10 +269,13 @@ function module_metatable.__index:CreateBackdrop()
     self.backdrop:SetBackdropColor(0, 0, 0, 0.4)
     self.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
     self.backdrop:SetFrameStrata("BACKGROUND")
+
+    -- Move the frame back to where it was placed after the backdrop was created.
+    self:SetPoint(self:GetPoint())
 end
 
 --[[
-Private: Create a new module for the UI.
+Public: Create a new module for the UI.
 
 name         - The name to be given to the module frame or how we can reference future naming.
 create_frame - Boolean flag to create the module as a frame instead of just using it as a table.
@@ -171,11 +285,19 @@ Examples:
 
 Returns either a WoW Frame or a Lua table.
 --]]
-function private.NewModule(name, create_frame)
+function private.NewModule(name, create_frame, inherit_frame)
     local self = {}
 
     if create_frame then
-        self = CreateFrame("Frame", name and "caelUI_" .. name or nil, UIParent)
+        local frame_metatable = getmetatable(reference_frame).__index
+
+        for key, value in next, frame_metatable do
+            if not module_metatable.__index[key] then
+                module_metatable.__index[key] = value
+            end
+        end
+
+        self = CreateFrame("Frame", name and "caelUI_" .. name or nil, UIParent, inherit_frame or nil)
     end
 
     -- Set our modules metatable to our returned self.

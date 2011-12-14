@@ -102,8 +102,8 @@ caelPanels.eventFrame:SetScript("OnEvent", function(self, event, ...)
 
             local createPanel = caelPanels.createPanel
             
-            createPanel("caelPanel_DataFeed", {PixelScale(1124), PixelScale(18)}, {"BOTTOM", UIParent, "BOTTOM", 0, PixelScale(2)})
-            createPanel("caelPanel_Minimap", {PixelScale(130), PixelScale(130)}, {"BOTTOM", UIParent, "BOTTOM", 0, PixelScale(20)}, {["SetFrameStrata"] = "MEDIUM"})
+            createPanel("caelPanel_DataFeed", {PixelScale(1124), PixelScale(18)}, {"BOTTOM", UIParent, "BOTTOM", 0, PixelScale(1)})
+            -- createPanel("caelPanel_Minimap", {PixelScale(130), PixelScale(130)}, {"BOTTOM", UIParent, "BOTTOM", 0, PixelScale(20)}, {["SetFrameStrata"] = "MEDIUM"}):Hide()
             createPanel("caelPanel_ChatFrame", {PixelScale(321), PixelScale(130)}, {"BOTTOM", UIParent, "BOTTOM", PixelScale(401), PixelScale(20)})
             createPanel("caelPanel_EditBox", {caelPanel_ChatFrame:GetWidth(), PixelScale(20)}, {"BOTTOMLEFT", caelPanel_ChatFrame, "TOPLEFT"})
             createPanel("caelPanel_CombatLog", {PixelScale(321), PixelScale(130)}, {"BOTTOM", UIParent, "BOTTOM", -PixelScale(401), PixelScale(20)})

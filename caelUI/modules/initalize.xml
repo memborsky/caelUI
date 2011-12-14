@@ -10,4 +10,7 @@
 
     <!-- This is a module to do nothing but manage our merchant automation. -->
     <include file="merchant\initalize.xml" />
+
+    <!-- Minimap & World Map -->
+    <include file="map\initalize.xml" />
 </Ui>

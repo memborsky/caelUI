@@ -13,3 +13,26 @@ public.config.PixelScale = private.PixelScale
 public.UTF8_substitution = private.UTF8_substitution
 public.GetSpellName = private.GetSpellName
 public.kill = private.kill
+
+do
+    local function addapi(object)
+        local metatable = getmetatable(object).__index
+        if not object.Kill then metatable.Kill = private.kill end
+    end
+
+    local handled = {["Frame"] = true}
+    local object = CreateFrame("Frame")
+    addapi(object)
+    addapi(object:CreateTexture())
+    addapi(object:CreateFontString())
+
+    object = EnumerateFrames()
+    while object do
+        if not handled[object:GetObjectType()] then
+            addapi(object)
+            handled[object:GetObjectType()] = true
+        end
+
+        object = EnumerateFrames(object)
+    end
+end
