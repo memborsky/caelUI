@@ -22,7 +22,7 @@ local function Initialize()
     WorldMapFrame.cursor:SetTextColor(0.84, 0.75, 0.65)
 
     -- Size the frame only when we load into the game to make sure everything else is loaded.
-    WorldMapFrame:SetWidth((WorldMapDetailFrame:GetWidth() * WORLDMAP_WINDOWED_SIZE) + 3)
+    WorldMapFrame:SetWidth((WorldMapDetailFrame:GetWidth() * WORLDMAP_WINDOWED_SIZE) + 4)
     WorldMapFrame:SetHeight((WorldMapDetailFrame:GetHeight() * WORLDMAP_WINDOWED_SIZE) + 50)
 
     -- Set the point for the world map frame and then make sure it doesn't change it.
