@@ -64,6 +64,7 @@ local addons = {
     ["ROGUE"]   = {
         ["oUF_WeaponEnchant"]   = true,
         ["fComboBar"]           = true,
+        ["TrickOrTreat"]        = true,
     },
     ["SHAMAN"]  = {
         ["oUF_TotemBar"]        = true,
