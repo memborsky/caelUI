@@ -191,7 +191,7 @@ end)
 local newOnShow = function(self, ...)
     self:ClearAllPoints()
     if self:GetName() == "GroupLootFrame1" then
-        self:SetPoint("BOTTOM", caelPanel_Minimap, "TOP", 0, PixelScale(30))
+        self:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, PixelScale(150))
     else
         local _, _, num = self:GetName():find("GroupLootFrame(%d)")
         self:SetPoint("BOTTOM", _G[format("GroupLootFrame%d", num-1)], "TOP", 0, PixelScale(10))
