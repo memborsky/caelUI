@@ -24,7 +24,7 @@ do
         local registered = registry[event]
 
         for frame in next, registered do
-            if frame then
+            if frame and frame[event] then
                 frame[event](frame, event, ...)
             end
         end
