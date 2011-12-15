@@ -63,6 +63,10 @@ local function Initialize()
     WorldMapTrackQuest:Kill()
     WorldMapShowDropDown:Kill()
 
+    WorldMapQuestScrollFrame:Kill()
+    WorldMapQuestDetailScrollFrame:Kill()
+    WorldMapQuestRewardScrollFrame:Kill()
+
     WorldMapFrame:SetAlpha(0.75)
 
     WorldMapShowDigSites:ClearAllPoints()
@@ -73,8 +77,12 @@ local function Initialize()
     WorldMapBlobFrame.Hide = function() return end
 
     WorldMapDetailFrame:ClearAllPoints()
-    Map.SetPoint(WorldMapDetailFrame, "BOTTOMLEFT", WorldMapFrame, "BOTTOMLEFT", 2, 2)
-    Map.SetPoint(WorldMapDetailFrame, "BOTTOMRIGHT", WorldMapFrame, "BOTTOMRIGHT", -2, 2)
+    Map.SetPoint(WorldMapDetailFrame, "BOTTOMLEFT", WorldMapFrame.backdrop, "BOTTOMLEFT", 4, 4)
+    WorldMapDetailFrame.SetPoint = function() return end
+    WorldMapDetailFrame.SetSize = function() return end
+    WorldMapDetailFrame.SetWidth = function() return end
+    WorldMapDetailFrame.SetHeight = function() return end
+    WorldMapDetailFrame.SetScale = function() return end
 
     WorldMapFrameTitle:ClearAllPoints()
     Map.SetPoint(WorldMapFrameTitle, "TOP", WorldMapFrame, "TOP", 0, -12.5)
@@ -85,6 +93,8 @@ local function Initialize()
 
     hooksecurefunc("WorldMapQuestPOI_OnLeave", function() WorldMapTooltip:Hide() end)
 
+    WorldMapButton:SetSize(WorldMapDetailFrame:GetSize())
+    WorldMapButton:ClearAllPoints()
     WorldMapButton:SetAllPoints(WorldMapDetailFrame)
     WorldMapButton.timer = 0.1
 
