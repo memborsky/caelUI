@@ -148,4 +148,7 @@ do
     end
 end
 
-Timers:RegisterEvent("PLAYER_ENTERING_WORLD", function() CreateBars(Timers:GetPlayer("class")) end)
+Timers:RegisterEvent("PLAYER_ENTERING_WORLD", function(_, event)
+    CreateBars(Timers:GetPlayer("class"))
+    Timers:UnregisterEvent(event, self)
+end)
