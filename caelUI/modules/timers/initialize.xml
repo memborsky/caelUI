@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Main timer bars. -->
+    <script file="timers.lua" />
+
+    <!-- Configuration or setup for all the bars. -->
+    <script file="class_timers.lua" />
+</Ui>

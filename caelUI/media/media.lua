@@ -19,6 +19,8 @@ media.files = {
     statusbar_c             = media.directory .. [=[statusbars\normtexc]=],
     statusbar_d             = media.directory .. [=[statusbars\normtexd]=],
     statusbar_e             = media.directory .. [=[statusbars\normtexe]=],
+    statusbar_f             = media.directory .. [=[statusbars\normtexf]=],
+    statusbar_g             = media.directory .. [=[statusbars\normtexg]=],
 
     button_normal           = media.directory .. [=[buttons\buttonnormal]=],
     button_pushed           = media.directory .. [=[buttons\buttonpushed]=],
@@ -65,16 +67,37 @@ media.border_table = {
     insets   = media.inset_table
 }
 
-function media.create_backdrop (parent, name)
-    local backdrop = CreateFrame("Frame", name and name or nil, parent)
-    backdrop:SetPoint("TOPLEFT", parent, "TOPLEFT", PixelScale(-2.5), PixelScale(2.5))
-    backdrop:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", PixelScale(2.5), PixelScale(-2.5))
-    backdrop:SetFrameLevel(parent:GetFrameLevel() - 1 > 0 and parent:GetFrameLevel() - 1 or 0)
-    backdrop:SetBackdrop(media.backdrop_table)
-    backdrop:SetBackdropColor(0, 0, 0, 0.5)
-    backdrop:SetBackdropBorderColor(0, 0, 0, 1)
-    backdrop:SetFrameStrata("BACKGROUND")
-    return backdrop
+function media.create_backdrop (self, name)
+    local parent
+
+    -- If we are creating a backdrop, we are creating a border on the frame so we need to shrink the actual frame just ever so slightly.
+    do
+        local width, height = self:GetSize()
+
+        self:SetSize(width - 4, height - 4)
+    end
+
+    if self:GetObjectType() == "Frame" or self:GetObjectType() == "StatusBar" then
+        parent = self
+    elseif self.GetParent and self:GetParent():GetObjectType() == "Frame" or self:GetParent():GetObjectType() == "StatusBar" then
+        parent = self:GetParent()
+    else
+        parent = UIParent
+    end
+
+    self.backdrop = CreateFrame("Frame", name and name .. "Backdrop" or nil, parent)
+    self.SetPoint(self.backdrop, "TOPLEFT", self, "TOPLEFT", -2, 2)
+    self.SetPoint(self.backdrop, "BOTTOMRIGHT", self, "BOTTOMRIGHT", 2, -2)
+    self.backdrop:SetFrameLevel(parent:GetFrameLevel() - 1 > 0 and parent:GetFrameLevel() - 1 or 0)
+    self.backdrop:SetBackdrop(media.backdrop_table)
+    self.backdrop:SetBackdropColor(0, 0, 0, 0.4)
+    self.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
+    self.backdrop:SetFrameStrata("BACKGROUND")
+
+    -- Move the frame back to where it was placed after the backdrop was created.
+    self:SetPoint(self:GetPoint())
+
+    return self
 end
 
 function media.create_blank_backdrop (parent, name)

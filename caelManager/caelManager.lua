@@ -41,7 +41,6 @@ local addons = {
         ["caelPanels"]          = true,
         ["caelThreat"]          = true,
         ["caelTooltips"]        = true,
-        ["caelTimers"]          = true,
         ["caelLoot"]            = true,
         ["caelNameplates"]      = true,
         ["caelQuests"]          = true,

@@ -3,7 +3,7 @@ local Map = unpack(select(2, ...)).NewModule("Minimap", true)
 -- Setup the Minimap container frame.
 Map:SetSize(130)
 Map:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 20)
-Map:CreateBackdrop()
+Map:CreateBackdrop(Map:GetName())
 
 local function Initialize (self)
     for _, object in next, {

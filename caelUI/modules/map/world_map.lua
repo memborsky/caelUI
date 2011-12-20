@@ -7,7 +7,7 @@ local function Initialize()
 
     -- Create the background container frame for the world map.
     WorldMapFrame.name = "WorldMapFrame"
-    Map.CreateBackdrop(WorldMapFrame)
+    Map.CreateBackdrop(WorldMapFrame, WorldMapFrame:GetName())
     WorldMapFrame.backdrop:SetFrameStrata("MEDIUM")
     WorldMapFrame.backdrop:SetFrameLevel(20)
 

@@ -11,7 +11,7 @@ end
 local event_counter = 0
 local garbage_collector = CreateFrame("Frame")
 
--- garbage_collector:RegisterAllEvents()
+garbage_collector:RegisterAllEvents()
 garbage_collector:SetScript("OnEvent", function()
     event_counter = event_counter + 1
 

@@ -44,8 +44,11 @@ module_metatable.__index.IsEventRegistered = private.events.IsEventRegistered
 -- Format money output
 module_metatable.__index.FormatMoney = private.format_money
 
--- Kill off some frame crap
-module_metatable.__index.Kill = private.kill
+-- Format a time
+module_metatable.__index.FormatTime = private.format_time
+
+-- Moved our create_backdrop into the media files for ease of access to both modules, addons, and API.
+module_metatable.__index.CreateBackdrop = media.create_backdrop
 
 --[[
 Public: Pixel perfect scale our value.
@@ -237,41 +240,16 @@ function module_metatable.__index:SetScale(scale)
     reference_frame.SetScale(self, PixelScale(scale))
 end
 
---[[
-Public: Create a default frame backdrop.
-
-Examples:
-    <module>:CreateBackdrop()
---]]
-function module_metatable.__index:CreateBackdrop()
-    local name
-
+function module_metatable.__index:GetName()
     if self.name then
-        name = self.name .. "Backdrop"
+        return self.name
+    elseif self.GetName then
+        return self:GetName()
     elseif self.GetParent and self:GetParent():GetName() then
-        name = self:GetParent():GetName() .. "Backdrop"
+        return self:GetParent():GetName()
     else
-        name = nil
+        return ""
     end
-
-    -- If we are creating a backdrop, we are creating a border on the frame so we need to shrink the actual frame just ever so slightly.
-    do
-        local width, height = self:GetSize()
-
-        self:SetSize(width - 4, height - 4)
-    end
-
-    self.backdrop = CreateFrame("Frame", name, self)
-    self.SetPoint(self.backdrop, "TOPLEFT", self, "TOPLEFT", -2, 2)
-    self.SetPoint(self.backdrop, "BOTTOMRIGHT", self, "BOTTOMRIGHT", 2, -2)
-    self.backdrop:SetFrameLevel(self:GetFrameLevel() - 1 > 0 and self:GetFrameLevel() - 1 or 0)
-    self.backdrop:SetBackdrop(media.backdrop_table)
-    self.backdrop:SetBackdropColor(0, 0, 0, 0.4)
-    self.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
-    self.backdrop:SetFrameStrata("BACKGROUND")
-
-    -- Move the frame back to where it was placed after the backdrop was created.
-    self:SetPoint(self:GetPoint())
 end
 
 --[[

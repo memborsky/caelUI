@@ -13,4 +13,7 @@
 
     <!-- Minimap & World Map -->
     <include file="map\initalize.xml" />
+
+    <!-- Class timer bars -->
+    <include file="timers\initialize.xml" />
 </Ui>

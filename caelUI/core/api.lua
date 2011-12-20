@@ -15,9 +15,12 @@ public.GetSpellName = private.GetSpellName
 public.kill = private.kill
 
 do
+    local media = private.media
+
     local function addapi(object)
         local metatable = getmetatable(object).__index
         if not object.Kill then metatable.Kill = private.kill end
+        if not object.CreateBackdrop then metatable.CreateBackdrop = media.create_backdrop end
     end
 
     local handled = {["Frame"] = true}
