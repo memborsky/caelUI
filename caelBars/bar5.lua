@@ -1,16 +1,26 @@
 local _, caelBars = ...
 
 local PixelScale = caelUI.config.PixelScale
+local kill = caelUI.kill
 
 local bar5 = CreateFrame("Frame", "bar5", UIParent)
 
 bar5:SetAllPoints(caelPanel_ActionBar5)
 MultiBarLeft:SetParent(bar5)
 
+local button
+local buttonPrev
+local floatBG
+
 for index = 1, 12 do
 
-    local button = _G["MultiBarLeftButton" .. index]
-    local buttonPrev = _G["MultiBarLeftButton" .. index - 1]
+    button = _G["MultiBarLeftButton" .. index]
+    buttonPrev = _G["MultiBarLeftButton" .. index - 1]
+    floatBG = _G[button:GetName() .. "FloatingBG"]
+
+    if floatBG then
+        kill(floatBG)
+    end
 
     button:ClearAllPoints()
     button:SetScale(0.68625)
