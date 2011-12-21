@@ -33,7 +33,8 @@ local bar_prototype = {
 }
 
 local bars = {}
-caelTimers = bars
+
+local UpdateBars
 
 do
     timers_metatable = getmetatable(Timers).__index
@@ -126,6 +127,7 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
     bar.Enable = function(self)
         self.active = true
         self:SetScript("OnUpdate", self.OnUpdate)
+        self:RegisterEvent("UNIT_AURA")
         self:Show()
     end
 
@@ -135,6 +137,7 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
         self.duration = 0
         self.active = false
         self:SetScript("OnUpdate", nil)
+        self:UnregisterEvent("UNIT_AURA")
         self:Hide()
     end
 
@@ -150,12 +153,10 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
         self.SetPoint(self.spark, "CENTER", self, "LEFT", self:GetWidth() * remaining / self.duration, 0)
     end
 
-    bar:RegisterEvent("UNIT_AURA")
     bar:SetScript("OnEvent", function(self, _, unit)
-        if self.active and self.unit == unit then
-            if not self:Update() then
-                self:Disable()
-            end
+        if self.unit == unit and not self:Update() then
+            self:Disable()
+            UpdateBars(unit)
         end
     end)
 
@@ -165,7 +166,7 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
     return bar
 end
 
-local function UpdateBars(unit)
+function UpdateBars(unit)
 
     local frame = _G[Timers:GetName() .. unit:gsub("%a", string.upper, 1) .. "Frame"]
     local children  = { frame:GetChildren() }
@@ -239,23 +240,15 @@ Timers:RegisterEvent("PLAYER_ENTERING_WORLD", function()
 end)
 
 Timers:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", function(_, _, _, subEvent, _, sourceGUID, _, _, _, destGUID, _, _, _, spellId)
-
-    local unit
-
     if spellId and subEvent == "SPELL_AURA_APPLIED" then
         for _, bar in pairs(bars) do
             if destGUID == UnitGUID(bar.unit) and spellId == bar.spellId then
-                unit = bar.unit
-                bar:Enable()
                 bar:Update()
+                bar:Enable()
+                UpdateBars(bar.unit)
                 break
             end
         end
-
-        if unit then
-            UpdateBars(unit)
-        end
-
     end
 end)
 
