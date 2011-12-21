@@ -43,7 +43,7 @@ do
     end
 end
 
-function bar_prototype.__index:Create(spellName, unit, buffType, playerOnly, autoColor, frame)
+function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoColor, frame)
     local bar = CreateFrame("StatusBar", string.format(Timers:GetName() and Timers:GetName() .. "Bar%d" or "TimerBar%d", (#bars + 1 or 0)), _G[Timers:GetName() .. frame:gsub("%a", string.upper, 1) .. "Frame"])
 
     -- SmoothBar(bar)
@@ -56,7 +56,6 @@ function bar_prototype.__index:Create(spellName, unit, buffType, playerOnly, aut
     bar.texture:SetTexture(media.files.statusbar_g)
 
     if buffType == "debuff" then
-        -- "Melon & gingerbred" by glindathegoodwitch at colourlovers.com
         bar.texture:SetVertexColor(0.69, 0.31, 0.31, 1)
     else
         bar.texture:SetVertexColor(0.33, 0.59, 0.33, 1)
@@ -72,13 +71,13 @@ function bar_prototype.__index:Create(spellName, unit, buffType, playerOnly, aut
 
     bar.spell = bar:CreateFontString("$parentSpellName", "OVERLAY")
     bar.spell:SetFont(media.fonts.normal, 9)
-    bar.spell:SetText(spellName)
+    bar.spell:SetText(GetSpellInfo(spellId))
     self.SetPoint(bar.spell, "LEFT", bar, "LEFT", 3, 0)
     bar.spell:SetJustifyH("LEFT")
 
     bar.stacks = bar:CreateFontString("$parentStackCount", "OVERLAY")
     bar.stacks:SetFont(media.fonts.normal, 9)
-    self.SetPoint(bar.stacks, "LEFT", bar.spell, "RIGHT", 1, 0)
+    self.SetPoint(bar.stacks, "LEFT", bar.spell, "RIGHT")
     bar.stacks:SetJustifyH("LEFT")
 
     bar.time = bar:CreateFontString("$parentTimer", "OVERLAY")
@@ -92,7 +91,7 @@ function bar_prototype.__index:Create(spellName, unit, buffType, playerOnly, aut
     bar.spark:SetBlendMode("ADD")
     bar.spark:Show()
 
-    bar.spellName  = spellName
+    bar.spellId    = spellId
     bar.unit       = unit
     bar.buffType   = buffType
     bar.playerOnly = playerOnly
@@ -104,7 +103,7 @@ function bar_prototype.__index:Create(spellName, unit, buffType, playerOnly, aut
     bar.auraType   = buffType == "debuff" and "HARMFUL" or "HELPFUL"
 
     bar.Update = function(self)
-        local _, _, icon, count, _, duration, expiration = UnitAura(self.unit, self.spellName, nil, self.playerOnly and "PLAYER|" .. self.auraType or self.auraType)
+        local _, _, icon, count, _, duration, expiration = UnitAura(self.unit, GetSpellInfo(self.spellId), nil, self.playerOnly and "PLAYER|" .. self.auraType or self.auraType)
 
         if icon then
             self.icon:SetTexture(icon)
@@ -112,8 +111,6 @@ function bar_prototype.__index:Create(spellName, unit, buffType, playerOnly, aut
             self.count = count
             self.expiration = expiration or 0
             self.duration = duration
-            self.active = true
-            self:SetScript("OnUpdate", self.OnUpdate)
 
             if self.buffType == "debuff" and self.autoColor then
                 -- self.tx:SetVertexColor(aura_colors[aura_type or "None"].r, aura_colors[aura_type or "None"].g, aura_colors[aura_type or "None"].b, 1)
@@ -123,11 +120,13 @@ function bar_prototype.__index:Create(spellName, unit, buffType, playerOnly, aut
             return true
         end
 
-         return false
+        return false
     end
 
     bar.Enable = function(self)
         if self:Update() then
+            self.active = true
+            self:SetScript("OnUpdate", self.OnUpdate)
             self:Show()
         end
     end
@@ -150,15 +149,21 @@ function bar_prototype.__index:Create(spellName, unit, buffType, playerOnly, aut
             self:SetValue(remaining)
             self:SetMinMaxValues(0, self.duration)
 
-            self.stacks:SetText(string.format("%s", self.count > 1 and string.format("x%d", self.count) or ""))
+            self.stacks:SetText(string.format("%s", self.count > 1 and string.format(" - %d", self.count) or ""))
             self.time:SetText(string.format("%s", Timers:FormatTime(remaining)))
 
             self.SetPoint(self.spark, "CENTER", self, "LEFT", self:GetWidth() * remaining / self.duration, 0)
-        -- else
-        --     self:Hide()
-        --     self.active = false
         end
     end
+
+    bar:RegisterEvent("UNIT_AURA")
+    bar:SetScript("OnEvent", function(self, _, unit)
+        if self.active and self.unit == unit then
+            if not self:Update() then
+                self:Disable()
+            end
+        end
+    end)
 
     -- Make sure the bar gets hidden.
     bar:Hide()
@@ -166,7 +171,10 @@ function bar_prototype.__index:Create(spellName, unit, buffType, playerOnly, aut
     return bar
 end
 
-local function UpdateBars()
+local function UpdateBars(unit)
+
+    local frame = _G[Timers:GetName() .. unit:gsub("%a", string.upper, 1) .. "Frame"]
+    local children  = { frame:GetChildren() }
 
     -- Sort the bars.
     do
@@ -176,7 +184,7 @@ local function UpdateBars()
         repeat
             sorted = true
 
-            for key, value in pairs(bars) do
+            for key, value in pairs(children) do
                 local nextBar = key + 1
                 local nextBarValue = bars[nextBar]
 
@@ -199,29 +207,17 @@ local function UpdateBars()
 
     -- Redisplay the bars in the right location.
     do
-        local last_player, last_target
-        local player = _G[Timers:GetName() .. "PlayerFrame"]
-        local target = _G[Timers:GetName() .. "TargetFrame"]
+        local last = nil
 
-        for _, bar in pairs(bars) do
+        for _, bar in pairs(children) do
             if bar.active then
-                if bar.unit == "player" then
-                    if not last_player then
-                        bar:SetPoint("BOTTOMRIGHT", player, "BOTTOMRIGHT")
-                    else
-                        bar:SetPoint("BOTTOMRIGHT", last_player, "TOPRIGHT", 0, 5)
-                    end
-                        
-                    last_player = bar
+                if not last then
+                    bar:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
                 else
-                    if not last_target then
-                        bar:SetPoint("BOTTOMRIGHT", target, "BOTTOMRIGHT")
-                    else
-                        bar:SetPoint("BOTTOMRIGHT", last_target, "TOPRIGHT", 0, 5)
-                    end
-
-                    last_target = bar
+                    bar:SetPoint("BOTTOMRIGHT", last, "TOPRIGHT", 0, 5)
                 end
+
+                last = bar
             end
         end
     end
@@ -229,82 +225,62 @@ end
 
 function Timers:CreateList (list)
     local bar_table = setmetatable({}, bar_prototype)
-    local current = nil
 
-    local barsEmpty = #bars == 0 and true or false
-
+    -- Create and save the bar we create to the bars table.
     for frame, barsList in pairs(list) do
         for _, bar in pairs(barsList) do
-            current = bar_table:Create(bar.spellName, bar.unit, bar.buffType, bar.playerOnly, bar.autoColor, frame)
-
-            -- Save it.
-            table.insert(bars, current)
-
-            if not barsEmpty then
-                current:Enable()
-            end
+            table.insert(bars, bar_table:Create(bar.spellId, bar.unit, bar.buffType, bar.playerOnly, bar.autoColor, frame))
         end
-    end
-
-    if not barsEmpty then
-        UpdateBars()
     end
 end
 
 Timers:RegisterEvent("PLAYER_ENTERING_WORLD", function()
     for _, bar in pairs(bars) do
-        bar:Enable()
+        if bar.unit == "player" then
+            bar:Enable()
+        end
     end
 
-    UpdateBars()
+    UpdateBars("player")
 end)
 
-Timers:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", function(_, _, _, subEvent, _, _, _, _, _, destGUID, _, _, _, spellId, spellName)
+Timers:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", function(_, _, _, subEvent, _, sourceGUID, _, _, _, destGUID, _, _, _, spellId)
 
     local unit
 
-    if spellId then
-        if subEvent == "SPELL_AURA_REMOVED" then
-            for _, bar in pairs(bars) do
-                if bar.active and destGUID == UnitGUID(bar.unit) and spellName == bar.spellName then
-                    unit = bar.unit
-                    bar:Disable()
-                    break
-                end
+    if spellId and subEvent == "SPELL_AURA_APPLIED" then
+        for _, bar in pairs(bars) do
+            if destGUID == UnitGUID(bar.unit) and spellId == bar.spellId then
+                unit = bar.unit
+                bar:Enable()
+                break
             end
-
-            return UpdateBars(unit)
-
-        elseif subEvent == "SPELL_AURA_REFRESH" then
-            for _, bar in pairs(bars) do
-                if bar.active and destGUID == UnitGUID(bar.unit) and spellName == bar.spellName then
-                    unit = bar.unit
-                    bar:Update()
-                    break
-                end
-            end
-
-            return UpdateBars(unit)
-
-        elseif subEvent == "SPELL_AURA_APPLIED" then
-            for _, bar in pairs(bars) do
-                if destGUID == UnitGUID(bar.unit) and spellName == bar.spellName then
-                    unit = bar.unit
-                    bar:Enable()
-                    break
-                end
-            end
-
-            return UpdateBars(unit)
-
         end
+
+        if unit then
+            UpdateBars(unit)
+        end
+
     end
 end)
 
+-- If a new target exists, we update the bars, else we disable all the target bars.
 Timers:RegisterEvent("PLAYER_TARGET_CHANGED", function()
-    for _, bar in pairs(bars) do
-        if bar.unit == "target" and not bar:Update() then
-            bar:Disable()
+    if UnitExists("target") then
+        for _, bar in pairs(bars) do
+            if bar.unit == "target" then
+                if bar:Update() then
+                    bar:Enable()
+                else
+                    bar:Disable()
+                end
+            end
+        end
+    else
+        for _, bar in pairs(bars) do
+            if bar.unit == "target" then
+                bar:Disable()
+            end
         end
     end
 

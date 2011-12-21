@@ -4,11 +4,11 @@ local CreateBars
 
 do
     local function CreateBuffItem (spellId, playerOnly, unit, autoColor)
-        return {spellName = GetSpellInfo(spellId), unit = unit and unit or "player", playerOnly = playerOnly, autoColor = autoColor, buffType = "buff"}
+        return {spellId = spellId, unit = unit and unit or "player", playerOnly = playerOnly, autoColor = autoColor, buffType = "buff"}
     end
 
     local function CreateDebuffItem (spellId, playerOnly, unit, autoColor)
-        return {spellName = GetSpellInfo(spellId), unit = unit and unit or "target", playerOnly = playerOnly, autoColor = autoColor, buffType = "debuff"}
+        return {spellId = spellId, unit = unit and unit or "target", playerOnly = playerOnly, autoColor = autoColor, buffType = "debuff"}
     end
 
     function CreateBars(PlayerClass)
@@ -102,7 +102,6 @@ do
                     CreateBuffItem(498),   -- Divine Protection
                     CreateBuffItem(84963), -- Inquisition
                     CreateBuffItem(31884), -- Avenging Wrath
-                    CreateBuffItem(87342), -- Holy Shield
                     CreateBuffItem(85433), -- Sacred Duty
                     CreateBuffItem(85416), -- Grand Crusader
                     CreateBuffItem(85696), -- Zealotry
@@ -125,9 +124,9 @@ do
                     CreateBuffItem(90174), -- Hand of Light
                     CreateBuffItem(71396), -- Rage of the Fallen
                     CreateBuffItem(53672), CreateBuffItem(54149), -- Infusion of Light
-                    CreateBuffItem(85496), -- Speed of Light
+                    -- CreateBuffItem(85496), -- Speed of Light
                     CreateBuffItem(88819), -- Daybreak
-                    -- CreateBuffItem(20050), CreateBuffItem(20052), CreateBuffItem(20053), -- Conviction
+                    CreateBuffItem(20050), CreateBuffItem(20052), CreateBuffItem(20053), -- Conviction
                 },
                 ["target"] = {
                     CreateDebuffItem(31803), -- Censure
@@ -148,7 +147,6 @@ do
     end
 end
 
-Timers:RegisterEvent("PLAYER_ENTERING_WORLD", function(_, event)
+Timers:RegisterEvent("PLAYER_LOGIN", function()
     CreateBars(Timers:GetPlayer("class"))
-    Timers:UnregisterEvent(event, self)
 end)
