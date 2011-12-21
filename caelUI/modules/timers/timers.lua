@@ -118,6 +118,8 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
                 self.texture:SetVertexColor(DebuffTypeColor[self.auraType or "none"].r, DebuffTypeColor[self.auraType or "none"].g, DebuffTypeColor[self.auraType or "none"].b, 1)
             end
 
+            UpdateBars(self.unit)
+
             return true
         end
 
@@ -154,9 +156,10 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
     end
 
     bar:SetScript("OnEvent", function(self, _, unit)
-        if self.unit == unit and not self:Update() then
-            self:Disable()
-            UpdateBars(unit)
+        if self.unit == unit then
+            if not self:Update() then
+                self:Disable()
+            end
         end
     end)
 
@@ -169,7 +172,6 @@ end
 function UpdateBars(unit)
 
     local frame = _G[Timers:GetName() .. unit:gsub("%a", string.upper, 1) .. "Frame"]
-    local children  = { frame:GetChildren() }
 
     -- Sort the bars.
     do
@@ -179,7 +181,7 @@ function UpdateBars(unit)
         repeat
             sorted = true
 
-            for key, value in pairs(children) do
+            for key, value in pairs(bars) do
                 local nextBar = key + 1
                 local nextBarValue = bars[nextBar]
 
@@ -204,8 +206,8 @@ function UpdateBars(unit)
     do
         local last = nil
 
-        for _, bar in pairs(children) do
-            if bar.active then
+        for _, bar in pairs(bars) do
+            if bar.active and bar.unit == unit then
                 if not last then
                     bar:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
                 else
@@ -245,7 +247,7 @@ Timers:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", function(_, _, _, subEvent, 
             if destGUID == UnitGUID(bar.unit) and spellId == bar.spellId then
                 bar:Update()
                 bar:Enable()
-                UpdateBars(bar.unit)
+                -- UpdateBars(bar.unit)
                 break
             end
         end
