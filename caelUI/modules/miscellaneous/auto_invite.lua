@@ -40,12 +40,16 @@ local realm = GetRealmName()
 -- AUTO ACCEPT --
 -----------------
 local function auto_accept (name)
-    if blacklist[realm] and blacklist[realm][name] then
-        return false
+    for _, current in pairs(blacklist[realm]) do
+        if current == name then
+            return false
+        end
     end
 
-    if whitelist[realm] and whitelist[realm][name] then
-        return true
+    for _, current in pairs(whitelist[realm]) do
+        if name == current then
+            return true
+        end
     end
 
     if accept.friends then
