@@ -124,11 +124,9 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
     end
 
     bar.Enable = function(self)
-        if self:Update() then
-            self.active = true
-            self:SetScript("OnUpdate", self.OnUpdate)
-            self:Show()
-        end
+        self.active = true
+        self:SetScript("OnUpdate", self.OnUpdate)
+        self:Show()
     end
 
     bar.Disable = function(self)
@@ -236,7 +234,7 @@ end
 
 Timers:RegisterEvent("PLAYER_ENTERING_WORLD", function()
     for _, bar in pairs(bars) do
-        if bar.unit == "player" then
+        if bar.unit == "player" and bar:Update() then
             bar:Enable()
         end
     end
@@ -253,6 +251,7 @@ Timers:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", function(_, _, _, subEvent, 
             if destGUID == UnitGUID(bar.unit) and spellId == bar.spellId then
                 unit = bar.unit
                 bar:Enable()
+                bar:Update()
                 break
             end
         end
