@@ -139,19 +139,15 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
     end
 
     bar.OnUpdate = function(self)
-        local time = GetTime()
+        local remaining = self.expiration - GetTime()
 
-        if self.active and self.expiration >= time then
-            local remaining = self.expiration - time
+        self:SetValue(remaining)
+        self:SetMinMaxValues(0, self.duration)
 
-            self:SetValue(remaining)
-            self:SetMinMaxValues(0, self.duration)
+        self.stacks:SetText(string.format("%s", self.count > 1 and string.format(" - %d", self.count) or ""))
+        self.time:SetText(string.format("%s", Timers:FormatTime(remaining)))
 
-            self.stacks:SetText(string.format("%s", self.count > 1 and string.format(" - %d", self.count) or ""))
-            self.time:SetText(string.format("%s", Timers:FormatTime(remaining)))
-
-            self.SetPoint(self.spark, "CENTER", self, "LEFT", self:GetWidth() * remaining / self.duration, 0)
-        end
+        self.SetPoint(self.spark, "CENTER", self, "LEFT", self:GetWidth() * remaining / self.duration, 0)
     end
 
     bar:RegisterEvent("UNIT_AURA")
