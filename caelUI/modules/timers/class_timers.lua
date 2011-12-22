@@ -106,7 +106,7 @@ do
                     CreateBuffItem(85416), -- Grand Crusader
                     CreateBuffItem(85696), -- Zealotry
                     CreateBuffItem(53657), -- Judgements of the Pure
-                    CreateBuffItem(53563, true), -- Beacon of Light
+                    CreateBuffItem(53563, true, "focus"), -- Beacon of Light
                     CreateBuffItem(31821), -- Aura Mastery
                     CreateBuffItem(54428), -- Divine Plea
                     CreateBuffItem(86659), -- Guardian of Ancient Kings (Protection)
