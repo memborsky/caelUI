@@ -37,7 +37,7 @@ local bars = {}
 local UpdateBars
 
 do
-    timers_metatable = getmetatable(Timers).__index
+    local timers_metatable = getmetatable(Timers).__index
 
     for key, value in next, timers_metatable do
         bar_prototype.__index[key] = value
@@ -146,13 +146,15 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
     bar.OnUpdate = function(self)
         local remaining = self.expiration - GetTime()
 
-        self:SetValue(remaining)
-        self:SetMinMaxValues(0, self.duration)
+        if remaining > 0 then
+            self:SetValue(remaining)
+            self:SetMinMaxValues(0, self.duration)
 
-        self.stacks:SetText(string.format("%s", self.count > 1 and string.format(" - %d", self.count) or ""))
-        self.time:SetText(string.format("%s", Timers:FormatTime(remaining)))
+            self.stacks:SetText(string.format("%s", self.count > 1 and string.format(" - %d", self.count) or ""))
+            self.time:SetText(string.format("%s", Timers:FormatTime(remaining)))
 
-        self.SetPoint(self.spark, "CENTER", self, "LEFT", self:GetWidth() * remaining / self.duration, 0)
+            self.SetPoint(self.spark, "CENTER", self, "LEFT", self:GetWidth() * remaining / self.duration, 0)
+        end
     end
 
     bar:SetScript("OnEvent", function(self, _, unit)
