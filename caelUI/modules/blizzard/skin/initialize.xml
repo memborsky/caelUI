@@ -8,4 +8,7 @@
 
     <!-- XXX: This to be broken out into each piece and part. -->
     <script file="blizzard.lua" />
+
+    <!-- Everything below here are the pieces of the skins we are skinning in the core above. -->
+    <script file="capture_bar.lua" />
 </Ui>
