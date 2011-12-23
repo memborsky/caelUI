@@ -218,12 +218,18 @@ function UpdateBars(unit)
 
     -- Redisplay the bars in the right location.
     do
-        local last = nil
+        local last_player = nil
+        local last_target = nil
 
         for _, bar in pairs(bars) do
             if bar.active then
-                bar:Place(last)
-                last = bar
+                if bar:GetParent():GetName() == Timers:GetName() .. "PlayerFrame" then
+                    bar:Place(last_player)
+                    last_player = bar
+                else
+                    bar:Place(last_target)
+                    last_target = bar
+                end
             end
         end
     end
