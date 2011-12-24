@@ -235,13 +235,20 @@ function UpdateBars(unit)
     end
 end
 
-function Timers:CreateList (list)
-    local bar_table = setmetatable({}, bar_prototype)
+do
+    local ids = {}
 
-    -- Create and save the bar we create to the bars table.
-    for frame, barsList in pairs(list) do
-        for _, bar in pairs(barsList) do
-            table.insert(bars, bar_table:Create(bar.spellId, bar.unit, bar.buffType, bar.playerOnly, bar.autoColor, frame))
+    function Timers:CreateList (list)
+        local bar_table = setmetatable({}, bar_prototype)
+
+        -- Create and save the bar we create to the bars table.
+        for frame, barsList in pairs(list) do
+            for _, bar in pairs(barsList) do
+                if not tContains(ids, bar.spellId) then
+                    table.insert(bars, bar_table:Create(bar.spellId, bar.unit, bar.buffType, bar.playerOnly, bar.autoColor, frame))
+                    table.insert(ids, bar.spellId)
+                end
+            end
         end
     end
 end
