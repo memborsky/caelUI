@@ -27,10 +27,7 @@ do
 
     --- This function gets called from the ADDON_LOADED event handler.
     function setup_font(self, _, addon)
-        --- Don't attempt to set the fonts unless we are loading this addon.
-        if addon ~= "caelUI" then
-            return
-        end
+        if addon ~= "caelUI" then return end
 
         UIDROPDOWNMENU_DEFAULT_TEXT_HEIGHT = 11
         CHAT_FONT_HEIGHTS = {7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24}
@@ -88,6 +85,8 @@ do
             local frame =_G[format("ChatFrame%s", chat_frame_index)]
             frame:SetFont(fonts.chat, 11)
         end
+
+        self:UnregisterEvent("ADDON_LOADED")
     end
 end
 

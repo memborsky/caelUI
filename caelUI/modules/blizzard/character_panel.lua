@@ -1,6 +1,4 @@
-﻿local private = unpack(select(2, ...))
-
-local PixelScale = private.PixelScale
+﻿local PixelScale = unpack(select(2, ...)).PixelScale
 
 ---
 --- Add a checkbox to the character model frame (Default Hotkey "c") to show/hide the helm.

@@ -64,18 +64,18 @@ local function Initialize (self)
 
     MiniMapInstanceDifficulty:ClearAllPoints()
     MiniMapInstanceDifficulty:SetParent(Minimap)
-    MiniMapInstanceDifficulty:SetPoint("TOPRIGHT", -5, 0)
-    MiniMapInstanceDifficulty:SetScale(0.75)
+    self.SetPoint(MiniMapInstanceDifficulty, "TOPRIGHT", -5, 0)
+    self.SetScale(MiniMapInstanceDifficulty, 0.75)
 
     GuildInstanceDifficulty:ClearAllPoints()
     GuildInstanceDifficulty:SetParent(Minimap)
-    GuildInstanceDifficulty:SetPoint("TOPRIGHT", -5, 0)
-    GuildInstanceDifficulty:SetScale(0.75)
+    self.SetPoint(GuildInstanceDifficulty, "TOPRIGHT", -5, 0)
+    self.SetScale(GuildInstanceDifficulty, 0.75)
 
     DurabilityFrame:UnregisterAllEvents()
     MiniMapMailFrame:UnregisterAllEvents()
 
-    self:UnregisterEvent("PLAYER_ENTERING_WORLD", Initialize)
+    self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 Map:RegisterEvent("PLAYER_ENTERING_WORLD", Initialize(Map))

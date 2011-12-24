@@ -140,7 +140,7 @@ local function Initialize()
         end
     end
 
-    Map:UnregisterEvent("PLAYER_ENTERING_WORLD", Initialize)
+    Map:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 Map:RegisterEvent("PLAYER_ENTERING_WORLD", Initialize)
