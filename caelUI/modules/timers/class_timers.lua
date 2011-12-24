@@ -17,7 +17,17 @@ do
                 ["armor"] = {
                     CreateDebuffItem(7386), -- Sunder Armor
                     CreateDebuffItem(8647), -- Expose Armor
-                    CreateDebuffItem(770), CreateDebuffItem(16857) -- Faerie Fire
+                    CreateDebuffItem(770), CreateDebuffItem(16857), -- Faerie Fire
+                    CreateDebuffItem(35387), -- Corrosive Spit
+                    CreateDebuffItem(50498) -- Tear Armor
+                },
+                ["bleed"] = {
+                    CreateDebuffItem(29836), CreateDebuffItem(29859), -- Blood Frenzy
+                    CreateDebuffItem(35290), -- Gore
+                    CreateDebuffItem(57386), -- Stampede
+                    CreateDebuffItem(50271), -- Tendon Rip
+                    CreateDebuffItem(16511), -- Hemorrhage
+                    CreateDebuffItem(33878), CreateDebuffItem(33876) -- Mangle
                 }
             }
         }
@@ -90,7 +100,8 @@ do
                     CreateDebuffItem(5760, true),  -- Mind-Numbing
 
                     -- Shared targets.
-                    unpack(lists.target.armor)
+                    unpack(lists.target.armor),
+                    unpack(lists.target.bleed)
                 }
             })
         elseif PlayerClass == "PALADIN" then
