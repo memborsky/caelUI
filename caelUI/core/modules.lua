@@ -37,9 +37,29 @@ function module_metatable.__index:Print(...)
 end
 
 -- Rebind our event table functions to our module frame.
-module_metatable.__index.RegisterEvent = private.events.RegisterEvent
-module_metatable.__index.UnregisterEvent = private.events.UnregisterEvent
-module_metatable.__index.IsEventRegistered = private.events.IsEventRegistered
+function module_metatable.__index.RegisterEvent(self, event, func, name)
+    if not name then
+        name = self:GetName()
+    end
+    
+    private.events.RegisterEvent(self, event, func, name)
+end
+
+function module_metatable.__index.UnregisterEvent(self, event, name)
+    if not name then
+        name = self:GetName()
+    end
+
+    private.events.UnregisterEvent(self, event, name)
+end
+
+function module_metatable.__index.IsEventRegistered(self, event, name)
+    if not name then
+        name = self:GetName()
+    end
+
+    private.events.IsEventRegistered(self, event, name)
+end
 
 -- Format money output
 module_metatable.__index.FormatMoney = private.format_money
