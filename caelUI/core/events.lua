@@ -34,13 +34,14 @@ end)
 --[[
 Public: Handles the registration of the function to the event.
 
-self - The frame we are operating on.
-event - The event we are registering for.
-func - The function we are registering to the event.
+self   - The frame we are operating on.
+events - The event(s) we are registering for.
+func   - The function we are registering to the event.
+name   - The name we have given for tracking the specific event.
 
 Examples
 
-    private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function() private.print("Hello World!") end)
+    private.events:RegisterEvent("PLAYER_ENTERING_WORLD", function() private.print("Hello World!") end, "Example")
     # => 'Hello World!' is displayed in the players default chat window.
 --]]
 function events_metatable.__index:RegisterEvent(events, func, name)
@@ -69,15 +70,15 @@ function events_metatable.__index:RegisterEvent(events, func, name)
 end
 
 --[[
-Public: Handles the un-registration of the event and possible function to the event.
+Public: Handles the unregistration of the event and possible function to the event.
 
-self - The frame we are operating on.
-event - The event we are unregistering for.
-func - The function we are unregistering to the event.
+self   - The frame we are operating on.
+events - The event(s) we are unregistering.
+name   - The name we have given for tracking the specific event.
 
 Examples
 
-    private.events:UnregisterEvent("PLAYER_ENTERING_WORLD", function() private.print("Hello World!") end)
+    private.events:UnregisterEvent("PLAYER_ENTERING_WORLD", "Example")
 --]]
 function events_metatable.__index:UnregisterEvent(events, name)
     argument_check(events, 2, "string", "table")
@@ -101,12 +102,13 @@ end
 --[[
 Public: Checks to see if the event is registered.
 
-self - The frame we are operating on.
-event - The event we are unregistering for.
+self   - The frame we are operating on.
+events - The event we are checking to see if it is registered.
+name   - The name we have given for tracking the specific event.
 
 Examples
 
-    private.events:IsEventRegistered("PLAYER_ENTERING_WORLD")
+    private.events:IsEventRegistered("PLAYER_ENTERING_WORLD", "Example")
 
 Returns boolean value.
 --]]
