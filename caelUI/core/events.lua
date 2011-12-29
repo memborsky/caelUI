@@ -26,7 +26,13 @@ local events_metatable = {
 Event_Frame:SetScript("OnEvent", function(self, event, ...)
     if Registered_Events[event] then
         for _, func in pairs(Registered_Events[event]) do
-            func(self, event, ...)
+            if type(func) == "table" then
+                for _, fun in pairs(func) do
+                    fun(self, event, ...)
+                end
+            elseif type(func) == "function" then
+                func(self, event, ...)
+            end
         end
     end
 end)
@@ -62,7 +68,19 @@ function events_metatable.__index:RegisterEvent(events, func, name)
         end
 
         if name then
-            Registered_Events[events][name] = func
+            if Registered_Events[events][name] then
+                if type(Registered_Events[events][name]) == "table" then
+                    table.insert(Registered_Events[events][name], func)
+                else
+                    local current = Registered_Events[events][name]
+                    Registered_Events[events][name] = {}
+
+                    table.insert(Registered_Events[events][name], current)
+                    table.insert(Registered_Events[events][name], func)
+                end
+            else
+                Registered_Events[events][name] = func
+            end
         else
             table.insert(Registered_Events[events], func)
         end

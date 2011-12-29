@@ -42,21 +42,28 @@ function private.GetDatabase (name)
     }
 end
 
--- This will setup our database system upon the addon being loading.
-private.events:RegisterEvent("ADDON_LOADED", function (_, event)
-    if not cael_user then
-        cael_user = {}
-    end
+do
+    local frame = CreateFrame("Frame")
 
-    if not cael_global then
-        cael_global = {}
-    end
+    frame:RegisterEvent("ADDON_LOADED")
 
-    if cael_user and (cael_user["databases"] and cael_user["databases"] ~= {}) then
-        private.databases = cael_user["databases"]
-    else
-        cael_user["databases"] = {}
-    end
+    frame:SetScript("OnEvent", function(self, event, addon)
+        if addon ~= "caelUI" then return end
 
-    private.events:UnregisterEvent(event, self)
-end)
+        if not cael_user then
+            cael_user = {}
+        end
+
+        if not cael_global then
+            cael_global = {}
+        end
+
+        if cael_user and (cael_user["databases"] and cael_user["databases"] ~= {}) then
+            private.databases = cael_user["databases"]
+        else
+            cael_user["databases"] = {}
+        end
+
+        self:UnregisterEvent(event)
+    end)
+end

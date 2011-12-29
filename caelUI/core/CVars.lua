@@ -1,8 +1,6 @@
 local private = unpack(select(2, ...))
 
-local events = private.events
-
-local function initialize (_, event)
+local function initialize ()
     local CVars = private.GetDatabase("cvars")
 
     if not CVars then
@@ -141,10 +139,10 @@ local function initialize (_, event)
         }
 
         setmetatable(CVars, {__index = defaultCVarValues})
+    end
 
-        for cvar, value in next, CVars do
-            SetCVar(cvar, value)
-        end
+    for cvar, value in next, CVars do
+        SetCVar(cvar, value)
     end
 
     -- 89, 449. 449 allows doing flips, 89 will not
@@ -165,14 +163,23 @@ local function initialize (_, event)
 
     -- Save the CVars database for next time.
     CVars:Save()
-
-    -- Unregister this function
-    -- events:UnregisterEvent(event, self)
 end
 
-events:RegisterEvent("PLAYER_ENTERING_WORLD", initialize())
+do
+    local frame = CreateFrame("Frame")
 
--- XXX: Hack to get the profanity filter working like we want it correctly.
-events:RegisterEvent("CVAR_UPDATE", function()
-    SetCVar("profanityFilter", 0)
-end)
+    frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+    frame:SetScript("OnEvent", function(self, event)
+        if event == "PLAYER_ENTERING_WORLD" then
+            initialize()
+
+            if BNGetMatureLanguageFilter() then
+                BNSetMatureLanguageFilter(false)
+            end
+
+            self:UnregisterEvent(event)
+            self = nil
+        end
+    end)
+end

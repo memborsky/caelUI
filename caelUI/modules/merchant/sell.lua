@@ -1,6 +1,6 @@
 local Merchant = unpack(select(2, ...)).GetModule("Merchant")
 
-Merchant:RegisterEvent("MERCHANT_SHOW", function(self)
+Merchant:RegisterEvent("MERCHANT_SHOW", function()
     local Item_Count = 0
     local Sell_Value = 0
 
@@ -22,6 +22,6 @@ Merchant:RegisterEvent("MERCHANT_SHOW", function(self)
     end
 
     if Sell_Value > 0 then
-        self:Print(format("Sold %d trash item%s for %s", Item_Count, Item_Count > 1 and "s" or "", self:FormatMoney(Sell_Value)))
+        Merchant:Print(format("Sold %d trash item%s for %s", Item_Count, Item_Count > 1 and "s" or "", Merchant:FormatMoney(Sell_Value)))
     end
 end)

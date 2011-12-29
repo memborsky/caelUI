@@ -11,9 +11,15 @@ config.player = {
     ["zone"]        = GetRealZoneText() or "",
 }
 
-private.events:RegisterEvent("ZONE_CHANGED_NEW_AREA", function()
-    config.player.zone = GetRealZoneText()
-end)
+do
+    local frame = CreateFrame("Frame")
+
+    frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+
+    frame:SetScript("OnEvent", function()
+        config.player.zone = GetRealZoneText()
+    end)
+end
 
 config.locale = GetLocale()
 
