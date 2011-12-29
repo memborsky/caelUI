@@ -15,9 +15,9 @@ do
         local lists = {
             ["target"] = {
                 ["armor"] = {
-                    CreateDebuffItem(7386), -- Sunder Armor
+                    CreateDebuffItem(58567), -- Sunder Armor
                     CreateDebuffItem(8647), -- Expose Armor
-                    CreateDebuffItem(770), CreateDebuffItem(16857), -- Faerie Fire
+                    CreateDebuffItem(91565), -- Faerie Fire
                     CreateDebuffItem(35387), -- Corrosive Spit
                     CreateDebuffItem(50498) -- Tear Armor
                 },
@@ -27,7 +27,8 @@ do
                     CreateDebuffItem(57386), -- Stampede
                     CreateDebuffItem(50271), -- Tendon Rip
                     CreateDebuffItem(16511), -- Hemorrhage
-                    CreateDebuffItem(33878), CreateDebuffItem(33876) -- Mangle
+                    CreateDebuffItem(33876), -- Mangle
+                    CreateDebuffItem(46857), -- Trauma
                 }
             }
         }
@@ -45,19 +46,23 @@ do
                     CreateBuffItem(55694), -- Enraged Regeneration
                 },
                 ["target"] = {
+                    CreateBuffItem(50720, nil, "target"),   -- Vigilance
+
                     CreateDebuffItem(1160),  -- Demoralizing Shout
                     CreateDebuffItem(52744), -- Piercing Howl
                     CreateDebuffItem(1715),  -- Hamstring
                     CreateDebuffItem(6343),  -- Thunder Clap
+                    CreateDebuffItem(12294), -- Mortal Strike
+
                     CreateDebuffItem(86346, true), -- Colossus Smash
                     CreateDebuffItem(12834, true), -- Deep Wounds
-                    CreateDebuffItem(772, true),   -- Rend
+                    CreateDebuffItem(94009, true), -- Rend
 
                     -- Shared targets.
-                    unpack(lists.target.armor)
-
+                    unpack(lists.target.armor),
                 },
             })
+
         elseif PlayerClass == "ROGUE" then
             Timers:CreateList({
                 ["player"] = {

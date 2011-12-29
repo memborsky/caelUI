@@ -105,7 +105,7 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
 
     bar.Place = function(self, last)
         if not last then
-            Timers.SetPoint(self, "BOTTOMRIGHT", self:GetParent(), "BOTTOMRIGHT")
+            self:SetPoint("BOTTOMRIGHT", self:GetParent(), "BOTTOMRIGHT")
         else
             Timers.SetPoint(self, "BOTTOMRIGHT", last, "TOPRIGHT", 0, 5)
         end
@@ -134,27 +134,25 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
 
     bar.Enable = function(self, update_bars)
         self.active = true
-        self:SetScript("OnUpdate", self.OnUpdate)
-        self:RegisterEvent("UNIT_AURA")
-        self:Show()
 
-        if not update_bars then
-            UpdateBars(self.unit)
-        end
+        self:SetScript("OnUpdate", self.OnUpdate)
+
+        self:RegisterEvent("UNIT_AURA")
+
+        self:Show()
     end
 
     bar.Disable = function(self, update_bars)
-        self.count = 0
+        self.count      = 0
         self.expiration = 0
-        self.duration = 0
-        self.active = false
-        self:SetScript("OnUpdate", nil)
-        self:UnregisterEvent("UNIT_AURA")
-        self:Hide()
+        self.duration   = 0
+        self.active     = false
 
-        if not update_bars then
-            UpdateBars(self.unit)
-        end
+        self:SetScript("OnUpdate", nil)
+
+        self:UnregisterEvent("UNIT_AURA")
+
+        self:Hide()
     end
 
     bar.OnUpdate = function(self)
@@ -175,6 +173,7 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
         if self.unit == unit then
             if not self:Update() then
                 self:Disable()
+                UpdateBars(unit)
             end
         end
     end)
@@ -256,7 +255,7 @@ end
 Timers:RegisterEvent("PLAYER_ENTERING_WORLD", function()
     for _, bar in pairs(bars) do
         if bar.unit == "player" and bar:Update() then
-            bar:Enable(true)
+            bar:Enable(false)
         end
     end
 
@@ -268,10 +267,12 @@ Timers:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", function(_, _, _, subEvent, 
 
         if subEvent == "SPELL_AURA_APPLIED" then
             for _, bar in pairs(bars) do
-                if destGUID == UnitGUID(bar.unit) and spellId == bar.spellId then
+                if spellId == bar.spellId and destGUID == UnitGUID(bar.unit) then
                     bar:Update()
                     bar:Enable()
-                    break
+
+                    UpdateBars(bar.unit)
+                    return
                 end
             end
 
@@ -280,7 +281,9 @@ Timers:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", function(_, _, _, subEvent, 
                 if spellId == bar.spellId and (UnitExists(bar.unit) and destGUID == UnitGUID(bar.unit)) then
                     if bar:Update() then
                         bar:Enable()
-                        break
+
+                        UpdateBars(bar.unit)
+                        return
                     end
                 end
             end
@@ -296,16 +299,16 @@ do
             for _, bar in pairs(bars) do
                 if bar.unit == unit then
                     if bar:Update() then
-                        bar:Enable(true)
+                        bar:Enable(false)
                     else
-                        bar:Disable(true)
+                        bar:Disable(false)
                     end
                 end
             end
         else
             for _, bar in pairs(bars) do
                 if bar.unit == unit then
-                    bar:Disable(true)
+                    bar:Disable(false)
                 end
             end
         end
@@ -323,4 +326,4 @@ do
     Timers:RegisterEvent("PLAYER_FOCUS_CHANGED", function() Update_Target("focus") end)
 end
 
-Timers:RegisterModule("ClassTimers")
+Timers:RegisterModule()
