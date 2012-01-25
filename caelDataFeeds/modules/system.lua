@@ -110,10 +110,10 @@ system:SetScript("OnEnter", function(self)
         GameTooltip:AddDoubleLine("Addon Memory Usage", FormatMemoryNumber(totalMemory), 0.84, 0.75, 0.65, 0.65, 0.63, 0.35)
         GameTooltip:Show()
     else
-        local _, _, LocalLatency, WorldLatency = GetNetStats()
+        local _, _, home, world = GetNetStats()
 
-        GameTooltip:AddDoubleLine("World Latency", WorldLatency .. " |cffD7BEA5ms|r", 0.84, 0.75, 0.65, 0.65, 0.63, 0.35)
-        GameTooltip:AddDoubleLine("Local Latency", LocalLatency .. " |cffD7BEA5ms|r", 0.84, 0.75, 0.65, 0.65, 0.63, 0.35)
+        GameTooltip:AddDoubleLine("World Latency", world .. " |cffD7BEA5ms|r", 0.84, 0.75, 0.65, 0.65, 0.63, 0.35)
+        GameTooltip:AddDoubleLine("Home Latency", home .. " |cffD7BEA5ms|r", 0.84, 0.75, 0.65, 0.65, 0.63, 0.35)
         GameTooltip:Show()
     end
 end)
