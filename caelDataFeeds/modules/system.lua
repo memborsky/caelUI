@@ -69,7 +69,7 @@ system:SetScript("OnUpdate", function(self, elapsed)
         if latency > maxLatency then latency = maxLatency end
 
         if latency <= lowThreshold or latency >= highThreshold then
-            SetCVar("MaxSpellStartRecoveryOffset", latency)
+            SetCVar("MaxSpellStartRecoveryOffset", 250 + latency + select(3, GetNetStats()))
             lowThreshold = latency - delta
             highThreshold = latency + delta
         end
@@ -85,9 +85,10 @@ system:SetScript("OnUpdate", function(self, elapsed)
 end)
 
 system:SetScript("OnEnter", function(self)
-    if IsShiftKeyDown() then
-        GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, PixelScale(4))
 
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, PixelScale(4))
+
+    if IsShiftKeyDown() then
         local SortingTable = {}
         for name in pairs(Addons) do
             SortingTable[#SortingTable + 1] = name
@@ -107,6 +108,12 @@ system:SetScript("OnEnter", function(self)
 
         GameTooltip:AddDoubleLine("---------- ----------", "---------- ----------", 0.55, 0.57, 0.61, 0.55, 0.57, 0.61)
         GameTooltip:AddDoubleLine("Addon Memory Usage", FormatMemoryNumber(totalMemory), 0.84, 0.75, 0.65, 0.65, 0.63, 0.35)
+        GameTooltip:Show()
+    else
+        local _, _, LocalLatency, WorldLatency = GetNetStats()
+
+        GameTooltip:AddDoubleLine("World Latency", WorldLatency .. " |cffD7BEA5ms|r", 0.84, 0.75, 0.65, 0.65, 0.63, 0.35)
+        GameTooltip:AddDoubleLine("Local Latency", LocalLatency .. " |cffD7BEA5ms|r", 0.84, 0.75, 0.65, 0.65, 0.63, 0.35)
         GameTooltip:Show()
     end
 end)
