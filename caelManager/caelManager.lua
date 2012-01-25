@@ -42,7 +42,9 @@ local addons = {
         ["caelThreat"]          = true,
         ["caelTooltips"]        = true,
         ["caelLoot"]            = true,
+
         ["caelNameplates"]      = true,
+
         ["caelQuests"]          = true,
         ["gotChat"]             = true,
         ["gotMacros"]           = true,
@@ -50,7 +52,7 @@ local addons = {
         ["oUF_Caellian"]        = true,
         ["oUF_CombatFeedback"]  = true,
         ["recScrollAreas"]      = true,
-        ["Snoopy"]              = true,
+        ["Snoopy"]              = false,
         ["caelGroupCD"]         = true,
     },
 
@@ -83,7 +85,7 @@ local addons = {
         ["recThreatMeter"]      = true,
         ["Omen"]                = true,
         ["RaidMobMarkerHUD"]    = true,
-        ["fAnnounce"]           = true,
+        ["fAnnounce"]           = false,
 
         ["Snoopy"]              = false,
         ["caelQuests"]          = false,
@@ -102,6 +104,7 @@ local addons = {
         ["alDamageMeter"]       = true,
         ["Snoopy"]              = false,
         ["RaidMobMarkerHUD"]    = true,
+        ["HoNAnnouncer"]        = true,
     },
 
     ["dev"] = {
