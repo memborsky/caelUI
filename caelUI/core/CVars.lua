@@ -13,7 +13,7 @@ local function initialize ()
             ["synchronizeConfig"] = 0,
             ["synchronizeBindings"] = 0,
             ["synchronizeMacros"] = 0,
-            ["alwaysCompareItems"] = 1,
+            ["alwaysCompareItems"] = 0,
             ["deselectOnClick"] = 1,
             ["autoDismountFlying"] = 1,
             ["autoClearAFK"] = 1,
