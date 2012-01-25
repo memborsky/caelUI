@@ -22,6 +22,6 @@ media.Custom_Fonts = {
 ]=]
 
 media.custom_fonts = {
-    normal      = [=[Interface\Addons\caelUI\media\fonts\Inconsolata.otf]=],
-    damage_text = [=[Interface\Addons\caelUI\media\fonts\YanoneKaffeesatz-Bold.ttf]=],
+    normal      = [=[Interface\Addons\caelUI\media\fonts\Sansus-Webissimo-Regular.otf]=],
+    damage_text = [=[Interface\Addons\caelUI\media\fonts\KiloGram_KG.otf]=],
 }
