@@ -86,16 +86,16 @@ local UpdatePlate = function(self)
 
     self.healthBar:ClearAllPoints()
     self.healthBar:SetPoint("CENTER", self.healthBar:GetParent())
-    self.healthBar:SetHeight(pixelScale(8))
-    self.healthBar:SetWidth(pixelScale(100))
+    self.healthBar:SetHeight(pixelScale(12))
+    self.healthBar:SetWidth(pixelScale(120))
 
     self.healthBar.hpBackground:SetVertexColor(self.r * 0.33, self.g * 0.33, self.b * 0.33, 0.75)
     self.castBar.IconOverlay:SetVertexColor(self.r, self.g, self.b)
 
     self.castBar:ClearAllPoints()
     self.castBar:SetPoint("TOP", self.healthBar, "BOTTOM", 0, pixelScale(-4))
-    self.castBar:SetHeight(pixelScale(5))
-    self.castBar:SetWidth(pixelScale(100))
+    self.castBar:SetHeight(pixelScale(8))
+    self.castBar:SetWidth(pixelScale(120))
 
     self.highlight:ClearAllPoints()
     self.highlight:SetAllPoints(self.healthBar)
@@ -122,7 +122,7 @@ end
 local FixCastbar = function(self)
     self.castbarOverlay:Hide()
 
-    self:SetHeight(pixelScale(5))
+    self:SetHeight(pixelScale(8))
     self:ClearAllPoints()
     self:SetPoint("TOP", self.healthBar, "BOTTOM", 0, pixelScale(-4))
 end
@@ -137,7 +137,7 @@ local ColorCastBar = function(self, shielded)
 end
 
 local OnSizeChanged = function(self, width, height)
-    if floor(height) ~= 5 then
+    if floor(height) ~= floor(pixelScale(8)) then
         self.needFix = true
     end
 end
