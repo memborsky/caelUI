@@ -60,8 +60,18 @@ social:SetScript("OnEnter", function(self)
             local name, _, _, level, _, zone, _, _, isOnline, status, classFileName = GetGuildRosterInfo(i)
             local color = RAID_CLASS_COLORS[classFileName]
 
+            if status then
+                if status == 0 then
+                    status = ""
+                elseif status == 1 then
+                    status = "<Away>"
+                elseif status == 2 then
+                    status = "<Busy>"
+                end
+            end
+
             if isOnline and name ~= caelUI.config.player.name then
-                GameTooltip:AddDoubleLine("|cffD7BEA5"..level.." |r"..name.." "..status, zone, color.r, color.g, color.b, 0.65, 0.63, 0.35)
+                GameTooltip:AddDoubleLine("|cffD7BEA5" .. level .. " |r" .. name .. " " .. status, zone, color.r, color.g, color.b, 0.65, 0.63, 0.35)
             end
         end
 
