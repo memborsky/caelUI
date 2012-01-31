@@ -34,7 +34,6 @@ local addons = {
         ["caelChat"]            = true,
         ["caelCombatLog"]       = true,
         ["caelCore"]            = true,
-        ["caelEmote"]           = true,
         ["caelFactions"]        = true,
         ["caelInterrupt"]       = true,
         ["caelDataFeeds"]       = true,
