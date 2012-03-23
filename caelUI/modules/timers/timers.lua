@@ -56,11 +56,12 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
     bar.texture:SetAllPoints()
     bar.texture:SetTexture(media.files.statusbar_g)
 
-    if buffType == "debuff" then
-        bar.texture:SetVertexColor(0.69, 0.31, 0.31, 1)
-    else
-        bar.texture:SetVertexColor(0.33, 0.59, 0.33, 1)
-    end
+    bar.texture:SetVertexColor(51 / 255, 51 / 255, 51 / 255)
+    -- if buffType == "debuff" then
+    --     bar.texture:SetVertexColor(0.69, 0.31, 0.31, 1)
+    -- else
+    --     bar.texture:SetVertexColor(0.33, 0.59, 0.33, 1)
+    -- end
 
     bar.icon = bar:CreateTexture("$parentIcon", "BACKGROUND")
     self.SetSize(bar.icon, BAR_HEIGHT)
@@ -71,18 +72,18 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
     bar:SetStatusBarTexture(bar.texture)
 
     bar.spell = bar:CreateFontString("$parentSpellName", "OVERLAY")
-    bar.spell:SetFont(media.fonts.normal, 9)
+    bar.spell:SetFont(media.fonts.normal, 10)
     bar.spell:SetText(GetSpellInfo(spellId))
     self.SetPoint(bar.spell, "LEFT", bar, "LEFT", 3, 0)
     bar.spell:SetJustifyH("LEFT")
 
     bar.stacks = bar:CreateFontString("$parentStackCount", "OVERLAY")
-    bar.stacks:SetFont(media.fonts.normal, 9)
+    bar.stacks:SetFont(media.fonts.normal, 10)
     self.SetPoint(bar.stacks, "LEFT", bar.spell, "RIGHT")
     bar.stacks:SetJustifyH("LEFT")
 
     bar.time = bar:CreateFontString("$parentTimer", "OVERLAY")
-    bar.time:SetFont(media.fonts.normal, 9)
+    bar.time:SetFont(media.fonts.normal, 10)
     self.SetPoint(bar.time, "RIGHT", bar, "RIGHT", -3, 0)
     bar.time:SetJustifyH("RIGHT")
 
@@ -173,8 +174,9 @@ function bar_prototype.__index:Create(spellId, unit, buffType, playerOnly, autoC
         if self.unit == unit then
             if not self:Update() then
                 self:Disable()
-                UpdateBars(unit)
             end
+
+            UpdateBars(unit)
         end
     end)
 
@@ -262,36 +264,58 @@ Timers:RegisterEvent("PLAYER_ENTERING_WORLD", function()
     UpdateBars("player")
 end)
 
-Timers:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", function(_, _, _, subEvent, _, sourceGUID, _, _, _, destGUID, _, _, _, spellId)
-    if spellId then
+do
+    local displayed_ids = {}
 
-        if subEvent == "SPELL_AURA_APPLIED" then
-            for _, bar in pairs(bars) do
-                if spellId == bar.spellId and destGUID == UnitGUID(bar.unit) then
-                    bar:Update()
-                    bar:Enable()
+    Timers:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", function(_, _, _, subEvent, _, sourceGUID, _, _, _, destGUID, _, _, _, spellId)
+        if spellId then
 
-                    UpdateBars(bar.unit)
-                    return
-                end
-            end
+            if subEvent == "SPELL_AURA_APPLIED" then
+                -- if UnitExists("focus") and not displayed_ids[spellId] then
+                --     if (UnitIsFriend("player", "focus") and sourceGUID == UnitGUID("focus")) or (not UnitIsFriend("player", "focus") and destGUID == UnitGUID("focus")) then
+                --     -- if (destGUID == UnitGUID("player")) then
+                --         Timers:Print(string.format("Spell Name = %s :: Spell ID = %s", GetSpellInfo(spellId), spellId))
+                --         displayed_ids[spellId] = true
+                --     end
+                -- end
 
-        elseif subEvent == "SPELL_AURA_REFRESHED" then
-            for _, bar in pairs(bars) do
-                if spellId == bar.spellId and (UnitExists(bar.unit) and destGUID == UnitGUID(bar.unit)) then
-                    if bar:Update() then
+                for _, bar in pairs(bars) do
+                    if spellId == bar.spellId and destGUID == UnitGUID(bar.unit) then
+                        bar:Update()
                         bar:Enable()
 
                         UpdateBars(bar.unit)
                         return
                     end
                 end
+
+            elseif subEvent == "SPELL_AURA_REFRESHED" then
+                for _, bar in pairs(bars) do
+                    if spellId == bar.spellId and (UnitExists(bar.unit) and destGUID == UnitGUID(bar.unit)) then
+                        if bar:Update() then
+                            bar:Enable()
+
+                            UpdateBars(bar.unit)
+                            return
+                        end
+                    end
+                end
+
+            -- This will handle special cases when a bar is being shown active but a debuff or buff overrides it providing the same benefit.
+            elseif subEvent == "SPELL_AURA_REMOVED" then
+                for _, bar in pairs(bars) do
+                    if spellId == bar.spellId and (UnitExists(bar.unit) and destGUID == UnitGUID(bar.unit)) then
+                        bar:Disable()
+                        UpdateBars(bar.unit)
+                        return
+                    end
+                end
+
             end
 
         end
-
-    end
-end)
+    end)
+end
 
 do
     local function Update_Target (unit)

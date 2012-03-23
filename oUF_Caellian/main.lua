@@ -1339,6 +1339,8 @@ oUF:Factory(function(self)
         if healingSpecs[playerClass] then
             if (playerClass ~= "PRIEST" and playerSpec == healingSpecs[playerClass]) or (playerClass == "PRIEST" and playerSpec ~= healingSpecs[playerClass]) then
                 party:SetPoint("TOPLEFT", UIParent, PixelScale(config.coords.healing.partyX), PixelScale(config.coords.healing.partyY))
+            else
+                party:SetPoint("TOPLEFT", UIParent, PixelScale(config.coords.other.partyX), PixelScale(config.coords.other.partyY))
             end
         else
             party:SetPoint("TOPLEFT", UIParent, PixelScale(config.coords.other.partyX), PixelScale(config.coords.other.partyY))

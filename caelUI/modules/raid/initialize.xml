@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Auto Combat logger -->
+    <script file="combat_log.lua" />
+
+    <!-- CompactRaidFrame by slash command. -->
+    <script file="compact_raid_frame.lua" />
+</Ui>

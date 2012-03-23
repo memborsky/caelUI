@@ -7,6 +7,7 @@
 ## X-Website: http://www.wowinterface.com/list.php?skinnerid=31773
 ## X-Category: Communication
 
+chatSettings.lua
 caelChat.lua
 chatFilters.lua
 chatBubbles.lua

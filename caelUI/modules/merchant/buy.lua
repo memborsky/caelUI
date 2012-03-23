@@ -10,7 +10,7 @@ reagents = {
             [58261] = 40, -- 58261 = Buttery Wheat Roll (Use: Restores 96000 health over 30 sec.  Must remain seated while eating.)
         },
         ["Burlesque"] = {
-            [58261] = 40, -- 58261 = Buttery Wheat Roll (Use: Restores 96000 health over 30 sec. Must remain seated while eating.)
+            [58261] = 20, -- 58261 = Buttery Wheat Roll (Use: Restores 96000 health over 30 sec. Must remain seated while eating.)
             [3775]  = 20, --  3775 = Crippling Poison
             [10918] = 20, -- 10918 = Wound Poison
             [5237]  = 20, --  5237 = Mind-Numbing Poison

@@ -57,48 +57,18 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_AFK", AlwaysFilter)
 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_DND", AlwaysFilter)
 
--- Things we can't do with the filters.
-
--- Custom channel replacements.
--- Format: ["pattern"] = "Replacement"
-local CustomChannelNames = {
-    ["Trade"] = "Tr.",
-    ["[wW]e[dD]id[hH]eal"] = "heal.",
-    ["[wW]e[dD]id[tT]ank"] = "tank.",
-    ["[wW]e[dD]id[cC]a[cC]"] = "cac.",
-    ["[wW]e[dD]id[hH]unter"] = "hunt."
-}
-
 local function FormatChannel(t, channelstring)
     local channelname = channelstring:match("|h%[(.-)%]|h")
+
     if channelname:find("^%d") then
-        channelname = channelname:sub(4)
+        channelname = channelname:sub(1)
     end
     local dashpos = channelname:find(" %-")
     if dashpos then
         channelname = channelname:sub(1, dashpos-1)
     end
 
-    local newname
-    if type(CustomChannelNames) == "table" then
-        for pattern, replace in pairs(CustomChannelNames) do
-            if channelname:find(pattern) then
-                newname = replace
-                break
-            end
-        end
-    end
-    if not newname then
-        newname = channelname:gsub("%U", "")
-        if newname and #newname > 1 then
-            newname = newname
-        else
-            newname = channelname:sub(1,3)
-        end
-        newname = newname:lower():gsub(".", string.upper, 1).."."
-    end
-
-    local newstring = channelstring:gsub("|h%[.-%]|h", "|h"..newname.."|h")
+    local newstring = channelstring:gsub("|h%[.-%]|h", "|h|cffFF8080[" .. channelname .. "]|r|h")
     t[channelstring] = newstring
     return newstring
 end

@@ -41,9 +41,7 @@ local addons = {
         ["caelThreat"]          = true,
         ["caelTooltips"]        = true,
         ["caelLoot"]            = true,
-
         ["caelNameplates"]      = true,
-
         ["caelQuests"]          = true,
         ["gotChat"]             = true,
         ["gotMacros"]           = true,
@@ -53,6 +51,9 @@ local addons = {
         ["recScrollAreas"]      = true,
         ["Snoopy"]              = false,
         ["caelGroupCD"]         = true,
+
+        ["Postal"]              = true,
+        ["Thaumaturge"]         = true,
     },
 
     --------------------
@@ -62,18 +63,28 @@ local addons = {
         ["caelMisdirection"]    = true,
     },
     ["ROGUE"]   = {
-        ["oUF_WeaponEnchant"]   = true,
-        ["fComboBar"]           = true,
+        -- ["oUF_WeaponEnchant"]   = false,
+        -- ["fComboBar"]           = true,
+        ["NugComboBar"]         = true,
+        ["NugComboBarStriped"]  = true,
         ["TrickOrTreat"]        = true,
     },
     ["SHAMAN"]  = {
         ["oUF_TotemBar"]        = true,
-        ["oUF_WeaponEnchant"]   = true,
+        -- ["oUF_WeaponEnchant"]   = false,
+        ["Decursive"]           = true,
     },
     ["WARRIOR"] = {
-        ["GearSwitcher"]        = false,
+        -- ["GearSwitcher"]        = false,
     },
-
+    ["PRIEST"] = {
+        ["Decursive"]           = true,
+    },
+    ["PALADIN"] = {
+        ["Decursive"]           = true,
+        ["NugComboBar"]         = true,
+        ["NugComboBarStriped"]  = true,
+    },
 
     -------------------
     -- Task Specific --
@@ -81,6 +92,7 @@ local addons = {
     ["raid"] = {
         ["caelBossWhisperer"]   = true,
         ["alDamageMeter"]       = true,
+        -- ["TinyDPS"]             = true,
         ["recThreatMeter"]      = true,
         ["Omen"]                = true,
         ["RaidMobMarkerHUD"]    = true,
@@ -92,6 +104,7 @@ local addons = {
 
     ["party"] = {
         ["alDamageMeter"]       = true,
+        -- ["TinyDPS"]             = true,
         ["recThreatMeter"]      = true,
         ["RaidMobMarkerHUD"]    = true,
         ["Omen"]                = true,
@@ -101,6 +114,7 @@ local addons = {
 
     ["pvp"] = {
         ["alDamageMeter"]       = true,
+        -- ["TinyDPS"]             = true,
         ["Snoopy"]              = false,
         ["RaidMobMarkerHUD"]    = true,
         ["HoNAnnouncer"]        = true,
@@ -111,7 +125,9 @@ local addons = {
 
     ["quest"] = {
         ["alDamageMeter"]       = true,
+        -- ["TinyDPS"]             = true,
         ["recThreatMeter"]      = true,
+        ["Monomyth"]            = true,
 
         ["Omen"]                = false,
     },

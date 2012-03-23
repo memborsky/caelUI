@@ -64,12 +64,12 @@ local function initialize ()
             ["consolidateBuffs"] = 0,
             ["alternateResourceText"] = 0, -- Display percentages on AltPowerBar
 
-            ["showToastOnline"] = 0,
-            ["showToastOffline"] = 0,
+            ["showToastOnline"] = 1,
+            ["showToastOffline"] = 1,
             ["showToastBroadcast"] = 0,
             ["showToastFriendRequest"] = 0,
             ["showToastConversation"] = 0,
-            ["showToastWindow"] = 0,
+            ["showToastWindow"] = 1,
             ["toastDuration"] = 0,
 
             ["M2Faster"] = 3, -- Adds additional threads used in rendering models on screen (0 = no additional threads, 1 - 3 = adds additional threads to the WoW Client)
@@ -82,8 +82,8 @@ local function initialize ()
             ["gxFixLag"] = 1,
             ["gxCursor"] = 1,
             --]]
-            ["Maxfps"] = 100,
-            ["maxfpsbk"] = 100,
+            ["Maxfps"] = 200,
+            ["maxfpsbk"] = 200,
             --[[
             ["ffx"] = 0,
             ["textureFilteringMode"] = 5,

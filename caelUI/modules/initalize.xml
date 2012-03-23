@@ -16,4 +16,7 @@
 
     <!-- Class timer bars -->
     <include file="timers\initialize.xml" />
+
+    <!-- Raid related stuff (Auto combat log starter, buff checker on ready checks, etc) -->
+    <include file="raid\initialize.xml" />
 </Ui>

@@ -12,17 +12,20 @@ do
     end
 
     function CreateBars(PlayerClass)
+        --[[
         local lists = {
             ["target"] = {
                 ["armor"] = {
                     CreateDebuffItem(58567), -- Sunder Armor
-                    CreateDebuffItem(8647), -- Expose Armor
+                    CreateDebuffItem(8647),  -- Expose Armor
                     CreateDebuffItem(91565), -- Faerie Fire
                     CreateDebuffItem(35387), -- Corrosive Spit
-                    CreateDebuffItem(50498) -- Tear Armor
+                    CreateDebuffItem(50498)  -- Tear Armor
                 },
                 ["bleed"] = {
-                    CreateDebuffItem(29836), CreateDebuffItem(29859), -- Blood Frenzy
+                    CreateDebuffItem(29859), -- Blood Frenzy (second?)
+
+                    CreateDebuffItem(29836), -- Blood Frenzy
                     CreateDebuffItem(35290), -- Gore
                     CreateDebuffItem(57386), -- Stampede
                     CreateDebuffItem(50271), -- Tendon Rip
@@ -32,21 +35,30 @@ do
                 }
             }
         }
+        --]]
 
         if PlayerClass == "WARRIOR" then
             Timers:CreateList({
                 ["player"] = {
+                    -- Shouts
                     CreateBuffItem(469),   -- Commanding Shout
                     CreateBuffItem(6673),  -- Battle Shout
-                    CreateBuffItem(12976), -- Last Stand
-                    CreateBuffItem(871),   -- Shield Wall
+
+                    -- Common
                     CreateBuffItem(97462), -- Rallying Cry
                     CreateBuffItem(12317), -- Enrage
-                    CreateBuffItem(2565),  -- Shield Block
                     CreateBuffItem(55694), -- Enraged Regeneration
+
+                    CreateBuffItem(871),   -- Shield Wall
+
+                    -- Protection
+                    CreateBuffItem(87096), -- Thunderstruck
+                    CreateBuffItem(2565),  -- Shield Block
+                    CreateBuffItem(12976), -- Last Stand
+                    CreateBuffItem(50720, true, "focus"),  -- Vigilance
                 },
                 ["target"] = {
-                    CreateBuffItem(50720, nil, "target"),   -- Vigilance
+                    CreateBuffItem(50720, true, "target"), -- Vigilance
 
                     CreateDebuffItem(1160),  -- Demoralizing Shout
                     CreateDebuffItem(52744), -- Piercing Howl
@@ -58,8 +70,24 @@ do
                     CreateDebuffItem(12834, true), -- Deep Wounds
                     CreateDebuffItem(94009, true), -- Rend
 
+
                     -- Shared targets.
-                    unpack(lists.target.armor),
+
+                    -- Armor
+                    CreateDebuffItem(58567), -- Sunder Armor
+                    CreateDebuffItem(8647),  -- Expose Armor
+                    CreateDebuffItem(91565), -- Faerie Fire
+                    CreateDebuffItem(35387), -- Corrosive Spit
+                    CreateDebuffItem(50498), -- Tear Armor
+
+                    -- Bleed
+                    CreateDebuffItem(29836), -- Blood Frenzy
+                    CreateDebuffItem(35290), -- Gore
+                    CreateDebuffItem(57386), -- Stampede
+                    CreateDebuffItem(50271), -- Tendon Rip
+                    CreateDebuffItem(16511), -- Hemorrhage
+                    CreateDebuffItem(33876), -- Mangle
+                    CreateDebuffItem(46857), -- Trauma
                 },
             })
 
@@ -80,8 +108,19 @@ do
                     CreateBuffItem(13750), -- Adrenaline Rush
                     CreateBuffItem(51690), -- Killing Spree
 
+                    CreateBuffItem(49016), -- Unholy Frenzy (Comes from DK and is only a temporary placement)
+
                     -- Procs
                     CreateBuffItem(71396), -- Rage of the Fallen
+                    CreateBuffItem(84747), -- Deep Insight
+
+                    -- Tricks of the Trade
+                    -- CreateBuffItem(57934), -- Tricks has been triggered (Preparation of usage)
+                    -- CreateBuffItem(59628), -- Tricks is transferring threat to the target (Tricks is active)
+                    -- CreateBuffItem(57933), -- Buff on the target (This is the id for the other player having the damage bonus)
+
+                    -- T12 2p rogue tricks bonus
+                    CreateBuffItem(105864), -- Tricks of Time: Your abilities cost 20% less energy for 6 sec after triggering Tricks of the Trade.
                 },
                 ["target"] = {
                     CreateDebuffItem(1943, true),  -- Rupture
@@ -104,9 +143,24 @@ do
                     CreateDebuffItem(3409, true),  -- Crippling
                     CreateDebuffItem(5760, true),  -- Mind-Numbing
 
+
                     -- Shared targets.
-                    unpack(lists.target.armor),
-                    unpack(lists.target.bleed)
+
+                    -- Armor
+                    CreateDebuffItem(58567), -- Sunder Armor
+                    CreateDebuffItem(8647),  -- Expose Armor
+                    CreateDebuffItem(91565), -- Faerie Fire
+                    CreateDebuffItem(35387), -- Corrosive Spit
+                    CreateDebuffItem(50498),  -- Tear Armor
+
+                    -- Bleed
+                    CreateDebuffItem(29836), -- Blood Frenzy
+                    CreateDebuffItem(35290), -- Gore
+                    CreateDebuffItem(57386), -- Stampede
+                    CreateDebuffItem(50271), -- Tendon Rip
+                    CreateDebuffItem(16511), -- Hemorrhage
+                    CreateDebuffItem(33876), -- Mangle
+                    CreateDebuffItem(46857), -- Trauma
                 }
             })
         elseif PlayerClass == "PALADIN" then
@@ -157,6 +211,20 @@ do
                     CreateDebuffItem(1022),  -- Hand of Protection
                     CreateDebuffItem(1038),  -- Hand of Salvation
                     CreateDebuffItem(6940),  -- Hand of Sacrifice
+                }
+            })
+        elseif PlayerClass == "PRIEST" then
+            Timers:CreateList({
+                ["player"] = {
+                    -- CreateBuffItem(),
+
+                    -- Procs
+                    CreateBuffItem(77487), -- Shadow Orb
+                },
+                ["target"] = {
+                    CreateDebuffItem(34914), -- Vampiric Touch
+                    CreateDebuffItem(2944), -- Devouring Plague
+                    CreateDebuffItem(589), -- Shadow Word: Pain
                 }
             })
         end

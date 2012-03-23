@@ -6,6 +6,8 @@
 local blacklist = {
     ["Earthen Ring"] = {
         "Kreinium",
+        "Bojay",
+        "Nikoh",
     }
 }
 local whitelist = {
@@ -21,8 +23,9 @@ local whitelist = {
 }
 
 local accept = {
-    ["friend"] = false, -- Auto accept from friends.
-    ["guild"]  = true,  -- Auto acecpt from guild members.
+    ["friend"]  = false, -- Auto accept from friends.
+    ["guild"]   = true, -- Auto acecpt from guild members.
+    ["whisper"] = true, -- Auto invite on whisper.
 }
 
 local invite_words = {
@@ -91,21 +94,23 @@ end)
 -----------------
 -- AUTO INVITE --
 -----------------
-local function can_invite ()
-    if IsRaidLeader() or IsRaidOfficer() or IsPartyLeader() or not UnitExists("party1") then
-        return true
+if accept.whisper then
+    local function can_invite ()
+        if IsRaidLeader() or IsRaidOfficer() or IsPartyLeader() or not UnitExists("party1") then
+            return true
+        end
+
+        return false
     end
 
-    return false
-end
-
--- Auto send invites for those who message with the right keyword.
-AutoInvite:RegisterEvent("CHAT_MSG_WHISPER", function(_, _, message, name)
-    if can_invite() then
-        for _, word in next, invite_words do
-            if message:len() == word:len() and message:lower() == word:lower() then
-                InviteUnit(name)
+    -- Auto send invites for those who message with the right keyword.
+    AutoInvite:RegisterEvent("CHAT_MSG_WHISPER", function(_, _, message, name)
+        if can_invite() then
+            for _, word in next, invite_words do
+                if message:len() == word:len() and message:lower() == word:lower() then
+                    InviteUnit(name)
+                end
             end
         end
-    end
-end)
+    end)
+end

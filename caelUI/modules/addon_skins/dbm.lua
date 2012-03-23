@@ -25,7 +25,7 @@ local PixelScale = DBMSkin.PixelScale
 
 -- Internal config values.
 local My_Class_Color = RAID_CLASS_COLORS[config.player.class]
-local Button_Size = 30
+local Button_Size = 25
 
 local function SkinBars(self)
     for bar in self:GetBarIterator() do
@@ -54,7 +54,7 @@ local function SkinBars(self)
                 })
 
                 icon1.overlay:SetBackdropColor(0.1, 0.1, 0.1, 1)
-                icon1.overlay:SetBackdropBorderColor(0.6, 0.6, 0.6)
+                icon1.overlay:SetBackdropBorderColor(85 / 255, 98 / 255, 112 / 255)
                 
                 if Draw_Shadows and not icon1.overlay.shadow then
                     local shadow = CreateFrame("Frame", nil, icon1.overlay)
@@ -96,7 +96,7 @@ local function SkinBars(self)
                 })
 
                 icon2.overlay:SetBackdropColor(0.1, 0.1, 0.1, 1)
-                icon2.overlay:SetBackdropBorderColor(0.6, 0.6, 0.6)
+                icon2.overlay:SetBackdropBorderColor(85 / 255, 98 / 255, 112 / 255)
 
                 if Draw_Shadows and not icon2.overlay.shadow then
                     local shadow = CreateFrame("Frame", nil, icon2.overlay)
@@ -138,7 +138,7 @@ local function SkinBars(self)
 
                 frame.SetScale = function() return end
 
-                frame:SetHeight(PixelScale(Button_Size / 2))
+                frame:SetHeight(PixelScale(Button_Size))
                 
                 frame:SetBackdrop({
                     bgFile = [[Interface\Addons\caelUI\media\borders\blank]],
@@ -147,7 +147,7 @@ local function SkinBars(self)
                     insets = {left = -PixelScale(1), right = -PixelScale(1), top = -PixelScale(1), bottom = -PixelScale(1)}
                 })
                 frame:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
-                frame:SetBackdropBorderColor(0.6, 0.6, 0.6)
+                frame:SetBackdropBorderColor(85 / 255, 98 / 255, 112 / 255)
 
                 if Draw_Shadows and not frame.shadow then
                     local shadow = CreateFrame("Frame", nil, frame.overlay)
@@ -169,10 +169,11 @@ local function SkinBars(self)
                 frame.styled = true
             end
 
-            if not spark.killed then
-                spark:SetAlpha(0)
-                spark:SetTexture(nil)
-                spark.killed = true
+            if not spark.styled then
+                spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
+                spark:SetWidth(PixelScale(15))
+                spark:SetBlendMode("ADD")
+                spark.styled = true
             end
 
             if not icon1.styled then
@@ -206,7 +207,7 @@ local function SkinBars(self)
 
             if not name.styled then
                 name:ClearAllPoints()
-                name:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, PixelScale(4))
+                name:SetPoint("LEFT", frame, "LEFT", PixelScale(4), 0)
                 name:SetWidth(PixelScale(155))
                 name:SetHeight(PixelScale(8))
                 name:SetFont(media.fonts.normal, 12, "OUTLINE")
@@ -216,9 +217,9 @@ local function SkinBars(self)
                 name.styled = true
             end
             
-            if not timer.styled then    
+            if not timer.styled then
                 timer:ClearAllPoints()
-                timer:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT", -PixelScale(1), PixelScale(2))
+                timer:SetPoint("RIGHT", frame, "RIGHT", -PixelScale(1), 0)
                 timer:SetFont(media.fonts.normal, 12, "OUTLINE")
                 timer:SetJustifyH("RIGHT")
                 timer:SetShadowColor(0, 0, 0, 0)
@@ -392,7 +393,7 @@ if (Crop_RaidWarning_Icons) then
     end
 end
 
-local function SetupDBM()
+function SetupDBM()
     DBM_SavedOptions.Enabled = true
     DBM_SavedOptions.ShowMinimapButton = false
     DBM_SavedOptions.ShowSpecialWarnings = true
@@ -422,25 +423,27 @@ local function SetupDBM()
     DBT_SavedOptions["DBM"].Scale = 1
     DBT_SavedOptions["DBM"].HugeScale = 1
     DBT_SavedOptions["DBM"].BarXOffset = 0
-    DBT_SavedOptions["DBM"].BarYOffset = 10
+    DBT_SavedOptions["DBM"].BarYOffset = 15
     DBT_SavedOptions["DBM"].HugeBarXOffset = 0
-    DBT_SavedOptions["DBM"].HugeBarYOffset = 10
+    DBT_SavedOptions["DBM"].HugeBarYOffset = 15
     DBT_SavedOptions["DBM"].Font = media.fonts.normal
     DBT_SavedOptions["DBM"].FontSize = 10
-    DBT_SavedOptions["DBM"].Width = 170
-    DBT_SavedOptions["DBM"].HugeWidth = 170
-    DBT_SavedOptions["DBM"].TimerX = 115
-    DBT_SavedOptions["DBM"].TimerY = 0
+    DBT_SavedOptions["DBM"].Width = 180
+    DBT_SavedOptions["DBM"].HugeWidth = 250
+    DBT_SavedOptions["DBM"].TimerX = 110
+    DBT_SavedOptions["DBM"].TimerY = -100
     DBT_SavedOptions["DBM"].TimerPoint = "LEFT"
-    DBT_SavedOptions["DBM"].HugeTimerX = 0
-    DBT_SavedOptions["DBM"].HugeTimerY = -120
-    DBT_SavedOptions["DBM"].HugeTimerPoint = "CENTER"
+    DBT_SavedOptions["DBM"].HugeBarsEnabled = true
+    DBT_SavedOptions["DBM"].HugeTimerX = PixelScale((Button_Size / 2) + 1)
+    DBT_SavedOptions["DBM"].HugeTimerY = 300
+    DBT_SavedOptions["DBM"].HugeTimerPoint = "BOTTOM"
     DBT_SavedOptions["DBM"].FillUpBars = false
     DBT_SavedOptions["DBM"].IconLeft = true
     DBT_SavedOptions["DBM"].ExpandUpwards = true
     DBT_SavedOptions["DBM"].Texture = media.files.statusbar_c
     DBT_SavedOptions["DBM"].IconRight = false
-    DBT_SavedOptions["DBM"].HugeBarsEnabled = true
+
+    -- DEFAULT_CHAT_FRAME:AddMessage("Setup Complete.")
 end
 
 DBMSkin:RegisterEvent("PLAYER_LOGIN", SetupDBM)

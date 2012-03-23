@@ -219,7 +219,7 @@ end)
 
 local function CLEU(self, _, _, subEvent, _, _, _, _, _, destGUID, ...)
     if subEvent:sub(1,7) ~= "ENCHANT" or destGUID ~= playerGUID then
-        return
+        return UpdateIcons(self)
     end
     if subEvent:sub(9) == "REMOVED" then
         return UpdateIcons(self)

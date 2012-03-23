@@ -1,7 +1,5 @@
 local _, caelChat = ...
 
-local _G = getfenv(0)
-
 _G["caelChat"] = caelChat
 
 FCF_ResetChatWindows() -- This should fix issues with the Dimension problems a while ago in the chat-config.txt
@@ -519,73 +517,59 @@ caelChat.eventFrame:SetScript("OnEvent", function(self, event, addon)
     end
 end)
 
-local chatStuff = function()
-    local _, instanceType = IsInInstance()
-    if instanceType ~= "raid" then
-        ChatFrame_AddChannel(ChatFrame1, "General")
-        ChatFrame_AddChannel(ChatFrame1, "Trade")
-    else
-        ChatFrame_RemoveChannel(ChatFrame1, "General")
-    end
-end
 
-local delay1 = 5
-local delay2 = 10
-local caelChat_OnUpdate = function(self, elapsed)
-    if delay1 then
-        delay1 = delay1 - elapsed
-        if delay1 <= 0 then
-            for i = 1, NUM_CHAT_WINDOWS do
-                local frame = _G[format("ChatFrame%s", i)]
-                if(i == 1) then
-                    chatStuff()
+do
+    local delay = 10
+
+    caelChat.eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+    caelChat.eventFrame:HookScript("OnEvent", function(self, event)
+
+        if event == "PLAYER_ENTERING_WORLD" then
+
+            self:SetScript("OnUpdate", function(self, elapsed)
+
+                delay = delay - elapsed
+
+                if delay <= 0 then
+                    ChangeChatColor("CHANNEL1",  0.55, 0.57, 0.61)
+                    ChangeChatColor("CHANNEL2",  0.55, 0.57, 0.61)
+                    ChangeChatColor("CHANNEL3",  0.84, 0.75, 0.65)
+                    ChangeChatColor("CHANNEL4",  0.84, 0.75, 0.65)
+                    ChangeChatColor("CHANNEL5",  0.84, 0.75, 0.65)
+                    ChangeChatColor("CHANNEL6",  0.84, 0.75, 0.65)
+                    ChangeChatColor("CHANNEL7",  0.84, 0.75, 0.65)
+                    ChangeChatColor("CHANNEL8",  0.84, 0.75, 0.65)
+                    ChangeChatColor("CHANNEL9",  0.84, 0.75, 0.65)
+                    ChangeChatColor("CHANNEL10", 0.84, 0.75, 0.65)
+
+                    ChangeChatColor("WHISPER",   0.3, 0.6, 0.9)
+                    ChangeChatColor("WHISPER_INFORM", 0.3, 0.6, 0.9)
+
+                    -- Caellian stuff
+                    --[[
+                    -- XXX: We are removing all usage of isCharListA and myChars due to globalization of the UI.
+                    if isCharListA and playerClass == "HUNTER" then
+                        JoinTemporaryChannel("WeDidHunter")
+                        ChatFrame_AddChannel(_G.ChatFrame1, "WeDidHunter")
+                        ChangeChatColor("CHANNEL5", 0.67, 0.83, 0.45)
+                    elseif isCharListA and playerClass == "DRUID" or playerClass == "ROGUE" or playerClass == "WARRIOR" or playerClass == "DEATHKNIGHT" then
+                        JoinTemporaryChannel("WeDidCaC")
+                        ChatFrame_AddChannel(_G.ChatFrame1, "WeDidCaC")
+                        if playerClass == "DRUID" then ChangeChatColor("CHANNEL5", 1, 0.49, 0.04) end
+                        if playerClass == "ROGUE" then ChangeChatColor("CHANNEL5", 1, 0.96, 0.41) end
+                        if playerClass == "WARRIOR" then ChangeChatColor("CHANNEL5", 0.78, 0.61, 0.43) end
+                        if playerClass == "DEATHKNIGHT" then ChangeChatColor("CHANNEL5", 0.77, 0.12, 0.23) end
+                    end
+                    --]]
+
+                    print("|cffD7BEA5cael|rChat: Chatframes setup complete")
+                    self:SetScript("OnUpdate", nil) -- Done now, nil the OnUpdate completely.
+                    self:UnregisterEvent(event)
                 end
-            end
-            delay1 = nil -- This stops the OnUpdate for this timer.
+
+            end)
+
         end
-    end
 
-    if delay2 then
-        delay2 = delay2 - elapsed
-        if delay2 <= 0 then
-            ChangeChatColor("CHANNEL1", 0.55, 0.57, 0.61)
-            ChangeChatColor("CHANNEL2", 0.55, 0.57, 0.61)
-            ChangeChatColor("CHANNEL5", 0.84, 0.75, 0.65)
-            ChangeChatColor("WHISPER", 0.3, 0.6, 0.9)
-            ChangeChatColor("WHISPER_INFORM", 0.3, 0.6, 0.9)
-
-            -- Caellian stuff
-            --[[
-            -- XXX: We are removing all usage of isCharListA and myChars due to globalization of the UI.
-            if isCharListA and playerClass == "HUNTER" then
-                JoinTemporaryChannel("WeDidHunter")
-                ChatFrame_AddChannel(_G.ChatFrame1, "WeDidHunter")
-                ChangeChatColor("CHANNEL5", 0.67, 0.83, 0.45)
-            elseif isCharListA and playerClass == "DRUID" or playerClass == "ROGUE" or playerClass == "WARRIOR" or playerClass == "DEATHKNIGHT" then
-                JoinTemporaryChannel("WeDidCaC")
-                ChatFrame_AddChannel(_G.ChatFrame1, "WeDidCaC")
-                if playerClass == "DRUID" then ChangeChatColor("CHANNEL5", 1, 0.49, 0.04) end
-                if playerClass == "ROGUE" then ChangeChatColor("CHANNEL5", 1, 0.96, 0.41) end
-                if playerClass == "WARRIOR" then ChangeChatColor("CHANNEL5", 0.78, 0.61, 0.43) end
-                if playerClass == "DEATHKNIGHT" then ChangeChatColor("CHANNEL5", 0.77, 0.12, 0.23) end
-            end
-            --]]
-
-            print("|cffD7BEA5cael|rChat: Chatframes setup complete")
-            self:SetScript("OnUpdate", nil) -- Done now, nil the OnUpdate completely.
-        end
-    end
+    end)
 end
-
-local first = true
-caelChat.eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-caelChat.eventFrame:HookScript("OnEvent", function(self, event)
-    if event == "PLAYER_ENTERING_WORLD" then
-        chatStuff()
-
-        if first then
-            caelChat.eventFrame:SetScript("OnUpdate", caelChat_OnUpdate)
-            first = nil
-        end
-    end
-end)
